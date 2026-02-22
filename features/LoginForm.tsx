@@ -29,12 +29,12 @@ const authError = {
   other: "Something went wrong. Please try again.",
 }
 
-const [errorMsg, setErrorMsg] = useAutoDismiss<string>(null, 5000);
+const [errorMsg, setErrorMsg] = useAutoDismiss<string>();
 
 const onSubmit = async (data: LoginForm) => {
   setErrorMsg(null);
   try {
-    //change endpoint if wrong
+    //change endpoint if wrong, mas ok raw gawing env variable. example: NEXT_PUBLIC_API_URL
     const response = await fetch("http://localhost:8080/api/auth/login",{
       method: 'POST',
       headers: {
@@ -62,7 +62,6 @@ const onSubmit = async (data: LoginForm) => {
       }
 
       setErrorMsg(errorMessage);
-      setTimeout(() => setErrorMsg(null), 5000);
       return;
     }
 
@@ -79,12 +78,10 @@ const onSubmit = async (data: LoginForm) => {
       router.replace("/dashboard/employee")
     } else {
       setErrorMsg(authError.other);
-      setTimeout(() => setErrorMsg(null), 4000);
     }
 
   } catch {
     setErrorMsg(authError.other);
-    setTimeout(() => setErrorMsg(null), 4000);
   } 
 }
   return (

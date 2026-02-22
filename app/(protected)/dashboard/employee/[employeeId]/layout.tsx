@@ -1,0 +1,19 @@
+import { ReactNode } from "react"
+import { requireAuth } from "@/lib/auth"
+import { UserProvider } from "@/context/UserContext"
+import { redirect } from "next/navigation"
+
+type Props = {
+  children: ReactNode
+  params: { employeeId: string }
+}
+
+export default async function EmployeeLayout({ children, params }: Props) {
+  const user = await requireAuth()
+
+  if (user.role !== "EMPLOYEE") redirect("/unauthorized")
+
+  if (user.employeeId !== params.employeeId) redirect("/unauthorized")
+
+  return <UserProvider user={user}>{children}</UserProvider>
+}
