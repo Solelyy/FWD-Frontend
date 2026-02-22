@@ -8,7 +8,6 @@ import {Field, FieldDescription, FieldGroup, FieldLabel,} from "@/components/ui/
 import { Input } from "@/components/ui/input"
 import {useForm} from "react-hook-form"
 import { FormMessage } from "@/components/ui/form-message"
-import {useState} from "react";
 import { useRouter } from "next/navigation"
 import { useAutoDismiss } from "@/hooks/useAutoDismiss"
 
@@ -129,8 +128,8 @@ const onSubmit = async (data: LoginForm) => {
                 {errors.password && <FormMessage variant="error" message={errors.password.message}/>}
               </Field>
               <Field>
-                <FieldDescription>
-                  {errorMsg && <FormMessage variant="error" message={errorMsg} className="text-center fade-out"/>}
+                  <FieldDescription>
+                    {errorMsg && <FormMessage variant="error" message={errorMsg} className="text-center fade-out"/>}
                 </FieldDescription>
                 <Button type="submit" disabled={isSubmitting}> {isSubmitting? "Logging in..." : "Log in"}</Button>
               </Field>
