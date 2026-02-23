@@ -1,5 +1,5 @@
 export async function verifyToken(token: string) {
-  const response = await fetch("http://localhost:8080/api/auth/me", {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
     method: "GET",
     headers: {
       Cookie: `token=${token}`,

@@ -8,3 +8,9 @@ Example in Vercel:
 Dashboard → Project → Settings → Environment Variables
 Add:
 NEXT_PUBLIC_API_URL = https://fwd-portal.com
+
+PS:
+Just ensure:
+It matches backend
+It’s set in hosting provider
+CORS is configured
