@@ -34,8 +34,7 @@ const [errorMsg, setErrorMsg] = useAutoDismiss<string>();
 const onSubmit = async (data: LoginForm) => {
   setErrorMsg(null);
   try {
-    //change endpoint if wrong, mas ok raw gawing env variable. example: NEXT_PUBLIC_API_URL
-    const response = await fetch("http://localhost:3001/auth/login",{
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`,{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -65,17 +64,27 @@ const onSubmit = async (data: LoginForm) => {
       return;
     }
 
-    const result = await response.json();
+    const userResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`,{
+      method: 'GET',
+      credentials: "include",
+    });
+
+    if(!userResponse.ok) {
+      setErrorMsg(authError.other);
+      return;
+    }
+
+    const user = await userResponse.json();
     //for develpment only
-    console.log(result);
+    console.log(user);
 
     //redirect based on role
-    if (result.role === 'ADMIN') {
+    if (user.role === 'ADMIN') {
       router.replace("/dashboard/admin");
-    } else if (result.role === 'SUPER ADMIN') {
+    } else if (user.role === 'SUPER ADMIN') {
       router.replace("/dashboard/super-admin")
-    } else if (result.role === "EMPLOYEE") {
-      router.replace("/dashboard/employee")
+    } else if (user.role === "EMPLOYEE") {
+      router.replace(`/dashboard/employee/${user.employeeId}`)
     } else {
       setErrorMsg(authError.other);
     }
