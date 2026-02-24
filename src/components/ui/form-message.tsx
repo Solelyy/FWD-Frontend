@@ -18,8 +18,8 @@ export function FormMessage({ message, variant = "error", className }: FormMessa
   }
 
   return (
-    <p className={cn("text-sm font-medium", variantStyles[variant], className)}>
+    <span className={cn("text-sm font-medium", variantStyles[variant], className)}>
       {message}
-    </p>
+    </span>
   )
 }

@@ -18,6 +18,11 @@ const nunito = Nunito ({
 export const metadata: Metadata = {
   title: "FWD Portal",
   description: "FWD Technologies: Employee Portal System",
+  icons: {
+    icon: '/assets/icons/favicon.ico',
+    apple: '/assets/icons/apple-icon.png',
+    shortcut: '/assets/icons/icon.svg'
+  }
 };
 
 export default function RootLayout({
