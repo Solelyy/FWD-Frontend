@@ -1,5 +1,4 @@
 import { getAuthError } from "@/lib/util/authError";
-import { useRouter } from "next/navigation";
 
 export async function loginAuth(data: any) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
