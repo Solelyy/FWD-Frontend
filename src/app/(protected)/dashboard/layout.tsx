@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { requireAuth } from "@/lib/auth";
+import { requireAuth } from "@/lib/server/auth";
 import { UserProvider } from "@/context/UserContext";
 
 export default async function DashboardLayout({ children }: { children: ReactNode }) {

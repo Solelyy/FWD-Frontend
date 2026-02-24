@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/util/utils";
 
 type FormMessageProps = {
   message?: string
@@ -13,8 +13,8 @@ export function FormMessage({ message, variant = "error", className }: FormMessa
 
   const variantStyles = {
     error: "text-red-400",
-    success: "text-green-600",
-    info: "text-blue-500",
+    success: "text-green-400",
+    info: "text-blue-400",
   }
 
   return (

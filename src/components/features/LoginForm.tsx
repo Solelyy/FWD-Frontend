@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/util/utils"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card"
@@ -8,8 +8,10 @@ import {Field, FieldDescription, FieldGroup, FieldLabel} from "@/components/ui/f
 import { Input } from "@/components/ui/input"
 import {useForm} from "react-hook-form"
 import { FormMessage } from "@/components/ui/form-message"
+import { useAutoDismiss } from "@/lib/hooks/useAutoDismiss"
 import { useRouter } from "next/navigation"
-import { useAutoDismiss } from "@/hooks/useAutoDismiss"
+import { loginAuth, getUser } from "@/lib/api/authApi.ts/login"
+import { getAuthError } from "@/lib/util/authError"
 
 type LoginForm = {
   employeeId: string
@@ -20,80 +22,28 @@ export function Login({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-const router = useRouter();
-const {register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginForm>();
+  const router = useRouter();
+  const {register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginForm>();
 
-const authError = {
-  default: "Incorrect employee ID or password.",
-  locked: "Maximum login attempts reached. Account locked for 15 minutes.",
-  other: "Something went wrong. Please try again.",
-}
+  const [errorMsg, setErrorMsg] = useAutoDismiss<string>();
 
-const [errorMsg, setErrorMsg] = useAutoDismiss<string>();
+  const onSubmit = async (data: LoginForm) => {
+    setErrorMsg(null);
+    
+    const loginError = await loginAuth(data);
 
-const onSubmit = async (data: LoginForm) => {
-  setErrorMsg(null);
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`,{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: "include",
-      body: JSON.stringify(data),
-    });
+    if (loginError) return setErrorMsg(loginError);
 
-    //development only
-    console.log(response);
-
-    if (!response.ok) {
-      let errorMessage;
-      
-      if (response.status === 403) {
-        //account locked
-        errorMessage = authError.locked
-      } else if (response.status === 401) {
-        //invalid credentials
-        errorMessage = authError.default
-      } else {
-        //other error: connection, server
-        errorMessage = authError.other
-      }
-
-      setErrorMsg(errorMessage);
-      return;
-    }
-
-    const userResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`,{
-      method: 'GET',
-      credentials: "include",
-    });
-
-    if(!userResponse.ok) {
-      setErrorMsg(authError.other);
-      return;
-    }
-
-    const user = await userResponse.json();
-    //for develpment only
-    console.log(user);
-
+    const { user, error }= await getUser();
+    if (error) return setErrorMsg(error);
+    
     //redirect based on role
-    if (user.role === 'ADMIN') {
-      router.replace("/dashboard/admin");
-    } else if (user.role === 'SUPER ADMIN') {
-      router.replace("/dashboard/super-admin")
-    } else if (user.role === "EMPLOYEE") {
-      router.replace(`/dashboard/employee/${user.employeeId}`)
-    } else {
-      setErrorMsg(authError.other);
-    }
-
-  } catch (error){
-      if (process.env.NODE_ENV === "development") console.error(error)
-      setErrorMsg(authError.other);
-  } 
-}
+    if (user.role === 'ADMIN') router.replace("/dashboard/admin");
+    else if (user.role === 'SUPER ADMIN') router.replace("/dashboard/super-admin")
+    else if (user.role === "EMPLOYEE") router.replace(`/dashboard/employee/${user.employeeId}`)
+    else setErrorMsg(getAuthError("other"));
+  }
+  
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="h-full py-10 px-6">
