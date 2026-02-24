@@ -7,9 +7,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 
 import { Card, CardContent } from "@/components/ui/card"
 
-import PersonalStep from "@/features/Personal"
-import CredentialsStep from "@/features/Credentials"
-import EmailSentStep from "@/features/EmailSent"
+import PersonalStep from "@/components/features/Personal"
+import CredentialsStep from "@/components/features/Credentials"
+import EmailSentStep from "@/components/features/EmailSent"
 
 const signupSchema = z.object({
   firstName: z.string().min(1, "First name is required"),

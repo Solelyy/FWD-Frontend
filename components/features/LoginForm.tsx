@@ -3,8 +3,8 @@
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import {Card, CardContent, CardDescription, CardHeader, CardTitle,} from "@/components/ui/card"
-import {Field, FieldDescription, FieldGroup, FieldLabel,} from "@/components/ui/field"
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card"
+import {Field, FieldDescription, FieldGroup, FieldLabel} from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import {useForm} from "react-hook-form"
 import { FormMessage } from "@/components/ui/form-message"
@@ -21,7 +21,7 @@ export function Login({
   ...props
 }: React.ComponentProps<"div">) {
 const router = useRouter();
-const {register, handleSubmit, formState:{errors, isSubmitting},} = useForm<LoginForm>();
+const {register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginForm>();
 
 const authError = {
   default: "Incorrect employee ID or password.",
@@ -89,8 +89,9 @@ const onSubmit = async (data: LoginForm) => {
       setErrorMsg(authError.other);
     }
 
-  } catch {
-    setErrorMsg(authError.other);
+  } catch (error){
+      if (process.env.NODE_ENV === "development") console.error(error)
+      setErrorMsg(authError.other);
   } 
 }
   return (
