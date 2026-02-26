@@ -5,7 +5,7 @@ import {redirect} from "next/navigation"
 
 export default async function SuperAdminLayout({children}: {children: ReactNode}){
     const user = await requireAuth();
-    if (user.role !== "SUPER ADMIN") redirect("/unauthorized");
+    if (user.role !== "SUPER_ADMIN") redirect("/unauthorized");
 
     return(
         <UserProvider user={user}>

@@ -28,20 +28,30 @@ export function Login({
   const [errorMsg, setErrorMsg] = useAutoDismiss<string>();
 
   const onSubmit = async (data: LoginForm) => {
-    setErrorMsg(null);
-    
-    const loginError = await loginAuth(data);
+    try {
+      const loginError = await loginAuth(data);
 
-    if (loginError) return setErrorMsg(loginError);
+      if (loginError) {
+        setErrorMsg(loginError)
+        return
+      }
 
-    const { user, error }= await getUser();
-    if (error) return setErrorMsg(error);
-    
-    //redirect based on role
-    if (user.role === 'ADMIN') router.replace("/dashboard/admin");
-    else if (user.role === 'SUPER ADMIN') router.replace("/dashboard/super-admin")
-    else if (user.role === "EMPLOYEE") router.replace(`/dashboard/employee/${user.employeeId}`)
-    else setErrorMsg(getAuthError("other"));
+      const { user, error }= await getUser();
+
+      if (error || !user ) {
+        setErrorMsg(error ?? getAuthError("other"))
+        return
+      }
+      
+      //redirect based on role
+      if (user.role === 'ADMIN') router.replace("/dashboard/admin");
+      else if (user.role === 'SUPER_ADMIN') router.replace("/dashboard/super-admin")
+      else if (user.role === "EMPLOYEE") router.replace(`/dashboard/employee/${user.employeeId}`)
+      else setErrorMsg(getAuthError("other"));
+    } catch (err) {
+      console.error("Login error: ", err)
+      setErrorMsg(getAuthError("other"))
+    }
   }
   
   return (
@@ -85,7 +95,7 @@ export function Login({
                 {errors.password && <FormMessage variant="error" message={errors.password.message}/>}
               </Field>
               <Field>
-                  <FieldDescription>
+                  <FieldDescription className="text-center">
                     {errorMsg && <FormMessage variant="error" message={errorMsg} className="text-center fade-out"/>}
                 </FieldDescription>
                 <Button type="submit" disabled={isSubmitting}> {isSubmitting? "Logging in..." : "Log in"}</Button>
