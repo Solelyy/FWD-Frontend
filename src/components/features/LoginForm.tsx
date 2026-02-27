@@ -44,9 +44,9 @@ export function Login({
       }
       
       //redirect based on role
-      if (user.role === 'ADMIN') router.replace("/dashboard/admin");
-      else if (user.role === 'SUPER_ADMIN') router.replace("/dashboard/super-admin")
-      else if (user.role === "EMPLOYEE") router.replace(`/dashboard/employee/${user.employeeId}`)
+      if (user.role === 'ADMIN') router.replace("/admin");
+      else if (user.role === 'SUPER_ADMIN') router.replace("/super-admin")
+      else if (user.role === "EMPLOYEE") router.replace("/employee")
       else setErrorMsg(getAuthError("other"));
     } catch (err) {
       console.error("Login error: ", err)

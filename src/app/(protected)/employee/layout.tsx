@@ -8,12 +8,10 @@ type Props = {
   params: { employeeId: string }
 }
 
-export default async function EmployeeLayout({ children, params }: Props) {
+export default async function EmployeeLayout({ children}: Props) {
   const user = await requireAuth()
 
   if (user.role !== "EMPLOYEE") redirect("/unauthorized")
-
-  if (user.employeeId !== params.employeeId) redirect("/unauthorized")
 
   return <UserProvider user={user}>{children}</UserProvider>
 }
