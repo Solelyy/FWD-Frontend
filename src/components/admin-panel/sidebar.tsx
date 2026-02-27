@@ -10,12 +10,13 @@ import { cn } from "@/lib/util/utils";
 import { useUser } from "@/context/UserContext";
 
 export function Sidebar() {
+  const user = useUser();
   const sidebar = useStore(useSidebar, (x) => x);
   if (!sidebar) return null;
   const { isOpen, toggleOpen, getOpenState, setIsHover, settings } = sidebar;
   const isExpanded = getOpenState();
 
-  const user = useUser();
+  
   type Role = "SUPER_ADMIN" | "ADMIN" | "EMPLOYEE";
 
   const roleRoutes: Record<Role, string> = {
