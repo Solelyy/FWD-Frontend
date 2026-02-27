@@ -12,10 +12,7 @@ export type User = {
 
 const UserContext = createContext<User | null>(null)
 
-export function UserProvider({
-    user,
-    children,
-}: {
+export function UserProvider({user, children}: {
     user: User
     children: React.ReactNode
 }) {

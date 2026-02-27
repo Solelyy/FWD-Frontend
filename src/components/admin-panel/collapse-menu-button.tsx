@@ -76,7 +76,7 @@ export function CollapseMenuButton({
               </span>
               <p
                 className={cn(
-                  "max-w-[150px] truncate",
+                  "max-w-37.5 truncate",
                   isOpen
                     ? "translate-x-0 opacity-100"
                     : "-translate-x-96 opacity-0"
@@ -119,7 +119,7 @@ export function CollapseMenuButton({
               </span>
               <p
                 className={cn(
-                  "max-w-[170px] truncate",
+                  "max-w-42.5 truncate",
                   isOpen
                     ? "translate-x-0 opacity-100"
                     : "-translate-x-96 opacity-0"
@@ -149,7 +149,7 @@ export function CollapseMenuButton({
                     </span>
                     <p
                       className={cn(
-                        "max-w-[200px] truncate",
+                        "max-w-50 truncate",
                         isOpen === false ? "opacity-0" : "opacity-100"
                       )}
                     >
@@ -166,7 +166,7 @@ export function CollapseMenuButton({
         </Tooltip>
       </TooltipProvider>
       <DropdownMenuContent side="right" sideOffset={25} align="start">
-        <DropdownMenuLabel className="max-w-[190px] truncate">
+        <DropdownMenuLabel className="max-w-47.5 truncate">
           {label}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

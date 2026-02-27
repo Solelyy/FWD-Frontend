@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Gabarito, Nunito } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 
 const gabarito = Gabarito({
   variable: "--font-gabarito",
@@ -25,18 +25,19 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${gabarito.variable} ${nunito.variable} antialiased hero-section min-h-svh flex flex-col`}
+        className={`${gabarito.variable} ${nunito.variable} antialiased min-h-svh flex flex-col`}
       >
-        <Header />
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
