@@ -2,12 +2,11 @@
 
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 import {useUser} from "@/context/UserContext"
-export default function SuperAdminDashboard() {
+export default function ManageAccount() {
     const user = useUser();
     return(
-    <ContentLayout title="Dashboard">
+    <ContentLayout title="Manage Account">
     <div>
-        HELLO, {user.firstname}!
     </div>
     </ContentLayout>
     );

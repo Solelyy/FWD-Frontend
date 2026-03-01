@@ -1,10 +1,11 @@
 "use client"
 
+import { UserRole } from "@/components/sidebar/types"
 import { createContext, useContext } from "react"
 
 export type User = {
     id: string
-    role: string
+    role: UserRole
     employeeId: string
     firstname?: string
     lastname?:string

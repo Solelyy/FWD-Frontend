@@ -8,6 +8,7 @@ import { useSidebar } from "@/hooks/use-sidebar";
 import { useStore } from "@/hooks/use-store";
 import { cn } from "@/lib/util/utils";
 import { useUser } from "@/context/UserContext";
+import { RoleRoutes } from "@/components/sidebar/index"
 
 export function Sidebar() {
   const user = useUser();
@@ -16,16 +17,8 @@ export function Sidebar() {
   const { isOpen, toggleOpen, getOpenState, setIsHover, settings } = sidebar;
   const isExpanded = getOpenState();
 
-  
-  type Role = "SUPER_ADMIN" | "ADMIN" | "EMPLOYEE";
-
-  const roleRoutes: Record<Role, string> = {
-    SUPER_ADMIN: "/super-admin",
-    ADMIN: "/admin",
-    EMPLOYEE: "/employee",
-  };
-
-  const logoLink = roleRoutes[user.role as Role];
+  if (!user) return null;
+  const logoLink = RoleRoutes[user.role];
 
   return (
     <aside
@@ -71,13 +64,13 @@ export function Sidebar() {
         {/* Menu */}
         <div className="mt-2 flex-1 overflow-hidden">
           <ScrollArea className="h-full pr-2">
-            <Menu isOpen={isExpanded} />
+            <Menu isOpen={isExpanded} role= {user.role}/>
           </ScrollArea>
         </div>
 
         {/* Sign out */}
         <div className="mt-4 border-t border-border/50 pt-4 shrink-0">
-          <SignOutButton isOpen={isExpanded} />
+          <SignOutButton isOpen={isExpanded}/>
         </div>
       </div>
     </aside>
