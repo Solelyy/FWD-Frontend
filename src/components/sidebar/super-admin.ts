@@ -19,7 +19,7 @@ export const SUPER_ADMIN_SIDEBAR: Group[] = [
   {
     groupLabel: "Management",
     menus: [
-      { href: `${defaultPath}/admin-management`, label: "Admins", icon: Users, },
+      { href: `${defaultPath}/admin-management`, label: "Admin", icon: Users, },
       { href: `${defaultPath}/employee-management`, label: "Employees", icon: Users }
     ]
   },
@@ -32,7 +32,7 @@ export const SUPER_ADMIN_SIDEBAR: Group[] = [
   {
     groupLabel: "Others",
     menus: [
-      { href: `${defaultPath}/manage-account`, label: "My Profile", icon: User }
+      { href: `${defaultPath}/manage-account`, label: "Account", icon: User }
     ]
   }
 ];
