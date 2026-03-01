@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { requireAuth } from "@/lib/server/auth";
-import { UserProvider } from "@/context/UserContext";
-import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
+import { UserProvider } from "@/components/shared/providers/UserContext";
+import AdminPanelLayout from "@/components/shared/layout/panel/admin-panel-layout";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

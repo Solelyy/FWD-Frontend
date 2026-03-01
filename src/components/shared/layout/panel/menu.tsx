@@ -4,17 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Ellipsis, LogOut } from "lucide-react";
 
-import type { UserRole, Menu as MenuType, Group } from "../sidebar/types";
+import type { UserRole, Menu as MenuType, Group } from "../../../../lib/sidebar/types";
 import { cn } from "@/lib/util/utils";
-import { getMenuList, RoleRoutes } from "@/components/sidebar/index";
-import { Button } from "@/components/ui/button";
-import { CollapseMenuButton } from "@/components/admin-panel/collapse-menu-button";
+import { getMenuList, RoleRoutes } from "@/lib/sidebar/index";
+import { Button } from "@/components/shared/ui/button";
+import { CollapseMenuButton } from "@/components/shared/layout/panel/collapse-menu-button";
 import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
   TooltipProvider,
-} from "@/components/ui/tooltip";
+} from "@/components/shared/ui/tooltip";
 
 interface MenuProps {
   isOpen: boolean | undefined;

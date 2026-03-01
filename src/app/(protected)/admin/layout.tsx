@@ -1,6 +1,6 @@
 import { requireAuth } from "@/lib/server/auth";
 import { ReactNode } from "react";
-import { UserProvider} from "@/context/UserContext"
+import { UserProvider} from "@/components/shared/providers/UserContext"
 import {redirect} from "next/navigation"
 
 export default async function AdminLayout({children}: {children: ReactNode}){

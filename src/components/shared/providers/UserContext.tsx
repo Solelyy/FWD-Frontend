@@ -1,6 +1,6 @@
 "use client"
 
-import { UserRole } from "@/components/sidebar/types"
+import { UserRole } from "@/lib/sidebar/types"
 import { createContext, useContext } from "react"
 
 export type User = {

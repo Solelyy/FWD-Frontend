@@ -1,14 +1,14 @@
 "use client";
 
-import { Menu, SignOutButton } from "@/components/admin-panel/menu";
-import { SidebarToggle } from "@/components/admin-panel/sidebar-toggle";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Menu, SignOutButton } from "@/components/shared/layout/panel/menu";
+import { SidebarToggle } from "@/components/shared/layout/panel/sidebar-toggle";
+import { ScrollArea } from "@/components/shared/ui/scroll-area";
 import Link from "next/link";
-import { useSidebar } from "@/hooks/use-sidebar";
-import { useStore } from "@/hooks/use-store";
+import { useSidebar } from "@/lib/hooks/use-sidebar";
+import { useStore } from "@/lib/hooks/use-store";
 import { cn } from "@/lib/util/utils";
-import { useUser } from "@/context/UserContext";
-import { RoleRoutes } from "@/components/sidebar/index"
+import { useUser } from "@/components/shared/providers/UserContext";
+import { RoleRoutes } from "@/lib/sidebar/index"
 
 export function Sidebar() {
   const user = useUser();

@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 import { requireAuth } from "@/lib/server/auth"
-import { UserProvider } from "@/context/UserContext"
+import { UserProvider } from "@/components/shared/providers/UserContext"
 import { redirect } from "next/navigation"
 
 type Props = {

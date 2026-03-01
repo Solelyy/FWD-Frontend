@@ -2,18 +2,18 @@
 
 import Link from "next/link";
 import { MenuIcon} from "lucide-react";
-import { VisuallyHidden } from "@/components/ui/visually-hidden";
-import { Button } from "@/components/ui/button";
-import { Menu, SignOutButton } from "@/components/admin-panel/menu";
-import { useUser } from "@/context/UserContext";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { VisuallyHidden } from "@/components/shared/ui/visually-hidden";
+import { Button } from "@/components/shared/ui/button";
+import { Menu, SignOutButton } from "@/components/shared/layout/panel/menu";
+import { useUser } from "@/components/shared/providers/UserContext";
+import { ScrollArea } from "@/components/shared/ui/scroll-area";
 import {
   Sheet,
   SheetHeader,
   SheetContent,
   SheetTrigger,
   SheetTitle
-} from "@/components/ui/sheet";
+} from "@/components/shared/ui/sheet";
 
 export function SheetMenu() {
   const user = useUser();
@@ -51,7 +51,7 @@ export function SheetMenu() {
         {/* Menu */}
         <div className="mt-0 flex-1 overflow-hidden">
           <ScrollArea className="h-full pr-2">
-            <Menu isOpen />
+            <Menu isOpen role={user.role}/>
           </ScrollArea>
         </div>
 

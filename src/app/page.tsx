@@ -1,5 +1,5 @@
-import { Login } from "@/components/features/LoginForm";
-import Header from "@/components/Header";
+import { Login } from "@/components/shared/features/LoginForm";
+import Header from "@/components/shared/layout/Header";
 
 export default function Home() {
   return (

@@ -5,17 +5,17 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/shared/ui/card"
 
 import {
   Field,
   FieldGroup,
   FieldLabel,
   FieldDescription,
-} from "@/components/ui/field"
+} from "@/components/shared/ui/field"
 
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Input } from "@/components/shared/ui/input"
+import { Button } from "@/components/shared/ui/button"
 import Link from "next/link"
 import GoogleButton from "@/components/GoogleBtn"
 

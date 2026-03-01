@@ -5,10 +5,10 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card"
+} from "@/components/shared/ui/card"
 
-import { Button } from "@/components/ui/button"
-import { FieldDescription } from "@/components/ui/field"
+import { Button } from "@/components/shared/ui/button"
+import { FieldDescription } from "@/components/shared/ui/field"
 
 export default function EmailSentStep({ email }: { email: string }) {
   return (

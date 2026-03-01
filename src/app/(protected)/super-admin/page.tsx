@@ -1,7 +1,7 @@
 "use client"
 
-import { ContentLayout } from "@/components/admin-panel/content-layout";
-import {useUser} from "@/context/UserContext"
+import { ContentLayout } from "@/components/shared/layout/panel/content-layout";
+import {useUser} from "@/components/shared/providers/UserContext"
 export default function SuperAdminDashboard() {
     const user = useUser();
     return(

@@ -5,11 +5,11 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/shared/ui/card"
 
-import PersonalStep from "@/components/features/Personal"
-import CredentialsStep from "@/components/features/Credentials"
-import EmailSentStep from "@/components/features/EmailSent"
+import PersonalStep from "@/components/shared/features/Personal"
+import CredentialsStep from "@/components/shared/features/Credentials"
+import EmailSentStep from "@/components/shared/features/EmailSent"
 
 const signupSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
