@@ -9,6 +9,7 @@ import { useStore } from "@/lib/hooks/use-store";
 import { cn } from "@/lib/util/utils";
 import { useUser } from "@/components/shared/providers/UserContext";
 import { RoleRoutes } from "@/lib/ui/sidebar/index"
+import { SidebarSignOut } from "../../features/SidebarSignout";
 
 export function Sidebar() {
   const user = useUser();
@@ -70,7 +71,7 @@ export function Sidebar() {
 
         {/* Sign out */}
         <div className="mt-4 border-t border-border/50 pt-4 shrink-0">
-          <SignOutButton isOpen={isExpanded}/>
+          <SidebarSignOut isExpanded={isExpanded}/>
         </div>
       </div>
     </aside>

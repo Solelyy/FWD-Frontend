@@ -24,6 +24,8 @@ interface MenuProps {
 
 interface SignOutProps {
   isOpen: boolean | undefined;
+  onClick?: () => void;
+  disableTooltip?: boolean; 
 }
 
 export function Menu({ isOpen, role }: MenuProps) {
@@ -129,13 +131,24 @@ export function Menu({ isOpen, role }: MenuProps) {
   );
 }
 
-export function SignOutButton({ isOpen }: SignOutProps) {
+export function SignOutButton({ isOpen, onClick, disableTooltip }: SignOutProps) {
+  if (disableTooltip) {
+    return (
+      <Button onClick={onClick} variant="outline" className="w-full justify-center h-10">
+        <span className="mr-3">
+          <LogOut size={18} />
+        </span>
+        <p className="whitespace-nowrap opacity-100">Sign out</p>
+      </Button>
+    );
+  }
+
   return (
     <TooltipProvider disableHoverableContent>
       <Tooltip delayDuration={100}>
         <TooltipTrigger asChild>
           <Button
-            onClick={() => {}}
+            onClick={onClick}
             variant="outline"
             className="w-full justify-center h-10"
           >

@@ -14,13 +14,14 @@ import {
   SheetTrigger,
   SheetTitle
 } from "@/components/shared/ui/sheet";
-
 import { RoleRoutes } from "@/lib/ui/sidebar/index";
+import { SheetSignOut } from "../../features/SheetSignout";
 
 export function SheetMenu() {
   const user = useUser();
+  if (!user) return null;
 
-  const logoLink = RoleRoutes[user.role];
+  const logoLink = user ? RoleRoutes[user.role] : "/";
 
   return (
     <Sheet>
@@ -52,7 +53,7 @@ export function SheetMenu() {
 
         {/* Sign out */}
         <div className="mt-4 pb-2 border-t border-border/50 pt-4 shrink-0">
-          <SignOutButton isOpen />
+          <SheetSignOut />
         </div>
       </SheetContent>
 </Sheet>

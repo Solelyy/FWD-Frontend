@@ -22,6 +22,8 @@ import {
 } from "@/components/shared/ui/dropdown-menu";
 import { useUser } from "../../providers/UserContext";
 import { RoleRoutes, AccountRoutes } from "@/lib/ui/sidebar/index"
+import { useState } from "react";
+import LogoutModal from "@/components/shared/features/LogoutModal";
 
 export function UserNav() {
   //user details
@@ -38,8 +40,12 @@ export function UserNav() {
   //navigations for dropdown
   const dashboardNavigation = RoleRoutes[user.role];
   const accountNavigation = AccountRoutes[user.role];
+
+  //logout 
+  const [open, setOpen] = useState(false);
   
   return (
+    <>
     <DropdownMenu>
       <TooltipProvider disableHoverableContent>
         <Tooltip delayDuration={100}>
@@ -85,11 +91,15 @@ export function UserNav() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="hover:cursor-pointer" onClick={() => {}}>
+        <DropdownMenuItem className="hover:cursor-pointer"   onClick={() => {
+         setTimeout(() => setOpen(true), 0); // open modal after dropdown closes
+        }} >
           <LogOut className="w-4 h-4 mr-3 text-muted-foreground" />
           Sign out
         </DropdownMenuItem>
       </DropdownMenuContent>
-    </DropdownMenu>
+    </DropdownMenu>        
+    <LogoutModal open={open} onOpenChange={setOpen} />
+    </>
   );
 }
