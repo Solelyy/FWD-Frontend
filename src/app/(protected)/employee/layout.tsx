@@ -1,6 +1,7 @@
 import { ReactNode } from "react"
 import { UserProvider } from "@/components/shared/providers/UserContext"
-import { requireRole, UserRole } from "@/lib/util/roles";
+import { UserRole } from "@/lib/util/roles";
+import { requireRole } from "@/lib/server/auth"
 
 type Props = {
   children: ReactNode

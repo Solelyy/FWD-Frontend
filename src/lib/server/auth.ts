@@ -7,7 +7,7 @@ export async function requireAuth(): Promise<AuthUser> {
   if (process.env.NODE_ENV === "development") {
     return {
       id: "1",
-      role: UserRole.ADMIN,
+      role: UserRole.SUPER_ADMIN,
       employeeId: "FWD123",
       firstname: "Dinavel",
       lastname: "Binongo",
@@ -22,4 +22,13 @@ export async function requireAuth(): Promise<AuthUser> {
     console.error(error)
     redirect("/unauthorized")
   }
+}
+
+export async function requireRole(role: UserRole) {
+    const user = await requireAuth();
+
+    if (user.role !== role) {
+        redirect ("/unauthorized")
+    }
+    return user;
 }

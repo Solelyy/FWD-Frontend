@@ -12,22 +12,18 @@ import { useAutoDismiss } from "@/lib/hooks/useAutoDismiss"
 import { useRouter } from "next/navigation"
 import { loginAuth, getUser } from "@/lib/api/authApi.ts/login"
 import { getAuthError } from "@/lib/util/authError"
-
-type LoginForm = {
-  employeeId: string
-  password: string
-}
-
+import type { LoginCredentials } from "@/lib/util/roles"
+import { UserRole } from "@/lib/util/roles"
 export function Login({
   className,
   ...props
 }: React.ComponentProps<"div">) {
   const router = useRouter();
-  const {register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginForm>();
+  const {register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginCredentials>();
 
   const [errorMsg, setErrorMsg] = useAutoDismiss<string>();
 
-  const onSubmit = async (data: LoginForm) => {
+  const onSubmit = async (data: LoginCredentials) => {
     try {
       const loginError = await loginAuth(data);
 
@@ -44,9 +40,9 @@ export function Login({
       }
       
       //redirect based on role
-      if (user.role === 'ADMIN') router.replace("/admin");
-      else if (user.role === 'SUPER_ADMIN') router.replace("/super-admin")
-      else if (user.role === "EMPLOYEE") router.replace("/employee")
+      if (user.role === UserRole.ADMIN) router.replace("/admin");
+      else if (user.role === UserRole.SUPER_ADMIN) router.replace("/super-admin")
+      else if (user.role === UserRole.EMPLOYEE) router.replace("/employee")
       else setErrorMsg(getAuthError("other"));
     } catch (err) {
       console.error("Login error: ", err)
