@@ -1,6 +1,7 @@
 import { getAuthError } from "@/lib/util/authError";
+import { LoginCredentials } from "@/lib/types/roles";
 
-export async function loginAuth(data: any) {
+export async function loginAuth(data: LoginCredentials) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

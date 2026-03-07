@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-import { AuthUser } from "../util/roles";
+import { AuthUser } from "../types/roles";
 
 export async function verifyToken(): Promise<AuthUser> {
   const headersList = await headers();

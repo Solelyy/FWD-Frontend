@@ -1,5 +1,5 @@
 import { Group } from "./types";
-import { UserRole } from "@/lib/util/roles"
+import { UserRole } from "@/lib/types/roles"
 import { SUPER_ADMIN_SIDEBAR } from "./super-admin";
 import { ADMIN_SIDEBAR } from "./admin";
 import { EMPLOYEE_SIDEBAR } from "./employee";

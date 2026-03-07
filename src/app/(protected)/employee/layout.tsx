@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 import { UserProvider } from "@/components/shared/providers/UserContext"
-import { UserRole } from "@/lib/util/roles";
+import { UserRole } from "@/lib/types/roles";
 import { requireRole } from "@/lib/server/auth"
 
 type Props = {

@@ -1,6 +1,6 @@
 "use client"
 
-import type { AuthUser } from "@/lib/util/roles"
+import type { AuthUser } from "@/lib/types/roles"
 import { createContext, useContext } from "react"
 
 const UserContext = createContext<AuthUser | null>(null)

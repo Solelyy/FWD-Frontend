@@ -12,8 +12,8 @@ import { useAutoDismiss } from "@/lib/hooks/useAutoDismiss"
 import { useRouter } from "next/navigation"
 import { loginAuth, getUser } from "@/lib/api/authApi.ts/login"
 import { getAuthError } from "@/lib/util/authError"
-import type { LoginCredentials } from "@/lib/util/roles"
-import { UserRole } from "@/lib/util/roles"
+import type { LoginCredentials } from "@/lib/types/roles"
+import { UserRole } from "@/lib/types/roles"
 export function Login({
   className,
   ...props

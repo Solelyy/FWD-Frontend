@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 import { verifyToken } from "./auth-server"
-import { UserRole, AuthUser } from "../util/roles";
+import { UserRole, AuthUser } from "../types/roles";
 
 export async function requireAuth(): Promise<AuthUser> {
 
