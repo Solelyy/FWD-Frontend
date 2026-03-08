@@ -44,19 +44,19 @@ export function AddAdminForm({ setOpen } : AddAdminFormProps) {
                 <Field>
                     <FieldLabel>First Name</FieldLabel>
                     <Input placeholder="Juan" 
-                    {...register("firstName", 
+                    {...register("firstname", 
                         { required: "First name is required"})}
                     />
-                    {errors.firstName && <FormMessage variant="error" message={errors.firstName.message}/>}
+                    {errors.firstname && <FormMessage variant="error" message={errors.firstname.message}/>}
                 </Field>
 
                 <Field>
                     <FieldLabel>Last Name</FieldLabel>
                     <Input placeholder="Dela Cruz"
-                    {...register("lastName", 
+                    {...register("lastname", 
                         { required: "Last name is required"})}
                     />
-                    {errors.lastName && <FormMessage variant="error" message={errors.lastName.message}/>}
+                    {errors.lastname && <FormMessage variant="error" message={errors.lastname.message}/>}
                 </Field> 
             </div>
 
