@@ -19,6 +19,7 @@ type InvitationValues = {
 }
 
 export default function SetPasswordForm({token, employeeId } : InvitationValues){
+    const router = useRouter();
     const { register, handleSubmit, formState: { errors, isSubmitting}} = 
     useForm<RegisterSchema>({
         resolver: zodResolver(registerSchema)
@@ -27,8 +28,11 @@ export default function SetPasswordForm({token, employeeId } : InvitationValues)
     const onSubmit = async (data: RegisterSchema) => {
         try {
             await setPassword(token, data.password);
-            const router = useRouter();
-            //redirect to login later
+            toast.success("Account created successfully! Please login.")
+            setTimeout(() => {
+                router.replace("/"); // redirect to landing page
+            }, 1500);
+            
         } catch(err: any) {
             console.error(err);
             toast.error(err.message || "Something went wrong");
