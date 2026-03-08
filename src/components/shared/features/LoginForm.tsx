@@ -1,6 +1,5 @@
 "use client"
 
-import { cn } from "@/lib/util/utils"
 import { Button } from "@/components/shared/ui/button"
 import Link from "next/link"
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/shared/ui/card"
@@ -14,14 +13,16 @@ import { loginAuth, getUser } from "@/lib/api/authApi.ts/login"
 import { getAuthError } from "@/lib/util/authError"
 import type { LoginCredentials } from "@/lib/types/roles"
 import { UserRole } from "@/lib/types/roles"
-export function Login({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+import { useState } from "react"
+import { Eye, EyeOff } from "lucide-react";
+
+export default function Login() {
   const router = useRouter();
   const {register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginCredentials>();
 
   const [errorMsg, setErrorMsg] = useAutoDismiss<string>();
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (data: LoginCredentials) => {
     try {
@@ -51,10 +52,10 @@ export function Login({
   }
   
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="h-full py-10 px-6">
+    <div className="flex flex-col gap-6 items-center">
+      <Card className="h-full w-full max-w-sm sm:max-w-md md:max-w-lg py-8 px-6 sm:py-10">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Sign in to FWD</CardTitle>
+          <CardTitle className="text-xl sm:text-2xl">Sign in to FWD</CardTitle>
           <CardDescription className="text-sm">Please enter your credentials below. </CardDescription>
         </CardHeader>
 
@@ -83,11 +84,23 @@ export function Login({
                     Forgot your password?
                   </Link>
                 </div>
-                <Input 
-                id="password" 
-                type="password" 
-                {...register("password", {required: "Password is required",
-                })} />
+
+                <div className="relative">
+                  <Input 
+                    id="password" 
+                    type={showPassword ? "text" : "password"}
+                    {...register("password", {required: "Password is required",
+                    })} 
+                  />
+                  <button 
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
                 {errors.password && <FormMessage variant="error" message={errors.password.message}/>}
               </Field>
               <Field>
@@ -101,5 +114,6 @@ export function Login({
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
+  
