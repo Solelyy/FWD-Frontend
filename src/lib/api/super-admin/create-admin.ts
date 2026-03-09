@@ -1,8 +1,7 @@
 import { AddAdminFormValues } from "@/lib/types/create-admin";
 
 export async function createAdmin(data: AddAdminFormValues) {
-    try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/create-admin-account`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/create-admin-account`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -14,7 +13,4 @@ export async function createAdmin(data: AddAdminFormValues) {
         throw new Error(error.message || "Failed to create admin")
     }
     return response.json();
-    } catch (error: any) {
-        throw new Error("Network error: Unable to create admin. Please check your internet connection.")
-    }
 }
