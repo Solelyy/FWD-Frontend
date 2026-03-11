@@ -35,9 +35,10 @@ export default function Login() {
 
       const { user, error }= await getUser();
 
-      if (error || !user ) {
-        setErrorMsg(error ?? getAuthError("other"))
-        return
+      if (error ) {
+        setErrorMsg(error)
+        console.log(error)
+        return;
       }
       
       //redirect based on role
