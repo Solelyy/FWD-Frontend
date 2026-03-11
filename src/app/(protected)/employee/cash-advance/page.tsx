@@ -2,12 +2,12 @@
 
 import { ContentLayout } from "@/components/shared/layout/panel/content-layout";
 import {useUser} from "@/components/shared/providers/UserContext"
-export default function EmployeeDashboard() {
+export default function EmployeeCashAdvance() {
     const user = useUser();
+
     return(
-    <ContentLayout title="Dashboard">
+    <ContentLayout title="My Cash Advance">
         <div>
-            HELLO, {user.firstname}!
         </div>
     </ContentLayout>
     );

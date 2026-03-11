@@ -3,34 +3,36 @@ import {
   ClipboardCheck,
   FileBarChart,
   User,
-
+  Calendar1,
+  PhilippinePeso,
+  Wallet
 } from "lucide-react";
 
 import { Group } from "./types";
+
+const defaultPath: string = "/employee";
 
 export const EMPLOYEE_SIDEBAR: Group[] = [
   {
     groupLabel: "",
     menus: [
-      { href: "/dashboard", label: "Dashboard", icon: LayoutGrid, isRoot: true }
+      { href: defaultPath, label: "Dashboard", icon: LayoutGrid, isRoot: true }
     ]
   },
   {
-    groupLabel: "Attendance",
+    groupLabel: "Modules",
     menus: [
-      { href: "/my-attendance", label: "My Attendance", icon: ClipboardCheck }
+      { href: `${defaultPath}/attendance`, label: "Attendance", icon: ClipboardCheck },
+      { href: `${defaultPath}/leave`, label: "Leave", icon: Calendar1 },
+      { href: `${defaultPath}/cash-advance`, label: "Cash Advance", icon: PhilippinePeso },
+      { href: `${defaultPath}/reimbursement`, label: "Reimbursement", icon: Wallet },
+      { href: `${defaultPath}/reports`, label: "Reports", icon: FileBarChart },
     ]
   },
   {
-    groupLabel: "Reports",
+    groupLabel: "Personal",
     menus: [
-      { href: "/my-reports", label: "My Reports", icon: FileBarChart }
-    ]
-  },
-  {
-    groupLabel: "Account",
-    menus: [
-      { href: "/account", label: "Profile", icon: User }
+      { href: `${defaultPath}/account`, label: "Profile", icon: User }
     ]
   }
 ];
