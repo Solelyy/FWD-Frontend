@@ -73,6 +73,7 @@ export function Menu({ isOpen, role }: MenuProps) {
 
             {/* Menus */}
             {menus.map(({ href, label, icon: Icon, submenus, isRoot }, index) => {
+              const active = isActive({ href, label, icon: Icon, submenus, isRoot });
               if (!submenus || submenus.length === 0) {
                 // Normal menu item
                 return (
@@ -81,8 +82,9 @@ export function Menu({ isOpen, role }: MenuProps) {
                       <Tooltip delayDuration={100}>
                         <TooltipTrigger asChild>
                           <Button
-                            variant={isActive({ href, label, icon: Icon, submenus, isRoot }) ? "secondary" : "ghost"}
-                            className="w-full justify-start h-10 mb-1"
+                            variant="ghost"
+                            className={cn("w-full justify-start h-10 mb-1 hover:bg-[#FFEB94]/40",active && "bg-[#FFEB94]/40",
+                             )}
                             asChild
                           >
                             <Link href={href} className="flex items-center w-full">

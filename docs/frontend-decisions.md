@@ -101,3 +101,7 @@ npx shadcn@latest add login-01
 ### Skeleton
 npx shadcn@latest add skeleton
 - for loading states
+
+### Table
+npx shadcn@latest add table
+npm install @tanstack/react-table
