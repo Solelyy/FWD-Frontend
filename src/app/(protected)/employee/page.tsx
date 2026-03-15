@@ -1,7 +1,7 @@
 "use client"
 
-import { ContentLayout } from "@/components/shared/layout/panel/content-layout";
-import {useUser} from "@/components/shared/providers/UserContext"
+import { ContentLayout } from "@/components/layout/panel/content-layout";
+import {useUser} from "@/components/providers/UserContext"
 export default function EmployeeDashboard() {
     const user = useUser();
     const fullName = `${user.firstname} ${user.lastname}`

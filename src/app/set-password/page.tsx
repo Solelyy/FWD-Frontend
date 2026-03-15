@@ -1,12 +1,12 @@
 "use client"
 
-import InvitationExpired from "@/components/shared/features/auth/InvitationExpired";
-import SetPasswordForm from "@/components/shared/features/auth/SetPassword";
-import { validateInvitation } from "@/lib/api/shared/auth/invitation";
+import InvitationExpired from "@/features/auth/components/InvitationExpired";
+import SetPasswordForm from "@/features/auth/components/SetPassword";
+import { validateInvitation } from "@/features/auth/api/invitationApi";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { SkeletonForm } from "@/components/shared/skeletons/Form";
-import Header from "@/components/shared/layout/Header";
+import { SkeletonForm } from "@/components/skeletons/Form";
+import Header from "@/components/layout/Header";
 
 export default function SetPassword() {
 

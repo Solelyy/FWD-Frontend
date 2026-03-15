@@ -1,5 +1,5 @@
-import Login  from "@/components/shared/features/auth/LoginForm";
-import Header from "@/components/shared/layout/Header";
+import Login  from "@/features/auth/components/LoginForm";
+import Header from "@/components/layout/Header";
 
 export default function Home() {
   return (

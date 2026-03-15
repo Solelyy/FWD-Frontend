@@ -1,11 +1,11 @@
 export const dynamic = "force-dynamic";
 
 import { ReactNode } from "react";
-import { requireAuth } from "@/lib/server/auth";
-import { UserProvider } from "@/components/shared/providers/UserContext";
-import AdminPanelLayout from "@/components/shared/layout/panel/admin-panel-layout";
+import { requireAuth } from "@/features/auth/server/auth";
+import { UserProvider } from "@/components/providers/UserContext";
+import AdminPanelLayout from "@/components/layout/panel/admin-panel-layout";
 import type { Metadata } from "next";
-import QueryProvider from "@/components/shared/providers/Query-Provider";
+import QueryProvider from "@/components/providers/QueryProvider";
 
 export const metadata: Metadata = {
   title: "Dashboard",

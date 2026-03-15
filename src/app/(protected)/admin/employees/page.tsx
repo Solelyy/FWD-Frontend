@@ -1,9 +1,10 @@
 "use client"
 
-import { ContentLayout } from "@/components/shared/layout/panel/content-layout";
-import { Button } from "@/components/shared/ui/button";
+import { ContentLayout } from "@/components/layout/panel/content-layout";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { AddEmployeeDialog } from "@/components/admin/AddEmployeeDialog";
+import { AddAccountDialog } from "@/features/account-management/components/AddAccountDialog";
+import { UserRole } from "@/lib/types/roles";
 
 export default function AdminEmployee() {
     const [ open, setOpen ] = useState(false);
@@ -14,7 +15,7 @@ export default function AdminEmployee() {
             <Button onClick= {() => setOpen(true)}>Add Employee</Button>
         </div>
 
-        <AddEmployeeDialog open= {open} setOpen= {setOpen}/>
+        <AddAccountDialog open= {open} setOpen= {setOpen} role={UserRole.EMPLOYEE}/>
     </ContentLayout>
     );
 }

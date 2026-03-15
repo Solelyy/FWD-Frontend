@@ -1,12 +1,12 @@
 "use client"
 
-import { ContentLayout } from "@/components/shared/layout/panel/content-layout";
-import { Button } from "@/components/shared/ui/button";
+import { ContentLayout } from "@/components/layout/panel/content-layout";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { AddAdminDialog } from "@/components/super-admin/AddAdminDialog";
-import AccountsTable from "@/components/shared/features/account-management/AccountsTable";
+import { AddAccountDialog } from "@/features/account-management/components/AddAccountDialog";
+import AccountsTable from "@/features/account-management/components/AccountsTable";
 import { UserRole } from "@/lib/types/roles";
-import { useAccounts } from "@/lib/hooks/useAccount";
+import { useAccounts } from "@/features/account-management/useAccount";
 
 export default function AdminManagement() {
     const [ open, setOpen ] = useState(false);
@@ -29,7 +29,7 @@ export default function AdminManagement() {
                     // since we expect boolean value in our AccountsTableProps that is why we need to convert it in boolean.
                 />
                 
-                <AddAdminDialog open= {open} setOpen= {setOpen}/>
+                <AddAccountDialog open= {open} setOpen= {setOpen} role= {UserRole.ADMIN}/>
             </div>
             
         </ContentLayout>
