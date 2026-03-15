@@ -1,16 +1,18 @@
 export function formatDateTime(dateString: string) {
-    const date = new Date(dateString);
+  // Remove the weekday and 'at'
+  const cleaned = dateString.replace(/^\w+, /, "").replace(" at ", " ");
+  const date = new Date(cleaned);
 
-    return date.toLocaleDateString("en-US", {
-        month: "short",   // Mar
-        day: "2-digit",   // 01
-        year: "numeric",  // 2026
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true
-    });
+  if (isNaN(date.getTime())) {
+    return "Invalid Date";
+  }
 
-    //example backend sends: 2026-03-01T23:00:00Z
-    //result in ui: Mar 01, 2026, 11:00 PM
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
 }
-

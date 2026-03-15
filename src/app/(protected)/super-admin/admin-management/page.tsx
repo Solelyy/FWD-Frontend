@@ -6,7 +6,7 @@ import { useState } from "react";
 import { AddAccountDialog } from "@/features/account-management/components/AddAccountDialog";
 import AccountsTable from "@/features/account-management/components/AccountsTable";
 import { UserRole } from "@/lib/types/roles";
-import { useAccounts } from "@/features/account-management/useAccount";
+import { useAccounts } from "@/features/account-management/hooks/useAccount";
 
 export default function AdminManagement() {
     const [ open, setOpen ] = useState(false);

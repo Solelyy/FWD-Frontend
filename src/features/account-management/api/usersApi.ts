@@ -3,8 +3,8 @@ import { API_BASE_URL } from "@/lib/util/api";
 
 export async function getAccounts(role: UserRole.ADMIN | UserRole.EMPLOYEE) {
     const endpoint = role === UserRole.ADMIN 
-    ? "/admin/management/users"
-    : "/users-employee";
+    ? "/superadmin/management/users"
+    : "/admin/management/users";
 
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "GET",

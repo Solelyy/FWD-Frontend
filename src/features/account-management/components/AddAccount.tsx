@@ -15,6 +15,8 @@ import { createAccount } from "@/features/account-management/api/addAccountApi";
 import { toast } from "sonner";
 import { UserRole } from "@/lib/types/roles"
 
+import { useCreateAccount } from "../hooks/useAccountMutations"
+
 type AddAccountFormProps = {
     setOpen: React.Dispatch<React.SetStateAction<boolean>> 
     role: UserRole.ADMIN | UserRole.EMPLOYEE
@@ -23,22 +25,30 @@ type AddAccountFormProps = {
 export function AddAccountForm({ setOpen, role } : AddAccountFormProps) {
     const roleLabel = role === UserRole.ADMIN ? "Admin" : "Employee";
     const {register, reset, handleSubmit, setError, formState: {errors, isSubmitting}} = useForm<AddAccountFormValues>();
+
+    const createAccountMutation = useCreateAccount();
+
     const onSubmit = async (data: AddAccountFormValues) => {
-        try{
-            await createAccount(data, role);
-            toast.success(`${roleLabel} created successfully!` )
-            reset()
-            setOpen(false)
-        } catch (err: any) {
+    createAccountMutation.mutate(
+        { data, role },
+        {
+            onSuccess: () => {
+            toast.success(`${roleLabel} created successfully!`);
+            reset();
+            setOpen(false);
+            },
+            onError: (err: any) => {
             if (err.message.includes("Employee ID")) {
-                setError("employeeId", { type: "server", message: err.message })
+                setError("employeeId", { type: "server", message: err.message });
             } else if (err.message.includes("Email")) {
-                setError("email", { type: "server", message: err.message })
+                setError("email", { type: "server", message: err.message });
             } else {
-                toast.error(err.message || `Failed to create ${roleLabel}`)
+                toast.error(err.message || `Failed to create ${roleLabel}`);
+            }
             }
         }
-    }
+        );
+    };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
