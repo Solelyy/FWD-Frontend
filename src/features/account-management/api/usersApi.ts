@@ -3,7 +3,7 @@ import { API_BASE_URL } from "@/lib/util/api";
 
 export async function getAccounts(role: UserRole.ADMIN | UserRole.EMPLOYEE) {
     const endpoint = role === UserRole.ADMIN 
-    ? "/users-admin"
+    ? "/admin/management/users"
     : "/users-employee";
 
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -13,5 +13,8 @@ export async function getAccounts(role: UserRole.ADMIN | UserRole.EMPLOYEE) {
 
     if(!response.ok) throw new Error("Cannot fetch accounts.");
 
-    return response.json();
+    const result =await response.json();
+
+    if (!result || !result.data) return [];
+    return result.data;
 }
