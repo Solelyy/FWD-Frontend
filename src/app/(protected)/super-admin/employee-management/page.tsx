@@ -1,13 +1,29 @@
-"use client"
+"use client";
 
 import { ContentLayout } from "@/components/layout/panel/content-layout";
-import {useUser} from "@/components/providers/UserContext"
-export default function EmployeeManagement() {
-    const user = useUser();
-    return(
-    <ContentLayout title="Employee Management">
-    <div>
-    </div>
+import { useState } from "react";
+import { AddAccountDialog } from "@/features/account-management/components/AddAccountDialog";
+import AccountsTable from "@/features/account-management/components/AccountsTable";
+import { UserRole } from "@/lib/types/roles";
+import { useAccounts } from "@/features/account-management/hooks/useAccount";
+
+export default function EmployeeList() {
+  const [open, setOpen] = useState(false);
+  const {
+    data: accounts = [],
+    isLoading,
+    error,
+  } = useAccounts(UserRole.EMPLOYEE);
+
+  return (
+    <ContentLayout title="Employees">
+      <AccountsTable accounts={accounts} loading={isLoading} error={!!error} />
+
+      <AddAccountDialog
+        open={open}
+        setOpen={setOpen}
+        role={UserRole.EMPLOYEE}
+      />
     </ContentLayout>
-    );
+  );
 }
