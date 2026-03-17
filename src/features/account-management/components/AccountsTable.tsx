@@ -6,6 +6,7 @@ import { Actions } from "./AccountsTableActions";
 import { SkeletonTableRows } from "@/components/skeletons/TableRows";
 import { useUser } from "@/components/providers/UserContext"
 import { UserRole } from "@/lib/types/roles";
+import { Status } from "@/features/account-management/types/account";
 
 type AccountsTableProps = {
     accounts: AccountInfo[],
@@ -14,14 +15,16 @@ type AccountsTableProps = {
 }
 export default function AccountsTable({accounts, loading, error} : AccountsTableProps) {
     const user = useUser();
-    const statusStyles = {
-        PENDING: "bg-yellow-100 text-yellow-600",
-        ACTIVE: "bg-green-100 text-green-600",
-        INACTIVE: "bg-gray-100 text-gray-600",
-        SUSPENDED: "bg-red-100 text-red-600",
-        EXPIRED: "bg-orange-100 text-orange-600"
+    const statusStyles: Partial<Record<Status, string>> = {
+        [Status.PENDING]: "bg-yellow-100 text-yellow-600",
+        [Status.ACTIVE]: "bg-green-100 text-green-600",
+        [Status.INACTIVE]: "bg-gray-100 text-gray-600",
+        [Status.SUSPENDED]: "bg-red-100 text-red-600",
+        [Status.EXPIRED]: "bg-orange-100 text-orange-600",
     }
+
     return (
+        <div className="overflow-x-auto">
         <Table>
             <TableHeader className="bg-[#FFEB94]/40">
                 <TableRow>
@@ -51,8 +54,8 @@ export default function AccountsTable({accounts, loading, error} : AccountsTable
                 <TableRow>
                     <TableCell colSpan={6} className="text-center py-8">
                     {user.role === UserRole.SUPER_ADMIN 
-                    ? "No admin accounts yet. Click 'Add Admin' to create one." 
-                    : "No employee accounts yet. Click 'Add Employee' to create one." }
+                    ? (<>No admin accounts yet. Click <span className="font-bold">Add Admin</span> to create one.</> )
+                    : (<>No employee accounts yet. Click <span className="font-bold">Add Employee</span> to create one.</>) }
                     </TableCell>
                 </TableRow>
                 )}
@@ -67,7 +70,7 @@ export default function AccountsTable({accounts, loading, error} : AccountsTable
                             {fullName(account.firstname, account.lastname)}
                         </TableCell>
                         
-                        <TableCell>
+                        <TableCell className="max-w-30 sm:max-w-40 overflow-auto">
                             {account.email}
                         </TableCell>
 
@@ -88,5 +91,6 @@ export default function AccountsTable({accounts, loading, error} : AccountsTable
                 ))}
             </TableBody>
         </Table>
+        </div>
     );
 }
