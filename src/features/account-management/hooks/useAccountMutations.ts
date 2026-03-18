@@ -10,16 +10,18 @@ type CreateAccountVariables = {
   role: UserRole.ADMIN | UserRole.EMPLOYEE;
 };
 
+// same as here newStatus => status
 export type UpdateAccountVariables = {
-  employeeId: AccountInfo["employeeId"],
-  newStatus: Status
-}
+  employeeId: AccountInfo["employeeId"];
+  status: Status;
+};
 
 export function useCreateAccount() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ data, role }: CreateAccountVariables) => createAccount(data, role),
+    mutationFn: ({ data, role }: CreateAccountVariables) =>
+      createAccount(data, role),
     onSuccess: (_, { role }) => {
       // Invalidate the accounts query for this role so the table auto-refreshes
       queryClient.invalidateQueries({ queryKey: ["accounts", role] });
@@ -29,14 +31,13 @@ export function useCreateAccount() {
 
 export function useUpdateAccountStatus() {
   const queryClient = useQueryClient();
-  
-  return useMutation({
-    mutationFn: ({ employeeId, newStatus } : UpdateAccountVariables) => 
-      updateAccountStatus({ employeeId, newStatus }),
 
-      onSuccess: (_, variables) => {
-        queryClient.invalidateQueries(
-        { queryKey: ["accounts"]
-    });
-  },});
+  return useMutation({
+    mutationFn: ({ employeeId, status }: UpdateAccountVariables) =>
+      updateAccountStatus({ employeeId, status }),
+
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["accounts"] });
+    },
+  });
 }
