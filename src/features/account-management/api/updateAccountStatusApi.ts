@@ -1,21 +1,14 @@
-import { UpdateAccountVariables } from "../hooks/useAccountMutations";
-import { AccountInfo, Status } from "../types/account";
 import { API_BASE_URL } from "@/lib/util/api";
+import { AccountInfo, Status } from "../types/account";
 
-export async function updateAccountStatus({
-  employeeId,
-  status,
-}: UpdateAccountVariables) {
-  const endpointsConfig: Partial<Record<Status, string>> = {
-    // changed endpoints since they are the same
-    [Status.ACTIVE]: "/superadmin/management/status",
-    [Status.INACTIVE]: "/superadmin/management/status",
-  };
+type UpdateStatuspayload = {
+  employeeId: AccountInfo["employeeId"]
+  status: Status
+}
 
-  const endpoint = endpointsConfig[status];
-
+export async function updateAccountStatus({employeeId, status}: UpdateStatuspayload) {
   const response = await fetch(
-    `${API_BASE_URL}${endpoint}?employee=${employeeId}`,
+    `${API_BASE_URL}/superadmin/management/status?employee=${employeeId}`,
     {
       method: "PATCH",
       headers: {

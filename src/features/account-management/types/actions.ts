@@ -1,5 +1,4 @@
 import type { AccountInfo } from "./account";
-import { Status } from "./account";
 
 export enum ActionEnum {
   ACTIVATE = "ACTIVATE",
@@ -92,12 +91,3 @@ export const statusActions: Record <AccountInfo["status"], ActionEnum[]> = {
 export function getActionsByStatus(status: AccountInfo["status"]): ActionProps[] {
   return statusActions[status].map((action) => actionConfig[action]);
 }
-
-//mapping for backend
-export const actionToStatusMap: Partial<Record<ActionEnum, Status>> = {
-  [ActionEnum.ACTIVATE]: Status.ACTIVE,
-  [ActionEnum.INACTIVATE]: Status.INACTIVE,
-  [ActionEnum.SUSPEND]: Status.SUSPENDED,
-  [ActionEnum.REMOVE]: Status.REMOVED,
-  // RESEND has no status change
-};

@@ -10,12 +10,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { MoreHorizontalIcon } from "lucide-react";
 import type { ActionProps } from "@/features/account-management/types/actions";
-import { getActionsByStatus } from "@/features/account-management/types/actions";
+import { ActionEnum, getActionsByStatus } from "@/features/account-management/types/actions";
 import { useState } from "react";
 import ActionDialog from "./ActionDialog";
 import { AccountInfo } from "../types/account";
-import { actionToStatusMap } from "@/features/account-management/types/actions";
-import { useUpdateAccountStatus } from "../hooks/useAccountMutations";
+import { useAccountActions } from "../hooks/useAccountActions";
+import { Status } from "../types/account";
 
 export function Actions({ account }: { account: AccountInfo }) {
   const actions = getActionsByStatus(account.status);
@@ -24,26 +24,44 @@ export function Actions({ account }: { account: AccountInfo }) {
     null,
   );
 
-  const { mutateAsync: updateStatus, isPending } = useUpdateAccountStatus();
-
   function handleAction(action: ActionProps) {
     setSelectedAction(action);
     setOpen(true);
     console.log(action.targetAction, account);
   }
 
-  //for actions
-  // changed from newStatus to status, since backend only receives a json data "status",
-  // note when frontend sends a data, it must be match of what backend expects
+  const {
+    updateStatus,
+    suspendAccount,
+    removeAccount,
+    resendInvite,
+  } = useAccountActions();
+
+  const isPending = 
+    updateStatus.isPending || 
+    suspendAccount.isPending || 
+    removeAccount.isPending || 
+    resendInvite.isPending;
+
   const handleConfirm = async (account: AccountInfo, action: ActionProps) => {
-    const status = actionToStatusMap[action.targetAction];
+    const actionHandlers = {
+    [ActionEnum.ACTIVATE]: () => 
+      updateStatus.mutateAsync({ employeeId: account.employeeId, status: Status.ACTIVE }),
 
-    if (!status) return;
+    [ActionEnum.INACTIVATE]: () => 
+      updateStatus.mutateAsync({ employeeId: account.employeeId, status: Status.INACTIVE }),
 
-    await updateStatus({
-      employeeId: account.employeeId,
-      status,
-    });
+    [ActionEnum.RESEND]: () => 
+      resendInvite.mutateAsync({ email: account.email }),
+    
+    [ActionEnum.SUSPEND]: () => 
+      suspendAccount.mutateAsync({ employeeId: account.employeeId}),
+
+    [ActionEnum.REMOVE]: () =>
+      removeAccount.mutateAsync({ employeeId: account.employeeId})
+    }
+
+    await actionHandlers[action.targetAction]?.();
   };
 
   return (
