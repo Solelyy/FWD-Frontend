@@ -2,8 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createAccount } from "@/features/account-management/api/addAccountApi";
 import { UserRole } from "@/lib/types/roles";
 import { AddAccountFormValues } from "@/features/account-management/types/add-account";
-import { AccountInfo, Status } from "../types/account";
-import { updateAccountStatus } from "../api/updateAccountStatusApi";
 
 type CreateAccountVariables = {
   data: AddAccountFormValues;
