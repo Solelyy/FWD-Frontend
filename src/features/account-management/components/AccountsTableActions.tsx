@@ -43,19 +43,30 @@ export function Actions({ account }: { account: AccountInfo }) {
     removeAccount.isPending || 
     resendInvite.isPending;
 
-  const handleConfirm = async (account: AccountInfo, action: ActionProps) => {
+  const handleConfirm = async (
+    account: AccountInfo, 
+    action: ActionProps, 
+    extra?: {startDate: string, endDate: string}
+  ) => {
     const actionHandlers = {
     [ActionEnum.ACTIVATE]: () => 
-      updateStatus.mutateAsync({ employeeId: account.employeeId, status: Status.ACTIVE }),
+      updateStatus.mutateAsync({ employeeId: account.employeeId, status: Status.ACTIVE, role: account.role }),
 
     [ActionEnum.INACTIVATE]: () => 
-      updateStatus.mutateAsync({ employeeId: account.employeeId, status: Status.INACTIVE }),
+      updateStatus.mutateAsync({ employeeId: account.employeeId, status: Status.INACTIVE, role:account.role }),
 
     [ActionEnum.RESEND]: () => 
       resendInvite.mutateAsync({ email: account.email }),
     
+    
     [ActionEnum.SUSPEND]: () => 
-      suspendAccount.mutateAsync({ employeeId: account.employeeId}),
+      suspendAccount.mutateAsync({ 
+        employeeId: account.employeeId, 
+        status: Status.SUSPENDED, 
+        role: account.role, 
+        startDate: extra!.startDate, 
+        endDate: extra!.endDate,
+      }), 
 
     [ActionEnum.REMOVE]: () =>
       removeAccount.mutateAsync({ employeeId: account.employeeId})
@@ -99,6 +110,8 @@ export function Actions({ account }: { account: AccountInfo }) {
         onConfirm={handleConfirm}
         isPending={isPending}
       />
+
+
     </>
   );
 }

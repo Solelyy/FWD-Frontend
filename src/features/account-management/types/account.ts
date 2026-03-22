@@ -1,3 +1,5 @@
+import { UserRole } from "@/lib/types/roles"
+
 export enum Status {
     ACTIVE = "ACTIVE",
     INACTIVE = "INACTIVE",
@@ -14,4 +16,5 @@ export type AccountInfo = {
     email: string
     status: Status
     invitationDate: string
+    role: UserRole
 }

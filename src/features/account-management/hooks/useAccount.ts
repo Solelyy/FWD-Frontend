@@ -4,11 +4,12 @@ import { UserRole } from "@/lib/types/roles"
 
 //custom hook for fetching data
 export function useAccounts(role: UserRole.ADMIN | UserRole.EMPLOYEE) {
-  
-  /*this is to test ui only for me not to run the backend everytime
+   
+  //this is to test ui only for me not to run the backend everytime
   if (process.env.NODE_ENV === "development") {
     return {
-      data: [
+      
+     data: [
         {
           employeeId: "FWD123",
           firstname: "Jessa",
@@ -21,7 +22,7 @@ export function useAccounts(role: UserRole.ADMIN | UserRole.EMPLOYEE) {
       isLoading : false,
       error:null
     }
-  } */
+  } 
 
   //useQuery is a hook from react query that fetches the data 
   //and automatically handling: caching, loading state, error, and refetching. 
@@ -29,5 +30,7 @@ export function useAccounts(role: UserRole.ADMIN | UserRole.EMPLOYEE) {
   return useQuery({
     queryKey: ["accounts", role], //unique idefifier for cached data; describes what data the query represents
     queryFn: () => getAccounts(role),    //function that fetches the data
+    retry: 1,
+    refetchOnWindowFocus: false,
   })
 }

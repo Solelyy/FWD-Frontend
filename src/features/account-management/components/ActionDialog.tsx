@@ -6,17 +6,24 @@ import {
     DialogHeader,
     DialogTitle
 } from "@/components/ui/dialog"
-import React from "react";
-import { AccountInfo } from "../types/account";
-import { ActionProps } from "../types/actions";
+import React, { useState } from "react";
+import { AccountInfo, Status } from "../types/account";
+import { ActionEnum, ActionProps } from "../types/actions";
 import { Button } from "@/components/ui/button";
+import { SuspendAccountDialog } from "./SuspendAccountDialog";
+import { DateRange } from "react-day-picker";
+import { toast } from "sonner";
 
 type ActionDialogProps = {
     open: boolean
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
     account: AccountInfo
     action: ActionProps | null
-    onConfirm?: (account: AccountInfo, action:ActionProps) => void
+    onConfirm?: (
+        account: AccountInfo, 
+        action:ActionProps,
+        extra?: { startDate: string, endDate: string }
+    ) => void
     onCancel? : () => void
     isPending: boolean
 }
@@ -27,7 +34,19 @@ export default function ActionDialog({
     if (!action) return null;
 
     const handleConfirm = async () => {
-        await onConfirm?.(account, action)
+        if (action.targetAction === ActionEnum.SUSPEND) {
+            if (!dateRange?.from|| !dateRange.to) {
+                toast.error("Please select a date");
+                return;
+            }
+            await onConfirm?.(account, action, {
+                startDate: dateRange.from.toISOString(),
+                endDate: dateRange.to.toISOString(),
+            });
+        } else {
+            await onConfirm?.(account, action)
+
+        }
         setOpen(false)
     }
 
@@ -35,6 +54,9 @@ export default function ActionDialog({
         onCancel?.()
         setOpen(false)
     }
+
+    //suspend an account
+    const [dateRange, setDateRange] = React.useState<DateRange | undefined>();
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
@@ -45,9 +67,20 @@ export default function ActionDialog({
                     </DialogTitle>
                 </DialogHeader>
 
-                <DialogDescription>
-                    {action.confirmMessage}
-                </DialogDescription>
+                {action.targetAction == ActionEnum.SUSPEND && (
+                    <>
+                    <DialogDescription>
+                        Please select the start and end date of suspension of this account
+                    </DialogDescription>
+                    <SuspendAccountDialog date={dateRange} setDate={setDateRange}/>
+                    </>
+                )}
+
+                {action.targetAction != ActionEnum.SUSPEND && (
+                    <DialogDescription>
+                        {action.confirmMessage}
+                    </DialogDescription>
+                )}
                 
                 <DialogFooter className="flex flex-col-reverse gap-2">
                         <Button className="order-1" onClick={handleConfirm} disabled={isPending}>

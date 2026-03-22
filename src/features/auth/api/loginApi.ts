@@ -11,10 +11,10 @@ export async function loginAuth(data: LoginCredentials) {
   });
 
   if (!response.ok) {
-    if (response.status === 403) return getAuthError("locked");
+    if (response.status === 429) return getAuthError("locked");
+    if (response.status === 404) return getAuthError("blocked");
     if (response.status === 400) return getAuthError("default");
     if (response.status === 401) return getAuthError("default");
-
     return getAuthError("other");
   }
   console.log("login status:", response.status);

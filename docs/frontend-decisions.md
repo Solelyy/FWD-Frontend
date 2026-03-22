@@ -109,3 +109,7 @@ npm install @tanstack/react-table
 ## React Query
 npm install @tanstack/react-query
 - data-fetching and caching library for React
+
+## Date Picker (Calendar)
+npx shadcn@latest add popover calendar
+npm install date-fns

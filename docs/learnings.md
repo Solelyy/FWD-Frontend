@@ -130,3 +130,7 @@ const context = useContext(UserContext);
 - we use !! dobuble NOT operator to convert something as a boolean. 
 ex: const isError = !!error
 - if error value is falsy, it will be false. if truthy, converts it to true.
+
+## React.Dispatch<>
+- it defines a function and returns nothing. 
+

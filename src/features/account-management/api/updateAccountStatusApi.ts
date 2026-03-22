@@ -6,7 +6,7 @@ type UpdateStatuspayload = {
   status: Status
 }
 
-export async function updateAccountStatus({employeeId, status}: UpdateStatuspayload) {
+export async function updateAccountStatusApi({employeeId, status}: UpdateStatuspayload) {
   const response = await fetch(
     `${API_BASE_URL}/superadmin/management/status?employee=${employeeId}`,
     {
