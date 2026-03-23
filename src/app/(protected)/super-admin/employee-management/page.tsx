@@ -17,7 +17,12 @@ export default function EmployeeList() {
 
   return (
     <ContentLayout title="Employees">
-      <AccountsTable accounts={accounts} loading={isLoading} error={!!error} showAction={false}/>
+      <AccountsTable 
+      accounts={accounts} 
+      loading={isLoading} error={!!error} 
+      showAction={false}
+      tableType={UserRole.EMPLOYEE}
+      />
 
       <AddAccountDialog
         open={open}

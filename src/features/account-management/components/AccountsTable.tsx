@@ -13,8 +13,9 @@ type AccountsTableProps = {
     loading? : boolean
     error?: boolean
     showAction?: boolean
+    tableType: UserRole.ADMIN | UserRole.EMPLOYEE
 }
-export default function AccountsTable({accounts, loading, error, showAction } : AccountsTableProps) {
+export default function AccountsTable({accounts, loading, error, showAction, tableType } : AccountsTableProps) {
     const user = useUser();
     const statusStyles: Partial<Record<Status, string>> = {
         [Status.PENDING]: "bg-yellow-100 text-yellow-600",
@@ -56,9 +57,18 @@ export default function AccountsTable({accounts, loading, error, showAction } : 
                 {!loading && !error && accounts.length === 0 && (
                 <TableRow>
                     <TableCell colSpan={6} className="text-center py-8">
-                    {user.role === UserRole.SUPER_ADMIN 
-                    ? (<>No admin accounts yet. Click <span className="font-bold">Add Admin</span> to create one.</> )
-                    : (<>No employee accounts yet. Click <span className="font-bold">Add Employee</span> to create one.</>) }
+                    {tableType === UserRole.ADMIN ? (
+                        <>No admin accounts yet. Click <span className="font-bold">Add Admin</span> to create one.</> )
+                    : (
+                        <>
+                        No employee accounts yet.{user.role == UserRole.ADMIN && (
+                            <>
+                            {" "} Click {" "}
+                            <span className="font-bold">Add Employee</span> to create one.
+                            </>
+                        )} 
+                        </>
+                    )}
                     </TableCell>
                 </TableRow>
                 )}

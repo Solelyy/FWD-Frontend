@@ -47,6 +47,7 @@ export function Actions({ account }: { account: AccountInfo }) {
     action: ActionProps,
     extra?: { startDate: string; endDate: string },
   ) => {
+    if (isPending) return;
     const actionHandlers = {
       [ActionEnum.ACTIVATE]: () =>
         updateStatus.mutateAsync({
@@ -63,7 +64,9 @@ export function Actions({ account }: { account: AccountInfo }) {
         }),
 
       [ActionEnum.RESEND]: () =>
-        resendInvite.mutateAsync({ email: account.email, role: account.role }),
+        resendInvite.mutateAsync({ 
+          email: account.email, 
+          role: account.role }),
 
       [ActionEnum.SUSPEND]: () =>
         suspendAccount.mutateAsync({
@@ -75,10 +78,13 @@ export function Actions({ account }: { account: AccountInfo }) {
         }),
 
       [ActionEnum.REMOVE]: () =>
-        removeAccount.mutateAsync({ employeeId: account.employeeId, role: account.role }),
+        removeAccount.mutateAsync({ 
+          employeeId: account.employeeId, 
+          role: account.role }),
     };
 
     await actionHandlers[action.targetAction]?.();
+    setOpen(false);
   };
 
   return (

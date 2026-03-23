@@ -12,10 +12,12 @@ export async function verifyToken(): Promise<AuthUser> {
       headers: {
         cookie: cookie ?? "",
       },
-      cache: "no-store",
+      //cache: "no-store",
+      next: { revalidate: 60 }, // only refetch at most once per 60 seconds
+
     }
   );
-
+  console.log("VERIFY TOKEN CALLED");
   if (!response.ok) {
     throw new Error("Invalid token");
   }

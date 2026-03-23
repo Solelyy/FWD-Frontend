@@ -15,6 +15,8 @@ export async function getAccounts(role: UserRole.ADMIN | UserRole.EMPLOYEE) {
 
     const result =await response.json();
 
+    console.log("FETCHING ACCOUNTS:", role);
+
     if (!result || !result.data) return [];
     return result.data;
 }

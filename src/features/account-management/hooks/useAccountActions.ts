@@ -42,7 +42,10 @@ export function useAccountActions() {
         : "Account sucessfully activated"
       );
 
-      queryClient.invalidateQueries({ queryKey: ["accounts", role], });
+      queryClient.invalidateQueries({ 
+        queryKey: ["accounts", role],
+        refetchType: "active" 
+      });
     },
 
     onError: () => {
@@ -55,7 +58,10 @@ export function useAccountActions() {
     suspendAccountApi({employeeId, status, startDate, endDate}),
     onSuccess: (_, {role}) => {
       toast.success("Account successfully suspended.")
-      queryClient.invalidateQueries({ queryKey: ["accounts", role] });
+      queryClient.invalidateQueries({ 
+        queryKey: ["accounts", role],
+        refetchType: "active" 
+      });
     },
     onError: () => {
       toast.error(errorMsg)
@@ -67,7 +73,10 @@ export function useAccountActions() {
       removeAccountApi({employeeId}),
     onSuccess: (_, {role}) => {
       toast.success("Account successfully removed.")
-      queryClient.invalidateQueries({ queryKey: ["accounts", role] })
+      queryClient.invalidateQueries({ 
+        queryKey: ["accounts", role],
+        refetchType: "active"
+      })
     },
     onError: () => {
       toast.error(errorMsg)
@@ -79,7 +88,10 @@ export function useAccountActions() {
       resendInviteApi({email}),
     onSuccess: (_, {role}) => {
       toast.success("Email invitation is sent successfully.")
-      queryClient.invalidateQueries({ queryKey: ["accounts", role] })
+      queryClient.invalidateQueries({ 
+        queryKey: ["accounts", role],
+        refetchType: "active"
+      })
     },
     onError: () => {
       toast.error(errorMsg)

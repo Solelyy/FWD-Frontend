@@ -24,10 +24,10 @@ export default function AdminManagement() {
                 <AccountsTable 
                     accounts={accounts}
                     loading= {isLoading}
-                    error= {!!error}
-                    showAction= {true} 
-                    // !! is a boolean conversion, ex: convert null to false 
+                    error= {!!error} // !! is a boolean conversion, ex: convert null to false 
                     // since we expect boolean value in our AccountsTableProps that is why we need to convert it in boolean.
+                    showAction= {true} 
+                    tableType={UserRole.ADMIN}
                 />
                 
                 <AddAccountDialog open= {open} setOpen= {setOpen} role= {UserRole.ADMIN}/>

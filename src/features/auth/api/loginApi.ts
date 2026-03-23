@@ -18,6 +18,8 @@ export async function loginAuth(data: LoginCredentials) {
     return getAuthError("other");
   }
   console.log("login status:", response.status);
+  console.log("Calling login")
+
   return null; // success
 }
 
@@ -30,6 +32,7 @@ export async function getUser() {
 
     if (!response.ok) return { error: getAuthError("other") };
 
+    console.log("Calling login")
     const user = await response.json();
     return { user };
   } catch (e) {

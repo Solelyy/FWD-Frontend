@@ -14,8 +14,8 @@ export async function suspendAccountApi({
   startDate,
   endDate,
 }: SuspendAccountPayload) {
-    const response = await fetch(`${API_BASE_URL}/superadmin/management/employment?employeeId=${employeeId}`, {
-        method: "POST",
+    const response = await fetch(`${API_BASE_URL}/superadmin/management/employment?employee=${employeeId}`, {
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({status, startDate, endDate}),
