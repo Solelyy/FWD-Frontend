@@ -63,7 +63,7 @@ export function Actions({ account }: { account: AccountInfo }) {
         }),
 
       [ActionEnum.RESEND]: () =>
-        resendInvite.mutateAsync({ email: account.email }),
+        resendInvite.mutateAsync({ email: account.email, role: account.role }),
 
       [ActionEnum.SUSPEND]: () =>
         suspendAccount.mutateAsync({
@@ -75,7 +75,7 @@ export function Actions({ account }: { account: AccountInfo }) {
         }),
 
       [ActionEnum.REMOVE]: () =>
-        removeAccount.mutateAsync({ employeeId: account.employeeId }),
+        removeAccount.mutateAsync({ employeeId: account.employeeId, role: account.role }),
     };
 
     await actionHandlers[action.targetAction]?.();

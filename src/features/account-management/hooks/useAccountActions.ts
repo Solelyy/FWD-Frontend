@@ -22,6 +22,11 @@ type ResendInviteVariable = {
   role: AccountInfo["role"]
 }
 
+type RemoveAccountVariable = {
+  employeeId: AccountInfo["employeeId"],
+  role: AccountInfo["role"]
+}
+
 
 export function useAccountActions() {
   const queryClient = useQueryClient();
@@ -43,14 +48,15 @@ export function useAccountActions() {
   });
 
   const removeAccount = useMutation({
-    mutationFn: removeAccountApi,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["accounts"] }),
+    mutationFn: ({employeeId}: RemoveAccountVariable)=> 
+      removeAccountApi({employeeId}),
+    onSuccess: (_, {role}) => queryClient.invalidateQueries({ queryKey: ["accounts", role] }),
   });
 
   const resendInvite = useMutation({
-    mutationFn: ({email, role}: ResendInviteVariable) => 
+    mutationFn: ({email}: ResendInviteVariable) => 
       resendInviteApi({email}),
-    onSuccess(_, {role}) => {
+    onSuccess: (_, {role}) => {
       queryClient.invalidateQueries({ queryKey: ["accounts", role] })
     }
   });

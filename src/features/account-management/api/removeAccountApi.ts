@@ -12,7 +12,6 @@ export async function removeAccountApi({employeeId}: {employeeId: AccountInfo["e
             "Content-Type": "application/json",
           },
           credentials: "include",
-          body: JSON.stringify({ status }),
         },
       );
     
