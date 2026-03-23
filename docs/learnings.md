@@ -134,3 +134,19 @@ ex: const isError = !!error
 ## React.Dispatch<>
 - it defines a function and returns nothing. 
 
+## Rate Limiting
+- when the api is being hit multiple times at the same time by the same user. 
+- it is being triggered when the components are calling it. 
+
+## cache: {next: revalidate}
+- this revalidate the request ex:token every x seconds
+- this is better than no-store (depends on the situation) because it has staletime so it doesnt call the api every seconds
+- for example for 60 secs: 
+  cache: {
+    next: revalidate: 60
+  }
+
+## Memoization 
+- it is a programming pattern where we store the result of a function so we can call it with the same inputs
+- reuse stored result instead of recalculating or refetching
+

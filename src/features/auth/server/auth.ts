@@ -25,9 +25,7 @@ export async function requireAuth(): Promise<AuthUser> {
   }
 }
 
-export async function requireRole(role: UserRole) {
-  const user = await requireAuth();
-
+export function requireRole(role: UserRole, user: AuthUser) {
   if (user.role !== role) {
     redirect("/unauthorized");
   }
