@@ -10,7 +10,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { MoreHorizontalIcon } from "lucide-react";
 import type { ActionProps } from "@/features/account-management/types/actions";
-import { ActionEnum, getActionsByStatus } from "@/features/account-management/types/actions";
+import {
+  ActionEnum,
+  getActionsByStatus,
+} from "@/features/account-management/types/actions";
 import { useState } from "react";
 import ActionDialog from "./ActionDialog";
 import { AccountInfo } from "../types/account";
@@ -30,47 +33,50 @@ export function Actions({ account }: { account: AccountInfo }) {
     console.log(action.targetAction, account);
   }
 
-  const {
-    updateStatus,
-    suspendAccount,
-    removeAccount,
-    resendInvite,
-  } = useAccountActions();
+  const { updateStatus, suspendAccount, removeAccount, resendInvite } =
+    useAccountActions();
 
-  const isPending = 
-    updateStatus.isPending || 
-    suspendAccount.isPending || 
-    removeAccount.isPending || 
+  const isPending =
+    updateStatus.isPending ||
+    suspendAccount.isPending ||
+    removeAccount.isPending ||
     resendInvite.isPending;
 
   const handleConfirm = async (
-    account: AccountInfo, 
-    action: ActionProps, 
-    extra?: {startDate: string, endDate: string}
+    account: AccountInfo,
+    action: ActionProps,
+    extra?: { startDate: string; endDate: string },
   ) => {
     const actionHandlers = {
-    [ActionEnum.ACTIVATE]: () => 
-      updateStatus.mutateAsync({ employeeId: account.employeeId, status: Status.ACTIVE, role: account.role }),
+      [ActionEnum.ACTIVATE]: () =>
+        updateStatus.mutateAsync({
+          employeeId: account.employeeId,
+          status: Status.ACTIVE,
+          role: account.role,
+        }),
 
-    [ActionEnum.INACTIVATE]: () => 
-      updateStatus.mutateAsync({ employeeId: account.employeeId, status: Status.INACTIVE, role:account.role }),
+      [ActionEnum.INACTIVATE]: () =>
+        updateStatus.mutateAsync({
+          employeeId: account.employeeId,
+          status: Status.INACTIVE,
+          role: account.role,
+        }),
 
-    [ActionEnum.RESEND]: () => 
-      resendInvite.mutateAsync({ email: account.email }),
-    
-    
-    [ActionEnum.SUSPEND]: () => 
-      suspendAccount.mutateAsync({ 
-        employeeId: account.employeeId, 
-        status: Status.SUSPENDED, 
-        role: account.role, 
-        startDate: extra!.startDate, 
-        endDate: extra!.endDate,
-      }), 
+      [ActionEnum.RESEND]: () =>
+        resendInvite.mutateAsync({ email: account.email }),
 
-    [ActionEnum.REMOVE]: () =>
-      removeAccount.mutateAsync({ employeeId: account.employeeId})
-    }
+      [ActionEnum.SUSPEND]: () =>
+        suspendAccount.mutateAsync({
+          employeeId: account.employeeId,
+          status: Status.SUSPENDED,
+          role: account.role,
+          startDate: extra!.startDate,
+          endDate: extra!.endDate,
+        }),
+
+      [ActionEnum.REMOVE]: () =>
+        removeAccount.mutateAsync({ employeeId: account.employeeId }),
+    };
 
     await actionHandlers[action.targetAction]?.();
   };
@@ -110,8 +116,6 @@ export function Actions({ account }: { account: AccountInfo }) {
         onConfirm={handleConfirm}
         isPending={isPending}
       />
-
-
     </>
   );
 }

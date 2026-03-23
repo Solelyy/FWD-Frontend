@@ -9,12 +9,17 @@ import { UserRole } from "@/lib/types/roles";
 interface UpdateAccountVariables  {
   employeeId: AccountInfo["employeeId"],
   status: Status
-  role: UserRole
+  role: AccountInfo["role"]
 }
 
 interface SuspendAccountVariables extends UpdateAccountVariables {
   startDate: string, 
   endDate:string
+}
+
+type ResendInviteVariable = {
+  email: AccountInfo["email"]
+  role: AccountInfo["role"]
 }
 
 
@@ -43,7 +48,11 @@ export function useAccountActions() {
   });
 
   const resendInvite = useMutation({
-    mutationFn: resendInviteApi,
+    mutationFn: ({email, role}: ResendInviteVariable) => 
+      resendInviteApi({email}),
+    onSuccess(_, {role}) => {
+      queryClient.invalidateQueries({ queryKey: ["accounts", role] })
+    }
   });
 
   return {
