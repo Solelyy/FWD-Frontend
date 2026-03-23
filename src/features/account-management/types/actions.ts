@@ -10,6 +10,7 @@ export enum ActionEnum {
 
 export type ActionProps = {
   label: string;
+  pendingLabel: string
   variant?: "destructive";      // for destructive styling
   targetAction: ActionEnum;
   confirmTitle: string
@@ -21,6 +22,7 @@ export type ActionProps = {
 export const actionConfig: Record<ActionEnum, ActionProps> = {
   [ActionEnum.ACTIVATE] : {
     label: "Activate",
+    pendingLabel: "Activating...",
     targetAction: ActionEnum.ACTIVATE,
     confirmTitle: "Confirm Activation",
     confirmMessage: "Are you sure you want to activate this account?",
@@ -29,6 +31,7 @@ export const actionConfig: Record<ActionEnum, ActionProps> = {
 
   [ActionEnum.INACTIVATE] : {
     label: "Inactivate",
+    pendingLabel: "Inactivating...",
     targetAction: ActionEnum.INACTIVATE,
     confirmTitle: "Confirm Inactivation",
     confirmMessage: "Are you sure you want to inactivate this account?",
@@ -37,6 +40,7 @@ export const actionConfig: Record<ActionEnum, ActionProps> = {
 
   [ActionEnum.RESEND] : {
     label: "Resend Invitation",
+    pendingLabel: "Resending...",
     targetAction: ActionEnum.RESEND,
     confirmTitle: "Confirm Resend Invite",
     confirmMessage: "Are you sure you want to resend the account invitation?",
@@ -45,6 +49,7 @@ export const actionConfig: Record<ActionEnum, ActionProps> = {
 
   [ActionEnum.REMOVE] : {
     label: "Remove",
+    pendingLabel: "Removing Account...",
     targetAction: ActionEnum.REMOVE,
     confirmTitle: "Confirm Removal",
     confirmMessage: "Are you sure you want to remove?",
@@ -53,6 +58,7 @@ export const actionConfig: Record<ActionEnum, ActionProps> = {
   },
   [ActionEnum.SUSPEND]: {
     label: "Suspend",
+    pendingLabel: "Suspending...",
     targetAction: ActionEnum.SUSPEND,
     confirmTitle: "Confirm Suspension",
     confirmMessage: "Are you sure you want to suspend this account?",

@@ -45,7 +45,6 @@ export default function ActionDialog({
             });
         } else {
             await onConfirm?.(account, action)
-
         }
         setOpen(false)
     }
@@ -84,7 +83,7 @@ export default function ActionDialog({
                 
                 <DialogFooter className="flex flex-col-reverse gap-2">
                         <Button className="order-1" onClick={handleConfirm} disabled={isPending}>
-                            {action.confirmActionMessage}
+                            {isPending ? action.pendingLabel : action.confirmActionMessage }
                         </Button>
 
                         <Button variant="ghost" onClick={handleCancel}>
