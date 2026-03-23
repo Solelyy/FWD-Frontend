@@ -33,7 +33,9 @@ export default function AccountsTable({accounts, loading, error} : AccountsTable
                     <TableHead>Email</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Invitation Date</TableHead>
-                    <TableHead>Actions</TableHead>
+                    {user.role === UserRole.ADMIN && (
+                        <TableHead>Actions</TableHead>
+                    )}
                 </TableRow>
             </TableHeader>
 
@@ -84,9 +86,12 @@ export default function AccountsTable({accounts, loading, error} : AccountsTable
                             {formatDateTime(account.invitationDate)}
                         </TableCell>
                         
-                        <TableCell>
+                        {user.role === UserRole.ADMIN && (
+                            <TableCell>
                             <Actions account={account}/>
                         </TableCell>
+                        )}
+                        
                     </TableRow> 
                 ))}
             </TableBody>
