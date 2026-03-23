@@ -25,6 +25,7 @@ export default function EmployeeManagement() {
                     accounts={accounts}
                     loading= {isLoading}
                     error= {!!error}
+                    showAction= {true}
                 />
                 
                 <AddAccountDialog open= {open} setOpen= {setOpen} role= {UserRole.EMPLOYEE}/>

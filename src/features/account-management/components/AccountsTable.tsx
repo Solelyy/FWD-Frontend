@@ -12,8 +12,9 @@ type AccountsTableProps = {
     accounts: AccountInfo[],
     loading? : boolean
     error?: boolean
+    showAction?: boolean
 }
-export default function AccountsTable({accounts, loading, error} : AccountsTableProps) {
+export default function AccountsTable({accounts, loading, error, showAction } : AccountsTableProps) {
     const user = useUser();
     const statusStyles: Partial<Record<Status, string>> = {
         [Status.PENDING]: "bg-yellow-100 text-yellow-600",
@@ -33,7 +34,7 @@ export default function AccountsTable({accounts, loading, error} : AccountsTable
                     <TableHead>Email</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Invitation Date</TableHead>
-                    {user.role === UserRole.ADMIN && (
+                    {showAction && (
                         <TableHead>Actions</TableHead>
                     )}
                 </TableRow>
@@ -86,7 +87,7 @@ export default function AccountsTable({accounts, loading, error} : AccountsTable
                             {formatDateTime(account.invitationDate)}
                         </TableCell>
                         
-                        {user.role === UserRole.ADMIN && (
+                        {showAction && (
                             <TableCell>
                             <Actions account={account}/>
                         </TableCell>

@@ -24,7 +24,8 @@ export default function AdminManagement() {
                 <AccountsTable 
                     accounts={accounts}
                     loading= {isLoading}
-                    error= {!!error} 
+                    error= {!!error}
+                    showAction= {true} 
                     // !! is a boolean conversion, ex: convert null to false 
                     // since we expect boolean value in our AccountsTableProps that is why we need to convert it in boolean.
                 />
