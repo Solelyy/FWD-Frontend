@@ -9,7 +9,7 @@ import {useForm} from "react-hook-form"
 import { FormMessage } from "@/components/ui/form-message"
 import { useAutoDismiss } from "@/lib/hooks/useAutoDismiss"
 import { useRouter } from "next/navigation"
-import { loginAuth, getUser } from "@/features/auth/api/loginApi"
+import { loginAuth, } from "@/features/auth/api/loginApi"
 import { getAuthError } from "@/features/auth/util/auth-error"
 import type { LoginCredentials } from "@/lib/types/auth-user"
 import { UserRole } from "@/lib/types/roles"
@@ -28,30 +28,30 @@ export default function Login() {
 
   const onSubmit = async (data: LoginCredentials) => {
     try {
-      const loginError = await loginAuth(data);
+      const {user, error } = await loginAuth(data);
+      if (error) return setErrorMsg(error);
 
-      if (loginError !== null) {
-        setErrorMsg(loginError);
-        return;
-      }
+      if (!user) return setErrorMsg(getAuthError("other"));
 
-      const { user, error }= await getUser();
-
-      if (error ) {
-        setErrorMsg(error)
-        console.log(error)
-        return;
-      }
-      
       //redirect based on role
       setIsRedirecting(true);
-      if (user.role === UserRole.ADMIN) router.replace("/admin");
-      else if (user.role === UserRole.SUPER_ADMIN) router.replace("/super-admin")
-      else if (user.role === UserRole.EMPLOYEE) router.replace("/employee")
-      else setErrorMsg(getAuthError("other"));
-    } catch (err) {
-      console.error("Login error: ", err)
-      setErrorMsg(getAuthError("other"))
+
+      switch (user.role) {
+        case UserRole.ADMIN:
+          router.replace("/admin");
+          break;
+        case UserRole.SUPER_ADMIN:
+          router.replace("/super-admin");
+          break;
+        case UserRole.EMPLOYEE:
+          router.replace("/employee");
+          break;
+        default:
+          setErrorMsg(getAuthError("other"));
+        } 
+      } catch (err) {
+        console.error("Login error: ", err)
+        setErrorMsg(getAuthError("other"))
     }
   }
   
@@ -120,4 +120,3 @@ export default function Login() {
     </div>
   );
 }
-  

@@ -12,8 +12,8 @@ export async function verifyToken(): Promise<AuthUser> {
       headers: {
         cookie: cookie ?? "",
       },
-      //cache: "no-store",
-      next: { revalidate: 60 }, // only refetch at most once per 60 seconds
+      cache: "no-store",
+      //next: { revalidate: 60 }, // only refetch at most once per 60 seconds but not best for auth
 
     }
   );

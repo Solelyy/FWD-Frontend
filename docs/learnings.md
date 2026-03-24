@@ -90,8 +90,32 @@ const context = useContext(UserContext);
 * Example: Sign up
 - tells browser that the user is creating a password and might suggest a strong one.
 <Input type="password" autoComplete="new-password">
+  
+## Boolean conversion
+- we use !! dobuble NOT operator to convert something as a boolean. 
+ex: const isError = !!error
+- if error value is falsy, it will be false. if truthy, converts it to true.
 
-## React Query
+## React.Dispatch<>
+- it defines a function and returns nothing. 
+
+## Rate Limiting
+- when the api is being hit multiple times at the same time by the same user. 
+- it is being triggered when the components are calling it. 
+
+## cache: {next: revalidate}
+- this revalidate the request ex:token every x seconds
+- this is better than no-store (depends on the situation) because it has staletime so it doesnt call the api every seconds
+- for example for 60 secs: 
+  cache: {
+    next: revalidate: 60
+  }
+
+## Memoization 
+- it is a programming pattern where we store the result of a function so we can call it with the same inputs
+- reuse stored result instead of recalculating or refetching
+
+## React Query (TanStack Query)
 - data-fetching and caching library for React
 - instead of manually using useState + useEffect for api calls, react query :
     * handles fetching, caching, and updating data automatically
@@ -125,28 +149,13 @@ const context = useContext(UserContext);
 
   * useQuery - fetch data
   * useMutation - change data
-  
-## Boolean conversion
-- we use !! dobuble NOT operator to convert something as a boolean. 
-ex: const isError = !!error
-- if error value is falsy, it will be false. if truthy, converts it to true.
 
-## React.Dispatch<>
-- it defines a function and returns nothing. 
+### refetchType 
+- this is the kind of refetch we want when we invalidate a query
 
-## Rate Limiting
-- when the api is being hit multiple times at the same time by the same user. 
-- it is being triggered when the components are calling it. 
 
-## cache: {next: revalidate}
-- this revalidate the request ex:token every x seconds
-- this is better than no-store (depends on the situation) because it has staletime so it doesnt call the api every seconds
-- for example for 60 secs: 
-  cache: {
-    next: revalidate: 60
-  }
 
-## Memoization 
-- it is a programming pattern where we store the result of a function so we can call it with the same inputs
-- reuse stored result instead of recalculating or refetching
 
+## cache 
+- import { cache } from "react";
+- in this way we can use caching, for us to get the cache result and doesnt need to call to api again.
