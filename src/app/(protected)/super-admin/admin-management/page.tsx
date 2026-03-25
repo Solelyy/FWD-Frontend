@@ -7,6 +7,7 @@ import { AddAccountDialog } from "@/features/account-management/components/AddAc
 import AccountsTable from "@/features/account-management/components/AccountsTable";
 import { UserRole } from "@/lib/types/roles";
 import { useAccounts } from "@/features/account-management/hooks/useAccount";
+import { UserRoundPlus } from "lucide-react";
 
 export default function AdminManagement() {
     const [ open, setOpen ] = useState(false);
@@ -16,7 +17,9 @@ export default function AdminManagement() {
         <ContentLayout title="Admin Management">
             <div className="flex flex-col gap-8">
                 <div className="flex justify-end">
+                    
                     <Button onClick= {() => setOpen(true)}>
+                        <UserRoundPlus />
                         Add Admin
                     </Button>
                 </div>

@@ -1,7 +1,7 @@
 import { ModeToggle } from "@/components/providers/ModeToggle";
 import { UserNav } from "@/components/layout/panel/user-nav";
 import { SheetMenu } from "@/components/layout/panel/sheet-menu";
-import { Bell } from "lucide-react";
+import Notifications from "@/components/shared/Notifications";
 
 interface NavbarProps {
   title: string;
@@ -16,7 +16,7 @@ export function Navbar({ title }: NavbarProps) {
           <h1 className="font-bold">{title}</h1>
         </div>
         <div className="flex flex-1 items-center justify-end">
-          <Bell size={20}/>
+          <Notifications />
           <ModeToggle />
           <UserNav />
         </div>

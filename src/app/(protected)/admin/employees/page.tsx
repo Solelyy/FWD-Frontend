@@ -7,6 +7,7 @@ import { AddAccountDialog } from "@/features/account-management/components/AddAc
 import { UserRole } from "@/lib/types/roles";
 import { useAccounts } from "@/features/account-management/hooks/useAccount";
 import AccountsTable from "@/features/account-management/components/AccountsTable";
+import { UserRoundPlus } from "lucide-react";
 
 export default function EmployeeManagement() {
     const [ open, setOpen ] = useState(false);
@@ -17,6 +18,7 @@ export default function EmployeeManagement() {
             <div className="flex flex-col gap-8">
                 <div className="flex justify-end">
                     <Button onClick= {() => setOpen(true)}>
+                        <UserRoundPlus />
                         Add Employee
                     </Button>
                 </div>

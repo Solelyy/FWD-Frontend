@@ -43,7 +43,7 @@ export default function AccountsTable({accounts, loading, error, showAction, tab
 
             <TableBody>
                 {loading && (
-                <SkeletonTableRows />
+                <SkeletonTableRows showAction={showAction}/>
                 )}
 
                 {error && (
