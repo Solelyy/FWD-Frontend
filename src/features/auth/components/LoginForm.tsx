@@ -29,9 +29,17 @@ export default function Login() {
   const onSubmit = async (data: LoginCredentials) => {
     try {
       const {user, error } = await loginAuth(data);
-      if (error) return setErrorMsg(error);
+      if (error) {
+        setErrorMsg(error);
+        console.error("Error:", error);
 
-      if (!user) return setErrorMsg(getAuthError("other"));
+        return;
+      }
+
+      if (!user) {
+        setErrorMsg(getAuthError("other"));
+        return
+      } 
 
       //redirect based on role
       setIsRedirecting(true);
@@ -47,11 +55,18 @@ export default function Login() {
           router.replace("/employee");
           break;
         default:
+          console.error(`Error: ${error}`);
+          console.error(`User: ${user}`);
           setErrorMsg(getAuthError("other"));
-        } 
+          setIsRedirecting(false);
+          return; 
+        }
       } catch (err) {
         console.error("Login error: ", err)
         setErrorMsg(getAuthError("other"))
+        setIsRedirecting(false)
+    } finally {
+      console.log({ isSubmitting, isRedirecting });
     }
   }
   

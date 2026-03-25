@@ -13,13 +13,22 @@ Promise<{ user: AuthUser | null; error: string | null }> {
   });
 
   if (!response.ok) {
+    console.error("Login failed:", {
+    status: response.status,
+    statusText: response.statusText,
+  });
+
     if (response.status === 429) return { user: null, error: getAuthError("locked") };
     if (response.status === 404) return { user: null, error: getAuthError("blocked") };
     if (response.status === 400 || response.status === 401) return { user: null, error: getAuthError("default") };
+    if (response.status === 401) return { user: null, error: getAuthError("blocked") }; // inactive/suspended/removed
+
+
     return { user: null, error: getAuthError("other") };
   }
 
-  console.log("LOGGING IN");
-  const user: AuthUser = await response.json();
+  console.log("LOGGING IN...");
+  const result = await response.json();
+  const user: AuthUser = result.data.user;
   return { user, error: null };
 }

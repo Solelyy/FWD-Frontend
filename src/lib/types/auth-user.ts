@@ -7,7 +7,7 @@ export type AuthUser = {
   firstname: string;
   lastname: string;
   email: string;
-  dataPolicyAccepted: boolean;
+  isDataPolicyAccepted: boolean;
 };
 
 export type LoginCredentials = {
