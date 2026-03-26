@@ -13,7 +13,7 @@ export enum ActionEnum {
 export type ActionProps = {
   label: string;
   pendingLabel: string
-  variant?: "destructive";      // for destructive styling
+  variant?: "destructive";
   targetAction: ActionEnum;
   confirmTitle: string
   confirmMessage: string
@@ -97,7 +97,7 @@ export const statusActions: Record <AccountInfo["status"], ActionEnum[]> = {
     ActionEnum.REMOVE
   ],
   REMOVED: [
-    //nothing
+    ActionEnum.ACTIVATE
   ]
 }
 

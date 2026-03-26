@@ -17,12 +17,13 @@ type AccountsTableProps = {
 }
 export default function AccountsTable({accounts, loading, error, showAction, tableType } : AccountsTableProps) {
     const user = useUser();
-    const statusStyles: Partial<Record<Status, string>> = {
+    const statusStyles: Record<Status, string> = {
         [Status.PENDING]: "bg-yellow-100 text-yellow-600",
         [Status.ACTIVE]: "bg-green-100 text-green-600",
         [Status.INACTIVE]: "bg-gray-100 text-gray-600",
         [Status.SUSPENDED]: "bg-red-100 text-red-600",
         [Status.EXPIRED]: "bg-orange-100 text-orange-600",
+        [Status.REMOVED]: "bg-red-100 text-red-600"
     }
 
     return (
