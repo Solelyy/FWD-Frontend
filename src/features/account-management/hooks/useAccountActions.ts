@@ -33,8 +33,8 @@ export function useAccountActions() {
   const errorMsg = "Unable to do the action, please try again."
 
   const updateStatus = useMutation({
-    mutationFn: ({employeeId, status, }: UpdateAccountVariables)=> 
-      updateAccountStatusApi({employeeId, status}),
+    mutationFn: ({employeeId, status, role }: UpdateAccountVariables)=> 
+      updateAccountStatusApi({employeeId, status, role}),
     onSuccess: (_, {role, status}) => {
       toast.success (
         status === Status.INACTIVE

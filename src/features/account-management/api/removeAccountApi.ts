@@ -9,8 +9,8 @@ type RemoveAccountPayload = {
 
 export async function removeAccountApi({employeeId, role}: RemoveAccountPayload) {
     const endpoint = role === UserRole.ADMIN
-        ? "/superadmin/management/remove-user?"
-        : "/admin/management/remove-user?";
+      ? "/superadmin/management/remove-user?"
+      : "/admin/management/remove-user?";
 
     console.log(`User role: ${role}`);
     const response = await fetch(
