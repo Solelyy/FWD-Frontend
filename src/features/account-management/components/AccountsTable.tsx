@@ -7,15 +7,9 @@ import { SkeletonTableRows } from "@/components/skeletons/TableRows";
 import { useUser } from "@/components/providers/UserContext"
 import { UserRole } from "@/lib/types/roles";
 import { Status } from "@/features/account-management/types/account";
+import { AccountsTableProps } from "../types/table";
 
-type AccountsTableProps = {
-    accounts: AccountInfo[],
-    loading? : boolean
-    error?: boolean
-    showAction?: boolean
-    tableType: UserRole.ADMIN | UserRole.EMPLOYEE
-}
-export default function AccountsTable({accounts, loading, error, showAction, tableType } : AccountsTableProps) {
+export default function AccountsTable({accounts, loading, error, showAction, tableType, visibleColumns} : AccountsTableProps) {
     const user = useUser();
     const statusStyles: Record<Status, string> = {
         [Status.PENDING]: "bg-yellow-100 text-yellow-600",
@@ -26,19 +20,22 @@ export default function AccountsTable({accounts, loading, error, showAction, tab
         [Status.REMOVED]: "bg-red-100 text-red-600"
     }
 
+    //for columns visibility use in dashboards
+    const columns = visibleColumns && visibleColumns.length > 0
+    ? visibleColumns
+    : ["id","name","email","status","invitationDate"];
+
     return (
         <div className="overflow-x-auto">
         <Table>
             <TableHeader className="bg-[#FFEB94]/40">
                 <TableRow>
-                    <TableHead>Employee ID</TableHead>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Invitation Date</TableHead>
-                    {showAction && (
-                        <TableHead>Actions</TableHead>
-                    )}
+                    {columns.includes("id") && <TableHead>Employee ID</TableHead>}
+                    {columns.includes("name") && <TableHead>Name</TableHead>}
+                    {columns.includes("email") && <TableHead>Email</TableHead>}
+                    {columns.includes("status") && <TableHead>Status</TableHead>}
+                    {columns.includes("invitationDate") && <TableHead>Invitation Date</TableHead>}
+                    {showAction && <TableHead>Actions</TableHead>}
                 </TableRow>
             </TableHeader>
 
@@ -76,34 +73,42 @@ export default function AccountsTable({accounts, loading, error, showAction, tab
 
                 {!loading && !error && accounts.map((account) => (
                    <TableRow key={account.employeeId} >
-                        <TableCell className="font-medium">
-                            {account.employeeId}
-                        </TableCell>
+                        {columns.includes("id") && 
+                            <TableCell className="font-medium"> 
+                                {account.employeeId} 
+                            </TableCell>
+                        }
 
-                        <TableCell>
-                            {fullName(account.firstname, account.lastname)}
-                        </TableCell>
+                        {columns.includes("name") && 
+                            <TableCell> 
+                                {fullName(account.firstname, account.lastname)} 
+                                </TableCell>}
+
+                        {columns.includes("email") && 
+                            <TableCell className="max-w-30 sm:max-w-40 overflow-auto">
+                                {account.email}
+                            </TableCell>
+                        }
                         
-                        <TableCell className="max-w-30 sm:max-w-40 overflow-auto">
-                            {account.email}
-                        </TableCell>
-
-                        <TableCell>
-                            <span className={`px-2 py-1 text-xs font-medium rounded-md ${statusStyles[account.status]}`}>
-                                {account.status}
-                            </span>
-                        </TableCell>
-
-                        <TableCell>
-                            {formatDateTime(account.invitationDate)}
-                        </TableCell>
+                        {columns.includes("status") && 
+                            <TableCell>
+                                <span className={`px-2 py-1 text-xs font-medium rounded-md ${statusStyles[account.status]}`}>
+                                    {account.status}
+                                </span>
+                            </TableCell>
+                        }
+                        
+                        {columns.includes("invitationDate") && 
+                            <TableCell>
+                                {formatDateTime(account.invitationDate)}
+                            </TableCell>
+                        }
                         
                         {showAction && (
                             <TableCell>
-                            <Actions account={account}/>
-                        </TableCell>
+                                <Actions account={account}/>
+                            </TableCell>
                         )}
-                        
                     </TableRow> 
                 ))}
             </TableBody>

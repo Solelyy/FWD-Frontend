@@ -11,7 +11,7 @@ type CardLayoutProps = {
 const iconStyle = "w-6 h-6 text-yellow-400 flex-shrink-0"
 export function CardLayout({title, icon, dataCount, isLoading} : CardLayoutProps) {
     return (
-        <Card className="w-full h-30">
+        <Card className="w-full h-auto">
             <CardHeader >
                 <CardTitle className="font-medium">{title}</CardTitle>
             </CardHeader>

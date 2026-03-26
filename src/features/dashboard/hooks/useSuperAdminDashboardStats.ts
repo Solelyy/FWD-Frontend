@@ -14,6 +14,8 @@ export function useSuperAdminDashboardStats() {
     ).length;
 
     return {
+        admins,
+        employees,
         totalAdmins, 
         totalEmployees,
         activeAccounts,
