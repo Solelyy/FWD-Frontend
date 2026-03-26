@@ -1,11 +1,20 @@
 import { AccountInfo } from "../types/account";
 import { API_BASE_URL } from "@/lib/util/api";
+import { UserRole } from "@/lib/types/roles";
 
-export async function removeAccountApi({employeeId}: {employeeId: AccountInfo["employeeId"]}) {
-    const endpoint = "/superadmin/management/remove-user?";
+type RemoveAccountPayload = {
+    employeeId: AccountInfo["employeeId"];
+    role: AccountInfo["role"]
+}
 
+export async function removeAccountApi({employeeId, role}: RemoveAccountPayload) {
+    const endpoint = role === UserRole.ADMIN
+        ? "/superadmin/management/remove-user?"
+        : "/admin/management/remove-user?";
+
+    console.log(`User role: ${role}`);
     const response = await fetch(
-        `${API_BASE_URL}${endpoint}/employeeId=${employeeId}`,
+        `${API_BASE_URL}${endpoint}employee=${employeeId}`,
         {
           method: "PATCH",
           headers: {
@@ -16,7 +25,7 @@ export async function removeAccountApi({employeeId}: {employeeId: AccountInfo["e
       );
     
       if (!response.ok) {
-        throw new Error("Failed to update account status.");
+        throw new Error("Failed to remove this account.");
       }
       return response.json();
 

@@ -98,19 +98,33 @@ export function Actions({ account }: { account: AccountInfo }) {
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end">
-          {actions.map((action, idx) => (
+          {actions.map((action, idx) => {
+            const Icon = action.icon;
+
+            return (
             <div key={action.targetAction}>
               <DropdownMenuItem
-                className={
-                  action.variant === "destructive" ? "text-red-500" : ""
-                }
                 onClick={() => handleAction(action)}
+                className={`
+                  ${action.variant === "destructive"
+                    ? "text-red-500 focus:text-red-500 focus:bg-red-100 dark:focus:bg-red-200"
+                    : ""
+                }`}
               >
-                {action.label}
+                <div className="flex items-center gap-2">
+                  {Icon && (
+                    <Icon className={`w-4 h-4 ${action.variant === "destructive"
+                    ? "text-red-500"
+                    : ""}`}
+                  />
+                  )}             
+                  <span>{action.label}</span>
+                </div>
               </DropdownMenuItem>
               {idx !== actions.length - 1 && <DropdownMenuSeparator />}
             </div>
-          ))}
+          )
+          })}
         </DropdownMenuContent>
       </DropdownMenu>
 

@@ -8,7 +8,7 @@ type CardLayoutProps = {
     isLoading?: boolean
 }
 
-const iconStyle = "w-6 h-6 text-yellow-500 flex-shrink-0"
+const iconStyle = "w-6 h-6 text-yellow-400 flex-shrink-0"
 export function CardLayout({title, icon, dataCount, isLoading} : CardLayoutProps) {
     return (
         <Card className="w-full h-30">

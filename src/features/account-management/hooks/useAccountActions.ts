@@ -69,10 +69,10 @@ export function useAccountActions() {
   });
 
   const removeAccount = useMutation({
-    mutationFn: ({employeeId}: RemoveAccountVariable)=> 
-      removeAccountApi({employeeId}),
+    mutationFn: ({employeeId, role}: RemoveAccountVariable)=> 
+      removeAccountApi({employeeId, role}),
     onSuccess: (_, {role}) => {
-      toast.success("Account successfully removed.")
+      toast.success("Account removed successfully.")
       queryClient.invalidateQueries({ 
         queryKey: ["accounts", role],
         refetchType: "active"
@@ -84,8 +84,8 @@ export function useAccountActions() {
   });
 
   const resendInvite = useMutation({
-    mutationFn: ({email}: ResendInviteVariable) => 
-      resendInviteApi({email}),
+    mutationFn: ({email, role}: ResendInviteVariable) => 
+      resendInviteApi({email, role}),
     onSuccess: (_, {role}) => {
       toast.success("Email invitation is sent successfully.")
       queryClient.invalidateQueries({ 

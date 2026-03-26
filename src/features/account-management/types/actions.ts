@@ -1,4 +1,6 @@
 import type { AccountInfo } from "./account";
+import { CheckCircle, Trash2, Mail, PauseCircle, XCircle } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 export enum ActionEnum {
   ACTIVATE = "ACTIVATE",
@@ -17,6 +19,7 @@ export type ActionProps = {
   confirmMessage: string
   confirmActionMessage: string
   onClick?: (user: AccountInfo) => void;
+  icon?: LucideIcon;
 };
 
 export const actionConfig: Record<ActionEnum, ActionProps> = {
@@ -26,7 +29,8 @@ export const actionConfig: Record<ActionEnum, ActionProps> = {
     targetAction: ActionEnum.ACTIVATE,
     confirmTitle: "Confirm Activation",
     confirmMessage: "Are you sure you want to activate this account?",
-    confirmActionMessage: "Activate Account"
+    confirmActionMessage: "Activate Account",
+    icon: CheckCircle,
   },
 
   [ActionEnum.INACTIVATE] : {
@@ -35,7 +39,8 @@ export const actionConfig: Record<ActionEnum, ActionProps> = {
     targetAction: ActionEnum.INACTIVATE,
     confirmTitle: "Confirm Inactivation",
     confirmMessage: "Are you sure you want to inactivate this account?",
-    confirmActionMessage: "Inactivate Account"
+    confirmActionMessage: "Inactivate Account",
+    icon: XCircle,
   },
 
   [ActionEnum.RESEND] : {
@@ -44,7 +49,8 @@ export const actionConfig: Record<ActionEnum, ActionProps> = {
     targetAction: ActionEnum.RESEND,
     confirmTitle: "Confirm Resend Invite",
     confirmMessage: "Are you sure you want to resend the account invitation?",
-    confirmActionMessage: "Resend Email"
+    confirmActionMessage: "Resend Email",
+    icon: Mail
   },
 
   [ActionEnum.REMOVE] : {
@@ -52,9 +58,10 @@ export const actionConfig: Record<ActionEnum, ActionProps> = {
     pendingLabel: "Removing Account...",
     targetAction: ActionEnum.REMOVE,
     confirmTitle: "Confirm Removal",
-    confirmMessage: "Are you sure you want to remove?",
+    confirmMessage: "Are you sure you want to remove this account?",
     variant: "destructive",
-    confirmActionMessage: "Remove Account"
+    confirmActionMessage: "Remove Account",
+    icon: Trash2
   },
   [ActionEnum.SUSPEND]: {
     label: "Suspend",
@@ -63,7 +70,8 @@ export const actionConfig: Record<ActionEnum, ActionProps> = {
     confirmTitle: "Confirm Suspension",
     confirmMessage: "Are you sure you want to suspend this account?",
     confirmActionMessage: "Suspend Account",
-    variant: "destructive"
+    variant: "destructive",
+    icon: PauseCircle
   }
 };
 

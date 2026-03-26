@@ -13,7 +13,7 @@ export default function SuperAdminDashboard() {
     return(
     <ContentLayout title="Dashboard">
         <div className="flex flex-col gap-4">
-            <p className="text-xl font-semibold">Good Day, {user.firstname}!</p>
+            <p className="text-xl font-medium">Good Day, {user.firstname}!</p>
             
             <div className="flex justify-between gap-4">
                 <CardLayout 

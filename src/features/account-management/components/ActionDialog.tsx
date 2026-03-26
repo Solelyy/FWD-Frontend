@@ -82,7 +82,12 @@ export default function ActionDialog({
                 )}
                 
                 <DialogFooter className="flex flex-col-reverse gap-2">
-                        <Button className="order-1" onClick={handleConfirm} disabled={isPending}>
+                        <Button 
+                        className="order-1" 
+                        onClick={handleConfirm} 
+                        disabled={isPending} 
+                        variant={action.variant === "destructive" ? "destructive" : "default"}
+                        >
                             {isPending ? action.pendingLabel : action.confirmActionMessage }
                         </Button>
 
