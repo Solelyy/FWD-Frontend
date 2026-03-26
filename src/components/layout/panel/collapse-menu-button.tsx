@@ -134,37 +134,43 @@ export function CollapseMenuButton({
     </Collapsible>
   ) : (
     <DropdownMenu>
-      <TooltipProvider disableHoverableContent>
-        <Tooltip delayDuration={100}>
-          <TooltipTrigger asChild>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant={isSubmenuActive ? "secondary" : "ghost"}
-                className="w-full justify-start h-10 mb-1"
-              >
-                <div className="w-full items-center flex justify-between">
-                  <div className="flex items-center">
-                    <span className={cn(isOpen === false ? "" : "mr-4")}>
-                      <Icon size={18} />
-                    </span>
-                    <p
-                      className={cn(
-                        "max-w-50 truncate",
-                        isOpen === false ? "opacity-0" : "opacity-100"
-                      )}
-                    >
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant={isSubmenuActive ? "secondary" : "ghost"}
+          className="w-full justify-start h-10 mb-1"
+        >
+          <div className="w-full items-center flex justify-between">
+            <div className="flex items-center">
+              {isOpen === false ? (
+                <TooltipProvider disableHoverableContent>
+                  <Tooltip delayDuration={100}>
+                    <TooltipTrigger asChild>
+                      <span className="flex items-center">
+                        <Icon size={18} />
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent side="right" align="start" alignOffset={2} sideOffset={0}>
                       {label}
-                    </p>
-                  </div>
-                </div>
-              </Button>
-            </DropdownMenuTrigger>
-          </TooltipTrigger>
-          <TooltipContent side="right" align="start" alignOffset={2}>
-            {label}
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              ) : (
+                <span className="mr-4">
+                  <Icon size={18} />
+                </span>
+              )}
+              <p
+                className={cn(
+                  "max-w-50 truncate",
+                  isOpen === false ? "opacity-0" : "opacity-100"
+                )}
+              >
+                {label}
+              </p>
+            </div>
+          </div>
+        </Button>
+      </DropdownMenuTrigger>
       <DropdownMenuContent side="right" sideOffset={25} align="start">
         <DropdownMenuLabel className="max-w-47.5 truncate">
           {label}
