@@ -27,7 +27,7 @@ Promise<{ user: AuthUser | null; error: string | null }> {
     return { user: null, error: getAuthError("other") };
   }
 
-  console.log("LOGGING IN...");
+  console.log("📍 loginAuth api...");
   const result = await response.json();
   const user: AuthUser = result.data.user;
   return { user, error: null };

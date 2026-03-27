@@ -41,6 +41,7 @@ export default function Login() {
 
       //redirect based on role
       setIsRedirecting(true);
+      console.log("Redirecting to authRedirect...")
       await authRedirect(user);
 
       } catch (err: any) {

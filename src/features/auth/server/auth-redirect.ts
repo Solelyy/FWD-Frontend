@@ -9,12 +9,15 @@ export async function authRedirect( user  : AuthUser){
 
     switch (user.role) {
       case UserRole.ADMIN:
+        console.log("Redirecting to admin...")
         redirect("/admin");
             
       case UserRole.SUPER_ADMIN:
+        console.log("Redirecting to super admin...")
         redirect("/super-admin");
             
       case UserRole.EMPLOYEE:
+        console.log("Redirecting to employee...")
         redirect("/employee");
 
       default:
