@@ -17,11 +17,11 @@ export const metadata: Metadata = {
 };
 
 export default async function SuperAdminLayout({ children }: { children: ReactNode }) {
-  const user = await requireAuth();
+  const user  = await requireAuth();
 
   return (
     <QueryProvider>
-      <UserProvider user={user}>
+      <UserProvider initialUser={user}>
         <AdminPanelLayout>
           {children}
         </AdminPanelLayout>

@@ -27,9 +27,11 @@ import LogoutModal from "@/features/auth/components/LogoutModal";
 
 export function UserNav() {
   //user details
-  const user = useUser();
-  const firstName = user.firstname;
-  const lastname = user.lastname;
+  const { user } = useUser();
+  if (!user) return null; 
+
+  const firstName = user?.firstname;
+  const lastname = user?.lastname;
   const fullName =  `${firstName} ${lastname}`;
   
   const initialFirstname = firstName?.charAt(0);

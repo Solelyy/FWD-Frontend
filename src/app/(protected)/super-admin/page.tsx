@@ -13,7 +13,7 @@ import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import Link from "next/link"
 
 export default function SuperAdminDashboard() {
-    const user = useUser();
+    const { user } = useUser();
     const { admins, employees, totalAdmins, totalEmployees, activeAccounts, isLoading} = useSuperAdminDashboardStats();
 
     const previewAdminAccounts = [
@@ -30,7 +30,7 @@ export default function SuperAdminDashboard() {
     return(
     <ContentLayout title="Dashboard">
         <div className="flex flex-col gap-6">
-            <p className="text-xl font-medium">Good Day, {user.firstname}!</p>
+            <p className="text-xl font-medium">Good Day, {user?.firstname}!</p>
             
             <div className="flex justify-between gap-4">
                 <CardLayout 

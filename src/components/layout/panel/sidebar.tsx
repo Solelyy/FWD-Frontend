@@ -12,7 +12,7 @@ import { RoleRoutes } from "@/lib/ui/sidebar/index"
 import { SidebarSignOut } from "@/components/shared/SidebarSignout";
 
 export function Sidebar() {
-  const user = useUser();
+  const { user } = useUser();
   const sidebar = useStore(useSidebar, (x) => x);
   if (!sidebar) return null;
   const { isOpen, toggleOpen, getOpenState, setIsHover, settings } = sidebar;

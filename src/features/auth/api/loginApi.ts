@@ -20,7 +20,7 @@ Promise<{ user: AuthUser | null; error: string | null }> {
 
     if (response.status === 429) return { user: null, error: getAuthError("locked") };
     if (response.status === 404) return { user: null, error: getAuthError("blocked") };
-    if (response.status === 400 || response.status === 401) return { user: null, error: getAuthError("default") };
+    if (response.status === 400 ) return { user: null, error: getAuthError("default") };
     if (response.status === 401) return { user: null, error: getAuthError("blocked") }; // inactive/suspended/removed
 
 

@@ -10,7 +10,7 @@ import { Status } from "@/features/account-management/types/account";
 import { AccountsTableProps } from "../types/table";
 
 export default function AccountsTable({accounts, loading, error, showAction, tableType, visibleColumns} : AccountsTableProps) {
-    const user = useUser();
+    const {user} = useUser();
     const statusStyles: Record<Status, string> = {
         [Status.PENDING]: "bg-yellow-100 text-yellow-600",
         [Status.ACTIVE]: "bg-green-100 text-green-600",
@@ -59,7 +59,7 @@ export default function AccountsTable({accounts, loading, error, showAction, tab
                         <>No admin accounts yet. Click <span className="font-bold">Add Admin</span> to create one.</> )
                     : (
                         <>
-                        No employee accounts yet.{user.role == UserRole.ADMIN && (
+                        No employee accounts yet.{user?.role == UserRole.ADMIN && (
                             <>
                             {" "} Click {" "}
                             <span className="font-bold">Add Employee</span> to create one.

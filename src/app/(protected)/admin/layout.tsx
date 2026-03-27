@@ -7,10 +7,10 @@ import { requireRole } from "@/features/auth/server/auth";
 import { Toaster } from "sonner"
 
 export default async function AdminLayout({children}: {children: ReactNode}){
-   const user = await requireRole(UserRole.ADMIN);
+   const  user = await requireRole(UserRole.ADMIN);
 
     return(
-        <UserProvider user={user}>
+        <UserProvider initialUser={user}>
             {children}
             <Toaster richColors position="top-center"/>
         </UserProvider>

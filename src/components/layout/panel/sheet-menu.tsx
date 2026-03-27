@@ -18,7 +18,7 @@ import { RoleRoutes } from "@/lib/ui/sidebar/index";
 import { SheetSignOut } from "@/components/shared/SheetSignout";
 
 export function SheetMenu() {
-  const user = useUser();
+  const { user } = useUser();
   if (!user) return null;
 
   const logoLink = user ? RoleRoutes[user.role] : "/";

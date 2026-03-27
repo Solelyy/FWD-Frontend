@@ -10,7 +10,7 @@ export default async function EmployeeLayout({children}: {children: ReactNode}){
     const user = await requireRole(UserRole.EMPLOYEE);
     
     return(
-        <UserProvider user={user}>
+        <UserProvider initialUser={user}>
             {children}
             <Toaster richColors position= "top-center" />
         </UserProvider>
