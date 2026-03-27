@@ -1,11 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { ReactNode } from "react";
-import { requireAuth } from "@/features/auth/server/auth";
-import { UserProvider } from "@/components/providers/UserContext";
-import AdminPanelLayout from "@/components/layout/panel/admin-panel-layout";
 import type { Metadata } from "next";
-import QueryProvider from "@/components/providers/QueryProvider";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -17,16 +13,10 @@ export const metadata: Metadata = {
 };
 
 export default async function ProtectedRouteLayout({ children }: { children: ReactNode }) {
-  console.log("I'm here in the guard (layout.tsx in protected route), calling requireAuth...");
-  const user  = await requireAuth();
-
+  console.log("📍Protected Layout");
   return (
-    <QueryProvider>
-      <UserProvider initialUser={user}>
-        <AdminPanelLayout>
-          {children}
-        </AdminPanelLayout>
-      </UserProvider>
-    </QueryProvider>
+    <>
+    {children}
+    </>
   );
 }
