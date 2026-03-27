@@ -8,16 +8,14 @@ import { Input } from "@/components/ui/input"
 import {useForm} from "react-hook-form"
 import { FormMessage } from "@/components/ui/form-message"
 import { useAutoDismiss } from "@/lib/hooks/useAutoDismiss"
-import { useRouter } from "next/navigation"
 import { loginAuth, } from "@/features/auth/api/loginApi"
 import { getAuthError } from "@/features/auth/util/auth-error"
 import type { LoginCredentials } from "@/lib/types/auth-user"
-import { UserRole } from "@/lib/types/roles"
 import { useState } from "react"
 import { Eye, EyeOff } from "lucide-react";
+import { authRedirect } from "../server/auth-redirect"
 
 export default function Login() {
-  const router = useRouter();
   const [isRedirecting, setIsRedirecting] = useState(false);
 
   const {register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginCredentials>();
@@ -29,10 +27,10 @@ export default function Login() {
   const onSubmit = async (data: LoginCredentials) => {
     try {
       const {user, error } = await loginAuth(data);
+      
       if (error) {
         setErrorMsg(error);
         console.error("Error:", error);
-
         return;
       }
 
@@ -43,34 +41,10 @@ export default function Login() {
 
       //redirect based on role
       setIsRedirecting(true);
+      await authRedirect(user);
 
-      switch (user.role) {
-        case UserRole.ADMIN:
-          //router.replace("/admin");
-          console.log("Redirecting to admin dashboard...")
-          window.location.assign("/admin");
-          break;
-        case UserRole.SUPER_ADMIN:
-          //router.replace("/super-admin");
-          console.log("Redirecting to super admin dashboard...")
-          window.location.assign("/super-admin");
-          break;
-        case UserRole.EMPLOYEE:
-          //router.replace("/employee");
-          console.log("Redirecting to employee dashboard...")
-          window.location.assign("/employee");
-          break;
-        default:
-          console.error(`Error: ${error}`);
-          console.error(`User: ${user}`);
-          setErrorMsg(getAuthError("other"));
-          setIsRedirecting(false);
-          return; 
-        }
-      } catch (err) {
-        console.error("Login error: ", err)
-        setErrorMsg(getAuthError("other"))
-        setIsRedirecting(false)
+      } catch (err: any) {
+        console.error("Login error: ", err);
     } finally {
       console.log({ isSubmitting, isRedirecting });
     }
@@ -130,7 +104,7 @@ export default function Login() {
               </Field>
               <Field>
                   <FieldDescription className="text-center">
-                    {errorMsg && <FormMessage variant="error" message={errorMsg} className="text-center fade-out"/>}
+                    {errorMsg && !isRedirecting && <FormMessage variant="error" message={errorMsg} className="text-center fade-out"/>}
                 </FieldDescription>
                 <Button type="submit" disabled={isSubmitting || isRedirecting}> {isSubmitting || isRedirecting? "Logging in..." : "Log in"}</Button>
               </Field>
