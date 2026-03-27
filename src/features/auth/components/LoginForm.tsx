@@ -46,7 +46,7 @@ export default function Login() {
       setIsRedirecting(true);
       console.log("Redirecting to authRedirect...");
       
-      authRedirect(user);
+      await authRedirect(user);
       
       } catch (err) {
         console.error("Login error: ", err)
