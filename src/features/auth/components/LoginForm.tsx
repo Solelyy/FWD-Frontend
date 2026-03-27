@@ -8,14 +8,16 @@ import { Input } from "@/components/ui/input"
 import {useForm} from "react-hook-form"
 import { FormMessage } from "@/components/ui/form-message"
 import { useAutoDismiss } from "@/lib/hooks/useAutoDismiss"
+import { useRouter } from "next/navigation"
 import { loginAuth, } from "@/features/auth/api/loginApi"
 import { getAuthError } from "@/features/auth/util/auth-error"
 import type { LoginCredentials } from "@/lib/types/auth-user"
+import { UserRole } from "@/lib/types/roles"
 import { useState } from "react"
 import { Eye, EyeOff } from "lucide-react";
-import { authRedirect } from "../server/auth-redirect"
 
 export default function Login() {
+  const router = useRouter();
   const [isRedirecting, setIsRedirecting] = useState(false);
 
   const {register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginCredentials>();
@@ -27,10 +29,10 @@ export default function Login() {
   const onSubmit = async (data: LoginCredentials) => {
     try {
       const {user, error } = await loginAuth(data);
-      
       if (error) {
         setErrorMsg(error);
         console.error("Error:", error);
+
         return;
       }
 
@@ -41,20 +43,36 @@ export default function Login() {
 
       //redirect based on role
       setIsRedirecting(true);
-      console.log("Redirecting to authRedirect...")
-      await authRedirect(user);
 
-      } catch (err: any) {
-          if (err?.name === "Redirect" || err?.message?.includes("NEXT_REDIRECT")) {
-          // This is the Next.js redirect exception, just ignore it grr
-          return;
+      switch (user.role) {
+        case UserRole.ADMIN:
+          router.replace("/admin");
+          router.refresh();
+          break;
+        case UserRole.SUPER_ADMIN:
+          router.replace("/super-admin");
+          router.refresh();
+          break;
+        case UserRole.EMPLOYEE:
+          router.replace("/employee");
+          router.refresh();
+          break;
+        default:
+          console.error(`Error: ${error}`);
+          console.error(`User: ${user}`);
+          setErrorMsg(getAuthError("other"));
+          setIsRedirecting(false);
+          return; 
         }
-        console.error("Login error: ", err);
+      } catch (err) {
+        console.error("Login error: ", err)
+        setErrorMsg(getAuthError("other"))
+        setIsRedirecting(false)
     } finally {
       console.log({ isSubmitting, isRedirecting });
     }
   }
-  
+
   return (
     <div className="flex flex-col gap-6 items-center">
       <Card className="h-full w-full max-w-sm sm:max-w-md md:max-w-lg py-8 px-6 sm:py-10">
@@ -109,7 +127,7 @@ export default function Login() {
               </Field>
               <Field>
                   <FieldDescription className="text-center">
-                    {errorMsg && !isRedirecting && <FormMessage variant="error" message={errorMsg} className="text-center fade-out"/>}
+                    {errorMsg && <FormMessage variant="error" message={errorMsg} className="text-center fade-out"/>}
                 </FieldDescription>
                 <Button type="submit" disabled={isSubmitting || isRedirecting}> {isSubmitting || isRedirecting? "Logging in..." : "Log in"}</Button>
               </Field>
