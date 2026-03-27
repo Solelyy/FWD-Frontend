@@ -16,7 +16,8 @@ export const metadata: Metadata = {
   }
 };
 
-export default async function SuperAdminLayout({ children }: { children: ReactNode }) {
+export default async function ProtectedRouteLayout({ children }: { children: ReactNode }) {
+  console.log("I'm here in the guard (layout.tsx in protected route), calling requireAuth...");
   const user  = await requireAuth();
 
   return (

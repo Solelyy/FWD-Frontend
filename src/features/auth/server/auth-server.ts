@@ -5,6 +5,7 @@ export async function verifyToken(): Promise<AuthUser> {
   const headersList = await headers();
   const cookie = headersList.get("cookie");
 
+  console.log("VERIFY TOKEN CALLED");
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
     {
@@ -17,7 +18,8 @@ export async function verifyToken(): Promise<AuthUser> {
 
     }
   );
-  console.log("VERIFY TOKEN CALLED");
+  console.log("COOKIE FROM HEADERS:", cookie);
+
   if (!response.ok) {
     throw new Error("Invalid token");
   }

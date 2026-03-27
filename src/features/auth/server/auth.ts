@@ -6,8 +6,16 @@ import { cache } from "react";
 
 //caches the user data
 export const getAuthUser = cache(async (): Promise<AuthUser> => {
-  const user = await verifyToken();
-  return user;
+  try {
+    console.log("Im here in getAuthUser. Verifying the token first...");
+
+    const user = await verifyToken();
+    return user;  
+  } catch (error) {
+    console.error("getAuthUser ERROR:", error);
+    throw error;
+  }
+  
 });
 
 //guard
@@ -26,6 +34,7 @@ export async function requireAuth(): Promise<AuthUser> {
   }*/
   
   try {
+    console.log("Im here in requireAuth...");
     return await getAuthUser();
   } catch (error) {
     console.error(error);
@@ -36,7 +45,9 @@ export async function requireAuth(): Promise<AuthUser> {
 //checks for role
 export async function requireRole(role: UserRole) {
   const user = await requireAuth();
+  console.log("requireRole called. Checking role...")
   if (user.role !== role) {
+    console.log("Unauthorized.")
     redirect("/unauthorized");
   }
   return user;

@@ -47,14 +47,17 @@ export default function Login() {
       switch (user.role) {
         case UserRole.ADMIN:
           //router.replace("/admin");
+          console.log("Redirecting to admin dashboard...")
           window.location.assign("/admin");
           break;
         case UserRole.SUPER_ADMIN:
           //router.replace("/super-admin");
+          console.log("Redirecting to super admin dashboard...")
           window.location.assign("/super-admin");
           break;
         case UserRole.EMPLOYEE:
           //router.replace("/employee");
+          console.log("Redirecting to employee dashboard...")
           window.location.assign("/employee");
           break;
         default:
