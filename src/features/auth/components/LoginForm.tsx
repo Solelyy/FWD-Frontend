@@ -44,6 +44,10 @@ export default function Login() {
       await authRedirect(user);
 
       } catch (err: any) {
+          if (err?.name === "Redirect" || err?.message?.includes("NEXT_REDIRECT")) {
+          // This is the Next.js redirect exception, just ignore it grr
+          return;
+        }
         console.error("Login error: ", err);
     } finally {
       console.log({ isSubmitting, isRedirecting });
