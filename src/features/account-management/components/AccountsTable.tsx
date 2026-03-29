@@ -1,5 +1,4 @@
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/table";
-import type { AccountInfo } from "@/features/account-management/types/account";
 import { formatDateTime } from "@/lib/util/date-format";
 import { fullName } from "@/lib/util/name-format";
 import { Actions } from "./AccountsTableActions";
@@ -8,6 +7,10 @@ import { useUser } from "@/components/providers/UserContext"
 import { UserRole } from "@/lib/types/roles";
 import { Status } from "@/features/account-management/types/account";
 import { AccountsTableProps } from "../types/table";
+import { Card } from "@/components/ui/card";
+import SearchBar from "@/components/shared/SearchBar";
+import { useState } from "react";
+import { useFilteredAccounts } from "../hooks/useFilteredAccounts";
 
 export default function AccountsTable({accounts, loading, error, showAction, tableType, visibleColumns} : AccountsTableProps) {
     const {user} = useUser();
@@ -25,94 +28,107 @@ export default function AccountsTable({accounts, loading, error, showAction, tab
     ? visibleColumns
     : ["id","name","email","status","invitationDate"];
 
+    //this is for search bar
+    const [searchTerm, setSearchTerm] = useState("");
+    const filteredAccounts = useFilteredAccounts(accounts, searchTerm);
+
     return (
-        <div className="overflow-x-auto">
-        <Table>
-            <TableHeader className="bg-[#FFEB94]/40">
-                <TableRow>
-                    {columns.includes("id") && <TableHead>Employee ID</TableHead>}
-                    {columns.includes("name") && <TableHead>Name</TableHead>}
-                    {columns.includes("email") && <TableHead>Email</TableHead>}
-                    {columns.includes("status") && <TableHead>Status</TableHead>}
-                    {columns.includes("invitationDate") && <TableHead>Invitation Date</TableHead>}
-                    {showAction && <TableHead>Actions</TableHead>}
-                </TableRow>
-            </TableHeader>
+        <Card className="p-2">
+            <div className="flex justify-end">
+                <SearchBar value={searchTerm} onChange ={setSearchTerm}/>
+            </div>
 
-            <TableBody>
-                {loading && (
-                <SkeletonTableRows showAction={showAction}/>
-                )}
+            <div className="overflow-x-auto border rounded-md">
+                <Table>
+                    <TableHeader className="bg-[#FFEB94]/40">
+                        <TableRow>
+                            {columns.includes("id") && <TableHead>Employee ID</TableHead>}
+                            {columns.includes("name") && <TableHead>Name</TableHead>}
+                            {columns.includes("email") && <TableHead>Email</TableHead>}
+                            {columns.includes("status") && <TableHead>Status</TableHead>}
+                            {columns.includes("invitationDate") && <TableHead>Invitation Date</TableHead>}
+                            {showAction && <TableHead>Actions</TableHead>}
+                        </TableRow>
+                    </TableHeader>
 
-                {error && (
-                <TableRow>
-                    <TableCell colSpan={6} className="text-center py-8 text-red-400">
-                        Failed to load accounts.
-                    </TableCell>
-                </TableRow>
-                )}
-
-                {!loading && !error && accounts.length === 0 && (
-                <TableRow>
-                    <TableCell colSpan={6} className="text-center py-8">
-                    {tableType === UserRole.ADMIN ? (
-                        <>No admin accounts yet. Click <span className="font-bold">Add Admin</span> to create one.</> )
-                    : (
-                        <>
-                        No employee accounts yet.{user?.role == UserRole.ADMIN && (
-                            <>
-                            {" "} Click {" "}
-                            <span className="font-bold">Add Employee</span> to create one.
-                            </>
-                        )} 
-                        </>
-                    )}
-                    </TableCell>
-                </TableRow>
-                )}
-
-                {!loading && !error && accounts.map((account) => (
-                   <TableRow key={account.employeeId} >
-                        {columns.includes("id") && 
-                            <TableCell className="font-medium"> 
-                                {account.employeeId} 
-                            </TableCell>
-                        }
-
-                        {columns.includes("name") && 
-                            <TableCell> 
-                                {fullName(account.firstname, account.lastname)} 
-                                </TableCell>}
-
-                        {columns.includes("email") && 
-                            <TableCell className="max-w-30 sm:max-w-40 overflow-auto">
-                                {account.email}
-                            </TableCell>
-                        }
-                        
-                        {columns.includes("status") && 
-                            <TableCell>
-                                <span className={`px-2 py-1 text-xs font-medium rounded-md ${statusStyles[account.status]}`}>
-                                    {account.status}
-                                </span>
-                            </TableCell>
-                        }
-                        
-                        {columns.includes("invitationDate") && 
-                            <TableCell>
-                                {formatDateTime(account.invitationDate)}
-                            </TableCell>
-                        }
-                        
-                        {showAction && (
-                            <TableCell>
-                                <Actions account={account}/>
-                            </TableCell>
+                    <TableBody>
+                        {loading && (
+                        <SkeletonTableRows showAction={showAction}/>
                         )}
-                    </TableRow> 
-                ))}
-            </TableBody>
-        </Table>
-        </div>
+
+                        {error && (
+                        <TableRow>
+                            <TableCell colSpan={6} className="text-center py-8 text-red-400">
+                                Failed to load accounts.
+                            </TableCell>
+                        </TableRow>
+                        )}
+
+                        {!loading && !error && filteredAccounts.length === 0 && (
+                        <TableRow>
+                            <TableCell colSpan={6} className="text-center py-8">
+                            {searchTerm ? ( 
+                                <>No results found</>
+                            ) : tableType === UserRole.ADMIN ? (
+                                <>No admin accounts yet. Click <span className="font-bold">Add Admin</span> to create one.</> )
+                                : (
+                                    <>
+                                    No employee accounts yet.
+                                    {user?.role == UserRole.ADMIN && (
+                                        <>
+                                        {" "} Click {" "}
+                                        <span className="font-bold">Add Employee</span> to create one.
+                                        </>
+                                    )} 
+                                </>
+                            )}
+                            </TableCell>
+                        </TableRow>
+                        )}
+
+                        {!loading && !error && filteredAccounts.map((account) => (
+                        <TableRow key={account.employeeId} >
+                                {columns.includes("id") && 
+                                    <TableCell className="font-medium"> 
+                                        {account.employeeId} 
+                                    </TableCell>
+                                }
+
+                                {columns.includes("name") && 
+                                    <TableCell> 
+                                        {fullName(account.firstname, account.lastname)} 
+                                        </TableCell>}
+
+                                {columns.includes("email") && 
+                                    <TableCell className="max-w-30 sm:max-w-40 overflow-auto">
+                                        {account.email}
+                                    </TableCell>
+                                }
+                                
+                                {columns.includes("status") && 
+                                    <TableCell>
+                                        <span className={`px-2 py-1 text-xs font-medium rounded-md ${statusStyles[account.status]}`}>
+                                            {account.status}
+                                        </span>
+                                    </TableCell>
+                                }
+                                
+                                {columns.includes("invitationDate") && 
+                                    <TableCell>
+                                        {formatDateTime(account.invitationDate)}
+                                    </TableCell>
+                                }
+                                
+                                {showAction && (
+                                    <TableCell>
+                                        <Actions account={account}/>
+                                    </TableCell>
+                                )}
+                            </TableRow> 
+                        ))}
+                    </TableBody>
+                </Table>
+            </div>
+        </Card>
     );
 }

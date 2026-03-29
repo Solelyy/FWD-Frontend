@@ -35,7 +35,6 @@ export default function AdminManagement() {
                 
                 <AddAccountDialog open= {open} setOpen= {setOpen} role= {UserRole.ADMIN}/>
             </div>
-            
         </ContentLayout>
     );
 }

@@ -32,7 +32,7 @@ export default function AdminDashboard() {
             {/*cards */}
             <div className="flex justify-between gap-4">
                 <CardLayout 
-                    title="Total Admins"
+                    title="Total Employees"
                     icon= {<UsersRound />}
                     dataCount={totalEmployees}
                     isLoading = {isLoading}
