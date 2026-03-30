@@ -44,12 +44,32 @@ export default function Login() {
 
       //redirect based on role
       setIsRedirecting(true);
-      console.log("Redirecting to authRedirect...");
+      //console.log("Redirecting to authRedirect...");
+      console.log("Redirecting to dashboard...");
       
-      await authRedirect(user);
+      //await authRedirect(user);
+      switch (user.role) {
+        case UserRole.ADMIN:
+          console.log("Redirecting to admin...")
+          router.replace("/admin");
+          break;
+
+        case UserRole.SUPER_ADMIN:
+          console.log("Redirecting to super admin...")
+          router.replace("/super-admin");
+          break;
+
+        case UserRole.EMPLOYEE:
+          console.log("Redirecting to employee...")
+          router.replace("/employee");
+          break;
       
+        default:
+          console.warn("Unknown user role.");
+          throw new Error(`Unknown user role: ${user.role}`);
+        }
       } catch (err) {
-        console.error("Login error: ", err)
+        console.error("Login error: ", err);
     } finally {
       console.log({ isSubmitting, isRedirecting });
     }
