@@ -19,7 +19,7 @@ export const getAuthUser = cache(async (): Promise<AuthUser> => {
 });
 
 //guard
-export async function requireAuth(): Promise<AuthUser> {
+export async function requireAuth(): Promise<AuthUser | null> {
   /* only need this for ui development (not running the backend)
   if (process.env.NODE_ENV === "development") {
     return {
@@ -38,7 +38,7 @@ export async function requireAuth(): Promise<AuthUser> {
     return await getAuthUser();
   } catch (error) {
     console.error(error);
-    redirect("/unauthorized");
+    return null;
   }
 }
 
@@ -46,7 +46,7 @@ export async function requireAuth(): Promise<AuthUser> {
 export async function requireRole(role: UserRole) {
   const user = await requireAuth();
   console.log("requireRole called. Checking role...")
-  if (user.role !== role) {
+  if (user?.role !== role) {
     console.log("Unauthorized.")
     redirect("/unauthorized");
   }
