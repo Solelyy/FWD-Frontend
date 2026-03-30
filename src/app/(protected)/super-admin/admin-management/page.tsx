@@ -15,7 +15,7 @@ export default function AdminManagement() {
     
     return(
         <ContentLayout title="Admin Management">
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-4">
                 <div className="flex justify-end">
                     
                     <Button onClick= {() => setOpen(true)}>
@@ -31,6 +31,7 @@ export default function AdminManagement() {
                     // since we expect boolean value in our AccountsTableProps that is why we need to convert it in boolean.
                     showAction= {true} 
                     tableType={UserRole.ADMIN}
+                    isInDashboard={false}
                 />
                 
                 <AddAccountDialog open= {open} setOpen= {setOpen} role= {UserRole.ADMIN}/>

@@ -73,7 +73,7 @@ export default function AdminDashboard() {
                     <CardHeader className={cardHeaderStyle}>
                         <CardTitle>Employee Accounts</CardTitle>
                             <Link href="/admin/employees">
-                                <Button variant="ghost">View Full</Button>
+                                <Button variant="secondary">View Full</Button>
                             </Link>               
                     </CardHeader>
                             
@@ -85,6 +85,7 @@ export default function AdminDashboard() {
                             showAction={true}
                             tableType={UserRole.EMPLOYEE}
                             visibleColumns={["id", "name", "status",]}
+                            isInDashboard={true}
                         />
                     </CardContent>
                 </Card>

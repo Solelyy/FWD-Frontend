@@ -7,5 +7,6 @@ export type AccountsTableProps = {
     error?: boolean
     showAction?: boolean
     tableType: UserRole.ADMIN | UserRole.EMPLOYEE,
-    visibleColumns?: ("id"|"name"|"email"|"status"|"invitationDate")[]
+    visibleColumns?: ("id"|"name"|"email"|"status"|"invitationDate")[],
+    isInDashboard: boolean
 }

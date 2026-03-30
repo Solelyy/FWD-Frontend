@@ -24,7 +24,7 @@ export default function SuperAdminDashboard() {
         ...(employees?.slice(0,5) || []),
     ];
 
-    const tableContainerStyle = "flex flex-col sm:flex-row w-full gap-4 justify-between";
+    const tableContainerStyle = "flex flex-col flex-wrap sm:flex-row w-full gap-4 justify-between";
     const cardHeaderStyle = "flex justify-between items-center";
 
     return(
@@ -62,7 +62,7 @@ export default function SuperAdminDashboard() {
                     <CardHeader className={cardHeaderStyle}>
                         <CardTitle>Admin Accounts</CardTitle>
                         <Link href="/super-admin/admin-management">
-                            <Button variant="ghost">View Full</Button>
+                            <Button variant="secondary">View Full</Button>
                         </Link>
                         
                     </CardHeader>
@@ -75,6 +75,7 @@ export default function SuperAdminDashboard() {
                             showAction={true}
                             tableType={UserRole.ADMIN}
                             visibleColumns={["id", "name", "status",]}
+                            isInDashboard={true}
                         />
                     </CardContent>
                 </Card>
@@ -83,7 +84,7 @@ export default function SuperAdminDashboard() {
                     <CardHeader className={cardHeaderStyle}>
                         <CardTitle>Employee Accounts</CardTitle>
                         <Link href="/super-admin/employee-management">
-                            <Button variant="ghost">View Full</Button>
+                            <Button variant="secondary">View Full</Button>
                         </Link>
                         
                     </CardHeader>
@@ -96,6 +97,7 @@ export default function SuperAdminDashboard() {
                             showAction={false}
                             tableType={UserRole.EMPLOYEE}
                             visibleColumns={["id", "name", "status",]}
+                            isInDashboard={true}
                         />
                     </CardContent>
                 </Card>

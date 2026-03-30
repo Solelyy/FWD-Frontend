@@ -15,7 +15,7 @@ export default function EmployeeManagement() {
     
     return(
         <ContentLayout title="Employee Management">
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-4">
                 <div className="flex justify-end">
                     <Button onClick= {() => setOpen(true)}>
                         <UserRoundPlus />
@@ -29,6 +29,7 @@ export default function EmployeeManagement() {
                     error= {!!error}
                     showAction= {true}
                     tableType={UserRole.EMPLOYEE}
+                    isInDashboard={false}
                 />
                 
                 <AddAccountDialog open= {open} setOpen= {setOpen} role= {UserRole.EMPLOYEE}/>

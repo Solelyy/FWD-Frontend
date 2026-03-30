@@ -12,7 +12,7 @@ import SearchBar from "@/components/shared/SearchBar";
 import { useState } from "react";
 import { useFilteredAccounts } from "../hooks/useFilteredAccounts";
 
-export default function AccountsTable({accounts, loading, error, showAction, tableType, visibleColumns} : AccountsTableProps) {
+export default function AccountsTable({accounts, loading, error, showAction, tableType, visibleColumns, isInDashboard} : AccountsTableProps) {
     const {user} = useUser();
     const statusStyles: Record<Status, string> = {
         [Status.PENDING]: "bg-yellow-100 text-yellow-600",
@@ -33,12 +33,12 @@ export default function AccountsTable({accounts, loading, error, showAction, tab
     const filteredAccounts = useFilteredAccounts(accounts, searchTerm);
 
     return (
-        <Card className="p-2">
+        <Card className={`${!isInDashboard ? "h-120" : ""} p-4`}>
             <div className="flex justify-end">
                 <SearchBar value={searchTerm} onChange ={setSearchTerm}/>
             </div>
 
-            <div className="overflow-x-auto border rounded-md">
+            <div className="flex-1 overflow-x-auto border rounded-md">
                 <Table>
                     <TableHeader className="bg-[#FFEB94]/40">
                         <TableRow>
@@ -53,7 +53,7 @@ export default function AccountsTable({accounts, loading, error, showAction, tab
 
                     <TableBody>
                         {loading && (
-                        <SkeletonTableRows showAction={showAction}/>
+                        <SkeletonTableRows  columns={columns} showAction={showAction} />
                         )}
 
                         {error && (
@@ -70,14 +70,19 @@ export default function AccountsTable({accounts, loading, error, showAction, tab
                             {searchTerm ? ( 
                                 <>No results found</>
                             ) : tableType === UserRole.ADMIN ? (
-                                <>No admin accounts yet. Click <span className="font-bold">Add Admin</span> to create one.</> )
-                                : (
+                                <>
+                                No admin accounts yet. 
+                                {!isInDashboard && (
+                                    <>
+                                        {" "} Click <span className="font-bold">Add Admin</span> to create one.
+                                    </>
+                                )}
+                                </> ) : (
                                     <>
                                     No employee accounts yet.
-                                    {user?.role == UserRole.ADMIN && (
+                                    {user?.role == UserRole.ADMIN && !isInDashboard && (
                                         <>
-                                        {" "} Click {" "}
-                                        <span className="font-bold">Add Employee</span> to create one.
+                                        {" "} Click {" "} <span className="font-bold">Add Employee</span> to create one.
                                         </>
                                     )} 
                                 </>

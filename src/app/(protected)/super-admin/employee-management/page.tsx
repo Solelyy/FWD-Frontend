@@ -22,6 +22,7 @@ export default function EmployeeList() {
       loading={isLoading} error={!!error} 
       showAction={false}
       tableType={UserRole.EMPLOYEE}
+      isInDashboard={false}
       />
 
       <AddAccountDialog
