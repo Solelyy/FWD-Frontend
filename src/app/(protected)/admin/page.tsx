@@ -54,14 +54,14 @@ export default function AdminDashboard() {
 
                 <CardLayout 
                     title="Reimbursement"
-                    icon = {<PhilippinePeso />}
+                    icon = {<Wallet />}
                     dataCount={reimbursement}
                     isLoading= {isLoading}
                 />
 
                 <CardLayout 
                     title="Cash Advance"
-                    icon = {<Wallet />}
+                    icon = {<PhilippinePeso />}
                     dataCount={cashAdvance}
                     isLoading= {isLoading}
                 />  

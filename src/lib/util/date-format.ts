@@ -17,3 +17,27 @@ export function formatDateTime(dateString?: string |null) {
     hour12: true,
   });
 }
+
+export function getTodayFormatted() {
+  const now = new Date();
+  return now.toLocaleDateString("en-US", {
+    weekday: "long",
+    day: "2-digit",
+    month: "long",
+  });
+}
+
+export function getMonthYear(date?: string | Date | null) {
+  if (!date) return "-";
+
+  const parsed = typeof date === "string" ? new Date(date) : date;
+
+  if (isNaN(parsed.getTime())) {
+    return "Invalid Date";
+  }
+
+  return parsed.toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric",
+  });
+}

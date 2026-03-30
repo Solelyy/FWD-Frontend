@@ -24,7 +24,7 @@ export async function requireAuth(): Promise<AuthUser> {
   if (process.env.NODE_ENV === "development") {
     return {
       id: "1",
-      role: UserRole.SUPER_ADMIN,
+      role: UserRole.EMPLOYEE,
       employeeId: "FWD123",
       firstname: "Jessa",
       lastname: "Gozun",
