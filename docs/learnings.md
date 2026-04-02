@@ -153,9 +153,74 @@ ex: const isError = !!error
 ### refetchType 
 - this is the kind of refetch we want when we invalidate a query
 
-
-
-
 ## cache 
 - import { cache } from "react";
 - in this way we can use caching, for us to get the cache result and doesnt need to call to api again.
+
+## useRef()
+- this is a react hook 
+- structure: 
+const ref = useRef(initialValue);
+- current is the only property inside useRef. 
+ex: ref.current
+- is a persistent container that survives re-renders without causing re-renders"
+- is used to store something in the component “memory” but it doesn’t trigger a new render when the value is updated
+- common use cases:
+* Store/access a DOM elements
+* Store mutable values (no re-render) ex: timer
+* Persist values across renders
+- simple example is this:
+  import { useEffect, useState, useRef } from "react";
+  export default function Counter() {
+    const [count, setCount] = useState(0);
+    const prevCountRef = useRef();
+
+    useEffect(() => {
+      prevCountRef.current = count;
+    });
+
+    const prevCount = prevCountRef.current;
+
+    return (
+      <div className="App">
+        <h1>Previous value with useRef</h1>
+        <p>
+          <button onClick={() => setCount((value) => value + 1)}>
+            Increase counter by 1
+          </button>
+          <button onClick={() => setCount((value) => value + 10)}>
+            Increase counter by 10
+          </button>
+        </p>
+        <p>
+          Now: {count}, before: {prevCount}
+        </p>
+      </div>
+    );
+  }
+
+## ref in <video ref>
+- this enables as to directly access the video element in the dom
+- ex: 
+  <video
+    ref={handleVideoRef}
+  >
+  
+  then we have: 
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleVideoRef = (el: HTMLVideoElement | null) => {
+    videoRef.current = el;
+    if (el) {
+      console.log("Video element mounted!");
+      setVideoMounted(true);
+    }
+  };
+
+- flow: react renders the component and creates the <video> element
+- added it to the DOM 
+- react calls the ref function, it calls the handleVideoRef
+- now, the videoRef.current (value of videoRef) has the real video DOM node
+- when the component unmounted, the videoRef.current will have null value
+
+

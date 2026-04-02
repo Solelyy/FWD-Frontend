@@ -113,3 +113,11 @@ npm install @tanstack/react-query
 ## Date Picker (Calendar)
 npx shadcn@latest add popover calendar
 npm install date-fns
+
+## Geolocation API
+- this is for location
+- docs: https://www.w3.org/TR/geolocation/
+
+## MediaDevices API
+- for camera access specifically getUserMedia()
+- docs: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices

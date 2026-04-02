@@ -1,16 +1,30 @@
+"use client"
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Clock } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { getTodayFormatted } from "@/lib/util/date-format";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import PermissionDialog from "@/features/attendance/components/PermissionDialog";
+import { AttendanceType } from "@/features/attendance/types/attendanceType";
 
 export default function TimeinOut() {
+    const [ open, setOpen ] = useState(false);
+    const [ attendanceType, setAttendanceType ] = useState<AttendanceType>();
+
+    const handleTimeIn = () => {
+        setOpen(true)
+        setAttendanceType(AttendanceType.TIME_IN)
+    }
+    
     return (
+        <>
         <div className="flex flex-col flex-1">
             <p className="font-light text-sm mb-2">My Attendance Today</p>
             <Card className="flex flex-col h-full">
                 <CardHeader>
                     <CardTitle className="flex gap-2 items-center justify-start">
-                        <Clock size={15}/>
+                        <Calendar size={15}/>
                         {getTodayFormatted()}
                     </CardTitle>
                 </CardHeader>
@@ -18,7 +32,7 @@ export default function TimeinOut() {
                 <CardContent className="flex flex-col gap-4">
                     <div className="flex gap-4 w-full justify-between">
                         <div className="w-full">
-                            <Button className="w-full">
+                            <Button className="w-full" onClick={handleTimeIn}>
                                 Time In
                             </Button>
                         </div>
@@ -51,5 +65,8 @@ export default function TimeinOut() {
                 </CardContent>
             </Card>
         </div>
+
+        <PermissionDialog setOpen={setOpen} open={open} attendanceType={attendanceType} />
+        </>
     );
 }
