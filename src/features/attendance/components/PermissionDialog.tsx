@@ -9,6 +9,7 @@ import { AttendanceType } from "../types/attendanceType";
 import CaptureDialog from "./CaptureDialog";
 import PreviewDialog from "./PreviewDialog";
 import { stopStream } from "../utils/stream";
+import { reverseGeocodeApi } from "../api/reverseGeocodeApi";
 
 type PermissionDialogProps = {
     open: boolean
@@ -19,7 +20,7 @@ export default function PermissionDialog({open, setOpen, attendanceType} : Permi
     const [loading, setLoading] = useState(false);
     const [openCaptureDialog, setOpenCaptureDialog] = useState(false);
     const [openPreviewDialog, setOpenPreviewDialog] = useState(false);
-    const [position, setPosition] = useState<GeolocationPosition | null >(null);
+    const [location, setLocation] = useState<string | null >(null);
     const [stream, setStream] = useState<MediaStream | null >(null);
     const [capturedPhoto, setCapturedPhoto] = useState<string | null>(null);
 
@@ -32,9 +33,9 @@ export default function PermissionDialog({open, setOpen, attendanceType} : Permi
     };
 
     const handleRetry = () => {
-        setCapturedPhoto(null);        // clear old photo
-        setOpenPreviewDialog(false);   // close preview
-        setOpenCaptureDialog(true);    // open capture
+        setCapturedPhoto(null);        
+        setOpenPreviewDialog(false); 
+        setOpenCaptureDialog(true);   
     };
 
     const handleContinue = async () => {
@@ -43,9 +44,11 @@ export default function PermissionDialog({open, setOpen, attendanceType} : Permi
         // Request location first
         try {
             const pos = await getLocation();
-            setPosition(pos);
             const {longitude, latitude} = pos.coords;
             console.log(`Longitude: ${longitude} \n Latitude: ${latitude}`);
+
+            const address = await reverseGeocodeApi(longitude, latitude);
+            setLocation(address);
         } catch (error: any) {
             console.log(`error: ${error}`);
             const errorMsg = error.code === 1 ? `You must allow location to capture your ${typeToLowercase} photo.` 
@@ -114,22 +117,22 @@ export default function PermissionDialog({open, setOpen, attendanceType} : Permi
             </DialogContent>
         </Dialog>
 
-        {openCaptureDialog && stream && position && (
+        {openCaptureDialog && stream && location && (
             <CaptureDialog 
                 setOpen={setOpenCaptureDialog} 
                 open={openCaptureDialog} 
-                position={position}
+                location={location}
                 stream={stream}
                 attendanceType={attendanceType}
                 onPhotoCapture={handlePhotoCapture}
             />
         )}
 
-        {openPreviewDialog && stream && position && (
+        {openPreviewDialog && stream && location && (
             <PreviewDialog
                 setOpen={setOpenPreviewDialog}
                 open={openPreviewDialog}
-                position={position}
+                location={location}
                 photo={capturedPhoto}
                 stream={stream}
                 attendanceType={attendanceType}

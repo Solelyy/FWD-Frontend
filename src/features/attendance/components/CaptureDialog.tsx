@@ -8,7 +8,7 @@ import { stopStream } from "../utils/stream";
 type CaptureDialogProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  position: GeolocationPosition;
+  location: string | null;
   stream: MediaStream;
   attendanceType?: AttendanceType;
   onPhotoCapture: (photoUrl: string) => void;
@@ -17,7 +17,7 @@ type CaptureDialogProps = {
 export default function CaptureDialog({
   open,
   setOpen,
-  position,
+  location,
   stream,
   attendanceType,
   onPhotoCapture,

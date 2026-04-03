@@ -5,11 +5,14 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import CaptureDialog from "./CaptureDialog";
 import { stopStream } from "../utils/stream";
+import { attendanceSubmitApi } from "../api/attendanceSubmitApi";
+import { toast } from "sonner";
+
 
 type PreviewDialogProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  position: GeolocationPosition;
+  location: string | null;
   photo: string | null;
   attendanceType?: AttendanceType;
   stream: MediaStream;
@@ -19,27 +22,39 @@ type PreviewDialogProps = {
 export default function PreviewDialog({
   open,
   setOpen,
-  position,
+  location,
   photo,
   stream,
   attendanceType,
   onRetry
 }: PreviewDialogProps) {
   const formatText = attendanceType === AttendanceType.TIME_IN ? "time in" : "time out";
+  const successText = attendanceType === AttendanceType.TIME_IN ? "Time in" : "Time out";
   const [openCaptureDialog, setOpenCaptureDialog] = useState(false);
   const [capturedPhoto, setCapturedPhoto] = useState<string | null>(photo);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handlePhotoCapture = (photoUrl: string) => {
     setCapturedPhoto(photoUrl);
   };
+  
+  const handleSubmit = async () => {
+    if (!location || !capturedPhoto || !attendanceType) return;
+    setIsSubmitting(true);
 
-  const handleSubmit = () => {
-    console.log("Submitting photo:", capturedPhoto);
-    // Call the submit API later
+    const timeStamp = new Date().toISOString();
 
-    setOpen(false);
-    stopStream(stream);
-
+    try {
+      await attendanceSubmitApi({location, timeStamp, imageUrl: capturedPhoto, attendanceType});
+      toast.success(`${successText} successfully submitted.`);
+      setOpen(false);
+      stopStream(stream);
+    } catch (error) {
+      console.log(error);
+      toast.error(`Unable to submit ${formatText}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -48,7 +63,7 @@ export default function PreviewDialog({
         if (!val) stopStream(stream);
         setOpen(val);
         }}>
-        <DialogContent className="w-[90%] max-w-sm md:max-w-md">
+        <DialogContent className="w-[90%] max-w-sm md:max-w-md space-y-4">
           <DialogHeader>
             {/* Progress indicator - showing both stages complete */}
             <div className="flex items-center gap-2 mb-4">
@@ -74,13 +89,17 @@ export default function PreviewDialog({
               </div>
             )}
 
+            <div className="text-center text-sm">
+              📍 {location}
+            </div>
+
             {/* Action buttons */}
             <div className="flex flex-col md:flex-row gap-4 justify-between">
               <Button variant="secondary" className="w-full flex-1" onClick={() => onRetry()}>
                 Retry
               </Button>
-              <Button className="w-full flex-1" onClick={handleSubmit} disabled={!capturedPhoto}>
-                Submit
+              <Button className="w-full flex-1" onClick={handleSubmit} disabled={!capturedPhoto || isSubmitting}>
+                {isSubmitting ? "Submitting..." : "Submit"}
               </Button>
             </div>
           </DialogHeader>
@@ -91,7 +110,7 @@ export default function PreviewDialog({
         <CaptureDialog
           setOpen={setOpenCaptureDialog}
           open={openCaptureDialog}
-          position={position}
+          location={location}
           stream={stream}
           attendanceType={attendanceType}
           onPhotoCapture={handlePhotoCapture}

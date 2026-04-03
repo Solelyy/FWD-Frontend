@@ -121,3 +121,7 @@ npm install date-fns
 ## MediaDevices API
 - for camera access specifically getUserMedia()
 - docs: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices
+
+## Reverse Geocoding API
+- OpenStreetMap
+- docs: https://nominatim.org/release-docs/develop/api/Reverse/
