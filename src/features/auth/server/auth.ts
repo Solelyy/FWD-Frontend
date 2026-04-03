@@ -20,7 +20,7 @@ export const getAuthUser = cache(async (): Promise<AuthUser> => {
 
 //guard
 export async function requireAuth(): Promise<AuthUser | null> {
-  // only need this for ui development (not running the backend)
+  /* only need this for ui development (not running the backend)
   if (process.env.NODE_ENV === "development") {
     return {
       id: "1",
@@ -31,7 +31,7 @@ export async function requireAuth(): Promise<AuthUser | null> {
       email: "dinavelbinongo@gmail.com",
       isDataPolicyAccepted: false
     };
-  }
+  } */
   
   try {
     console.log("Im here in requireAuth...");

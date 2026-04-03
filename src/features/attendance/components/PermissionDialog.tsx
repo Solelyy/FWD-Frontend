@@ -7,6 +7,8 @@ import { toast } from "sonner";
 import { getCamera, getLocation } from "../api/permissionsApi";
 import { AttendanceType } from "../types/attendanceType";
 import CaptureDialog from "./CaptureDialog";
+import PreviewDialog from "./PreviewDialog";
+import { stopStream } from "../utils/stream";
 
 type PermissionDialogProps = {
     open: boolean
@@ -15,11 +17,25 @@ type PermissionDialogProps = {
 }
 export default function PermissionDialog({open, setOpen, attendanceType} : PermissionDialogProps) {
     const [loading, setLoading] = useState(false);
-    const [ openCaptureDialog, setOpenCaptureDialog ] = useState(false);
-    const [ position, setPosition ] = useState<GeolocationPosition | null >(null);
-    const [ stream, setStream ] = useState<MediaStream | null >(null);
+    const [openCaptureDialog, setOpenCaptureDialog] = useState(false);
+    const [openPreviewDialog, setOpenPreviewDialog] = useState(false);
+    const [position, setPosition] = useState<GeolocationPosition | null >(null);
+    const [stream, setStream] = useState<MediaStream | null >(null);
+    const [capturedPhoto, setCapturedPhoto] = useState<string | null>(null);
 
     const typeToLowercase = attendanceType?.toLowerCase();
+
+    const handlePhotoCapture = (photoUrl: string) => {
+        setCapturedPhoto(photoUrl);
+        setOpenCaptureDialog(false);
+        setOpenPreviewDialog(true);
+    };
+
+    const handleRetry = () => {
+        setCapturedPhoto(null);        // clear old photo
+        setOpenPreviewDialog(false);   // close preview
+        setOpenCaptureDialog(true);    // open capture
+    };
 
     const handleContinue = async () => {
     try {
@@ -53,7 +69,7 @@ export default function PermissionDialog({open, setOpen, attendanceType} : Permi
             return;
         }
 
-        // Proceed with photo capture / attendance logic
+        // Close permission dialog and open capture dialog
         setOpen(false);
         setOpenCaptureDialog(true);
     } catch (error: any) {
@@ -84,7 +100,14 @@ export default function PermissionDialog({open, setOpen, attendanceType} : Permi
                         {loading ? "Requesting..." : "Continue"}
                     </Button>
 
-                    <Button onClick={() => {setOpen(false)}} variant="secondary" className="w-full flex-1">
+                    <Button
+                        onClick={() => {
+                            stopStream(stream);
+                            setOpen(false);
+                        }}
+                        variant="secondary"
+                        className="w-full flex-1"
+                        >
                         Cancel
                     </Button>
                 </div>   
@@ -93,11 +116,24 @@ export default function PermissionDialog({open, setOpen, attendanceType} : Permi
 
         {openCaptureDialog && stream && position && (
             <CaptureDialog 
-            setOpen={setOpenCaptureDialog} 
-            open={openCaptureDialog} 
-            position={position}
-            stream = {stream}
-            attendanceType={attendanceType}
+                setOpen={setOpenCaptureDialog} 
+                open={openCaptureDialog} 
+                position={position}
+                stream={stream}
+                attendanceType={attendanceType}
+                onPhotoCapture={handlePhotoCapture}
+            />
+        )}
+
+        {openPreviewDialog && stream && position && (
+            <PreviewDialog
+                setOpen={setOpenPreviewDialog}
+                open={openPreviewDialog}
+                position={position}
+                photo={capturedPhoto}
+                stream={stream}
+                attendanceType={attendanceType}
+                onRetry={handleRetry}
             />
         )}
         </>

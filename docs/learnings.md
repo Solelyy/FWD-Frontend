@@ -1,11 +1,10 @@
 ## await fetch() 
-It returns full raw http response.
-example: const response = await fetch()
+- It returns full raw http response.
+  example: const response = await fetch()
 
 ## await response.json()
-Returns parsed JSON body inside the response. 
-example: const result = await response.json()
-
+- Returns parsed JSON body inside the response. 
+  example: const result = await response.json()
 
 ## headers 
 import { headers } from "next/headers"
@@ -14,25 +13,25 @@ import { headers } from "next/headers"
 - this works only in server components; not usable in client
 - http headers are extra information about a request
 
-example use: 
-const headerList=  await headers();
+  example use: 
+  const headerList=  await headers();
 
-- we want to extract the cookie in the header to pass in the backend
-const cookie = headerList.get("cookie");
+  - we want to extract the cookie in the header to pass in the backend
+  const cookie = headerList.get("cookie");
 
 - we manually pass it to the backend since it is server to server (Next.js server to backend server) request. node.js doesn't have a cookie jar and doesn't automatically manages cookie, unlike the browser that is why we need to manually the cookie before we pass to the backend.
  
-ex:
-const response = await fetch(
-  `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
-  {
-    method: "GET",
-    headers: {
-      cookie: cookie ?? "",
-    },
-    cache: "no-store",
-  }
-);
+  ex:
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
+    {
+      method: "GET",
+      headers: {
+        cookie: cookie ?? "",
+      },
+      cache: "no-store",
+    }
+  );
 
 ## cookie ?? ""
 - uses nullish coalescing operator (??), means if the value on the left is undefined or null, use the value on the right
@@ -45,20 +44,20 @@ const response = await fetch(
 
 ## createContext
 - creates a global container where data can be stored and shared accross components
-ex:
-"use client"
-import { createContext, useContext } from "react"
-const UserContext = createContext<User | null>(null)
+  ex:
+  "use client"
+  import { createContext, useContext } from "react"
+  const UserContext = createContext<User | null>(null)
 
 ## Provider 
 - puts the data inside the container. 
-ex: 
-export function UserProvider({user, children}: {
-    user: User
-    children: React.ReactNode
-}) {
-    return <UserContext.Provider value={user}>{children}</UserContext.Provider>
-} 
+  ex: 
+  export function UserProvider({user, children}: {
+      user: User
+      children: React.ReactNode
+  }) {
+      return <UserContext.Provider value={user}>{children}</UserContext.Provider>
+  } 
 
 ## useContext
 - reads the value inside the context
@@ -223,4 +222,66 @@ ex: ref.current
 - now, the videoRef.current (value of videoRef) has the real video DOM node
 - when the component unmounted, the videoRef.current will have null value
 
+## rendering
+* Render Phase : this is pure render, it runs the function, calculates the ui, no side effects, it basically just calculates what ui should look like
 
+* Effect Phase : this is the side effects. it enables us for example to reliably access the DOM cause it is already mounted.
+
+- sideeffects or useEffect() runs every AFTER render. 
+- life cycle:
+  1. Render phase
+  - React runs component function
+  - builds virtual representation or virtual DOM
+  2. Commit phase
+  - React creates/updates the real DOM
+  - attaches elements to the page
+  - assign refs
+  3. Effect phase
+  - useEffect() runs
+
+## useEffect()
+- this is a React hook that let us run a side effect after rendering. 
+- ex: 
+  * Fetching data from an API
+  * Subscribing to events (like window resize or scroll)
+  * Updating the DOM manually
+  * Setting up timers or intervals
+  * Cleaning up resources
+- structure:
+  import { useEffect } from "react";
+
+  useEffect(() => {
+    // This code runs after the component renders
+    console.log("Component rendered!");
+
+    return () => {
+      // Optional cleanup function - run before the next effect or when the components unmounts
+      console.log("Cleanup before next effect or unmount");
+    };
+  }, [dependencies]);
+  - if no dependecies, it will run once after render. if it has dependency, it will run again if that dependency changes.
+
+## Diffing
+- this is when React compares the old virtual DOM vs new virtual DOM to make changes in the real DOM
+  ex: old: <h1>HELLO WORLD</h1>
+  new: <h1>HELLO WORLD!!</h1>
+  - change the text only not needed to recreate h1 tag.
+- react doesnt read the real DOM it just updates it depends on the diffing.
+- 1. Re-run the component (Render phase)
+  2. Create new Virtual DOM
+  3. Compare with previous one (Diffing)
+  4. Only update what changed (Commit phase)
+
+## video
+- this is an element used to embed video in web page <video>
+- two ways that it can get the data (what to play):
+  1. using src - a file or url
+  <video src=""/> // it plays a file.
+  2. using srcObject - live stream
+  ex: videoEl.srcObject = stream;
+  - it plays the camera, microphone, screen share
+  - srcObject lives in HTMLMediaElement
+- mental model:
+  <video> :  player
+  MediaStream : the data (camera feed)
+  srcObject or src : the connector
