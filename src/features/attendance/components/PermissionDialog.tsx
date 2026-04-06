@@ -85,7 +85,10 @@ export default function PermissionDialog({open, setOpen, attendanceType} : Permi
     return (
         <>
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="w-[90%] max-w-sm md:max-w-md space-y-4">
+            <DialogContent className="w-[90%] max-w-sm md:max-w-md space-y-4"
+            onInteractOutside={(e) => e.preventDefault()}
+            onEscapeKeyDown={(e) => e.preventDefault()}
+            >
                 <DialogHeader>
                     <DialogTitle>Allow Access</DialogTitle>
                 </DialogHeader>

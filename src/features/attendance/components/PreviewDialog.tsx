@@ -7,7 +7,7 @@ import CaptureDialog from "./CaptureDialog";
 import { stopStream } from "../utils/stream";
 import { attendanceSubmitApi } from "../api/attendanceSubmitApi";
 import { toast } from "sonner";
-
+import OvertimeDialog from "./OvertimeDialog";
 
 type PreviewDialogProps = {
   open: boolean;
@@ -19,33 +19,28 @@ type PreviewDialogProps = {
   onRetry: () => void
 };
 
-export default function PreviewDialog({
-  open,
-  setOpen,
-  location,
-  photo,
-  stream,
-  attendanceType,
-  onRetry
+export default function PreviewDialog({ open, setOpen, location, photo, stream, attendanceType, onRetry
 }: PreviewDialogProps) {
   const formatText = attendanceType === AttendanceType.TIME_IN ? "time in" : "time out";
   const successText = attendanceType === AttendanceType.TIME_IN ? "Time in" : "Time out";
   const [openCaptureDialog, setOpenCaptureDialog] = useState(false);
   const [capturedPhoto, setCapturedPhoto] = useState<string | null>(photo);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isOvertime, setIsOvertime] = useState(false);
 
   const handlePhotoCapture = (photoUrl: string) => {
     setCapturedPhoto(photoUrl);
   };
-  
-  const handleSubmit = async () => {
-    if (!location || !capturedPhoto || !attendanceType) return;
+
+  const submitAttendance = async (isOt?: boolean) => {
     setIsSubmitting(true);
 
     const timeStamp = new Date().toISOString();
 
     try {
-      await attendanceSubmitApi({location, timeStamp, imageUrl: capturedPhoto, attendanceType});
+      await attendanceSubmitApi({
+        location, timeStamp, imageUrl: capturedPhoto, attendanceType, isOvertime: isOt ?? false,
+      });
       toast.success(`${successText} successfully submitted.`);
       setOpen(false);
       stopStream(stream);
@@ -55,7 +50,27 @@ export default function PreviewDialog({
     } finally {
       setIsSubmitting(false);
     }
+  }
+  
+  const handleSubmit = async () => {
+    if (!location || !capturedPhoto || !attendanceType) return;
+
+    const now = new Date();
+
+    if (attendanceType === AttendanceType.TIME_OUT && checkIsOvertime(now)) {
+      setIsOvertime(true);
+      return;
+    }
+
+    await submitAttendance();
   };
+
+  function checkIsOvertime(time: Date) {
+    const hours = time.getHours();
+    const min = time.getMinutes();
+    
+    return hours > 17 || (hours === 17 && min >= 30);
+  }
 
   return (
     <>
@@ -63,7 +78,10 @@ export default function PreviewDialog({
         if (!val) stopStream(stream);
         setOpen(val);
         }}>
-        <DialogContent className="w-[90%] max-w-sm md:max-w-md space-y-4">
+        <DialogContent className="w-[90%] max-w-sm md:max-w-md space-y-4"
+          onInteractOutside={(e) => e.preventDefault()}
+          onEscapeKeyDown={(e) => e.preventDefault()}
+        >
           <DialogHeader>
             {/* Progress indicator - showing both stages complete */}
             <div className="flex items-center gap-2 mb-4">
@@ -116,6 +134,19 @@ export default function PreviewDialog({
           onPhotoCapture={handlePhotoCapture}
         />
       )}
+
+        <OvertimeDialog 
+        open={isOvertime} 
+        setOpen={setIsOvertime} 
+        onConfirmOvertime={() => {
+          setIsOvertime(false);
+          submitAttendance(true);
+        }}
+        onConfirmRegular={() => {
+          setIsOvertime(false);
+          submitAttendance(false);
+        }}
+        />
     </>
   );
 }

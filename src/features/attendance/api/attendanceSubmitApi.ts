@@ -2,22 +2,32 @@ import { AttendanceType } from "../types/attendanceType"
 import { API_BASE_URL } from "@/lib/util/api";
 
 export type attendanceSubmitApiPayload = {
-    location: string,
+    location: string | null,
     timeStamp: string,
-    imageUrl: string,
-    attendanceType: AttendanceType
+    imageUrl: string | null,
+    attendanceType: AttendanceType | undefined
+    isOvertime?: boolean
 }
 //not final api
-export async function attendanceSubmitApi({location, timeStamp, imageUrl, attendanceType} : attendanceSubmitApiPayload){
+export async function attendanceSubmitApi({location, timeStamp, imageUrl, attendanceType, isOvertime} : attendanceSubmitApiPayload){
     const endpoint = attendanceType === AttendanceType.TIME_IN
     ? "/" 
     : "/";
+
+    const payload = {
+        location,
+        timeStamp,
+        imageUrl,
+        attendanceType,
+        isOvertime
+    };
+    console.log("Payload", payload);
 
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json"},
         credentials: "include",
-        body: JSON.stringify("") //just if needed
+        body: JSON.stringify(payload) //just if needed
     });
 
     if (!response.ok) {

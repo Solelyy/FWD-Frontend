@@ -128,7 +128,10 @@ export default function CaptureDialog({
       } 
       setOpen(val);
     }}>
-      <DialogContent className="w-[90%] max-w-sm md:max-w-md">
+      <DialogContent className="w-[90%] max-w-sm md:max-w-md"
+        onInteractOutside={(e) => e.preventDefault()}
+        onEscapeKeyDown={(e) => e.preventDefault()}
+      >
         <DialogHeader>
           {/* Progress indicator - showing capture stage active */}
           <div className="flex items-center gap-2 mb-4">

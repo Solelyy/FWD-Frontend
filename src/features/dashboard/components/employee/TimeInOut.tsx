@@ -14,7 +14,12 @@ export default function TimeinOut() {
 
     const handleTimeIn = () => {
         setOpen(true)
-        setAttendanceType(AttendanceType.TIME_IN)
+        setAttendanceType(AttendanceType.TIME_IN);
+    }
+
+    const handleTimeOut = () => {
+        setOpen(true)
+        setAttendanceType(AttendanceType.TIME_OUT);
     }
     
     return (
@@ -38,7 +43,7 @@ export default function TimeinOut() {
                         </div>
 
                         <div className="w-full">
-                            <Button className="w-full" disabled>
+                            <Button className="w-full" onClick={handleTimeOut} disabled>
                                 Time Out
                             </Button>
                         </div>
