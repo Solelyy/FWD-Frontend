@@ -9,7 +9,11 @@ import QueryProvider from "@/components/providers/QueryProvider";
 import { redirect } from "next/navigation"
 
 export const metadata: Metadata = {
-  title: "Dashboard",
+  title: {
+    template: '%s | Dashboard',
+    default: 'Dashboard'
+  },
+  description: "This is the dashboard for the user of employee portal.",
   icons: {
     icon: '/assets/icons/favicon.ico',
     apple: '/assets/icons/apple-icon.png',

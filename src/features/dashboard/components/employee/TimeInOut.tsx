@@ -43,7 +43,7 @@ export default function TimeinOut() {
                         </div>
 
                         <div className="w-full">
-                            <Button className="w-full" onClick={handleTimeOut} disabled>
+                            <Button className="w-full" onClick={handleTimeOut}>
                                 Time Out
                             </Button>
                         </div>
@@ -53,7 +53,7 @@ export default function TimeinOut() {
                     <div className="border rounded p-2">
                         <div className="flex justify-between">
                             <CardDescription>Time In</CardDescription>  
-                            <Button size="xs" className="px-4" variant="secondary">View</Button>
+                            <Button size="xs" className="px-4" variant="outline">View</Button>
                         </div>
                         
                         <p className="text-sm">No record yet</p>
@@ -62,7 +62,7 @@ export default function TimeinOut() {
                     <div className="border rounded p-2">
                         <div className="flex justify-between">
                             <CardDescription>Time Out</CardDescription>  
-                            <Button size="xs" className="px-4" variant="secondary">View</Button>
+                            <Button size="xs" className="px-4" variant="outline">View</Button>
                         </div>
                         
                         <p className="text-sm">No record yet</p>
