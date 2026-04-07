@@ -11,9 +11,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import Link from "next/link"
+import { useState, useEffect } from "react";
+import DataPolicyDialog from "@/features/dashboard/components/DataPolicyDialog";
 
 export default function SuperAdminDashboard() {
+    const [ openDataPolicy, setOpenDataPolicy ] = useState(false);
+
     const { user } = useUser();
+    
     const { admins, employees, totalAdmins, totalEmployees, activeAccounts, isLoading} = useSuperAdminDashboardStats();
 
     const previewAdminAccounts = [
@@ -26,6 +31,14 @@ export default function SuperAdminDashboard() {
 
     const tableContainerStyle = "flex flex-col flex-wrap sm:flex-row w-full gap-4 justify-between";
     const cardHeaderStyle = "flex justify-between items-center";
+
+    useEffect(() => {
+        if (user?.isDataPolicyAccepted === false) {
+            setOpenDataPolicy(true);
+        } else {
+            setOpenDataPolicy(false);
+        }
+    }, [user]);
 
     return(
     <ContentLayout title="Dashboard">
@@ -101,9 +114,16 @@ export default function SuperAdminDashboard() {
                         />
                     </CardContent>
                 </Card>
-                
             </div>
         </div>
+        
+        {openDataPolicy && (
+            <DataPolicyDialog 
+                open={openDataPolicy} 
+                setOpen={setOpenDataPolicy}
+                employeeId={user?.employeeId}
+            />
+        )}
     </ContentLayout>
     );
 }

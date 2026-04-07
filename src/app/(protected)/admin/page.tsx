@@ -11,8 +11,12 @@ import { UserRole } from "@/lib/types/roles";
 import { Button } from "@/components/ui/button";
 import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import Link from "next/link"
+import { useEffect, useState } from "react";
+import DataPolicyDialog from "@/features/dashboard/components/DataPolicyDialog";
 
 export default function AdminDashboard() {
+    const [ openDataPolicy, setOpenDataPolicy ] = useState(false);
+
     const { user } = useUser();
     const { employees, totalEmployees, isLoading, 
         presentToday, onLeave, cashAdvance, reimbursement } = useAdminDashboardStats();
@@ -23,6 +27,14 @@ export default function AdminDashboard() {
 
     const tableContainerStyle = "flex flex-col sm:flex-row w-full gap-4 justify-between";
     const cardHeaderStyle = "flex justify-between items-center";
+
+    useEffect(() => {
+        if (user?.isDataPolicyAccepted === false) {
+            setOpenDataPolicy(true);
+        } else {
+            setOpenDataPolicy(false);
+        }
+    }, [user]);
 
     return(
     <ContentLayout title="Dashboard">
@@ -94,6 +106,14 @@ export default function AdminDashboard() {
                 
             </div>
         </div>
+
+        {openDataPolicy && (
+            <DataPolicyDialog 
+                open={openDataPolicy} 
+                setOpen={setOpenDataPolicy}
+                employeeId={user?.employeeId}
+            />
+        )}
     </ContentLayout>
     );
 }
