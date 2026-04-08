@@ -4,8 +4,8 @@ import { UserRole } from "@/lib/types/roles";
 import { AuthUser } from "@/lib/types/auth-user";
 import { cache } from "react";
 
-/*caches the user data
-export const getAuthUser = cache(async (): Promise<AuthUser> => {
+//caches the user data
+export const getAuthUserCache = cache(async (): Promise<AuthUser> => {
   try {
     console.log("Im here in getAuthUser. Verifying the token first...");
 
@@ -16,7 +16,7 @@ export const getAuthUser = cache(async (): Promise<AuthUser> => {
     throw error;
   }
   
-}); */
+});
 
 //this is for react query
 export async function getAuthUser(): Promise<AuthUser> {
@@ -52,7 +52,7 @@ export async function requireAuth(): Promise<AuthUser | null> {
   
   try {
     console.log("Im here in requireAuth...");
-    return await verifyToken();
+    return await getAuthUserCache();
   } catch (error) {
     console.error(error);
     return null;

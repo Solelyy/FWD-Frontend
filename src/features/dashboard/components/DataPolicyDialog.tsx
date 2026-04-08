@@ -5,24 +5,21 @@ import React, { useState } from "react";
 import { AccountInfo } from "@/features/account-management/types/account";
 import { acceptDataPolicyApi } from "../api/acceptDataPolicyApi";
 import { toast } from "sonner";
+import { useAcceptDataPolicy} from "@/features/auth/hooks/useAuthMutation";
 
 type DataPolicyDialogProp = {
-    open: boolean
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>
-    employeeId: AccountInfo["employeeId"] | undefined;
+    open: boolean,
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
-export default function DataPolicyDialog({open, setOpen, employeeId}: DataPolicyDialogProp) {
+export default function DataPolicyDialog({open, setOpen}: DataPolicyDialogProp) {
     const [agreed, setAgreed] = useState(false);
-
-    const handleAccept = async () => {
-        try {
-            await acceptDataPolicyApi(employeeId);
-            setOpen(false);
-        } catch(error) {
-            console.log("Error", error)
-            toast.error("Something went wrong. Please try again.")
-        }
+    const mutation = useAcceptDataPolicy();
+     const handleAccept = () => {
+        mutation.mutate(undefined, {
+        onSuccess: () => setOpen(false),
+        onError: () => toast.error("Something went wrong. Please try again.")
+        });
     };
 
     return (
@@ -58,12 +55,8 @@ export default function DataPolicyDialog({open, setOpen, employeeId}: DataPolicy
                 </div>
 
                 <div className="flex gap-3 pt-2">
-                    <Button 
-                        onClick={handleAccept}
-                        disabled={!agreed}
-                        className="flex-1"
-                    >
-                        Accept
+                    <Button onClick={handleAccept} disabled={!agreed || mutation.isPending} className="flex-1">
+                        {mutation.isPending ? "Processing..." : "Accept"}
                     </Button>
                 </div>
             </DialogContent>

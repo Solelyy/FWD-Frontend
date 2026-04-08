@@ -1,7 +1,7 @@
 import { AccountInfo } from "@/features/account-management/types/account";
 import { API_BASE_URL } from "@/lib/util/api";
 
-export async function acceptDataPolicyApi(employeeId: AccountInfo["employeeId"] | undefined) {
+export async function acceptDataPolicyApi() {
     const endpoint = "/"
     const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
     method: "PATCH",
