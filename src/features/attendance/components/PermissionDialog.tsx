@@ -48,6 +48,7 @@ export default function PermissionDialog({open, setOpen, attendanceType} : Permi
             console.log(`Longitude: ${longitude} \n Latitude: ${latitude}`);
 
             const address = await reverseGeocodeApi(longitude, latitude);
+            console.log("Address: ", address)
             setLocation(address);
         } catch (error: any) {
             console.log(`error: ${error}`);
@@ -67,7 +68,12 @@ export default function PermissionDialog({open, setOpen, attendanceType} : Permi
         } catch (error: any) {
             console.log(`error: ${error}`);
             if (error.name === "NotAllowedError") {
+                console.log("Error: ", error);
                 toast.warning(`You must allow camera to capture your ${typeToLowercase} photo.`);
+            }
+            if (error.name === "NotFoundError") {
+                console.log("Error: ", error);
+                toast.error("Something went wrong. Please check if you have camera.")
             }
             return;
         }

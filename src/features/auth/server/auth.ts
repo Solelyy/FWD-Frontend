@@ -4,7 +4,7 @@ import { UserRole } from "@/lib/types/roles";
 import { AuthUser } from "@/lib/types/auth-user";
 import { cache } from "react";
 
-//caches the user data
+/*caches the user data
 export const getAuthUser = cache(async (): Promise<AuthUser> => {
   try {
     console.log("Im here in getAuthUser. Verifying the token first...");
@@ -16,27 +16,43 @@ export const getAuthUser = cache(async (): Promise<AuthUser> => {
     throw error;
   }
   
-});
+}); */
+
+//this is for react query
+export async function getAuthUser(): Promise<AuthUser> {
+  try {
+    console.log("Im here in getAuthUser. Verifying the token first...");
+    const res = await fetch('/api/auth/user');
+
+    if(!res.ok) {
+      throw new Error ("Failed to fetch user.");
+    }
+    return res.json();
+  } catch (error) {
+    console.error("getAuthUser ERROR:", error);
+    throw error;
+  }
+} 
 
 //guard
 export async function requireAuth(): Promise<AuthUser | null> {
   // only need this for ui development (not running the backend)
-  /*
+  
   if (process.env.NODE_ENV === "development") {
     return {
       id: "1",
-      role: UserRole.ADMIN,
+      role: UserRole.EMPLOYEE,
       employeeId: "FWD123",
       firstname: "Jessa",
       lastname: "Gozun",
       email: "dinavelbinongo@gmail.com",
-      isDataPolicyAccepted: false
+      isDataPolicyAccepted: true
     };
-  } */
+  } 
   
   try {
     console.log("Im here in requireAuth...");
-    return await getAuthUser();
+    return await verifyToken();
   } catch (error) {
     console.error(error);
     return null;
