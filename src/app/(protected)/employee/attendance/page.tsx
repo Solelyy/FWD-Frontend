@@ -1,5 +1,5 @@
 "use client"
-import AttendanceLogs from "./AttendanceLogs";
+import AttendanceLogs from "./components/AttendanceLogs";
 import { ContentLayout } from "@/components/layout/panel/content-layout";
 import {useUser} from "@/components/providers/UserContext"
 export default function EmployeeAttendance() {

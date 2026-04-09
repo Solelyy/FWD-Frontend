@@ -7,7 +7,7 @@ import { ArrowDownToLine } from "lucide-react";
 
 export default function AttendanceLogs() {
     return (
-        <Card className="p-4 h-140">
+        <Card className="p-4 md:p-6 h-140">
             <div className="flex flex-row justify-between w-full">
                 <div className="flex flex-row gap-2 items-center">
                     <p className="text-sm">Filter by</p>
@@ -19,7 +19,7 @@ export default function AttendanceLogs() {
                 </div>
 
                 <div>
-                    <Button> 
+                    <Button variant="outline"> 
                         <ArrowDownToLine />
                         Download Report
                     </Button>
