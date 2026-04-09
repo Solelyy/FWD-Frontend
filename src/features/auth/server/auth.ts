@@ -5,7 +5,7 @@ import { AuthUser } from "@/lib/types/auth-user";
 import { cache } from "react";
 
 //caches the user data
-export const getAuthUserCache = cache(async (): Promise<AuthUser> => {
+export const getAuthUserCache = cache(async (): Promise<AuthUser | null> => {
   try {
     console.log("Im here in getAuthUser. Verifying the token first...");
 
