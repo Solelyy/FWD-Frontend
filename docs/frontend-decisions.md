@@ -106,6 +106,9 @@ npx shadcn@latest add skeleton
 npx shadcn@latest add table
 npm install @tanstack/react-table
 
+### Pagination
+npx shadcn@latest add pagination
+
 ## React Query
 npm install @tanstack/react-query
 - data-fetching and caching library for React
