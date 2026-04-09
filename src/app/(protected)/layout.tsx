@@ -3,7 +3,6 @@ export const dynamic = "force-dynamic";
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import { requireAuth } from "@/features/auth/server/auth";
-import { UserProvider } from "@/components/providers/UserContext";
 import AdminPanelLayout from "@/components/layout/panel/admin-panel-layout";
 import QueryProvider from "@/components/providers/QueryProvider";
 import { redirect } from "next/navigation"

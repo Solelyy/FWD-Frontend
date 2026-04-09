@@ -1,8 +1,10 @@
+export const dynamic = "force-dynamic";
+
 import type { Metadata } from "next";
 import { Gabarito, Nunito } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { getAuthUserCache, requireAuth } from "@/features/auth/server/auth";
+import { requireAuth } from "@/features/auth/server/auth";
 import { UserProvider } from "@/components/providers/UserContext";
 
 const gabarito = Gabarito({

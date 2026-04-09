@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Login  from "@/features/auth/components/LoginForm";
 import Header from "@/components/layout/Header";
 import { redirect } from "next/navigation";
