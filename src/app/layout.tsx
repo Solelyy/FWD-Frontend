@@ -6,7 +6,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { requireAuth } from "@/features/auth/server/auth";
 import { UserProvider } from "@/components/providers/UserContext";
-import { testRequireAuth } from "@/features/auth/server/testAuth";
+import { testGetAuthUser, testRequireAuth } from "@/features/auth/server/testAuth";
 
 const gabarito = Gabarito({
   variable: "--font-gabarito",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children,}: Readonly <{ children: React.ReactNode;}>) {
-  const user = await testRequireAuth();
+  const user = await testGetAuthUser();
 
   return (
     <html lang="en" suppressHydrationWarning>
