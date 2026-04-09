@@ -5,9 +5,11 @@ import Header from "@/components/layout/Header";
 import { redirect } from "next/navigation";
 import { UserRole } from "@/lib/types/roles";
 import { getAuthUserCache } from "@/features/auth/server/auth";
+import { testGetAuthUser } from "@/features/auth/server/testAuth";
 
 export default async function Home() {
-  const user = await getAuthUserCache();
+  //const user = await getAuthUserCache();
+  const user = await testGetAuthUser();
 
   if (user) {
     switch (user.role) {
