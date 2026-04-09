@@ -2,8 +2,6 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import React, { useState } from "react";
-import { AccountInfo } from "@/features/account-management/types/account";
-import { acceptDataPolicyApi } from "../api/acceptDataPolicyApi";
 import { toast } from "sonner";
 import { useAcceptDataPolicy} from "@/features/auth/hooks/useAuthMutation";
 
