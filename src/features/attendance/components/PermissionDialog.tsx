@@ -25,6 +25,7 @@ export default function PermissionDialog({open, setOpen, attendanceType} : Permi
     const [capturedPhoto, setCapturedPhoto] = useState<string | null>(null);
 
     const typeToLowercase = attendanceType?.toLowerCase();
+    const formatText= typeToLowercase === "time_in"? "time in" : "time out"
 
     const handlePhotoCapture = (photoUrl: string) => {
         setCapturedPhoto(photoUrl);
@@ -52,7 +53,7 @@ export default function PermissionDialog({open, setOpen, attendanceType} : Permi
             setLocation(address);
         } catch (error: any) {
             console.log(`error: ${error}`);
-            const errorMsg = error.code === 1 ? `You must allow location to capture your ${typeToLowercase} photo.` 
+            const errorMsg = error.code === 1 ? `You must allow location to capture your ${formatText} photo.` 
             : "Location is unavailable right now." 
             toast.warning(errorMsg); 
             

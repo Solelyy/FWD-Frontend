@@ -9,7 +9,7 @@ import { redirect } from "next/navigation"
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Dashboard',
+    template: '%s',
     default: 'Dashboard'
   },
   description: "This is the dashboard for the user of employee portal.",

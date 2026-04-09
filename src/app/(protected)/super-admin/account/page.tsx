@@ -1,13 +1,15 @@
-"use client"
-
 import { ContentLayout } from "@/components/layout/panel/content-layout";
-import {useUser} from "@/components/providers/UserContext"
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "My Account"
+}
+
 export default function ManageAccount() {
-    const { user }= useUser();
     return(
-    <ContentLayout title="My Account">
-    <div>
-    </div>
-    </ContentLayout>
+        <ContentLayout title="My Account">
+            <div>
+            </div>
+        </ContentLayout>
     );
 }

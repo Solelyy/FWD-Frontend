@@ -1,10 +1,11 @@
-"use client"
-
 import { ContentLayout } from "@/components/layout/panel/content-layout";
-import {useUser} from "@/components/providers/UserContext"
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Reimbursement Management"
+}
+
 export default function AdminReimbursement() {
-    const { user } = useUser();
-    
     return(
     <ContentLayout title="Reimbursement Management">
         <div>

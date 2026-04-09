@@ -1,11 +1,11 @@
-"use client"
-
 import { ContentLayout } from "@/components/layout/panel/content-layout";
-import {useUser} from "@/components/providers/UserContext"
 import LeaveTable from "./components/LeaveTable";
-export default function EmployeeLeave() {
-    const { user } = useUser();
+import type { Metadata } from "next";
 
+export const metadata: Metadata = {
+    title: "My Leave"
+}
+export default function EmployeeLeave() {
     return(
     <ContentLayout title="My Leave">
         <div>

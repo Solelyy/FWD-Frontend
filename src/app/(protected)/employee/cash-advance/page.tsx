@@ -1,11 +1,12 @@
-"use client"
-
 import { ContentLayout } from "@/components/layout/panel/content-layout";
-import {useUser} from "@/components/providers/UserContext"
 import CashAdvance from "./components/CashAdvance";
-export default function EmployeeCashAdvance() {
-    const { user }  = useUser();
+import type { Metadata } from "next";
 
+export const metadata: Metadata = {
+    title: "My Cash Advance"
+}
+
+export default function EmployeeCashAdvance() {
     return(
     <ContentLayout title="My Cash Advance">
         <div>

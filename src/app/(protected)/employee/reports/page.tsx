@@ -1,11 +1,12 @@
-"use client"
-
 import { ContentLayout } from "@/components/layout/panel/content-layout";
-import {useUser} from "@/components/providers/UserContext"
 import Reports from "./components/Reports";
-export default function EmployeeReports() {
-    const { user } = useUser();
+import type { Metadata } from "next";
 
+export const metadata: Metadata = {
+    title: "My Reports"
+}
+
+export default function EmployeeReports() {
     return(
     <ContentLayout title="My Reports">
         <div>

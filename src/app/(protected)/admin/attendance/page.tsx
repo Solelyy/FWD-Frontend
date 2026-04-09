@@ -1,9 +1,11 @@
-"use client"
-
 import { ContentLayout } from "@/components/layout/panel/content-layout";
-import {useUser} from "@/components/providers/UserContext"
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Attendance Management"
+}
+
 export default function AdminAttendance() {
-    const { user } = useUser();
     
     return(
     <ContentLayout title="Attendance Management">

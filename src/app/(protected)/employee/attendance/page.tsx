@@ -1,15 +1,15 @@
-"use client"
 import AttendanceLogs from "./components/AttendanceLogs";
 import { ContentLayout } from "@/components/layout/panel/content-layout";
-import {useUser} from "@/components/providers/UserContext"
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "My Attendance"
+}
 export default function EmployeeAttendance() {
-    const { user } = useUser();
 
     return(
     <ContentLayout title="My Attendance">
-        <div>
-            <AttendanceLogs />
-        </div>
+        <AttendanceLogs />
     </ContentLayout>
     );
 }
