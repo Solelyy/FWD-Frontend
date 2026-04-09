@@ -1,7 +1,20 @@
 import Login  from "@/features/auth/components/LoginForm";
 import Header from "@/components/layout/Header";
+import { redirect } from "next/navigation";
+import { UserRole } from "@/lib/types/roles";
+import { getAuthUserCache } from "@/features/auth/server/auth";
 
-export default function Home() {
+export default async function Home() {
+  const user = await getAuthUserCache();
+
+  if (user) {
+    switch (user.role) {
+      case UserRole.ADMIN: redirect("/admin");
+      case UserRole.SUPER_ADMIN: redirect("/super-admin");
+      case UserRole.EMPLOYEE: redirect("/employee");
+    }
+  }
+
   return (
     <div className="hero-section flex flex-col gap-8">
       <Header />

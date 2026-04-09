@@ -15,9 +15,10 @@ import type { LoginCredentials } from "@/lib/types/auth-user"
 import { UserRole } from "@/lib/types/roles"
 import { useState } from "react"
 import { Eye, EyeOff } from "lucide-react";
-import { authRedirect } from "../server/auth-redirect"
+import { useUser } from "@/components/providers/UserContext"
 
 export default function Login() {
+  const { setUser } = useUser();
   const router = useRouter();
   const [isRedirecting, setIsRedirecting] = useState(false);
 
@@ -42,26 +43,26 @@ export default function Login() {
         return
       } 
 
+      setUser(user);
+
       //redirect based on role
       setIsRedirecting(true);
-      //console.log("Redirecting to authRedirect...");
       console.log("Redirecting to dashboard...");
       
-      //await authRedirect(user);
       switch (user.role) {
         case UserRole.ADMIN:
           console.log("Redirecting to admin...")
-          router.replace("/admin");
+          await router.replace("/admin");
           break;
 
         case UserRole.SUPER_ADMIN:
           console.log("Redirecting to super admin...")
-          router.replace("/super-admin");
+          await router.replace("/super-admin");
           break;
 
         case UserRole.EMPLOYEE:
           console.log("Redirecting to employee...")
-          router.replace("/employee");
+          await router.replace("/employee");
           break;
       
         default:

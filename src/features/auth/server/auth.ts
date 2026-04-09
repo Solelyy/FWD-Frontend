@@ -18,26 +18,10 @@ export const getAuthUserCache = cache(async (): Promise<AuthUser> => {
   
 });
 
-//this is for react query
-export async function getAuthUser(): Promise<AuthUser> {
-  try {
-    console.log("Im here in getAuthUser. Verifying the token first...");
-    const res = await fetch('/api/auth/user');
-
-    if(!res.ok) {
-      throw new Error ("Failed to fetch user.");
-    }
-    return res.json();
-  } catch (error) {
-    console.error("getAuthUser ERROR:", error);
-    throw error;
-  }
-} 
-
 //guard
 export async function requireAuth(): Promise<AuthUser | null> {
   // only need this for ui development (not running the backend)
-  
+  /*
   if (process.env.NODE_ENV === "development") {
     return {
       id: "1",
@@ -48,7 +32,7 @@ export async function requireAuth(): Promise<AuthUser | null> {
       email: "dinavelbinongo@gmail.com",
       isDataPolicyAccepted: true
     };
-  } 
+  } */
   
   try {
     console.log("Im here in requireAuth...");

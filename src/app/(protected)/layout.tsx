@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic";
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import { requireAuth } from "@/features/auth/server/auth";
-import { UserProvider, useUser } from "@/components/providers/UserContext";
+import { UserProvider } from "@/components/providers/UserContext";
 import AdminPanelLayout from "@/components/layout/panel/admin-panel-layout";
 import QueryProvider from "@/components/providers/QueryProvider";
 import { redirect } from "next/navigation"
@@ -33,11 +33,9 @@ export default async function ProtectedRouteLayout({ children }: { children: Rea
 
   return (
     <QueryProvider>
-      <UserProvider initialUser={user ?? null}>
         <AdminPanelLayout>
           {children}
         </AdminPanelLayout>
-      </UserProvider>
     </QueryProvider>
   );
 }

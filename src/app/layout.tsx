@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Gabarito, Nunito } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { getAuthUserCache, requireAuth } from "@/features/auth/server/auth";
+import { UserProvider } from "@/components/providers/UserContext";
 
 const gabarito = Gabarito({
   variable: "--font-gabarito",
@@ -25,19 +27,19 @@ export const metadata: Metadata = {
   }
 };
 
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default async function RootLayout({ children,}: Readonly <{ children: React.ReactNode;}>) {
+  const user = await requireAuth();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${gabarito.variable} ${nunito.variable} antialiased min-h-svh flex flex-col`}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-        </ThemeProvider>
+        <UserProvider initialUser={ user }>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            {children}
+          </ThemeProvider>
+        </UserProvider>
       </body>
     </html>
   );

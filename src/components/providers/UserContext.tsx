@@ -11,7 +11,7 @@ type UserContextType = {
 const UserContext = createContext<UserContextType| undefined>(undefined)
 
 export function UserProvider({initialUser, children}: {
-    initialUser: AuthUser
+    initialUser: AuthUser | null
     children: React.ReactNode
 }) {
     const [ user, setUser ] = useState<AuthUser | null>(initialUser);
