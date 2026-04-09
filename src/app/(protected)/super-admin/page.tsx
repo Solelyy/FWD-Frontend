@@ -121,7 +121,6 @@ export default function SuperAdminDashboard() {
             <DataPolicyDialog 
                 open={openDataPolicy} 
                 setOpen={setOpenDataPolicy}
-                employeeId={user?.employeeId}
             />
         )}
     </ContentLayout>
