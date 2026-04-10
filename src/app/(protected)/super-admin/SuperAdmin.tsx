@@ -120,6 +120,7 @@ export default function SuperAdminDashboard() {
             <DataPolicyDialog 
                 open={openDataPolicy} 
                 setOpen={setOpenDataPolicy}
+                role={user?.role}
             />
         )}
     </>

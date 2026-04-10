@@ -70,7 +70,7 @@ export default function PermissionDialog({open, setOpen, attendanceType} : Permi
             console.log(`error: ${error}`);
             if (error.name === "NotAllowedError") {
                 console.log("Error: ", error);
-                toast.warning(`You must allow camera to capture your ${typeToLowercase} photo.`);
+                toast.warning(`You must allow camera to capture your ${formatText} photo.`);
             }
             if (error.name === "NotFoundError") {
                 console.log("Error: ", error);

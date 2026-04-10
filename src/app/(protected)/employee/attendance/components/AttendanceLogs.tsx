@@ -12,10 +12,10 @@ export default function AttendanceLogs() {
                 <div className="flex flex-row gap-2 items-center">
                     <p className="text-sm">Filter by</p>
 
-                    <div className="border rounded py-2 px-4 flex gap-15 items-center">
-                    <p className="text-sm">This month</p>
-                    <CalendarCheck size={15}/>
-                </div>
+                    <div className="border rounded-lg py-2 px-4 flex gap-3 items-center w-50 justify-between">
+                        <p className="text-sm font-medium">This month</p>
+                        <CalendarCheck size={18}/>
+                    </div>
                 </div>
 
                 <div>

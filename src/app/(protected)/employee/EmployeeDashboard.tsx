@@ -40,6 +40,7 @@ export default function EmployeeDashboard() {
             <DataPolicyDialog 
                 open={openDataPolicy} 
                 setOpen={setOpenDataPolicy}
+                role={user?.role}
             />
         )}
     </>

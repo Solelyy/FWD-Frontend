@@ -110,6 +110,7 @@ export default function AdminDashboard() {
             <DataPolicyDialog 
                 open={openDataPolicy} 
                 setOpen={setOpenDataPolicy}
+                role={user?.role}
             />
         )}
     </>

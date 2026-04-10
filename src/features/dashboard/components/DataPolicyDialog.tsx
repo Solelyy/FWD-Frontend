@@ -1,20 +1,28 @@
+"use client"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import { useAcceptDataPolicy} from "@/features/auth/hooks/useAuthMutation";
+import { AuthUser } from "@/lib/types/auth-user";
 
 type DataPolicyDialogProp = {
     open: boolean,
     setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    role: AuthUser["role"] | undefined;
 }
 
-export default function DataPolicyDialog({open, setOpen}: DataPolicyDialogProp) {
+export default function DataPolicyDialog({open, setOpen, role}: DataPolicyDialogProp) {
     const [agreed, setAgreed] = useState(false);
     const mutation = useAcceptDataPolicy();
      const handleAccept = () => {
-        mutation.mutate(undefined, {
+        if (!role) {
+            toast.error("Unable to accept policy: missing user role.");
+            return;
+        }
+
+        mutation.mutate(role, {
         onSuccess: () => setOpen(false),
         onError: () => toast.error("Something went wrong. Please try again.")
         });
@@ -53,8 +61,8 @@ export default function DataPolicyDialog({open, setOpen}: DataPolicyDialogProp) 
                 </div>
 
                 <div className="flex gap-3 pt-2">
-                    <Button onClick={handleAccept} disabled={!agreed || mutation.isPending} className="flex-1">
-                        {mutation.isPending ? "Processing..." : "Accept"}
+                    <Button onClick={handleAccept} disabled={!agreed || mutation.isPending || !role} className="flex-1">
+                        {mutation.isPending ? "Accepting..." : "Accept"}
                     </Button>
                 </div>
             </DialogContent>

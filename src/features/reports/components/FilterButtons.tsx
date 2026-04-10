@@ -15,7 +15,7 @@ const filters: { key: ReportFilter; label: string }[] = [
 ]
 
 export default function FilterButtons({ activeFilter, onFilterChange }: FilterButtonsProps) {
-    const buttonStyle = "border rounded-full flex-1"
+    const buttonStyle = "border rounded flex-1"
     
     return (
         <div className="flex flex-wrap gap-2 items-center">
