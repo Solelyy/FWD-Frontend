@@ -1,5 +1,6 @@
 import { ContentLayout } from "@/components/layout/panel/content-layout";
 import type { Metadata } from "next";
+import MainReport from "@/features/reports/components/MainReport";
 
 export const metadata: Metadata = {
     title: "Reports"
@@ -8,8 +9,7 @@ export const metadata: Metadata = {
 export default function Reports() {
     return(
         <ContentLayout title="Reports">
-            <div>
-            </div>
+            <MainReport />
         </ContentLayout>
     );
 }

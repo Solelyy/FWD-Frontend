@@ -9,7 +9,7 @@ const userCache = new Map<string, Promise<AuthUser | null>>();
 function getDevAuthUser(): AuthUser {
   return {
     id: "1",
-    role: UserRole.ADMIN,
+    role: UserRole.SUPER_ADMIN,
     employeeId: "FWD123",
     firstname: "Jessa",
     lastname: "Gozun",
