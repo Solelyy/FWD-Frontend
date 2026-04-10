@@ -3,13 +3,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 type CardLayoutProps = {
     title:string
-    icon: React.ReactNode;
     dataCount?: number;
     isLoading?: boolean
 }
 
-const iconStyle = "w-6 h-6 text-yellow-400 flex-shrink-0"
-export function CardLayout({title, icon, dataCount, isLoading} : CardLayoutProps) {
+export function CardLayoutAttendance({title, dataCount, isLoading} : CardLayoutProps) {
     return (
         <Card className="text-sm md:text-base w-full h-auto">
             <CardHeader >
@@ -17,7 +15,6 @@ export function CardLayout({title, icon, dataCount, isLoading} : CardLayoutProps
             </CardHeader>
 
             <CardContent className="flex flex-row items-center justify-start gap-2">
-                <div className={iconStyle}>{icon}</div>
                 {isLoading ?  (
                     <Skeleton className="h-8 w-10"/>
                 ) : (             

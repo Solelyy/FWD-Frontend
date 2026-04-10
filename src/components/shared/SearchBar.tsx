@@ -32,7 +32,7 @@ const SearchBar = ({value, onChange}: SearchBarProps) => {
   }, [value])
 
   return (
-    <div className='w-full max-w-xs space-y-2'>
+    <div className='w-full max-w-xs gap-2'>
       <Label htmlFor={id}></Label>
       <div className='relative'>
         <div className='text-muted-foreground pointer-events-none absolute inset-y-0 left-0 flex items-center justify-center pl-3 peer-disabled:opacity-50'>

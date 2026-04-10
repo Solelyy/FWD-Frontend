@@ -41,20 +41,20 @@ export default function AdminDashboard() {
             <p className="text-xl font-medium">Good Day, {user?.firstname}!</p>
 
             {/*cards */}
-            <div className="flex justify-between gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 <CardLayout 
                     title="Total Employees"
                     icon= {<UsersRound />}
                     dataCount={totalEmployees}
                     isLoading = {isLoading}
-                />
-
+                /> 
+                
                 <CardLayout 
                     title="Present Today"
                     icon = {<CalendarCheck />}
                     dataCount={presentToday}
                     isLoading= {isLoading}
-                />
+                /> 
 
                 <CardLayout 
                     title="On Leave"
