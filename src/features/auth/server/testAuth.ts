@@ -6,6 +6,18 @@ import { UserRole } from "@/lib/types/roles";
 // --- In-memory cache keyed by session token ---
 const userCache = new Map<string, Promise<AuthUser | null>>();
 
+function getDevAuthUser(): AuthUser {
+  return {
+    id: "1",
+    role: UserRole.ADMIN,
+    employeeId: "FWD123",
+    firstname: "Jessa",
+    lastname: "Gozun",
+    email: "dinavelbinongo@gmail.com",
+    isDataPolicyAccepted: true,
+  };
+}
+
 // --- Internal fetch to /auth/me ---
 async function fetchAuthUser(token: string): Promise<AuthUser | null> {
   try {
@@ -52,6 +64,10 @@ export async function testGetAuthUser(): Promise<AuthUser | null> {
   const token = match?.[1];
 
   if (!token) {
+    if (process.env.NODE_ENV === "development") {
+      console.log("[getAuthUser] No session_token found. Using development proxy user.");
+      return getDevAuthUser();
+    }
     console.log("[getAuthUser] No session_token found in cookies");
     return null;
   }
@@ -75,6 +91,10 @@ export async function testGetAuthUser(): Promise<AuthUser | null> {
 
 // --- Guard: Require user to be authenticated ---
 export async function testRequireAuth(): Promise<AuthUser | null> {
+  // only need this for ui development (not running the backend)
+  if (process.env.NODE_ENV === "development") {
+    return getDevAuthUser();
+  } 
   try {
     console.log("[requireAuth] Checking authentication...");
     const user = await testGetAuthUser();
