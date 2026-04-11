@@ -31,16 +31,18 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children,}: Readonly <{ children: React.ReactNode;}>) {
-  // const user = await requireAuth();
+  const user = await requireAuth();
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${gabarito.variable} ${nunito.variable} antialiased min-h-svh flex flex-col`}
       >
+        <UserProvider initialUser={user ?? null}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
           </ThemeProvider>
+        </UserProvider>
       </body>
     </html>
   );

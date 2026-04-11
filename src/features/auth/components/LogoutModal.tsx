@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
+  DialogDescription
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
@@ -26,11 +27,10 @@ export default function LogoutModal({ open, onOpenChange }: LogoutModalProps) {
       >
         <DialogHeader>
           <DialogTitle>Confirm Logout</DialogTitle>
+          <DialogDescription className="mt-2">
+            Are you sure you want to logout?
+          </DialogDescription>
         </DialogHeader>
-
-        <p className="text-sm text-center md:text-left text-muted-foreground mt-2">
-          Are you sure you want to logout?
-        </p>
 
         <DialogFooter className="mt-4 flex justify-end gap-2">
           <Button variant="outline" onClick={() => onOpenChange(false)}>

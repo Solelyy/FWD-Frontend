@@ -13,6 +13,16 @@ export async function verifyToken(): Promise<AuthUser | null> {
     const cookie = headersList.get("cookie");
 
     console.log("VERIFY TOKEN CALLED");
+    const hasSessionToken = cookie?.includes("session_token=");
+
+    console.log("COOKIE FROM HEADERS (has session token):", Boolean(hasSessionToken));
+    console.log("COOKIE: ", cookie);
+
+    if (!hasSessionToken) {
+      console.log("No session token found. Skipping /auth/me call.");
+      return null;
+    }
+
     const response = await fetch(
       `${apiBaseUrl}/auth/me`,
       {
@@ -25,8 +35,6 @@ export async function verifyToken(): Promise<AuthUser | null> {
 
       }
     );
-    console.log("COOKIE FROM HEADERS (has session token):", Boolean(cookie?.includes("session_token=")));
-    console.log("COOKIE: ", cookie);
 
     if (!response.ok) {
       console.warn("Token invalid or expired");

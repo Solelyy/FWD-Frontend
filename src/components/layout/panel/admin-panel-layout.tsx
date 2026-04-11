@@ -6,6 +6,7 @@ import { useSidebar } from "@/lib/hooks/useSidebar";
 import { useStore } from "@/lib/hooks/useStore";
 import { cn } from "@/lib/util/utils";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function AdminPanelLayout({
   children
@@ -16,8 +17,11 @@ export default function AdminPanelLayout({
   const router = useRouter();
   const sidebar = useStore(useSidebar, (x) => x);
 
-  if (!user) router.replace("/");
-  if (!sidebar) return null;
+  useEffect(() => {
+    if (!user) router.replace("/");
+  }, [user, router])
+  
+  if (!user || !sidebar) return null;
   const { getOpenState, settings } = sidebar;
   return (
     <>

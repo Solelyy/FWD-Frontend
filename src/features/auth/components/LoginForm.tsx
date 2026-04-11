@@ -15,9 +15,10 @@ import { UserRole } from "@/lib/types/roles"
 import { useState } from "react"
 import { Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation"
+import { useUser } from "@/components/providers/UserContext"
 
 export default function Login() {
-  //const { setUser } = useUser();
+  const { setUser } = useUser();
   const router = useRouter();
   const [isRedirecting, setIsRedirecting] = useState(false);
 
@@ -42,7 +43,7 @@ export default function Login() {
         return
       } 
 
-      //setUser(user);
+      setUser(user);
 
       //redirect based on role
       setIsRedirecting(true);

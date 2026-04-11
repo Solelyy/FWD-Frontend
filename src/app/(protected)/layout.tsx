@@ -33,13 +33,10 @@ export default async function ProtectedRouteLayout({ children }: { children: Rea
   }
 
   return (
-    <UserProvider initialUser={ user ?? null}>
       <QueryProvider>
         <AdminPanelLayout>
           {children}
         </AdminPanelLayout>
       </QueryProvider>
-    </UserProvider>
-    
   );
 }
