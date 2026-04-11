@@ -1,13 +1,10 @@
-"use client"
-
 import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { useUser } from "@/components/providers/UserContext";
-import { useRouter } from "next/navigation";
 import { UserRole } from "@/lib/types/roles";
 
 export default function NotFound() {
+  /*
   const {user} = useUser();
     const router = useRouter();
 
@@ -32,7 +29,7 @@ export default function NotFound() {
           router.replace("/employee");
           break;
       }
-  }
+  }*/
 
   return (
     <div className="hero-section flex flex-col gap-8 min-h-screen items-center justify-center">
@@ -54,12 +51,13 @@ export default function NotFound() {
             </p>
           </div>
 
-          {/* Action Buttons */}
+          {/* Action Buttons 
             <div className="flex flex-col gap-3 pt-4">
               <Button className="w-full" onClick={handleDestination}>
                 Go to Home
               </Button>
             </div>
+          */}
         </Card>
       </main>
     </div>

@@ -8,17 +8,16 @@ import { Input } from "@/components/ui/input"
 import {useForm} from "react-hook-form"
 import { FormMessage } from "@/components/ui/form-message"
 import { useAutoDismiss } from "@/lib/hooks/useAutoDismiss"
-import { useRouter } from "next/navigation"
 import { loginAuth, } from "@/features/auth/api/loginApi"
 import { getAuthError } from "@/features/auth/util/auth-error"
 import type { LoginCredentials } from "@/lib/types/auth-user"
 import { UserRole } from "@/lib/types/roles"
 import { useState } from "react"
 import { Eye, EyeOff } from "lucide-react";
-import { useUser } from "@/components/providers/UserContext"
+import { useRouter } from "next/navigation"
 
 export default function Login() {
-  const { setUser } = useUser();
+  //const { setUser } = useUser();
   const router = useRouter();
   const [isRedirecting, setIsRedirecting] = useState(false);
 
@@ -43,7 +42,7 @@ export default function Login() {
         return
       } 
 
-      setUser(user);
+      //setUser(user);
 
       //redirect based on role
       setIsRedirecting(true);

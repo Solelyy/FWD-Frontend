@@ -16,7 +16,9 @@ import DataPolicyDialog from "@/features/dashboard/components/DataPolicyDialog";
 export default function AdminDashboard() {
     const [ openDataPolicy, setOpenDataPolicy ] = useState(false);
 
-    const { user } = useUser();
+    const { user, isLoadingUser } = useUser();
+    const shouldShowPolicy = !isLoadingUser && user?.isDataPolicyAccepted === false;
+
     const { employees, totalEmployees, isLoading, 
         presentToday, onLeave, cashAdvance, reimbursement } = useAdminDashboardStats();
 
@@ -27,13 +29,13 @@ export default function AdminDashboard() {
     const tableContainerStyle = "flex flex-col sm:flex-row w-full gap-4 justify-between";
     const cardHeaderStyle = "flex justify-between items-center";
 
+    console.log("isDataPolicyAccepted: ", user?.isDataPolicyAccepted);
+
     useEffect(() => {
-        if (user?.isDataPolicyAccepted === false) {
+        if (shouldShowPolicy) {
             setOpenDataPolicy(true);
-        } else {
-            setOpenDataPolicy(false);
         }
-    }, [user]);
+    }, [shouldShowPolicy]);
 
     return(
     <>
@@ -106,7 +108,7 @@ export default function AdminDashboard() {
             </div>
         </div>
 
-        {openDataPolicy && (
+        {shouldShowPolicy && (
             <DataPolicyDialog 
                 open={openDataPolicy} 
                 setOpen={setOpenDataPolicy}

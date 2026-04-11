@@ -1,16 +1,22 @@
 "use client";
 
 import { Sidebar } from "@/components/layout/panel/sidebar";
+import { useUser } from "@/components/providers/UserContext";
 import { useSidebar } from "@/lib/hooks/useSidebar";
 import { useStore } from "@/lib/hooks/useStore";
 import { cn } from "@/lib/util/utils";
+import { useRouter } from "next/navigation";
 
 export default function AdminPanelLayout({
   children
 }: {
   children: React.ReactNode;
 }) {
+  const { user } = useUser();
+  const router = useRouter();
   const sidebar = useStore(useSidebar, (x) => x);
+
+  if (!user) router.replace("/");
   if (!sidebar) return null;
   const { getOpenState, settings } = sidebar;
   return (

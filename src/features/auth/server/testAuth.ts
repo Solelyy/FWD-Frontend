@@ -4,7 +4,7 @@ import { AuthUser } from "@/lib/types/auth-user";
 import { UserRole } from "@/lib/types/roles";
 
 // --- In-memory cache keyed by session token ---
-const userCache = new Map<string, Promise<AuthUser | null>>();
+export const userCache = new Map<string, Promise<AuthUser | null>>();
 
 function getDevAuthUser(): AuthUser {
   return {
@@ -78,6 +78,7 @@ export async function testGetAuthUser(): Promise<AuthUser | null> {
     return userCache.get(token)!;
   }
 
+
   // Fetch and cache
   console.log("[getAuthUser] No cache found. Fetching user...");
   const promise = fetchAuthUser(token).catch((err) => {
@@ -127,4 +128,12 @@ export async function testRequireRole(role: UserRole): Promise<AuthUser | null> 
 
   console.log("[requireRole] Role authorized:", role);
   return user;
+}
+
+//logout
+export function invalidateUserCache(token?: string) {
+  if (!token) return;
+
+  console.log("[invalidateUserCache] Deleting cache for token:", token);
+  userCache.delete(token);
 }

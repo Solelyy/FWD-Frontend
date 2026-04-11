@@ -9,7 +9,7 @@ import { testRequireRole } from "@/features/auth/server/testAuth";
 export default async function AdminLayout({children}: {children: ReactNode}){
     console.log("📍Admin layout.tsx. Checking role...")
 
-    await testRequireRole(UserRole.ADMIN);
+    await requireRole(UserRole.ADMIN);
     
       return (
         <>

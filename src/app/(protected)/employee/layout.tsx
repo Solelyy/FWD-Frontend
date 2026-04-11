@@ -8,7 +8,7 @@ import { testRequireRole } from "@/features/auth/server/testAuth";
 
 export default async function EmployeeLayout({children}: {children: ReactNode}){
     console.log("📍Employee layout.tsx. Checking role...")
-    await testRequireRole(UserRole.EMPLOYEE);
+    await requireRole(UserRole.EMPLOYEE);
     
       return (
         <>

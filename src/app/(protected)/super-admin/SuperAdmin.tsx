@@ -16,8 +16,10 @@ import DataPolicyDialog from "@/features/dashboard/components/DataPolicyDialog";
 export default function SuperAdminDashboard() {
     const [ openDataPolicy, setOpenDataPolicy ] = useState(false);
 
-    const { user } = useUser();
+    const { user, isLoadingUser } = useUser();
     
+    const shouldShowPolicy = !isLoadingUser && user?.isDataPolicyAccepted === false;
+
     const { admins, employees, totalAdmins, totalEmployees, activeAccounts, isLoading} = useSuperAdminDashboardStats();
 
     const previewAdminAccounts = [
@@ -31,13 +33,13 @@ export default function SuperAdminDashboard() {
     const tableContainerStyle = "flex flex-col flex-wrap sm:flex-row w-full gap-4 justify-between";
     const cardHeaderStyle = "flex justify-between items-center";
 
+    console.log("isDataPolicyAccepted: ", user?.isDataPolicyAccepted);
+
     useEffect(() => {
-        if (user?.isDataPolicyAccepted === false) {
+        if (shouldShowPolicy) {
             setOpenDataPolicy(true);
-        } else {
-            setOpenDataPolicy(false);
         }
-    }, [user]);
+    }, [shouldShowPolicy]);
 
     return(
     <>
@@ -116,7 +118,7 @@ export default function SuperAdminDashboard() {
             </div>
         </div>
         
-        {openDataPolicy && (
+        {shouldShowPolicy && (
             <DataPolicyDialog 
                 open={openDataPolicy} 
                 setOpen={setOpenDataPolicy}

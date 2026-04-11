@@ -26,6 +26,7 @@ export async function verifyToken(): Promise<AuthUser | null> {
       }
     );
     console.log("COOKIE FROM HEADERS (has session token):", Boolean(cookie?.includes("session_token=")));
+    console.log("COOKIE: ", cookie);
 
     if (!response.ok) {
       console.warn("Token invalid or expired");

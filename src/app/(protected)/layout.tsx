@@ -7,6 +7,7 @@ import AdminPanelLayout from "@/components/layout/panel/admin-panel-layout";
 import QueryProvider from "@/components/providers/QueryProvider";
 import { redirect } from "next/navigation"
 import { testRequireAuth } from "@/features/auth/server/testAuth";
+import { UserProvider } from "@/components/providers/UserContext";
 
 export const metadata: Metadata = {
   title: {
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
 export default async function ProtectedRouteLayout({ children }: { children: ReactNode }) {
   console.log("📍Protected Layout. Calling requireAuth...");
 
-  const user  = await testRequireAuth();
+  const user  = await requireAuth();
 
   if (!user) {
     console.log("Redirecting to unauthorized.")
@@ -32,10 +33,13 @@ export default async function ProtectedRouteLayout({ children }: { children: Rea
   }
 
   return (
-    <QueryProvider>
+    <UserProvider initialUser={ user ?? null}>
+      <QueryProvider>
         <AdminPanelLayout>
           {children}
         </AdminPanelLayout>
-    </QueryProvider>
+      </QueryProvider>
+    </UserProvider>
+    
   );
 }

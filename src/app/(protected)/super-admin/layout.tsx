@@ -9,7 +9,7 @@ import { testRequireRole } from "@/features/auth/server/testAuth";
 export default async function SuperAdminLayout({children}: {children: ReactNode}){
     console.log("📍Super admin layout.tsx. Checking role...")
 
-    await testRequireRole(UserRole.SUPER_ADMIN);
+    await requireRole(UserRole.SUPER_ADMIN);
     
       return (
         <>

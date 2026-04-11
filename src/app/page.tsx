@@ -9,7 +9,7 @@ import { testGetAuthUser } from "@/features/auth/server/testAuth";
 
 export default async function Home() {
   //const user = await getAuthUserCache();
-  const user = await testGetAuthUser();
+  /*const user = await testGetAuthUser();
 
   if (user) {
     switch (user.role) {
@@ -17,7 +17,7 @@ export default async function Home() {
       case UserRole.SUPER_ADMIN: redirect("/super-admin");
       case UserRole.EMPLOYEE: redirect("/employee");
     }
-  }
+  } */
 
   return (
     <div className="hero-section flex flex-col gap-8">

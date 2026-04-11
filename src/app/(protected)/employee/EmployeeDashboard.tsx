@@ -9,16 +9,20 @@ import { useState, useEffect } from "react";
 import DataPolicyDialog from "@/features/dashboard/components/DataPolicyDialog";
 
 export default function EmployeeDashboard() {
-    const { user } = useUser();
+    const { user, isLoadingUser } = useUser();
     const [ openDataPolicy, setOpenDataPolicy ] = useState(false);
 
+    const shouldShowPolicy = !isLoadingUser && user?.isDataPolicyAccepted === false;
+
+
+    console.log("isDataPolicyAccepted: ", user?.isDataPolicyAccepted);
+
     useEffect(() => {
-        if (user?.isDataPolicyAccepted === false) {
+        if (shouldShowPolicy) {
             setOpenDataPolicy(true);
-        } else {
-            setOpenDataPolicy(false);
         }
-    }, [user]);
+    }, [shouldShowPolicy]);
+
 
     return(
     <>
