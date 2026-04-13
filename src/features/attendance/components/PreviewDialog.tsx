@@ -25,7 +25,6 @@ export default function PreviewDialog({ open, setOpen, location, photo, stream, 
   const successText = attendanceType === AttendanceType.TIME_IN ? "Time in" : "Time out";
   const [openCaptureDialog, setOpenCaptureDialog] = useState(false);
   const [capturedPhoto, setCapturedPhoto] = useState<string | null>(photo);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isOvertime, setIsOvertime] = useState(false);
 
   const attendanceMutation = useAttendanceMutation();
@@ -35,7 +34,6 @@ export default function PreviewDialog({ open, setOpen, location, photo, stream, 
 
   
   const submitAttendance = async (isOt?: boolean) => {
-    setIsSubmitting(true);
 
     const timeStamp = new Date().toISOString();
 
@@ -49,9 +47,7 @@ export default function PreviewDialog({ open, setOpen, location, photo, stream, 
     } catch (error) {
       console.log(error);
       toast.error(`Unable to submit ${formatText}`);
-    } finally {
-      setIsSubmitting(false);
-    }
+    } 
   }
   
   const handleSubmit = async () => {
@@ -93,7 +89,8 @@ export default function PreviewDialog({ open, setOpen, location, photo, stream, 
 
             <DialogTitle>Preview</DialogTitle>
             <DialogDescription>This is the preview of your {formatText}</DialogDescription>
-
+          </DialogHeader>
+          
             {/* Image preview */}
             {capturedPhoto ? (
               <div className="w-full aspect-4/3 rounded-lg border-2 border-gray-300 overflow-hidden">
@@ -122,7 +119,7 @@ export default function PreviewDialog({ open, setOpen, location, photo, stream, 
                 {attendanceMutation.isPending ? "Submitting..." : "Submit"}
               </Button>
             </div>
-          </DialogHeader>
+          
         </DialogContent>
       </Dialog>
 

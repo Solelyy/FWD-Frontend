@@ -8,11 +8,13 @@ import { useState } from "react";
 import PermissionDialog from "@/features/attendance/components/PermissionDialog";
 import { AttendanceStatus, AttendanceType } from "@/features/attendance/types/attendanceType";
 import { useAttendance } from "./hooks/useAttendance";
+import { ViewDialog } from "./ViewDialog";
 
 export default function TimeinOut() {
     const [ open, setOpen ] = useState(false);
     const [ attendanceType, setAttendanceType ] = useState<AttendanceType>();
     const {data: attendance, isLoading, error} = useAttendance();
+    const [ isViewDialogOpen, setViewDialogOpen ] = useState(false);
 
     const handleTimeIn = () => {
         setOpen(true)
@@ -23,7 +25,16 @@ export default function TimeinOut() {
         setOpen(true)
         setAttendanceType(AttendanceType.TIME_OUT);
     }
+
+    const handleViewTimein = () => {
+        setViewDialogOpen(true);
+        setAttendanceType(AttendanceType.TIME_IN);
+    }
     
+    const handleViewTimeout = () => {
+        setViewDialogOpen(true);
+        setAttendanceType(AttendanceType.TIME_OUT);
+    }
     return (
         <>
         <div className="flex flex-col flex-1">
@@ -63,7 +74,10 @@ export default function TimeinOut() {
                     <div className="border rounded p-2">
                         <div className="flex justify-between">
                             <CardDescription>Time In</CardDescription>  
-                            <Button size="xs" className="px-4" variant="outline">View</Button>
+                            <Button size="xs" className="px-4" 
+                            variant="outline" onClick={handleViewTimein}>
+                                View
+                            </Button>
                         </div>
                         
                         <p className="text-sm">
@@ -80,7 +94,10 @@ export default function TimeinOut() {
                     <div className="border rounded p-2">
                         <div className="flex justify-between">
                             <CardDescription>Time Out</CardDescription>  
-                            <Button size="xs" className="px-4" variant="outline">View</Button>
+                            <Button size="xs" className="px-4" 
+                            variant="outline" onClick={handleViewTimeout}>
+                                View
+                            </Button>
                         </div>
                         
                         <p className="text-sm">
@@ -97,6 +114,13 @@ export default function TimeinOut() {
         </div>
 
         <PermissionDialog setOpen={setOpen} open={open} attendanceType={attendanceType} />
+        <ViewDialog open={isViewDialogOpen} setOpen={setViewDialogOpen} 
+        attendanceType={attendanceType} 
+        timeInLocation={attendance?.timeInLocation}
+        timeOutLocation={attendance?.timeOutLocation}
+        timeInImage={attendance?.timeInImage}
+        timeOutImage={attendance?.timeOutImage}
+        />
         </>
     );
 }
