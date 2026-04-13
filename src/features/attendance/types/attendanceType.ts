@@ -11,6 +11,7 @@ export enum AttendanceStatus {
     SUSPENDED="SUSPENDED"
 }
 
+//for employee dashboard
 export type AttendanceStatusResponse = {
 status: AttendanceStatus
 canTimeIn: boolean;
@@ -22,8 +23,29 @@ timeInLocation: string | null;
 timeOutLocation: string | null;
 timeInImage: string | null;
 timeOutImage: string | null;
-totalHours: number | null; // computed if time_out exists
 overtimePending?: boolean; // optional
 };
 
+//for attendance logs
+export type AttendanceLog = {
+  id: string;
+  date: string;
+  timeIn: {
+    timestamp: string | null; 
+  };
+  timeOut: {
+    timestamp: string | null;
+  };
+  status: AttendanceStatus
+  totalHours: number | null; 
+};
 
+export type AttendanceLogsResponse = {
+  logs: AttendanceLog[];
+
+  meta: {
+    page: number;
+    limit: number;
+    total: number;
+  };
+};

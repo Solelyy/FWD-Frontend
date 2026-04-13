@@ -5,6 +5,7 @@ export function useAttendance() {
     return useQuery({
         queryKey: ["attendance", ],
         queryFn: async () => {
+            /*comment when running the backend
             if (process.env.NODE_ENV=="development") {
                 return {
                     status: AttendanceStatus.COMPLETED,
@@ -17,10 +18,9 @@ export function useAttendance() {
                     timeOutLocation: null,
                     timeInImage: null,
                     timeOutImage: null,
-                    totalHours: null,
                     overtimePending: false,
                 };
-        }
+        }*/
         return getAttendanceApi();
         },
         retry: 1, //retry api call once fails, so 2 try (initial + retry)

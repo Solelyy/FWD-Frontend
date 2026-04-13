@@ -24,7 +24,6 @@ export async function getAttendanceApi():Promise<AttendanceStatusResponse> {
             timeOutLocation: null,
             timeInImage: null,
             timeOutImage: null,
-            totalHours: null,
             overtimePending: false,
         };
     }

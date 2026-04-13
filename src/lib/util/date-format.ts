@@ -1,3 +1,4 @@
+//ex: Apr 13, 2026, 4:01 PM
 export function formatDateTime(dateString?: string |null) {
   if (!dateString) return "-"
   // Remove the weekday and 'at'
@@ -18,6 +19,7 @@ export function formatDateTime(dateString?: string |null) {
   });
 }
 
+//Monday, April 13
 export function getTodayFormatted() {
   const now = new Date();
   return now.toLocaleDateString("en-US", {
@@ -42,6 +44,7 @@ export function getMonthYear(date?: string | Date | null) {
   });
 }
 
+//attendance ex: 12:19PM
 export function formatTime(dateString?: string | null, 
   options?: {isLate?: boolean; isUndertime?: boolean }
 ) {
@@ -63,4 +66,21 @@ export function formatTime(dateString?: string | null,
   if (options?.isUndertime) suffix = " (Undertime)";
 
   return time + suffix;
+}
+
+//ex: April 13, 2026
+export function formatTableDate(dateString?: string | null) {
+  if (!dateString) return "-";
+
+  const date = new Date(dateString);
+
+  if (isNaN(date.getTime())) {
+    return "Invalid Date";
+  }
+
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+  });
 }

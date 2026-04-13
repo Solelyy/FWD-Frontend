@@ -8,7 +8,8 @@ export function useAttendanceMutation() {
         mutationFn: attendanceSubmitApi,
 
         onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ["attendance"]})
+            queryClient.invalidateQueries({queryKey: ["attendance"]});
+            queryClient.invalidateQueries({queryKey:["attendance-logs"]});
         }
     });
 }
