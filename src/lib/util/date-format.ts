@@ -41,3 +41,26 @@ export function getMonthYear(date?: string | Date | null) {
     year: "numeric",
   });
 }
+
+export function formatTime(dateString?: string | null, 
+  options?: {isLate?: boolean; isUndertime?: boolean }
+) {
+  if (!dateString) return "No record yet";
+
+  const date = new Date(dateString);
+
+  if (isNaN(date.getTime())) {
+    return "Invalid Date";
+  }
+
+  const time = date.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+  let suffix = "";
+  if (options?.isLate) suffix = " (Late)";
+  if (options?.isUndertime) suffix = " (Undertime)";
+
+  return time + suffix;
+}

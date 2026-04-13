@@ -2,15 +2,17 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "lucide-react";
-import { getTodayFormatted } from "@/lib/util/date-format";
+import { formatTime, getTodayFormatted } from "@/lib/util/date-format";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import PermissionDialog from "@/features/attendance/components/PermissionDialog";
-import { AttendanceType } from "@/features/attendance/types/attendanceType";
+import { AttendanceStatus, AttendanceType } from "@/features/attendance/types/attendanceType";
+import { useAttendance } from "./hooks/useAttendance";
 
 export default function TimeinOut() {
     const [ open, setOpen ] = useState(false);
     const [ attendanceType, setAttendanceType ] = useState<AttendanceType>();
+    const {data: attendance, isLoading, error} = useAttendance();
 
     const handleTimeIn = () => {
         setOpen(true)
@@ -37,13 +39,21 @@ export default function TimeinOut() {
                 <CardContent className="flex flex-col gap-4">
                     <div className="flex gap-4 w-full justify-between">
                         <div className="w-full">
-                            <Button className="w-full" onClick={handleTimeIn}>
+                            <Button className="w-full" 
+                            onClick={handleTimeIn}
+                            disabled={
+                                attendance?.status === AttendanceStatus.COMPLETED ||
+                                (attendance?.status === AttendanceStatus.IN_PROGRESS && !attendance?.canTimeIn)
+                            }>
                                 Time In
                             </Button>
                         </div>
 
                         <div className="w-full">
-                            <Button className="w-full" onClick={handleTimeOut}>
+                            <Button className="w-full" 
+                            onClick={handleTimeOut}
+                            disabled={attendance?.status=== AttendanceStatus.NONE || attendance?.status ===AttendanceStatus.COMPLETED}
+                            >
                                 Time Out
                             </Button>
                         </div>
@@ -56,7 +66,15 @@ export default function TimeinOut() {
                             <Button size="xs" className="px-4" variant="outline">View</Button>
                         </div>
                         
-                        <p className="text-sm">No record yet</p>
+                        <p className="text-sm">
+                            {attendance?.timeIn
+                            ? formatTime(attendance?.timeIn, {
+                                isLate: attendance?.isLate
+                            })
+                            : "No time in yet"
+                            }
+                            
+                        </p>
                     </div>
 
                     <div className="border rounded p-2">
@@ -65,7 +83,14 @@ export default function TimeinOut() {
                             <Button size="xs" className="px-4" variant="outline">View</Button>
                         </div>
                         
-                        <p className="text-sm">No record yet</p>
+                        <p className="text-sm">
+                            {attendance?.timeOut 
+                            ? formatTime(attendance?.timeOut, { 
+                                isUndertime: attendance?.isUndertime
+                            })
+                            : "No time out yet"
+                            }
+                        </p>
                     </div>   
                 </CardContent>
             </Card>

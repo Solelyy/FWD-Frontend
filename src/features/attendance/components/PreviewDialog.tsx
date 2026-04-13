@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import CaptureDialog from "./CaptureDialog";
 import { stopStream } from "../utils/stream";
-import { attendanceSubmitApi } from "../api/attendanceSubmitApi";
 import { toast } from "sonner";
 import OvertimeDialog from "./OvertimeDialog";
+import { useAttendanceMutation } from "@/features/dashboard/components/employee/hooks/useAttendanceMutate";
 
 type PreviewDialogProps = {
   open: boolean;
@@ -28,17 +28,19 @@ export default function PreviewDialog({ open, setOpen, location, photo, stream, 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isOvertime, setIsOvertime] = useState(false);
 
+  const attendanceMutation = useAttendanceMutation();
   const handlePhotoCapture = (photoUrl: string) => {
     setCapturedPhoto(photoUrl);
   };
 
+  
   const submitAttendance = async (isOt?: boolean) => {
     setIsSubmitting(true);
 
     const timeStamp = new Date().toISOString();
 
     try {
-      await attendanceSubmitApi({
+      await attendanceMutation.mutateAsync({
         location, timeStamp, imageUrl: capturedPhoto, attendanceType, isOvertime: isOt ?? false,
       });
       toast.success(`${successText} successfully submitted.`);
@@ -116,8 +118,8 @@ export default function PreviewDialog({ open, setOpen, location, photo, stream, 
               <Button variant="secondary" className="w-full flex-1" onClick={() => onRetry()}>
                 Retry
               </Button>
-              <Button className="w-full flex-1" onClick={handleSubmit} disabled={!capturedPhoto || isSubmitting}>
-                {isSubmitting ? "Submitting..." : "Submit"}
+              <Button className="w-full flex-1" onClick={handleSubmit} disabled={!capturedPhoto || attendanceMutation.isPending}>
+                {attendanceMutation.isPending ? "Submitting..." : "Submit"}
               </Button>
             </div>
           </DialogHeader>
