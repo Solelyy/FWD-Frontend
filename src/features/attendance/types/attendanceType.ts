@@ -11,6 +11,12 @@ export enum AttendanceStatus {
     SUSPENDED="SUSPENDED"
 }
 
+export enum OvertimeStatus {
+  PENDING = "PENDING",
+  APPROVED = "APPROVED",
+  REJECTED = "REJECTED",
+}
+
 //for employee dashboard
 export type AttendanceStatusResponse = {
 status: AttendanceStatus
@@ -37,6 +43,7 @@ export type AttendanceLog = {
     timestamp: string | null;
   };
   status: AttendanceStatus
+  overtimeStatus?: OvertimeStatus | null;
   totalHours: number | null; 
 };
 

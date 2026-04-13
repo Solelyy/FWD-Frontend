@@ -9,6 +9,7 @@ import { useAttendanceLogs } from "@/features/dashboard/components/employee/hook
 import { formatTableDate, formatTime } from "@/lib/util/date-format";
 import { ArrowDownToLine } from "lucide-react";
 import { useState, useEffect } from "react";
+import AttendanceCards from "./AttendanceCards";
 
 export default function AttendanceLogs() { 
     const today = new Date();
@@ -29,17 +30,20 @@ export default function AttendanceLogs() {
      setPage(1)
     }, [year, month])
     return (
+        <div className="flex flex-col space-y-4 md:space-y-6">
+        <AttendanceCards data={data} />
         <Card className="p-4 md:p-6 h-140">
-            <div className="flex flex-row justify-between w-full">
+            <div className="flex flex-row justify-between w-full gap-2">
                 <div className="flex flex-row gap-2 items-center">
-                    <p className="text-sm">Filter by</p>
+                    <p className="text-sm text-nowrap">Filter by</p>
                     <MonthYearPicker year={year} month={month} onYearChange={setYear} onMonthChange={setMonth}/>
                 </div>
 
                 <div>
-                    <Button variant="outline"> 
+                    <Button> 
                         <ArrowDownToLine />
-                        Download Report
+                        <span className="md:hidden">Export</span>
+                        <span className="hidden md:inline">Export Report</span>
                     </Button>
                 </div>
             </div>
@@ -97,5 +101,6 @@ export default function AttendanceLogs() {
                 onPageChange={setPage}
             />
         </Card>
+        </div>
     );
 }
