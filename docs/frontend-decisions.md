@@ -117,6 +117,9 @@ npm install @tanstack/react-query
 npx shadcn@latest add popover calendar
 npm install date-fns
 
+## Select
+npx shadcn@latest add select
+
 ## Geolocation API
 - this is for location
 - docs: https://www.w3.org/TR/geolocation/

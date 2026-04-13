@@ -1,4 +1,5 @@
 "use client"
+import { MonthYearPicker } from "@/components/shared/MonthYearPicker";
 import { PaginationSimple } from "@/components/shared/Pagination";
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { Button } from "@/components/ui/button";
@@ -6,30 +7,33 @@ import { Card } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useAttendanceLogs } from "@/features/dashboard/components/employee/hooks/useAttendanceLogs";
 import { formatTableDate, formatTime } from "@/lib/util/date-format";
-import { CalendarCheck } from "lucide-react";
 import { ArrowDownToLine } from "lucide-react";
 import { useState, useEffect } from "react";
 
-export default function AttendanceLogs() {
+export default function AttendanceLogs() { 
+    const today = new Date();
+
+    const [year, setYear] = useState(today.getFullYear());
+    const [month, setMonth] = useState(today.getMonth());
     const [page, setPage] = useState(1);
-    const limit = 10;
-    const {data, isLoading, error } = useAttendanceLogs(page, limit);
+    const limit = 15;
+    const {data, isLoading, error } = useAttendanceLogs(page, limit, year, month);
 
     const attendanceLogs = data?.logs ?? [];
-
+   
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     }, [page]);
+
+    useEffect(() => {
+     setPage(1)
+    }, [year, month])
     return (
         <Card className="p-4 md:p-6 h-140">
             <div className="flex flex-row justify-between w-full">
                 <div className="flex flex-row gap-2 items-center">
                     <p className="text-sm">Filter by</p>
-
-                    <div className="border rounded-lg py-2 px-4 flex gap-3 items-center w-50 justify-between">
-                        <p className="text-sm font-medium">This month</p>
-                        <CalendarCheck size={18}/>
-                    </div>
+                    <MonthYearPicker year={year} month={month} onYearChange={setYear} onMonthChange={setMonth}/>
                 </div>
 
                 <div>
