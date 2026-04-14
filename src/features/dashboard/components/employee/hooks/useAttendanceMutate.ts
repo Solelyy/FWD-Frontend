@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { attendanceSubmitApi } from "@/features/attendance/api/attendanceSubmitApi";
 
-export function useAttendanceMutation(month:number, year: number) {
+export function useAttendanceMutation(month:number, year: number, day:number) {
     const queryClient = useQueryClient();
 
     return useMutation({
@@ -12,7 +12,12 @@ export function useAttendanceMutation(month:number, year: number) {
             queryClient.invalidateQueries({queryKey:["attendance-logs", year, month],
                 exact:false
             });
-            queryClient.invalidateQueries({queryKey:["attendance-summary", year, month]})
+            queryClient.invalidateQueries({queryKey:["attendance-summary", year, month]});
+            queryClient.invalidateQueries({queryKey: ["employees-attendance", 
+                {year, month, day}
+            ],
+                exact: false
+            })
         }
     });
 }

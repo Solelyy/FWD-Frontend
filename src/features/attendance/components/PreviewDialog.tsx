@@ -30,8 +30,9 @@ export default function PreviewDialog({ open, setOpen, location, photo, stream, 
 
   const month = today.getMonth();
   const year = today.getFullYear();
+  const day = today.getDate();
 
-  const attendanceMutation = useAttendanceMutation(month, year);
+  const attendanceMutation = useAttendanceMutation(month, year,day);
   const handlePhotoCapture = (photoUrl: string) => {
     setCapturedPhoto(photoUrl);
   };
