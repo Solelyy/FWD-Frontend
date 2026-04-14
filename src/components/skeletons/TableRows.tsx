@@ -22,7 +22,7 @@ export function SkeletonTableRows({ showAction, columns }: { showAction?: boolea
   return [...Array(6)].map((_, i) => (
     <TableRow key={i}>
       
-      {columns.map((col) => (
+      {columns.filter((col) => col !== "id").map((col) => (
         <TableCell key={col}>
           <Skeleton className={getSkeletonWidth(col)} />
         </TableCell>

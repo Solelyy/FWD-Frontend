@@ -26,7 +26,7 @@ export default function AccountsTable({accounts, loading, error, showAction, tab
     //for columns visibility use in dashboards
     const columns = visibleColumns && visibleColumns.length > 0
     ? visibleColumns
-    : ["id","name","email","status","invitationDate"];
+    : ["name","email","status","invitationDate"]; //removed id 
 
     //this is for search bar
     const [searchTerm, setSearchTerm] = useState("");
@@ -42,7 +42,7 @@ export default function AccountsTable({accounts, loading, error, showAction, tab
                 <Table>
                     <TableHeader className="bg-[#FFEB94]/40">
                         <TableRow>
-                            {columns.includes("id") && <TableHead>Employee ID</TableHead>}
+                            {/*{columns.includes("id") && <TableHead>Employee ID</TableHead>} */}
                             {columns.includes("name") && <TableHead>Name</TableHead>}
                             {columns.includes("email") && <TableHead>Email</TableHead>}
                             {columns.includes("status") && <TableHead>Status</TableHead>}
@@ -93,11 +93,12 @@ export default function AccountsTable({accounts, loading, error, showAction, tab
 
                         {!loading && !error && filteredAccounts.map((account) => (
                         <TableRow key={account.employeeId} >
+                                {/* 
                                 {columns.includes("id") && 
                                     <TableCell className="font-medium"> 
                                         {account.employeeId} 
                                     </TableCell>
-                                }
+                                }*/}
 
                                 {columns.includes("name") && 
                                     <TableCell> 
