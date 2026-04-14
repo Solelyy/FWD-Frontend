@@ -26,8 +26,12 @@ export default function PreviewDialog({ open, setOpen, location, photo, stream, 
   const [openCaptureDialog, setOpenCaptureDialog] = useState(false);
   const [capturedPhoto, setCapturedPhoto] = useState<string | null>(photo);
   const [isOvertime, setIsOvertime] = useState(false);
+  const today = new Date();
 
-  const attendanceMutation = useAttendanceMutation();
+  const month = today.getMonth();
+  const year = today.getFullYear();
+
+  const attendanceMutation = useAttendanceMutation(month, year);
   const handlePhotoCapture = (photoUrl: string) => {
     setCapturedPhoto(photoUrl);
   };

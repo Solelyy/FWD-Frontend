@@ -43,7 +43,6 @@ export type AttendanceLog = {
     timestamp: string | null;
   };
   status: AttendanceStatus
-  overtimeStatus?: OvertimeStatus | null;
   totalHours: number | null; 
 };
 
@@ -56,3 +55,10 @@ export type AttendanceLogsResponse = {
     total: number;
   };
 };
+
+export type AttendanceSummaryResponse ={
+  totalLogs: number;
+  totalWorkedHours: number;
+  presentDayss: number;
+  accumulatedOvertime:number;
+}

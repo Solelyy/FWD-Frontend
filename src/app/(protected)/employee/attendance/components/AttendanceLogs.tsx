@@ -10,6 +10,7 @@ import { formatTableDate, formatTime } from "@/lib/util/date-format";
 import { ArrowDownToLine } from "lucide-react";
 import { useState, useEffect } from "react";
 import AttendanceCards from "./AttendanceCards";
+import { useAttendanceSummary } from "@/features/dashboard/components/employee/hooks/useAttendanceSummary";
 
 export default function AttendanceLogs() { 
     const today = new Date();
@@ -19,6 +20,7 @@ export default function AttendanceLogs() {
     const [page, setPage] = useState(1);
     const limit = 15;
     const {data, isLoading, error } = useAttendanceLogs(page, limit, year, month);
+    const {data: summary, isLoading: isSummaryLoading } = useAttendanceSummary(month, year);
 
     const attendanceLogs = data?.logs ?? [];
    
@@ -31,7 +33,7 @@ export default function AttendanceLogs() {
     }, [year, month])
     return (
         <div className="flex flex-col space-y-4 md:space-y-6">
-        <AttendanceCards data={data} />
+        <AttendanceCards data={summary} />
         <Card className="p-4 md:p-6 h-140">
             <div className="flex flex-row justify-between w-full gap-2">
                 <div className="flex flex-row gap-2 items-center">
@@ -42,8 +44,8 @@ export default function AttendanceLogs() {
                 <div>
                     <Button> 
                         <ArrowDownToLine />
-                        <span className="md:hidden">Export</span>
-                        <span className="hidden md:inline">Export Report</span>
+                        <span className="md:hidden">Download</span>
+                        <span className="hidden md:inline">Download Report</span>
                     </Button>
                 </div>
             </div>

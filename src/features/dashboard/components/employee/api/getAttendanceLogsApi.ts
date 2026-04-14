@@ -1,51 +1,17 @@
-import { AttendanceStatus, AttendanceLogsResponse, OvertimeStatus } from "@/features/attendance/types/attendanceType";
+import { AttendanceLogsResponse, } from "@/features/attendance/types/attendanceType";
 import { API_BASE_URL } from "@/lib/util/api";
 
-function parseOvertimeStatus(status: unknown): OvertimeStatus | null {
-    if (typeof status !== "string") return null;
-    const normalized = status.toUpperCase();
-
-    if (normalized === OvertimeStatus.PENDING) return OvertimeStatus.PENDING;
-    if (normalized === OvertimeStatus.APPROVED) return OvertimeStatus.APPROVED;
-    if (normalized === OvertimeStatus.REJECTED) return OvertimeStatus.REJECTED;
-
-    return null;
-}
-
 export async function getAttendanceLogsApi(page: number, limit: number, year:number, month: number): Promise<AttendanceLogsResponse> {
-    const endpoint =  `/attendance-logs?page=${page}&limit=${limit}&year=${year}&month=${month}`;;
+    const endpoint =  `/attendance-logs?page=${page}&limit=${limit}&year=${year}&month=${month+1}`;;
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "GET",
         credentials: "include"
         });
     
-        if (!response.ok) throw new Error ("Cannot fetch attendance logs.");
+    if (!response.ok) throw new Error ("Cannot fetch attendance logs.");
     
-        const result = await response.json();
-        console.log("Fetch attendance: ", result);
+    const result = await response.json();
+    console.log("Fetch attendance: ", result);
     
-        return {
-            logs: (result?.logs ?? []).map((log: any) => ({
-                id: log.id ?? "",
-                date: log.date ?? "",
-
-                timeIn: {
-                timestamp: log.timeIn?.timestamp ?? null,
-                },
-
-                timeOut: {
-                timestamp: log.timeOut?.timestamp ?? null,
-                },
-
-                status: log.status ?? AttendanceStatus.NONE,
-                overtimeStatus: parseOvertimeStatus(log.overtimeStatus),
-                totalHours: log.totalHours ?? null,
-            })),
-
-            meta: {
-                page: result?.meta?.page ?? 1,
-                limit: result?.meta?.limit ?? limit,
-                total: result?.meta?.total ?? 0,
-            },
-        };
+    return result;   
 };
