@@ -46,7 +46,7 @@ export default function AttendanceTableWrapper() {
 
             <CardContent className="flex flex-col gap-4">
                 <FilterButtons filter={filter} onFilterChange={setFilter}/>
-                <AttendanceTable data={data} error={error} isLoading={isLoading} page={page} setPage={setPage}/> 
+                <AttendanceTable data={data} error={error} isLoading={isLoading} page={page} setPage={setPage} searchTerm={searchTerm}/> 
             </CardContent>
         </Card>
     )

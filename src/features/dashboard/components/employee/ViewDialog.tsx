@@ -29,7 +29,7 @@ export function ViewDialog({
             <DialogContent className="w-[92%] max-w-sm md:max-w-lg space-y-4 p-4 md:p-6">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-3">
-                        <span>My Attendance Today</span>
+                        <span>Attendance Info</span>
                         <span className="rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
                             {attendanceLabel}
                         </span>

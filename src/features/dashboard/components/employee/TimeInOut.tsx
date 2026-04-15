@@ -53,6 +53,7 @@ export default function TimeinOut() {
                             <Button className="w-full" 
                             onClick={handleTimeIn}
                             disabled={
+                                attendance?.canTimeIn === false ||
                                 attendance?.status === AttendanceStatus.COMPLETED ||
                                 (attendance?.status === AttendanceStatus.IN_PROGRESS && !attendance?.canTimeIn)
                             }>
@@ -63,7 +64,7 @@ export default function TimeinOut() {
                         <div className="w-full">
                             <Button className="w-full" 
                             onClick={handleTimeOut}
-                            disabled={attendance?.status=== AttendanceStatus.NONE || attendance?.status ===AttendanceStatus.COMPLETED}
+                            disabled={attendance?.status=== AttendanceStatus.NO_RECORD || attendance?.status ===AttendanceStatus.COMPLETED}
                             >
                                 Time Out
                             </Button>
@@ -115,11 +116,11 @@ export default function TimeinOut() {
 
         <PermissionDialog setOpen={setOpen} open={open} attendanceType={attendanceType} />
         <ViewDialog open={isViewDialogOpen} setOpen={setViewDialogOpen} 
-        attendanceType={attendanceType} 
-        timeInLocation={attendance?.timeInLocation}
-        timeOutLocation={attendance?.timeOutLocation}
-        timeInImage={attendance?.timeInImage}
-        timeOutImage={attendance?.timeOutImage}
+            attendanceType={attendanceType} 
+            timeInLocation={attendance?.timeInLocation}
+            timeOutLocation={attendance?.timeOutLocation}
+            timeInImage={attendance?.timeInImage}
+            timeOutImage={attendance?.timeOutImage}
         />
         </>
     );

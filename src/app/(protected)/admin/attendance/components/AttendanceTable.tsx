@@ -1,9 +1,13 @@
 import { PaginationSimple } from "@/components/shared/Pagination";
 import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from "@/components/ui/table";
-import { EmployeesAttendanceResponse } from "../types/attendance-types";
+import { EmployeeAttendance, EmployeesAttendanceResponse } from "../types/attendance-types";
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { formatTime } from "@/lib/util/date-format";
 import Actions from "./Actions";
+import { ViewDialog } from "@/features/dashboard/components/employee/ViewDialog";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { AttendanceType } from "@/features/attendance/types/attendanceType";
 
 type Props = {
     data?: EmployeesAttendanceResponse
@@ -11,10 +15,43 @@ type Props = {
     error?: Error | null
     page: number
     setPage: (page: number)=> void
+    searchTerm?: string
 }
 
-export default function AttendanceTable({data, isLoading, error, page, setPage} : Props) {
+export default function AttendanceTable({data, isLoading, error, page, setPage, searchTerm = ""} : Props) {
+    const [ attendanceType, setAttendanceType ] = useState<AttendanceType>();
+    const [ isViewDialogOpen, setViewDialogOpen ] = useState(false);
+    const [selectedLog, setSelectedLog] = useState<EmployeeAttendance | null>(null);
+
     const logs = data?.logs ?? [];
+    const normalizedSearch = searchTerm.trim().toLowerCase();
+
+    const filteredLogs = logs.filter((log) => {
+        if (!normalizedSearch) return true;
+
+        const fullName = `${log.firstname} ${log.lastname}`.toLowerCase();
+        const status = log.status.toLowerCase();
+        const employeeId = log.employeeId.toLowerCase();
+
+        return (
+            fullName.includes(normalizedSearch) ||
+            status.includes(normalizedSearch) ||
+            employeeId.includes(normalizedSearch)
+        );
+    });
+
+        
+    const handleViewTimein = (log: EmployeeAttendance) => {
+        setSelectedLog(log);
+        setViewDialogOpen(true);
+        setAttendanceType(AttendanceType.TIME_IN);
+    }
+    
+    const handleViewTimeout = (log: EmployeeAttendance) => {
+        setSelectedLog(log);
+        setViewDialogOpen(true);
+        setAttendanceType(AttendanceType.TIME_OUT);
+    }
 
     return (
         <>
@@ -44,23 +81,43 @@ export default function AttendanceTable({data, isLoading, error, page, setPage} 
                             </TableRow>
                         )}
 
-                        {!isLoading && !error && logs.length === 0 && (
+                        {!isLoading && !error && filteredLogs.length === 0 && (
                             <TableRow>
                                 <TableCell colSpan={4} className="text-center ">
-                                    No attendance records found.
+                                    {normalizedSearch ? "No results found" : "No attendance records found."}
                                 </TableCell>
                             </TableRow>
                         )}
 
-                        {!isLoading && !error && logs.length > 0 && 
-                            logs.map((log)=> (
+                        {!isLoading && !error && filteredLogs.length > 0 && 
+                            filteredLogs.map((log)=> (
                                 <TableRow key={log.id}>
-                                    <TableCell>{`${log.employeeName.firstname} ${log.employeeName.lastname}`}</TableCell>
-                                    <TableCell>{formatTime(log.timein.timestamp)}</TableCell>
-                                    <TableCell>{formatTime(log.timeout.timestamp)}</TableCell>
+                                    <TableCell>{`${log.firstname} ${log.lastname}`}</TableCell>
+                                    <TableCell>
+                                        <div className="flex gap-2 items-center justify-start">
+                                            {formatTime(log.timein.timestamp)}
+                                            <Button size="xs" className="px-4" 
+                                                variant="outline" onClick={() => handleViewTimein(log)}>
+                                                View
+                                            </Button>
+                                        </div>
+                                        
+                                    </TableCell>
+
+                                    <TableCell>
+                                        <div className="flex gap-2 items-center justify-start">
+                                            {formatTime(log.timeout.timestamp)}
+                                            <Button size="xs" className="px-4" 
+                                                variant="outline" onClick={() => handleViewTimeout(log)}>
+                                                View
+                                            </Button>
+                                        </div>
+                                        
+                                    </TableCell>
+
                                     <TableCell>{log.status}</TableCell>
                                     <TableCell>
-                                        <Actions data={data}/>
+                                        <Actions attendanceLog={log}/>
                                     </TableCell>
                                 </TableRow>
                             ))             
@@ -76,6 +133,13 @@ export default function AttendanceTable({data, isLoading, error, page, setPage} 
                 limit={data?.meta.limit ?? 5}
                 onPageChange={setPage}
             />  
+            <ViewDialog open={isViewDialogOpen} setOpen={setViewDialogOpen} 
+                attendanceType={attendanceType} 
+                timeInLocation={selectedLog?.timein.location}
+                timeOutLocation={selectedLog?.timeout.location}
+                timeInImage={selectedLog?.timein.image}
+                timeOutImage={selectedLog?.timeout.image}
+            />
         </>
     ); 
 }

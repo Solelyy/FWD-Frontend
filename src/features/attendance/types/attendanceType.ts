@@ -1,14 +1,17 @@
+import { AccountInfo } from "@/features/account-management/types/account";
+
 export enum AttendanceType {
     TIME_IN = "TIME_IN",
     TIME_OUT = "TIME_OUT"
 }
 
 export enum AttendanceStatus {
-    NONE = "NONE",
+    NO_RECORD = "NO_RECORD",
     IN_PROGRESS = "IN_PROGRESS",
     COMPLETED = "COMPLETED",
     ON_LEAVE="ON_LEAVE",
-    SUSPENDED="SUSPENDED"
+    SUSPENDED="SUSPENDED",
+    MISSING_TIMEOUT="MISSING_TIMEOUT"
 }
 
 export enum OvertimeStatus {
@@ -35,6 +38,7 @@ overtimePending?: boolean; // optional
 //for attendance logs
 export type AttendanceLog = {
   id: string;
+  employeeId: AccountInfo["employeeId"]
   date: string;
   timeIn: {
     timestamp: string | null; 

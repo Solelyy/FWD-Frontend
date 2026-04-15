@@ -80,7 +80,8 @@ export function Actions({ account }: { account: AccountInfo }) {
       [ActionEnum.REMOVE]: () =>
         removeAccount.mutateAsync({ 
           employeeId: account.employeeId, 
-          role: account.role }),
+          role: account.role 
+        }),
     };
 
     await actionHandlers[action.targetAction]?.();

@@ -6,8 +6,8 @@ import {
     DialogHeader,
     DialogTitle
 } from "@/components/ui/dialog"
-import React, { useState } from "react";
-import { AccountInfo, Status } from "../types/account";
+import React from "react";
+import { AccountInfo } from "../types/account";
 import { ActionEnum, ActionProps } from "../types/actions";
 import { Button } from "@/components/ui/button";
 import { SuspendAccountDialog } from "./SuspendAccountDialog";
