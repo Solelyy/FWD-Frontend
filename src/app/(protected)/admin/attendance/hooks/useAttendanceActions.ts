@@ -10,8 +10,8 @@ export function useAttendanceActions() {
     const errorMsg = "Unable to do the action, please try again."
 
     const overrideAttendance = useMutation({
-        mutationFn: ({employeeId, status}: OverrideAttendancePayload)=> 
-            overrideAttendanceApi({employeeId, status}),
+        mutationFn: (payload: OverrideAttendancePayload)=> 
+            overrideAttendanceApi(payload),
         onSuccess: (_, {employeeId})=>{
             toast.success("Attendance sucessfully changed.")
             queryClient.invalidateQueries({
@@ -40,8 +40,8 @@ export function useAttendanceActions() {
     });
 
     const addAttendance = useMutation({
-        mutationFn: ({employeeId, status}: OverrideAttendancePayload)=> 
-            addAttendanceApi({employeeId, status}),
+        mutationFn: (payload: OverrideAttendancePayload)=> 
+            addAttendanceApi(payload),
         onSuccess: (_, {employeeId})=>{
             toast.success("Attendance sucessfully changed.")
             queryClient.invalidateQueries({

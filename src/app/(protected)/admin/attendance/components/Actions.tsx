@@ -25,15 +25,22 @@ export default function Actions({attendanceLog}: Props) {
     }
 
     const handleConfirm = async (
-        attendanceLog: EmployeeAttendance,
-        action: ActionPropsAttendance
+      attendanceLog: EmployeeAttendance,
+      action: ActionPropsAttendance,
+      extra?: { timeIn?: Date; timeOut?: Date }
     ) => {
         if (isPending) return;
+
+        const timeIn = extra?.timeIn?.toISOString();
+        const timeOut = extra?.timeOut?.toISOString();
+
         const actionHandlers = {
             [AttendanceActions.ADD_ATTENDANCE]: () => 
             addAttendance.mutateAsync({
                 employeeId: attendanceLog.employeeId,
-                status: attendanceLog.status
+                status: attendanceLog.status,
+                timeIn,
+                timeOut,
             }),
 
             [AttendanceActions.MARK_ABSENT]: () => 
@@ -45,7 +52,9 @@ export default function Actions({attendanceLog}: Props) {
             [AttendanceActions.OVERRIDE_ATTENDANCE]: () => 
             overrideAttendance.mutateAsync({
                 employeeId: attendanceLog.employeeId,
-                status: attendanceLog.status
+              status: attendanceLog.status,
+              timeIn,
+              timeOut,
             }),
 
             [AttendanceActions.APPROVE_OVERTIME]: () => 
@@ -110,14 +119,14 @@ export default function Actions({attendanceLog}: Props) {
         </DropdownMenuContent>
       </DropdownMenu>
 
-        <AttendanceActionDialog
-            open={open}
-            setOpen={setOpen}
-            attendanceLog= {attendanceLog}
-            action={selectedAction}
-            onConfirm={handleConfirm}
-            isPending={isPending}
-        />
+      <AttendanceActionDialog
+        open={open}
+        setOpen={setOpen}
+        attendanceLog= {attendanceLog}
+        action={selectedAction}
+        onConfirm={handleConfirm}
+        isPending={isPending}
+      />
     </>
     )
 }

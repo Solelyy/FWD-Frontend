@@ -1,7 +1,9 @@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { EmployeeAttendance } from "../types/attendance-types";
-import { ActionPropsAttendance } from "../types/actions";
+import { ActionPropsAttendance, AttendanceActions } from "../types/actions";
 import { Button } from "@/components/ui/button";
+import { useMemo, useState } from "react";
+import AddAttendance from "./AddAttendance";
 
 type ActionDialogProps = {
     open: boolean
@@ -10,8 +12,8 @@ type ActionDialogProps = {
     action: ActionPropsAttendance | null;
     onConfirm?: (
         attendanceLog: EmployeeAttendance,
-        action: ActionPropsAttendance
-        //extra?: {}
+        action: ActionPropsAttendance,
+        extra?: { timeIn?: Date; timeOut?: Date }
     ) => void
     onCancel?: ()=> void
     isPending: boolean
@@ -19,7 +21,24 @@ type ActionDialogProps = {
 
 export default function AttendanceActionDialog({
     open, setOpen, attendanceLog, action, onConfirm, onCancel, isPending}: ActionDialogProps) {
-    
+    const [attendanceTimes, setAttendanceTimes] = useState<{ timeIn?: Date; timeOut?: Date }>({});
+
+    const shouldShowAddAttendance =
+        action?.targetAction === AttendanceActions.ADD_ATTENDANCE ||
+        action?.targetAction === AttendanceActions.OVERRIDE_ATTENDANCE;
+
+    const initialTimeIn = useMemo(() => {
+        if (action?.targetAction !== AttendanceActions.OVERRIDE_ATTENDANCE) return undefined;
+        const parsed = new Date(attendanceLog.timein?.timestamp);
+        return Number.isNaN(parsed.getTime()) ? undefined : parsed;
+    }, [action?.targetAction, attendanceLog.timein?.timestamp]);
+
+    const initialTimeOut = useMemo(() => {
+        if (action?.targetAction !== AttendanceActions.OVERRIDE_ATTENDANCE) return undefined;
+        const parsed = new Date(attendanceLog.timeout?.timestamp);
+        return Number.isNaN(parsed.getTime()) ? undefined : parsed;
+    }, [action?.targetAction, attendanceLog.timeout?.timestamp]);
+
     if (!action) return null;
 
     const handleCancel = () => {
@@ -28,6 +47,7 @@ export default function AttendanceActionDialog({
     }
 
     const handleConfirm = () => {
+        onConfirm?.(attendanceLog, action, attendanceTimes);
         setOpen(false);
     }
 
@@ -43,6 +63,14 @@ export default function AttendanceActionDialog({
                 <DialogDescription>
                     {action.confirmMessage}
                 </DialogDescription>
+
+                {shouldShowAddAttendance && (
+                    <AddAttendance
+                        initialTimeIn={initialTimeIn}
+                        initialTimeOut={initialTimeOut}
+                        onTimesChange={setAttendanceTimes}
+                    />
+                )}
                 
                 <DialogFooter className="flex flex-col-reverse gap-2">
                         <Button 
