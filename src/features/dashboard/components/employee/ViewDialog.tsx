@@ -38,7 +38,7 @@ export function ViewDialog({
 
                 {!hasRecord ? (
                     <div className="rounded-lg border border-dashed bg-muted/40 p-6 text-center text-sm text-muted-foreground">
-                        No {formatText} record yet for today.
+                        No {formatText} record yet.
                     </div>
                 ) :
                 <div className="grid gap-3">
