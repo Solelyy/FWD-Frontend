@@ -14,7 +14,7 @@ export async function getAttendanceApi():Promise<AttendanceStatusResponse> {
 
     if (!result){
         return{
-            status: AttendanceStatus.NONE,
+            status: AttendanceStatus.NO_RECORD,
             canTimeIn: true,
             isLate: false,
             isUndertime: false,
@@ -24,7 +24,6 @@ export async function getAttendanceApi():Promise<AttendanceStatusResponse> {
             timeOutLocation: null,
             timeInImage: null,
             timeOutImage: null,
-            overtimePending: false,
         };
     }
     return result;

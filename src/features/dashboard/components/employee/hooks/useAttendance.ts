@@ -1,24 +1,24 @@
 import { useQuery } from "@tanstack/react-query"
 import { getAttendanceApi } from "../api/getAttendanceApi"
-import { AttendanceStatus } from "@/features/attendance/types/attendanceType"
+import { AttendanceStatus, OvertimeStatus } from "@/features/attendance/types/attendanceType"
 export function useAttendance() {
     return useQuery({
         queryKey: ["attendance", ],
-        queryFn: async () => {
+        queryFn: () => {
             /*comment when running the backend
             if (process.env.NODE_ENV=="development") {
                 return {
                     status: AttendanceStatus.COMPLETED,
                     canTimeIn: false,
                     isLate: true,
-                    isUndertime: true,
+                    isUndertime: false,
                     timeIn: new Date().toISOString(),
                     timeOut: new Date().toISOString(),
                     timeInLocation: "Office - Quiapo",
                     timeOutLocation: null,
                     timeInImage: null,
                     timeOutImage: null,
-                    overtimePending: false,
+                    overtimeStatus: OvertimeStatus.REJECTED
                 };
         }*/
         return getAttendanceApi();

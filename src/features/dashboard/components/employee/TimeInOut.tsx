@@ -6,7 +6,7 @@ import { formatTime, getTodayFormatted } from "@/lib/util/date-format";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import PermissionDialog from "@/features/attendance/components/PermissionDialog";
-import { AttendanceStatus, AttendanceType } from "@/features/attendance/types/attendanceType";
+import { AttendanceStatus, AttendanceType, OvertimeStatus } from "@/features/attendance/types/attendanceType";
 import { useAttendance } from "./hooks/useAttendance";
 import { ViewDialog } from "./ViewDialog";
 
@@ -35,6 +35,13 @@ export default function TimeinOut() {
         setViewDialogOpen(true);
         setAttendanceType(AttendanceType.TIME_OUT);
     }
+
+    const overtimeFormattedText: Record<OvertimeStatus, string> ={
+        [OvertimeStatus.APPROVED]: "Overtime Approved",
+        [OvertimeStatus.PENDING]: "Overtime Pending",
+        [OvertimeStatus.REJECTED]: "Overtime Rejected"
+    }
+
     return (
         <>
         <div className="flex flex-col flex-1">
@@ -81,14 +88,15 @@ export default function TimeinOut() {
                             </Button>
                         </div>
                         
-                        <p className="text-sm">
-                            {attendance?.timeIn
-                            ? formatTime(attendance?.timeIn, {
-                                isLate: attendance?.isLate
-                            })
-                            : "No time in yet"
-                            }
-                            
+                        <p className="text-md">
+                            {attendance?.timeIn ? (
+                                <span>
+                                {formatTime(attendance.timeIn)}
+                                {attendance.isLate && " (Late)"}
+                                </span>
+                            ) : (
+                                "No time in yet"
+                            )}
                         </p>
                     </div>
 
@@ -101,13 +109,20 @@ export default function TimeinOut() {
                             </Button>
                         </div>
                         
-                        <p className="text-sm">
-                            {attendance?.timeOut 
-                            ? formatTime(attendance?.timeOut, { 
-                                isUndertime: attendance?.isUndertime
-                            })
-                            : "No time out yet"
-                            }
+                        <p className="text-md">
+                            {attendance?.timeOut ? (
+                                <span>
+                                {formatTime(attendance.timeOut)}
+
+                                {attendance.isUndertime
+                                    ? " (Undertime)"
+                                    : attendance.overtimeStatus
+                                    ? ` (${overtimeFormattedText[attendance.overtimeStatus]})`
+                                    : ""}
+                                </span>
+                            ) : (
+                                "No time out yet"
+                            )}
                         </p>
                     </div>   
                 </CardContent>

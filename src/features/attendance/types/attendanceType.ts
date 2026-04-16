@@ -32,7 +32,7 @@ timeInLocation: string | null;
 timeOutLocation: string | null;
 timeInImage: string | null;
 timeOutImage: string | null;
-overtimePending?: boolean; // optional
+overtimeStatus?: OvertimeStatus
 };
 
 //for attendance logs
