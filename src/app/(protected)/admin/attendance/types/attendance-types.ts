@@ -38,3 +38,10 @@ export type EmployeesAttendanceResponse = {
         total: number
     }
 }
+
+export type EmployeesAttendanceStatsResponse = {
+    presentToday: number,
+    absentToday: number,
+    onLeave: number, 
+    pendingOvertime: number
+}

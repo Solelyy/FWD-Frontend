@@ -8,6 +8,8 @@ import FilterButtons from "./FilterButtons";
 import AttendanceTable from "./AttendanceTable";
 import { useEmployeeAttendance } from "../hooks/useEmployeesAttendance";
 import { AttendanceStatusFilter } from "../types/attendance-types";
+import Stats from "./Stats";
+import { useAttendanceStats } from "../hooks/useAttendanceStats";
 
 export default function AttendanceTableWrapper() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -22,7 +24,10 @@ export default function AttendanceTableWrapper() {
     const [filter, setFilter] = useState<AttendanceStatusFilter>(AttendanceStatusFilter.ALL);
 
     const {data, isLoading, error} = useEmployeeAttendance({page, limit, year, month, day, filter});
+    const {data: attendanceStats, isLoading: attendanceStats_isLoading} = useAttendanceStats(day, month, year)
     return ( 
+        <>
+        <Stats data={attendanceStats}/>
         <Card>
             <CardHeader>
                 <CardTitle>
@@ -49,5 +54,6 @@ export default function AttendanceTableWrapper() {
                 <AttendanceTable data={data} error={error} isLoading={isLoading} page={page} setPage={setPage} searchTerm={searchTerm}/> 
             </CardContent>
         </Card>
+        </>
     )
 }
