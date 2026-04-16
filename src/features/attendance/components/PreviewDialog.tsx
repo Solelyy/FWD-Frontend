@@ -40,11 +40,9 @@ export default function PreviewDialog({ open, setOpen, location, photo, stream, 
   
   const submitAttendance = async (isOt?: boolean) => {
 
-    const timeStamp = new Date().toISOString();
-
     try {
       await attendanceMutation.mutateAsync({
-        location, timeStamp, imageUrl: capturedPhoto, attendanceType, isOvertime: isOt ?? false,
+        location, imageUrl: capturedPhoto, attendanceType, isOvertime: isOt ?? false,
       });
       toast.success(`${successText} successfully submitted.`);
       setOpen(false);

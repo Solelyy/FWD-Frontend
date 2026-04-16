@@ -3,20 +3,18 @@ import { API_BASE_URL } from "@/lib/util/api";
 
 export type attendanceSubmitApiPayload = {
     location: string | null,
-    timeStamp: string,
     imageUrl: string | null,
     attendanceType: AttendanceType | undefined
     isOvertime?: boolean
 }
 //not final api
-export async function attendanceSubmitApi({location, timeStamp, imageUrl, attendanceType, isOvertime} : attendanceSubmitApiPayload){
+export async function attendanceSubmitApi({location, imageUrl, attendanceType, isOvertime} : attendanceSubmitApiPayload){
     const endpoint = attendanceType === AttendanceType.TIME_IN
     ? "/" 
     : "/";
 
     const payload = {
         location,
-        timeStamp,
         imageUrl,
         attendanceType,
         isOvertime
