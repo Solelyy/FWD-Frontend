@@ -36,12 +36,11 @@ export function ViewDialog({
                     </DialogTitle>
                 </DialogHeader>
 
-                {!hasRecord && (
+                {!hasRecord ? (
                     <div className="rounded-lg border border-dashed bg-muted/40 p-6 text-center text-sm text-muted-foreground">
                         No {formatText} record yet for today.
                     </div>
-                )}
-
+                ) :
                 <div className="grid gap-3">
                     <div className="rounded-lg border bg-card p-3 md:p-4">
                         <p className="mb-2 flex items-center gap-2 text-sm font-medium">
@@ -74,6 +73,7 @@ export function ViewDialog({
                         )}
                     </div>
                 </div>
+                }
             </DialogContent>
         </Dialog>
     )
