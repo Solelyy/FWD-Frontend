@@ -1,5 +1,5 @@
 import { AccountInfo } from "@/features/account-management/types/account";
-import { AttendanceStatus, OvertimeStatus } from "@/features/attendance/types/attendanceType";
+import { AttendanceStatus, OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 
 export enum AttendanceStatusFilter {
   ALL = "ALL",

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { getAttendanceApi } from "../api/getAttendanceApi"
-import { AttendanceStatus, OvertimeStatus } from "@/features/attendance/types/attendanceType"
+import { AttendanceStatus, OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType"
 export function useAttendance() {
     return useQuery({
         queryKey: ["attendance", ],

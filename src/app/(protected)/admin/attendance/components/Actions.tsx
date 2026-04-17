@@ -8,7 +8,7 @@ import { ActionPropsAttendance, AttendanceActions, getAttendanceActionByStatus }
 import { useState } from "react";
 import { useAttendanceActions } from "../hooks/useAttendanceActions";
 import AttendanceActionDialog from "./AttendanceActionDialog";
-import { OvertimeStatus } from "@/features/attendance/types/attendanceType";
+import { OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 
 type Props = {
     attendanceLog: EmployeeAttendance

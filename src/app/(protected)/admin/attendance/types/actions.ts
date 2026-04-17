@@ -1,7 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import { AccountInfo } from "@/features/account-management/types/account";
 import { CalendarCheck2, SquarePen, CalendarX2, ClockCheck, TimerOff } from "lucide-react";
-import { AttendanceStatus, OvertimeStatus } from "@/features/attendance/types/attendanceType";
+import { AttendanceStatus, OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 
 export enum AttendanceActions {
     OVERRIDE_ATTENDANCE = "OVERRIDE_ATTENDANCE",

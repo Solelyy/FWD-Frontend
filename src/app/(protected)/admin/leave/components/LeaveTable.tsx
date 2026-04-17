@@ -30,7 +30,7 @@ export default function LeaveTable() {
             </div>
 
             </div>
-            <PaginationSimple />  
+            {/*<PaginationSimple />  */}
         </>
     ); 
 }

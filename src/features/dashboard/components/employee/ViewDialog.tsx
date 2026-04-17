@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { AttendanceType } from "@/features/attendance/types/attendanceType";
+import { AttendanceType } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 import { Camera, MapPin } from "lucide-react";
 
 type ViewDialogProps = {

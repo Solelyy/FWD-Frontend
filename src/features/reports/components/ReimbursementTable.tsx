@@ -25,7 +25,7 @@ export default function ReportsReimbursementTable() {
             </div>
 
             </div>
-            <PaginationSimple />  
+            {/*<PaginationSimple />  */}  
         </>
     ); 
 }

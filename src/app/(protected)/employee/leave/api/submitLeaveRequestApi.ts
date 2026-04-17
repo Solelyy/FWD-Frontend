@@ -21,10 +21,11 @@ export async function submitLeaveRequestApi({leaveType, startDate, endDate, reas
     });
 
     const result = await response.json();
+    if (!response.ok) {
+        throw new Error (result?.message || "Unable to submit leave request.");
+    }
+
     console.log("Leave request response: ", result);
 
-    if (!response.ok) {
-        throw new Error ("Unable to submit leave request.");
-    }
     return result;
 }

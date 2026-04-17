@@ -1,4 +1,4 @@
-import { AttendanceSummaryResponse } from "@/features/attendance/types/attendanceType";
+import { AttendanceSummaryResponse } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 import { API_BASE_URL } from "@/lib/util/api"
 
 export async function getAttendanceSummaryApi(month:number, year:number) : Promise<AttendanceSummaryResponse>{

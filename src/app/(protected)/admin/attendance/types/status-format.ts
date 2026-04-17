@@ -1,4 +1,4 @@
-import { AttendanceStatus, OvertimeStatus } from "@/features/attendance/types/attendanceType"
+import { AttendanceStatus, OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType"
 
 export const statusStyles: Record<AttendanceStatus, string> = {
     [AttendanceStatus.COMPLETED]: "bg-green-100 text-green-600",

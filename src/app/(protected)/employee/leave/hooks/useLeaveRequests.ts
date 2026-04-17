@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { leaveRequestsApi } from "../api/leaveRequestsApi";
-import { OvertimeStatus } from "@/features/attendance/types/attendanceType";
+import { OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 import { LeaveRequestsResponse, LeaveType } from "../types/leave";
 
 const mockLeaveRequests: LeaveRequestsResponse = {

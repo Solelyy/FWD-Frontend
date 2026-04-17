@@ -27,7 +27,7 @@ export default function ReportsAttendanceTable() {
             </div>
 
             </div>
-            <PaginationSimple />  
+            {/*<PaginationSimple />  */}
         </>
     ); 
 }

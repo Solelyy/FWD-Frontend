@@ -1,6 +1,6 @@
 import { API_BASE_URL } from "@/lib/util/api";
 import { EmployeeAttendance } from "../types/attendance-types";
-import { OvertimeStatus } from "@/features/attendance/types/attendanceType";
+import { OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 
 export type UpdateOvertimeRequest = {
     employeeId: EmployeeAttendance["id"];

@@ -7,7 +7,7 @@ import Actions from "./Actions";
 import { ViewDialog } from "@/features/dashboard/components/employee/ViewDialog";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { AttendanceType, } from "@/features/attendance/types/attendanceType";
+import { AttendanceType, } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 import {statusStyles, formatStatusText, overtimeStatusStyle, formatOvertimeText} from "@/app/(protected)/admin/attendance/types/status-format"
 
 type Props = {

@@ -29,7 +29,7 @@ export default function CashAdvanceTable() {
             </div>
             
             </div>
-            <PaginationSimple />  
+            {/*<PaginationSimple />  */} 
         </>
     ); 
 }

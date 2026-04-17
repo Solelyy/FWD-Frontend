@@ -26,7 +26,7 @@ export default function ReportsLeaveTable() {
             </div>
 
             </div>
-            <PaginationSimple />  
+            {/*<PaginationSimple />  */} 
         </>
     ); 
 }

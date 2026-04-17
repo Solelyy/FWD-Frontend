@@ -1,4 +1,4 @@
-import AttendanceLogs from "./components/AttendanceLogs";
+import AttendanceLogs from "./get-attendance/components/AttendanceLogs";
 import { ContentLayout } from "@/components/layout/panel/content-layout";
 import type { Metadata } from "next";
 

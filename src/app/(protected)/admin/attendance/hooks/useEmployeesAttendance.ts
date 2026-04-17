@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 import { employeeAttendanceApi } from "../api/employeeAttendanceApi"
 import { EmployeeAttendanceProps } from "../api/employeeAttendanceApi"
 import { AttendanceStatusFilter, EmployeesAttendanceResponse } from "../types/attendance-types"
-import { AttendanceStatus, OvertimeStatus } from "@/features/attendance/types/attendanceType"
+import { AttendanceStatus, OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType"
 
 const MOCK_ATTENDANCE_LOGS: EmployeesAttendanceResponse["logs"] = [
     {

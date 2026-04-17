@@ -1,5 +1,5 @@
 import { CardLayoutAttendance } from "@/app/(protected)/admin/attendance/components/CardLayoutAttendance"
-import { AttendanceSummaryResponse, } from "@/features/attendance/types/attendanceType"
+import { AttendanceSummaryResponse, } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType"
 
 type AttendanceCardsProps = {
     data?: AttendanceSummaryResponse;

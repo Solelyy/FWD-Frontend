@@ -25,7 +25,7 @@ export default function ReportsCashAdvanceTable() {
             </div>
 
             </div>
-            <PaginationSimple />  
+            {/*<PaginationSimple />  */}
         </>
     ); 
 }

@@ -1,4 +1,4 @@
-import { AttendanceLogsResponse, } from "@/features/attendance/types/attendanceType";
+import { AttendanceLogsResponse, } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 import { API_BASE_URL } from "@/lib/util/api";
 
 export async function getAttendanceLogsApi(page: number, limit: number, year:number, month: number): Promise<AttendanceLogsResponse> {

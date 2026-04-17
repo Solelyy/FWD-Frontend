@@ -5,9 +5,9 @@ import { Calendar } from "lucide-react";
 import { formatTime, getTodayFormatted } from "@/lib/util/date-format";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import PermissionDialog from "@/features/attendance/components/PermissionDialog";
-import { AttendanceStatus, AttendanceType, OvertimeStatus } from "@/features/attendance/types/attendanceType";
-import { useAttendance } from "./hooks/useAttendance";
+import PermissionDialog from "@/app/(protected)/employee/attendance/submit-attendance/components/PermissionDialog";
+import { AttendanceStatus, AttendanceType, OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
+import { useAttendance } from "@/app/(protected)/employee/attendance/get-attendance/hooks/useAttendance";
 import { ViewDialog } from "./ViewDialog";
 
 export default function TimeinOut() {

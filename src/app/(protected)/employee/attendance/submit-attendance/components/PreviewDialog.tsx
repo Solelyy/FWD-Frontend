@@ -7,7 +7,7 @@ import CaptureDialog from "./CaptureDialog";
 import { stopStream } from "../utils/stream";
 import { toast } from "sonner";
 import OvertimeDialog from "./OvertimeDialog";
-import { useAttendanceMutation } from "@/features/dashboard/components/employee/hooks/useAttendanceMutate";
+import { useAttendanceMutation } from "@/app/(protected)/employee/attendance/get-attendance/hooks/useAttendanceMutate";
 
 type PreviewDialogProps = {
   open: boolean;

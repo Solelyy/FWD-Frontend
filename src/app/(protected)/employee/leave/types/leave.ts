@@ -1,4 +1,4 @@
-import { OvertimeStatus } from "@/features/attendance/types/attendanceType";
+import { OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 
 export type LeaveBalancesResponse = {
     sickLeaveBalance: number;

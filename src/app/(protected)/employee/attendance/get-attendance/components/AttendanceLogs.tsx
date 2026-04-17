@@ -5,12 +5,12 @@ import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLog
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useAttendanceLogs } from "@/features/dashboard/components/employee/hooks/useAttendanceLogs";
+import { useAttendanceLogs } from "../hooks/useAttendanceLogs";
 import { formatTableDate, formatTime } from "@/lib/util/date-format";
 import { ArrowDownToLine } from "lucide-react";
 import { useState, useEffect } from "react";
 import AttendanceCards from "./AttendanceCards";
-import { useAttendanceSummary } from "@/features/dashboard/components/employee/hooks/useAttendanceSummary";
+import { useAttendanceSummary } from "../hooks/useAttendanceSummary";
 
 export default function AttendanceLogs() { 
     const today = new Date();
