@@ -10,7 +10,7 @@ export type attendanceSubmitApiPayload = {
 //not final api
 export async function attendanceSubmitApi({location, imageUrl, attendanceType, isOvertime} : attendanceSubmitApiPayload){
     const endpoint = attendanceType === AttendanceType.TIME_IN
-    ? "/" 
+    ? "/employee/attendance/time-in" 
     : "/";
 
     const payload = {

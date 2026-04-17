@@ -2,7 +2,7 @@ import { AttendanceLogsResponse, } from "@/features/attendance/types/attendanceT
 import { API_BASE_URL } from "@/lib/util/api";
 
 export async function getAttendanceLogsApi(page: number, limit: number, year:number, month: number): Promise<AttendanceLogsResponse> {
-    const endpoint =  `/attendance-logs?page=${page}&limit=${limit}&year=${year}&month=${month+1}`;;
+    const endpoint =  `/employee/attendance-logs?page=${page}&limit=${limit}&year=${year}&month=${month+1}`;;
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "GET",
         credentials: "include"

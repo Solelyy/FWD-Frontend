@@ -2,7 +2,7 @@ import { AttendanceStatusResponse, AttendanceStatus } from "@/features/attendanc
 import { API_BASE_URL } from "@/lib/util/api";
 
 export async function getAttendanceApi():Promise<AttendanceStatusResponse> {
-    const response = await fetch(`${API_BASE_URL}/`, {
+    const response = await fetch(`${API_BASE_URL}/employee/attendance/today`, {
         method: "GET",
         credentials: "include"
     });
