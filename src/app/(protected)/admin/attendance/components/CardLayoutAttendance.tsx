@@ -1,13 +1,14 @@
-import { Card, CardHeader, CardTitle, CardDescription, CardFooter, CardContent} from "@/components/ui/card"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton";
 
 type CardLayoutProps = {
     title:string
     dataCount?: number;
     isLoading?: boolean
+    description?: string
 }
 
-export function CardLayoutAttendance({title, dataCount, isLoading} : CardLayoutProps) {
+export function CardLayoutAttendance({title, dataCount, isLoading, description} : CardLayoutProps) {
     return (
         <Card className="text-sm md:text-base w-full h-auto">
             <CardHeader >
@@ -21,12 +22,12 @@ export function CardLayoutAttendance({title, dataCount, isLoading} : CardLayoutP
                     <CardTitle className="text-2xl">{dataCount}</CardTitle>
                 )}
             </CardContent>
-
-            {/* this is for additional details, not needed for now
-            <CardDescription className="flex items-center justify-center gap-2">
-                <span></span>
-            </CardDescription>
-             */}
+            
+            {description && (
+                <CardDescription className="px-6 text-sm text-muted-foreground">
+                    {description}
+                </CardDescription>
+            )}
         </Card>
     );
 }
