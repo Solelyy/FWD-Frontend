@@ -11,7 +11,7 @@ export enum AttendanceStatusFilter {
 }
 
 export type EmployeeAttendance = {
-    id: string;
+    id: number
     employeeId: AccountInfo["employeeId"];
     firstname: AccountInfo["firstname"];
     lastname: AccountInfo["lastname"]

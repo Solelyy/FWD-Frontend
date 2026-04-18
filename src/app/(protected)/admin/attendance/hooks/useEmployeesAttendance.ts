@@ -8,7 +8,7 @@ import { AttendanceStatus, OvertimeStatus } from "@/app/(protected)/employee/att
 
 const MOCK_ATTENDANCE_LOGS: EmployeesAttendanceResponse["logs"] = [
     {
-        id: "att-1",
+        id: 1,
         employeeId: "EMP-1001",
         firstname: "Alyssa",
         lastname: "Cruz",
@@ -26,7 +26,7 @@ const MOCK_ATTENDANCE_LOGS: EmployeesAttendanceResponse["logs"] = [
         overtimeStatus: OvertimeStatus.APPROVED,
     },
     {
-        id: "att-2",
+        id: 2,
         employeeId: "EMP-1002",
         firstname: "Marco",
         lastname: "Reyes",
@@ -44,7 +44,7 @@ const MOCK_ATTENDANCE_LOGS: EmployeesAttendanceResponse["logs"] = [
         overtimeStatus: OvertimeStatus.PENDING,
     },
     {
-        id: "att-3",
+        id: 3,
         employeeId: "EMP-1003",
         firstname: "Lea",
         lastname: "Santos",
@@ -61,7 +61,7 @@ const MOCK_ATTENDANCE_LOGS: EmployeesAttendanceResponse["logs"] = [
         status: AttendanceStatus.ON_LEAVE,
     },
     {
-        id: "att-4",
+        id: 4,
         employeeId: "EMP-1004",
         firstname: "Jared",
         lastname: "Dizon",
@@ -78,7 +78,7 @@ const MOCK_ATTENDANCE_LOGS: EmployeesAttendanceResponse["logs"] = [
         status: AttendanceStatus.NO_RECORD,
     },
     {
-        id: "att-5",
+        id: 5,
         employeeId: "EMP-1005",
         firstname: "Nicole",
         lastname: "Ramos",

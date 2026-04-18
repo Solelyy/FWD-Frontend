@@ -73,18 +73,18 @@ export default function AttendanceActionDialog({
                 )}
                 
                 <DialogFooter className="flex flex-col-reverse gap-2">
-                        <Button 
+                    <Button 
                         className="order-1" 
                         onClick={handleConfirm} 
                         disabled={isPending} 
                         variant={action.variant === "destructive" ? "destructive" : "default"}
-                        >
-                            {isPending ? action.pendingLabel : action.confirmActionMessage }
-                        </Button>
+                    >
+                        {isPending ? action.pendingLabel : action.confirmActionMessage }
+                    </Button>
 
-                        <Button variant="ghost" onClick={handleCancel}>
-                            Cancel
-                        </Button>
+                    <Button variant="ghost" onClick={handleCancel}>
+                        Cancel
+                    </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

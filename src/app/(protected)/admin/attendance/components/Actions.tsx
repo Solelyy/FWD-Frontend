@@ -11,74 +11,80 @@ import AttendanceActionDialog from "./AttendanceActionDialog";
 import { OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 
 type Props = {
-    attendanceLog: EmployeeAttendance
+  attendanceLog: EmployeeAttendance
 }
 export default function Actions({attendanceLog}: Props) {
-    const [open, setOpen] = useState(false);
-    const [selectedAction, setSelectedAction] = useState<ActionPropsAttendance | null>(null);
-    const actions = getAttendanceActionByStatus(attendanceLog?.status, attendanceLog?.overtimeStatus);
+  const [open, setOpen] = useState(false);
+  const [selectedAction, setSelectedAction] = useState<ActionPropsAttendance | null>(null);
+  const actions = getAttendanceActionByStatus(attendanceLog?.status, attendanceLog?.overtimeStatus);
 
-    function handleAction(action: ActionPropsAttendance) {
-        setSelectedAction(action);
-        setOpen(true);
-        console.log(action.targetAction, attendanceLog);
-    }
+  function handleAction(action: ActionPropsAttendance) {
+    setSelectedAction(action);
+    setOpen(true);
+    console.log(action.targetAction, attendanceLog);
+  }
 
-    const handleConfirm = async (
-      attendanceLog: EmployeeAttendance,
-      action: ActionPropsAttendance,
-      extra?: { timeIn?: Date; timeOut?: Date }
+  const handleConfirm = async (
+    attendanceLog: EmployeeAttendance,
+    action: ActionPropsAttendance,
+    extra?: { timeIn?: Date; timeOut?: Date }
     ) => {
-        if (isPending) return;
+      if (isPending) return;
 
-        const timeIn = extra?.timeIn?.toISOString();
-        const timeOut = extra?.timeOut?.toISOString();
+      const timeIn = extra?.timeIn?.toISOString();
+      const timeOut = extra?.timeOut?.toISOString();
 
-        const actionHandlers = {
-            [AttendanceActions.ADD_ATTENDANCE]: () => 
-            addAttendance.mutateAsync({
-                employeeId: attendanceLog.employeeId,
-                status: attendanceLog.status,
-                timeIn,
-                timeOut,
-            }),
+      const actionHandlers = {
+        [AttendanceActions.ADD_ATTENDANCE]: () => 
+          addAttendance.mutateAsync({
+            employeeId: attendanceLog.employeeId,
+            status: attendanceLog.status,
+            timeIn,
+            timeOut,
+          }
+        ),
 
-            [AttendanceActions.MARK_ABSENT]: () => 
-            markAbsent.mutateAsync({
-                employeeId: attendanceLog.employeeId,
-                status: attendanceLog.status
-            }),
+        [AttendanceActions.MARK_ABSENT]: () => 
+          markAbsent.mutateAsync({
+            employeeId: attendanceLog.employeeId,
+            status: attendanceLog.status
+          }
+        ),
 
-            [AttendanceActions.OVERRIDE_ATTENDANCE]: () => 
-            overrideAttendance.mutateAsync({
-                employeeId: attendanceLog.employeeId,
-              status: attendanceLog.status,
-              timeIn,
-              timeOut,
-            }),
+        [AttendanceActions.OVERRIDE_ATTENDANCE]: () => 
+          overrideAttendance.mutateAsync({
+            employeeId: attendanceLog.employeeId,
+            status: attendanceLog.status,
+            timeIn,
+            timeOut,
+          }
+        ),
 
-            [AttendanceActions.APPROVE_OVERTIME]: () => 
-            updateOvertimeRequest.mutateAsync({
-                employeeId: attendanceLog.employeeId,
-              overtimeStatus: OvertimeStatus.APPROVED
-            }),
+        [AttendanceActions.APPROVE_OVERTIME]: () => 
+          updateOvertimeRequest.mutateAsync({
+            employeeId: attendanceLog.employeeId,
+            overtimeStatus: OvertimeStatus.APPROVED
+          }
+        ),
 
-            [AttendanceActions.REJECT_OVERTIME]: () => 
-            updateOvertimeRequest.mutateAsync({
-                employeeId: attendanceLog.employeeId,
-              overtimeStatus: OvertimeStatus.REJECTED
-            }),
-        };
-        await actionHandlers[action.targetAction]?.();
-        setOpen(false);
+        [AttendanceActions.REJECT_OVERTIME]: () => 
+          updateOvertimeRequest.mutateAsync({
+            employeeId: attendanceLog.employeeId,
+            overtimeStatus: OvertimeStatus.REJECTED
+          }
+        ),
+      };
+
+      await actionHandlers[action.targetAction]?.();
+      setOpen(false);
     }
 
-    const {overrideAttendance, markAbsent, addAttendance, updateOvertimeRequest} = useAttendanceActions();
+  const {overrideAttendance, markAbsent, addAttendance, updateOvertimeRequest} = useAttendanceActions();
     
-    const isPending = 
-        overrideAttendance.isPending || markAbsent.isPending || addAttendance.isPending || updateOvertimeRequest.isPending;
+  const isPending = 
+    overrideAttendance.isPending || markAbsent.isPending || addAttendance.isPending || updateOvertimeRequest.isPending;
 
-    return (
+  return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -128,5 +134,5 @@ export default function Actions({attendanceLog}: Props) {
         isPending={isPending}
       />
     </>
-    )
+  )
 }

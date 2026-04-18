@@ -2,7 +2,7 @@ import { API_BASE_URL } from "@/lib/util/api";
 import { EmployeeAttendance } from "../types/attendance-types";
 
 export type OverrideAttendancePayload = {
-    employeeId: EmployeeAttendance["id"];
+    employeeId: EmployeeAttendance["employeeId"];
     status: EmployeeAttendance["status"];
     timeIn?: string;
     timeOut?: string;
@@ -15,7 +15,7 @@ export async function overrideAttendanceApi({employeeId, status, timeIn, timeOut
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ status, timeIn, timeOut })
+        body: JSON.stringify({ employeeId, timeIn, timeOut })
     });
 
     if (!response.ok) {

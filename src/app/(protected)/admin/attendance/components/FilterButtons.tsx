@@ -19,17 +19,17 @@ export default function FilterButtons({filter, onFilterChange}: Props) {
     const buttonStyle = "border rounded-full flex-1"
     return (
         <div className="flex flex-wrap gap-2 items-center">
-        {filters.map((f)=> (
-            <Button
-                key={f.value}
-                size="sm"
-                className={buttonStyle}
-                variant={filter === f.value ? "default" : "outline"}
-                onClick={() => onFilterChange(f.value)}
-            >
-                {f.label}
-            </Button>
-        ))}
+            {filters.map((f)=> (
+                <Button
+                    key={f.value}
+                    size="sm"
+                    className={buttonStyle}
+                    variant={filter === f.value ? "default" : "outline"}
+                    onClick={() => onFilterChange(f.value)}
+                >
+                    {f.label}
+                </Button>
+            ))}
         </div>
-    )
+    );
 }

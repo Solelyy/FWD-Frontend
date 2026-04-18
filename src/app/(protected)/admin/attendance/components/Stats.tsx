@@ -12,5 +12,5 @@ export default function Stats({data}: StatsProps) {
             <CardLayoutAttendance title="On Leave" dataCount={data?.onLeave ?? 0}/>
             <CardLayoutAttendance title="Pending Overtime" dataCount={data?.pendingOvertime ?? 0}/>
         </div>
-    )
+    );
 }

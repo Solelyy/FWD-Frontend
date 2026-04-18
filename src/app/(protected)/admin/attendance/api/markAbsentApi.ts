@@ -9,7 +9,7 @@ export async function markAbsentApi({employeeId, status}: OverrideAttendancePayl
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({status})
+        body: JSON.stringify({employeeId})
     });
 
     if (!response.ok) {

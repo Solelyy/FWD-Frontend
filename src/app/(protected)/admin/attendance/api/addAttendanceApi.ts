@@ -9,7 +9,7 @@ export async function addAttendanceApi({employeeId, status, timeIn, timeOut}: Ov
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ status, timeIn, timeOut })
+        body: JSON.stringify({ employeeId, timeIn, timeOut })
     });
 
     if (!response.ok) {
