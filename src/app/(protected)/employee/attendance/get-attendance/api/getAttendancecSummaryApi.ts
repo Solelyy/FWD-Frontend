@@ -2,7 +2,7 @@ import { AttendanceSummaryResponse } from "@/app/(protected)/employee/attendance
 import { API_BASE_URL } from "@/lib/util/api"
 
 export async function getAttendanceSummaryApi(month:number, year:number) : Promise<AttendanceSummaryResponse>{
-    const endpoint = `/employee/attendance-summary?year=${year}&month=${month+1}`
+    const endpoint = `/employee/attendance-summary?year=${year}&month=${month}`
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "GET",
         credentials: "include"
