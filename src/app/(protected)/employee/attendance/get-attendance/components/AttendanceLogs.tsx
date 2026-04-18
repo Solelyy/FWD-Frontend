@@ -29,7 +29,8 @@ export default function AttendanceLogs() {
     }, [page]);
 
     useEffect(() => {
-     setPage(1)
+        setPage(1)
+        console.log(`Month: ${month}, Year: ${year}`);
     }, [year, month])
     return (
         <div className="flex flex-col space-y-4 md:space-y-6">

@@ -20,19 +20,19 @@ export const getAuthUserCache = cache(async (): Promise<AuthUser | null> => {
 
 //guard
 export async function requireAuth(): Promise<AuthUser | null> {
-  // only need this for ui development (not running the backend)
+  /* only need this for ui development (not running the backend)
   
   if (process.env.NODE_ENV === "development") {
     return {
       id: "1",
-      role: UserRole.ADMIN,
+      role: UserRole.EMPLOYEE,
       employeeId: "FWD123",
       firstname: "Jessa",
       lastname: "Gozun",
       email: "dinavelbinongo@gmail.com",
       isDataPolicyAccepted: true
     };
-  } 
+  } */
   
   try {
     console.log("Im here in requireAuth...");
