@@ -8,18 +8,17 @@ import FilterButtons from "./FilterButtons";
 import AttendanceTable from "./AttendanceTable";
 import { useEmployeeAttendance } from "../hooks/useEmployeesAttendance";
 import { AttendanceStatusFilter } from "../types/attendance-types";
-import Stats from "./Stats";
 import { useAttendanceStats } from "../hooks/useAttendanceStats";
+import AttendanceCards from "./AttendanceCards";
 
 export default function AttendanceTableWrapper() {
-    const [searchTerm, setSearchTerm] = useState("");
-
     const today = new Date();
+    const [searchTerm, setSearchTerm] = useState("");
     const [year, setYear] = useState(today.getFullYear());
     const [month, setMonth] = useState(today.getMonth());
     const [day, setDay] = useState(today.getDate());
     const [page, setPage] = useState(1);
-    const limit = 15;
+    const limit = 10;
 
     const [filter, setFilter] = useState<AttendanceStatusFilter>(AttendanceStatusFilter.ALL);
 
@@ -27,7 +26,7 @@ export default function AttendanceTableWrapper() {
     const {data: attendanceStats, isLoading: attendanceStats_isLoading} = useAttendanceStats(day, month, year)
     return ( 
         <>
-        <Stats data={attendanceStats}/>
+        <AttendanceCards data={attendanceStats}/>
         <Card>
             <CardHeader>
                 <CardTitle>

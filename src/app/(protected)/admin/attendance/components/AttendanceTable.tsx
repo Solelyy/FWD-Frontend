@@ -31,12 +31,10 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
         if (!normalizedSearch) return true;
 
         const fullName = `${log.firstname} ${log.lastname}`.toLowerCase();
-        const status = log.status.toLowerCase();
         const employeeId = log.employeeId.toLowerCase();
 
         return (
             fullName.includes(normalizedSearch) ||
-            status.includes(normalizedSearch) ||
             employeeId.includes(normalizedSearch)
         );
     });

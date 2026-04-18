@@ -25,3 +25,10 @@ export type LeaveRequest = {
 export type LeaveRequestsResponse = {
     leaveRequests: LeaveRequest[];
 }
+
+export const leaveTypeFormatText: Record<LeaveType, string> = {
+    [LeaveType.SICK] : "Sick Leave",
+    [LeaveType.VACATION] : "Vacation Leave",
+    [LeaveType.ACCUMULATED] : "Accumulated Leave",
+    [LeaveType.OTHER] : "Other",
+}

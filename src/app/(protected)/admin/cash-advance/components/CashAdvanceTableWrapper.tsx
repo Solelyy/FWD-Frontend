@@ -26,7 +26,7 @@ export default function CashAdvanceTableWrapper() {
             </CardHeader>
 
             <CardContent className="flex flex-col gap-4">
-                <FilterButtons />
+                {/* <FilterButtons />*/}
                 <AttendanceTable /> 
             </CardContent>
         </Card>

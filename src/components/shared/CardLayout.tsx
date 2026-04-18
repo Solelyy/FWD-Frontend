@@ -8,7 +8,7 @@ type CardLayoutProps = {
     description?: string
 }
 
-export function CardLayoutAttendance({title, dataCount, isLoading, description} : CardLayoutProps) {
+export function CardLayout({title, dataCount, isLoading, description} : CardLayoutProps) {
     return (
         <Card className="text-sm md:text-base w-full h-auto">
             <CardHeader >

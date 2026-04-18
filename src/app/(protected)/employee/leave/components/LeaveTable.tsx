@@ -10,20 +10,14 @@ import LeaveDialog from "./LeaveDialog";
 import { useLeaveRequests } from "../hooks/useLeaveRequests";
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { formatDateWithoutYear, formatTableDate } from "@/lib/util/date-format";
-import { LeaveType } from "../types/leave";
 import { overtimeStatusStyle, formatOvertimeText } from "@/app/(protected)/admin/attendance/types/status-format";
+import { leaveTypeFormatText } from "../types/leave";
 
 export default function LeaveTable() {
     const [open, setOpen] = useState(false);
     const {data, isLoading, error} = useLeaveRequests();
 
     const leaveRequests = data?.leaveRequests ?? [];
-    const leaveTypeFormatText: Record<LeaveType, string> = {
-        [LeaveType.SICK] : "Sick Leave",
-        [LeaveType.VACATION] : "Vacation Leave",
-        [LeaveType.ACCUMULATED] : "Accumulated Leave",
-        [LeaveType.OTHER] : "Other",
-    }
 
     return (
         <>

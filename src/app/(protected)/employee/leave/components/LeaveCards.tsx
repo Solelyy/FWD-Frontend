@@ -1,4 +1,4 @@
-import { CardLayoutAttendance } from "@/app/(protected)/admin/attendance/components/CardLayoutAttendance"
+import { CardLayout } from "@/components/shared/CardLayout"
 import { LeaveBalancesResponse } from "../types/leave";
 
 type LeaveCardsProps = {
@@ -15,7 +15,7 @@ export default function LeaveCards({ data }: LeaveCardsProps) {
     return (
         <div className="grid grid-cols-3 gap-4">
             {cards.map((c)=> (
-                <CardLayoutAttendance
+                <CardLayout
                     key={c.title}
                     title={c.title}
                     dataCount={c.value ?? 0}

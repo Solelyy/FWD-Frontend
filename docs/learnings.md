@@ -285,3 +285,12 @@ ex: ref.current
   <video> :  player
   MediaStream : the data (camera feed)
   srcObject or src : the connector
+
+## exact:false
+- it is use when we want to invalidate all queries and all variations, it is like updating the whole list and not changing specific page. 
+- queryClient.invalidateQueries({
+    queryKey: ["employees-leave-requests"],
+    exact: false
+});
+- this is the default value (exact:false) in tanstack query.
+- if we want specific page or month for example to change we must include the query keys. ex: ["employees-leave-request", {page}], exact:true
