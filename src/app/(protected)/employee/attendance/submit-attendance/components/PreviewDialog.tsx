@@ -8,6 +8,7 @@ import { stopStream } from "../utils/stream";
 import { toast } from "sonner";
 import OvertimeDialog from "./OvertimeDialog";
 import { useAttendanceMutation } from "@/app/(protected)/employee/attendance/get-attendance/hooks/useAttendanceMutate";
+import { isOvertimeApi } from "../api/isOvertimeApi";
 
 type PreviewDialogProps = {
   open: boolean;
@@ -25,7 +26,7 @@ export default function PreviewDialog({ open, setOpen, location, photo, stream, 
   const successText = attendanceType === AttendanceType.TIME_IN ? "Time in" : "Time out";
   const [openCaptureDialog, setOpenCaptureDialog] = useState(false);
   const [capturedPhoto, setCapturedPhoto] = useState<string | null>(photo);
-  const [isOvertime, setIsOvertime] = useState(false);
+  const [showOvertimeDialog, setShowOvertimeDialog] = useState(false);
   const today = new Date();
 
   const month = today.getMonth();
@@ -38,11 +39,11 @@ export default function PreviewDialog({ open, setOpen, location, photo, stream, 
   };
 
   
-  const submitAttendance = async (isOt?: boolean) => {
+  const submitAttendance = async (isOt: boolean) => {
 
     try {
       await attendanceMutation.mutateAsync({
-        location, imageUrl: capturedPhoto, attendanceType, isOvertime: isOt ?? false,
+        location, imageUrl: capturedPhoto, attendanceType, isOvertime: isOt
       });
       toast.success(`${successText} successfully submitted.`);
       setOpen(false);
@@ -56,21 +57,31 @@ export default function PreviewDialog({ open, setOpen, location, photo, stream, 
   const handleSubmit = async () => {
     if (!location || !capturedPhoto || !attendanceType) return;
 
-    const now = new Date();
+    if (attendanceType === AttendanceType.TIME_OUT) {
+      const isOt = await checkIsOvertime();
 
-    if (attendanceType === AttendanceType.TIME_OUT && checkIsOvertime(now)) {
-      setIsOvertime(true);
-      return;
+      if (isOt) return;
     }
 
-    await submitAttendance();
+    await submitAttendance(false);
   };
 
-  function checkIsOvertime(time: Date) {
-    const hours = time.getHours();
-    const min = time.getMinutes();
-    
-    return hours > 17 || (hours === 17 && min >= 30);
+  async function checkIsOvertime() {
+    try{
+      const result = await isOvertimeApi();
+
+      if (result.isOvertime) {
+        setShowOvertimeDialog(true);
+        return true;
+      } else {
+        setShowOvertimeDialog(false);
+        return false;
+      }
+    } catch(error) {
+        console.error(error);
+        toast.error("Unable to check if meets overtime threshold.");
+        return false;
+    }
   }
 
   return (
@@ -138,14 +149,14 @@ export default function PreviewDialog({ open, setOpen, location, photo, stream, 
       )}
 
         <OvertimeDialog 
-        open={isOvertime} 
-        setOpen={setIsOvertime} 
+        open={showOvertimeDialog} 
+        setOpen={setShowOvertimeDialog} 
         onConfirmOvertime={() => {
-          setIsOvertime(false);
+          setShowOvertimeDialog(false);
           submitAttendance(true);
         }}
         onConfirmRegular={() => {
-          setIsOvertime(false);
+          setShowOvertimeDialog(false);
           submitAttendance(false);
         }}
         />

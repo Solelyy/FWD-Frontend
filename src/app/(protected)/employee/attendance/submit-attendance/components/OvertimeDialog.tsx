@@ -18,10 +18,7 @@ export default function OvertimeDialog({open, setOpen, onConfirmOvertime, onConf
     }
     
     return (
-    <Dialog open={open} onOpenChange={(val) => {
-        if (!val) return; //prevents from closing
-        setOpen(val);
-    }}>
+    <Dialog open={open} onOpenChange={(val) => setOpen(val)}>
         <DialogContent className="w-[90%] max-w-sm md:max-w-md space-y-4"
             onInteractOutside={(e) => e.preventDefault()}
             onEscapeKeyDown={(e) => e.preventDefault()}
