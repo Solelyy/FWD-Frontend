@@ -12,7 +12,7 @@ export async function attendanceSubmitApi({location, imageUrl, attendanceType, i
     const endpoint = attendanceType === AttendanceType.TIME_IN
     ? "/employee/attendance/time-in" 
     : isOvertime 
-    ? "/employee/attendance/overtime"
+    ? "/employee/attendance/overtime/time-out"
     : "/employee/attendance/time-out"
 
     const payload = {
