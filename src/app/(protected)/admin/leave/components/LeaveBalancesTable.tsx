@@ -4,6 +4,7 @@ import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from "@
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { fullName } from "@/lib/util/name-format";
 import { EmployeesLeaveBalancesResponse } from "../types/leave-balances";
+import { Button } from "@/components/ui/button";
 
 type Props = {
     data?: EmployeesLeaveBalancesResponse
@@ -26,7 +27,6 @@ export default function LeaveBalancesTable({data, isLoading, error,}: Props) {
                             <TableHead>Sick Leave</TableHead>
                             <TableHead>Vacation Leave</TableHead>
                             <TableHead>Accumulated Leave</TableHead>
-                            <TableHead>Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                             
@@ -68,10 +68,6 @@ export default function LeaveBalancesTable({data, isLoading, error,}: Props) {
                                     
                                     <TableCell>
                                         {em.accumulatedLeave}
-                                    </TableCell>
-
-                                    <TableCell>
-                                        {/* Action */}
                                     </TableCell>
                                 </TableRow>
                             ))
