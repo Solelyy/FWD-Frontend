@@ -11,10 +11,27 @@ type Props = {
     data?: EmployeesCARequestsResponse;
     isLoading: boolean;
     error: Error | null;
+    page: number
+    setPage: (page: number)=> void
+    searchTerm?: string
 }
-export default function CashAdvanceTable({data, isLoading, error}: Props) {
-
+export default function CashAdvanceTable({data, isLoading, error, page, setPage, searchTerm = ""}: Props) {
     const requests = data?.requests ?? [];
+
+    const normalizedSearch = searchTerm.trim().toLowerCase();
+
+    const filteredRequests = requests.filter((request) => {
+        if (!normalizedSearch) return true;
+
+        const fullName = `${request.firstname} ${request.lastname}`.toLowerCase();
+        const employeeId = request.employeeId.toLowerCase();
+
+        return (
+            fullName.includes(normalizedSearch) ||
+            employeeId.includes(normalizedSearch)
+        );
+    });
+
     return (
         <>
         <div className="flex flex-col space-y4">            
@@ -44,7 +61,7 @@ export default function CashAdvanceTable({data, isLoading, error}: Props) {
                             </TableRow>
                         )}
 
-                        {!isLoading && !error && requests?.length === 0 && (
+                        {!isLoading && !error && filteredRequests.length === 0 && (
                             <TableRow>
                                 <TableCell colSpan={6} className="text-center ">
                                     No attendance records found.
@@ -52,7 +69,7 @@ export default function CashAdvanceTable({data, isLoading, error}: Props) {
                             </TableRow>
                         )}
 
-                        {!isLoading && !error && requests.length > 0 && requests.map((request) => (
+                        {!isLoading && !error && filteredRequests.length > 0 && filteredRequests.map((request) => (
                             <TableRow key={request.id}>
                                 <TableCell>
                                     {formatTableDate(request.dateSubmitted)}
@@ -75,6 +92,10 @@ export default function CashAdvanceTable({data, isLoading, error}: Props) {
                                         {formatCashAdvanceStatusText[request.status]}
                                     </span>
                                 </TableCell>
+
+                                <TableCell>
+                                    {/*Actions */}
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -82,7 +103,12 @@ export default function CashAdvanceTable({data, isLoading, error}: Props) {
             </div>
             
             </div>
-            {/*<PaginationSimple />  */} 
+            <PaginationSimple 
+                page={page} 
+                total={data?.meta.total ?? 0}
+                limit={data?.meta.limit ?? 5}
+                onPageChange={setPage}
+            />
         </>
     ); 
 }

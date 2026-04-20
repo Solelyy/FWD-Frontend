@@ -14,6 +14,11 @@ export type EmployeeCARequest = {
 
 export type EmployeesCARequestsResponse = {
     requests: EmployeeCARequest[];
+    meta: {
+        page: number;
+        limit: number;
+        total: number;
+  }
 }
 
 export type EmployeesCARequestsSummary = {
