@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import React from "react";
+import React, { useState } from "react";
+import { useCashAdvanceMutation } from "../hooks/useCashAdvanceMutation";
+import { toast } from "sonner";
 
 type Props = {
     open: boolean;
@@ -24,22 +26,31 @@ export default function CashAdvanceDialog({open, setOpen}: Props) {
         parsedAmount >= MIN_AMOUNT &&
         parsedAmount <= MAX_AMOUNT;
 
+    const {mutateAsync, isPending} = useCashAdvanceMutation();
+    
     const handleCancel = () => {
         setOpen(false);
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         if (!isAmountValid) return;
 
-        // Keep payload shape stable so API wiring can be added later without form refactor.
         const payload = {
             amountRequested: parsedAmount,
             reason: reason.trim() || undefined,
         };
 
-        console.debug("Cash advance payload (submission not wired yet)", payload);
+        try {
+            await mutateAsync(payload);
+
+            toast.success("Cash advance requested successfully.");
+            setOpen(false);
+        } catch(error) {
+            console.error("Failed to submit cash advance request", error);
+            toast.error("Unable to submit cash advance request. Please try again.")
+        }
     };
 
     return (
@@ -107,8 +118,8 @@ export default function CashAdvanceDialog({open, setOpen}: Props) {
                             Cancel
                         </Button>
 
-                        <Button type="submit" className="w-full md:w-auto">
-                            Submit Cash Advance Request
+                        <Button type="submit" className="w-full md:w-auto" disabled={isPending}>
+                            {isPending ? "Submitting..." : "Submit Cash Advance Request"}
                         </Button>
                     </DialogFooter>
                 </form>
