@@ -4,13 +4,15 @@ import { AccountInfo } from "@/features/account-management/types/account";
 export type EmployeeCARequest = {
     id: number;
     employeeId: AccountInfo["employeeId"];
+    firstname: AccountInfo["firstname"];
+    lastname: AccountInfo["lastname"];
     dateSubmitted: string;
-    requestedAmount: string;
-    approvedAmount: string;
+    requestedAmount: number;
+    approvedAmount: number;
     status: CashAdvanceRequestStatus
 }
 
-export type EmployeesCARequests = {
+export type EmployeesCARequestsResponse = {
     requests: EmployeeCARequest[];
 }
 

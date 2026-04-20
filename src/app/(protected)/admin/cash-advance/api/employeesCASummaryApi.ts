@@ -1,7 +1,7 @@
 import { API_BASE_URL } from "@/lib/util/api";
 import { EmployeesCARequestsSummary } from "../types/cash-advance";
 
-export async function employeesCashAdvanceApi(): Promise<EmployeesCARequestsSummary> {
+export async function employeesCASummaryApi(): Promise<EmployeesCARequestsSummary> {
     const response = await fetch(`${API_BASE_URL}/`, {
         method: "GET",
         credentials: "include"

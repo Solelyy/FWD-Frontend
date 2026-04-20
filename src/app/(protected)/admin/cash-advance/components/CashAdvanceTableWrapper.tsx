@@ -7,12 +7,14 @@ import { getTodayFormatted } from "@/lib/util/date-format";
 import { useState } from "react";
 import FilterButtons from "@/app/(protected)/admin/leave/components/LeaveFilterButtons";
 import AttendanceTable from "./CashAdvanceTable";
-import { useEmployeesCARequests } from "../hooks/useEmployeesCARequests";
+import { useEmployeesCASummary } from "../hooks/useEmployeesCASummary";
 import CashAdvanceCard from "./CashAdvanceCard";
+import { useEmployeesCARequests } from "../hooks/useEmployeesCARequests";
 
 export default function CashAdvanceTableWrapper() {
     const [searchTerm, setSearchTerm] = useState("");
-    const {data: summary, isLoading, error} = useEmployeesCARequests();
+    const {data: summary,} = useEmployeesCASummary();
+    const {data: requests, isLoading, error} = useEmployeesCARequests();
     
     return ( 
         <div className="space-y-6">
@@ -34,7 +36,7 @@ export default function CashAdvanceTableWrapper() {
 
             <CardContent className="flex flex-col gap-4">
                 {/* <FilterButtons />*/}
-                <AttendanceTable /> 
+                <AttendanceTable data={requests} isLoading={isLoading} error={error}/> 
             </CardContent>
         </Card>
         </div>
