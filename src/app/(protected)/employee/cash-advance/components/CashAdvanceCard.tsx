@@ -9,7 +9,7 @@ type Props = {
 export default function CashAdvanceCard({data} : Props) {
     return(
         <CardContainer title="Cash Advance Summary">
-            <CardLayoutV2 title="Total Advanced" dataCount={data?.totalAdvanced ?? 0} icon={<PhilippinePesoIcon size={25}/>}/>
+            <CardLayoutV2 title="Total Advanced" showDecimal={true} dataCount={data?.totalAdvanced ?? 0} icon={<PhilippinePesoIcon size={25}/>}/>
         </CardContainer>
     );
 }

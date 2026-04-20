@@ -1,4 +1,5 @@
 "use client"
+
 import SearchBar from "@/components/shared/SearchBar";
 import DatePicker from "@/app/(protected)/admin/leave/components/DatePicker";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,11 +7,17 @@ import { getTodayFormatted } from "@/lib/util/date-format";
 import { useState } from "react";
 import FilterButtons from "@/app/(protected)/admin/leave/components/LeaveFilterButtons";
 import AttendanceTable from "./CashAdvanceTable";
+import { useEmployeesCARequests } from "../hooks/useEmployeesCARequests";
+import CashAdvanceCard from "./CashAdvanceCard";
 
 export default function CashAdvanceTableWrapper() {
     const [searchTerm, setSearchTerm] = useState("");
+    const {data: summary, isLoading, error} = useEmployeesCARequests();
     
     return ( 
+        <div className="space-y-6">
+        <CashAdvanceCard data={summary} />
+        
         <Card>
             <CardHeader>
                 <CardTitle>
@@ -30,5 +37,6 @@ export default function CashAdvanceTableWrapper() {
                 <AttendanceTable /> 
             </CardContent>
         </Card>
+        </div>
     )
 }

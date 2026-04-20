@@ -3,12 +3,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 type CardLayoutProps = {
     title:string
     dataCount?: number;
-    isLoading?: boolean
-    description?: string
-    icon?: React.ReactNode
+    isLoading?: boolean;
+    description?: string;
+    icon?: React.ReactNode;
+    showDecimal?: boolean
+
 }
 
-export function CardLayoutV2({title, dataCount, isLoading, description, icon} : CardLayoutProps) {
+export function CardLayoutV2({title, dataCount, isLoading, description, icon, showDecimal} : CardLayoutProps) {
     return (
         <div className="w-full rounded-xl border border-border/60 bg-background p-4 text-sm md:text-base">
             <div className="font-medium text-foreground/90">{title}</div>
@@ -18,8 +20,12 @@ export function CardLayoutV2({title, dataCount, isLoading, description, icon} : 
                 {isLoading ?  (
                     <Skeleton className="h-8 w-10"/>
                 ) : (             
-                    <p className="text-2xl font-semibold tracking-tight text-foreground">
-                          {dataCount !== undefined ? dataCount.toFixed(2) : "0.00"}
+                    <p className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
+                        {dataCount !== undefined 
+                        ? showDecimal
+                        ? dataCount.toFixed(2) 
+                        : dataCount
+                        : "0.00"}
                     </p>
                 )}
             </div>

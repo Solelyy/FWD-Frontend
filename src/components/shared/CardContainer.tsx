@@ -13,7 +13,7 @@ export default function CardContainer({title, description, children}: Props) {
                 )}
             </div>
 
-            <div>
+            <div className="flex gap-4 text-sm md:text-base">
                 {children}
             </div>
         </div> 
