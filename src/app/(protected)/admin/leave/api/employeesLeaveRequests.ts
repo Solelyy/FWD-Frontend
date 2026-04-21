@@ -1,4 +1,3 @@
-import { OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 import { LeaveType } from "@/app/(protected)/employee/leave/types/leave";
 import { LeaveStatusFilter, LeaveRequestsResponse, LeaveRequestStatus } from "../types/leave";
 

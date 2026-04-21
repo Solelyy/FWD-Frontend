@@ -1,35 +1,32 @@
-"use client";
+"use client"
 
 import { DropdownMenu, DropdownMenuContent,DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator, } from "@/components/ui/dropdown-menu";
-
+import { EmployeeCARequest } from "../types/cash-advance";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontalIcon } from "lucide-react";
 import { useState } from "react";
-import { EmployeeLeaveRequest } from "../types/leave";
-import { getActionsByStatus, LeaveActionProps } from "../types/leave-actions";
-import { useLeaveActions } from "../hooks/useLeaveActions";
-import LeaveActionDialog from "./LeaveActionDialog";
+import { CashAdvanceActionProps, getActionsByStatus } from "../types/ca-actions";
+import { useCashAdvanceActions } from "../hooks/useCashAdvanceActions";
+import CashAdvanceActionDialog from "./CashAdvanceDialog";
 
 type Props = {
-  leaveRequest: EmployeeLeaveRequest;
-};
+    request: EmployeeCARequest
+}
+export default function CashAdvanceActions({request}: Props) {
+    const [open, setOpen] = useState(false);
+    const [selectedAction, setSelectedAction] = useState<CashAdvanceActionProps | null>(null);
+    
+    const { mutate, isPending } = useCashAdvanceActions();
+    const actions = getActionsByStatus(request.status);
 
-export default function LeaveActions({ leaveRequest }: Props) {
-  const [open, setOpen] = useState(false);
-  const [selectedAction, setSelectedAction] = useState<LeaveActionProps | null>(null);
+    const handleAction = (action: CashAdvanceActionProps) => {
+        setSelectedAction(action);
+        setOpen(true);
+    };
 
-  const { mutate, isPending } = useLeaveActions();
-
-  const leaveActions = getActionsByStatus(leaveRequest.status);
-
-  const handleAction = (action: LeaveActionProps) => {
-    setSelectedAction(action);
-    setOpen(true);
-  };
-
-  return (
-    <>
-      <DropdownMenu>
+    return (
+        <>
+        <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="icon" className="size-8">
             <MoreHorizontalIcon />
@@ -38,7 +35,7 @@ export default function LeaveActions({ leaveRequest }: Props) {
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end">
-          {leaveActions.map((action, idx) => {
+          {actions.map((action, idx) => {
             const Icon = action.icon;
 
             return (
@@ -65,7 +62,7 @@ export default function LeaveActions({ leaveRequest }: Props) {
                   </div>
                 </DropdownMenuItem>
 
-                {idx !== leaveActions.length - 1 && (
+                {idx !== actions.length - 1 && (
                   <DropdownMenuSeparator />
                 )}
               </div>
@@ -74,14 +71,14 @@ export default function LeaveActions({ leaveRequest }: Props) {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <LeaveActionDialog
+      <CashAdvanceActionDialog
         open={open}
         setOpen={setOpen}
         action={selectedAction}
-        leaveRequest={leaveRequest}
+        request={request}
         isPending={isPending}
         onConfirm={mutate}
       />
-    </>
-  );
+        </>
+    )
 }

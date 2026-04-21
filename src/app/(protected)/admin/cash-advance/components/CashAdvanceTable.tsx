@@ -6,6 +6,7 @@ import { formatTableDate } from "@/lib/util/date-format";
 import { fullName } from "@/lib/util/name-format";
 import { formatPeso } from "@/lib/util/currency-format";
 import { cashAdvanceStatusStyle, formatCashAdvanceStatusText } from "@/app/(protected)/employee/cash-advance/types/status-format";
+import CashAdvanceActions from "./CashAdvanceActions";
 
 type Props = {
     data?: EmployeesCARequestsResponse;
@@ -94,7 +95,7 @@ export default function CashAdvanceTable({data, isLoading, error, page, setPage,
                                 </TableCell>
 
                                 <TableCell>
-                                    {/*Actions */}
+                                    <CashAdvanceActions request={request}/>
                                 </TableCell>
                             </TableRow>
                         ))}
