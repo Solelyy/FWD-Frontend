@@ -37,6 +37,7 @@ export default function Actions({attendanceLog}: Props) {
       const actionHandlers = {
         [AttendanceActions.ADD_ATTENDANCE]: () => 
           addAttendance.mutateAsync({
+            id: attendanceLog.id,
             employeeId: attendanceLog.employeeId,
             status: attendanceLog.status,
             timeIn,
@@ -46,6 +47,7 @@ export default function Actions({attendanceLog}: Props) {
 
         [AttendanceActions.MARK_ABSENT]: () => 
           markAbsent.mutateAsync({
+            id: attendanceLog.id,
             employeeId: attendanceLog.employeeId,
             status: attendanceLog.status
           }
@@ -53,6 +55,7 @@ export default function Actions({attendanceLog}: Props) {
 
         [AttendanceActions.OVERRIDE_ATTENDANCE]: () => 
           overrideAttendance.mutateAsync({
+            id: attendanceLog.id,
             employeeId: attendanceLog.employeeId,
             status: attendanceLog.status,
             timeIn,
@@ -62,6 +65,7 @@ export default function Actions({attendanceLog}: Props) {
 
         [AttendanceActions.APPROVE_OVERTIME]: () => 
           updateOvertimeRequest.mutateAsync({
+            id: attendanceLog.id,
             employeeId: attendanceLog.employeeId,
             overtimeStatus: OvertimeStatus.APPROVED
           }
@@ -69,6 +73,7 @@ export default function Actions({attendanceLog}: Props) {
 
         [AttendanceActions.REJECT_OVERTIME]: () => 
           updateOvertimeRequest.mutateAsync({
+            id: attendanceLog.id,
             employeeId: attendanceLog.employeeId,
             overtimeStatus: OvertimeStatus.REJECTED
           }

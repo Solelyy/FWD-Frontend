@@ -8,7 +8,7 @@ type EmployeeAttendanceStatsApiPayload = {
 }
 
 export async function employeesAttendanceStatsApi({day, month, year}: EmployeeAttendanceStatsApiPayload): Promise<EmployeesAttendanceStatsResponse>{
-    const endpoint = `/employees-attendance?year=${year}&month=${month}&day=${day}`;
+    const endpoint = `/admin/employee-attendance?year=${year}&month=${month}&day=${day}`;
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "GET",
         credentials: "include"

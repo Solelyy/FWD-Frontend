@@ -2,9 +2,9 @@ import { API_BASE_URL } from "@/lib/util/api";
 import { OverrideAttendancePayload } from "./overrideAttendanceApi";
 
 export async function addAttendanceApi({employeeId, status, timeIn, timeOut}: OverrideAttendancePayload) {
-    const endpoint = `/${employeeId}`;
+    const endpoint = `/admin/employee/add-attendance`;
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        method: "PATCH",
+        method: "POST",
         credentials: "include",
         headers: {
             "Content-Type": "application/json"

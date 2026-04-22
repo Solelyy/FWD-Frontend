@@ -74,7 +74,7 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
 
                         {error && (
                             <TableRow>
-                                <TableCell colSpan={4} className="text-center py-8 text-red-400">
+                                <TableCell colSpan={5} className="text-center py-8 text-red-400">
                                     Failed to load accounts.
                                 </TableCell>
                             </TableRow>
@@ -82,7 +82,7 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
 
                         {!isLoading && !error && filteredLogs.length === 0 && (
                             <TableRow>
-                                <TableCell colSpan={4} className="text-center ">
+                                <TableCell colSpan={5} className="text-center ">
                                     {normalizedSearch ? "No results found" : "No attendance records found."}
                                 </TableCell>
                             </TableRow>

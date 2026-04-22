@@ -5,18 +5,17 @@ import { OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-att
 export type UpdateOvertimeRequest = {
     employeeId: EmployeeAttendance["employeeId"];
     overtimeStatus?: OvertimeStatus;
+    id: EmployeeAttendance["id"];
 }
-export async function updateOvertimeRequestApi({employeeId, overtimeStatus}:UpdateOvertimeRequest) {
-    const endpoint = overtimeStatus === OvertimeStatus.APPROVED 
-    ? "/" // approve overtime
-    : "/" // reject
-    const response = await fetch(`${API_BASE_URL}`, {
+export async function updateOvertimeRequestApi({employeeId, overtimeStatus, id}:UpdateOvertimeRequest) {
+    const endpoint = "/admin/employee/overtime/status"
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "PATCH",
         credentials: "include",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({employeeId,})
+        body: JSON.stringify({id, overtimeStatus})
     });
 
     if (!response.ok) {
