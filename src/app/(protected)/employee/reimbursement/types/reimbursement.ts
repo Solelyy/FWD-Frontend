@@ -17,7 +17,7 @@ export enum ReimbursementRequestStatus {
     REJECTED = "REJECTED"
 }
 
-export type ReimbursementRequest = {
+export interface ReimbursementRequest {
     id: number,
     employeeId: AccountInfo["employeeId"];
     dateSubmitted: string;
