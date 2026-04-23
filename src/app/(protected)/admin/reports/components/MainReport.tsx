@@ -9,10 +9,17 @@ import ReportsReimbursementTable from "./ReimbursementTable";
 import ReportsTableWrapper from "./ReportsTableWrapper";
 import { Button } from "@/components/ui/button";
 import { FileUp } from "lucide-react";
+import { useAttendanceReports } from "../hooks/useAttendanceReports";
 
 export default function MainReport() {
     const [activeFilter, setActiveFilter] = useState<ReportFilter>("attendance");
+    const today = new Date();
+    const [year, setYear] = useState(today.getFullYear());
+    const [month, setMonth] = useState(today.getMonth());
+    const [cutoff, setCutoff] = useState<"15" | "30">("15");
+    const [page, setPage] = useState(1);
 
+    const {data: attendanceReport, isLoading: loadingAttendance, error: errorAttendance} = useAttendanceReports({cutoff, month, year})
     const reportContent = useMemo(() => {
         switch (activeFilter) {
             case "reimbursement":
@@ -38,10 +45,12 @@ export default function MainReport() {
                 return {
                     title: "Attendance Report",
                     description: "View employee attendance and working time summary.",
-                    table: <ReportsAttendanceTable />,
+                    table: <ReportsAttendanceTable data={attendanceReport} isLoading={loadingAttendance} error={errorAttendance} page={page} setPage={setPage}/>,
                 };
         }
     }, [activeFilter]);
+
+    const isAttendance = activeFilter === "attendance";
 
     return (
         <div className="flex flex-col gap-6">
@@ -49,8 +58,19 @@ export default function MainReport() {
             
             <ReportsTableWrapper
                 title={reportContent.title}
-                description={reportContent.description}
+                description={
+                    isAttendance
+                        ? `${reportContent.description} Showing ${cutoff}th cutoff.`
+                        : reportContent.description
+                }
                 table={reportContent.table}
+                isAttendance={isAttendance}
+                selectedYear={year}
+                selectedMonth={month}
+                onYearChange={setYear}
+                onMonthChange={setMonth}
+                attendanceCutoff={cutoff}
+                onAttendanceCutoffChange={setCutoff}
             />
             
             <div className="flex justify-end">
