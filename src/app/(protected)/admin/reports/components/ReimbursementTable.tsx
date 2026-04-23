@@ -1,7 +1,39 @@
 import { PaginationSimple } from "@/components/shared/Pagination";
 import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from "@/components/ui/table";
+import { EmployeesReimbursementReports } from "../types/reimbursement";
+import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
+import { fullName } from "@/lib/util/name-format";
 
-export default function ReportsReimbursementTable() {
+type Props = {
+    data?: EmployeesReimbursementReports;
+    isLoading: boolean;
+    error: Error | null;
+    searchTerm?: string;
+    page: number;
+    setPage: (page: number) => void;
+}
+
+export default function ReportsReimbursementTable({
+    data,
+    isLoading,
+    error,
+    searchTerm = "",
+    page,
+    setPage,
+}: Props) {
+    const records = data?.records ?? [];
+
+    const normalizedSearch = searchTerm.trim().toLowerCase();
+
+    const filteredRecords = records.filter((record) => {
+        if (!normalizedSearch) return true;
+
+        const fullEmployeeName = `${record.firstname} ${record.lastname}`.toLowerCase();
+        const employeeId = record.employeeId.toLowerCase();
+
+        return fullEmployeeName.includes(normalizedSearch) || employeeId.includes(normalizedSearch);
+    });
+
     return (
         <>
         <div className="flex flex-col space-y4">
@@ -15,17 +47,41 @@ export default function ReportsReimbursementTable() {
                     </TableHeader>
                             
                     <TableBody>
-                        <TableRow>
-                            <TableCell colSpan={6} className="text-center py-8">
-                                No records yet.
-                            </TableCell>
-                        </TableRow>
-                        </TableBody>
+                        {isLoading && <AttendanceLogsSkeletonRows />}
+
+                        {error && (
+                            <TableRow>
+                                <TableCell colSpan={2} className="text-center py-8 text-red-400">
+                                    Failed to load reimbursement report.
+                                </TableCell>
+                            </TableRow>
+                        )}
+
+                        {!isLoading && !error && records.length === 0 && (
+                            <TableRow>
+                                <TableCell colSpan={2} className="text-center py-8">
+                                    No reimbursement records found.
+                                </TableCell>
+                            </TableRow>
+                        )}
+
+                        {!isLoading && !error && filteredRecords.length > 0 && filteredRecords.map((record) => (
+                            <TableRow key={record.employeeId}>
+                                <TableCell>{fullName(record.firstname, record.lastname)}</TableCell>
+                                <TableCell>{record.totalAmountReimbursed}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
                     </Table> 
             </div>
 
             </div>
-            {/*<PaginationSimple />  */}  
+            <PaginationSimple
+                page={page}
+                total={data?.meta.total ?? 0}
+                limit={data?.meta.limit ?? 10}
+                onPageChange={setPage}
+            />
         </>
     ); 
 }

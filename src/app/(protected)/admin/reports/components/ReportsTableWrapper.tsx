@@ -11,6 +11,7 @@ type ReportsTableWrapperProps = {
     showMonthYear?: boolean;
     isAttendance?: boolean;
     isCashAdvance?: boolean;
+    isReimbursement?: boolean;
     selectedYear?: number;
     selectedMonth?: number;
     onYearChange?: (year: number) => void;
@@ -19,6 +20,8 @@ type ReportsTableWrapperProps = {
     onAttendanceCutoffChange?: (cutoff: "15" | "30") => void;
     cashAdvanceWeek?: "week-1" | "week-2" | "week-3" | "week-4";
     onCashAdvanceWeekChange?: (week: "week-1" | "week-2" | "week-3" | "week-4") => void;
+    reimbursementWeek?: "week-1" | "week-2" | "week-3" | "week-4";
+    onReimbursementWeekChange?: (week: "week-1" | "week-2" | "week-3" | "week-4") => void;
     searchTerm?: string;
     onSearchTermChange?: (searchTerm: string) => void;
 }
@@ -30,6 +33,7 @@ export default function ReportsTableWrapper({
     showMonthYear = false,
     isAttendance = false,
     isCashAdvance = false,
+    isReimbursement = false,
     selectedYear,
     selectedMonth,
     onYearChange,
@@ -38,6 +42,8 @@ export default function ReportsTableWrapper({
     onAttendanceCutoffChange,
     cashAdvanceWeek = "week-1",
     onCashAdvanceWeekChange,
+    reimbursementWeek = "week-1",
+    onReimbursementWeekChange,
     searchTerm = "",
     onSearchTermChange,
 } : ReportsTableWrapperProps) {
@@ -90,6 +96,32 @@ export default function ReportsTableWrapper({
                                                     : "week-1";
 
                                             onCashAdvanceWeekChange?.(nextWeek);
+                                        }}
+                                    >
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Week" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="week-1">Week 1</SelectItem>
+                                            <SelectItem value="week-2">Week 2</SelectItem>
+                                            <SelectItem value="week-3">Week 3</SelectItem>
+                                            <SelectItem value="week-4">Week 4</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                            )}
+
+                            {isReimbursement && (
+                                <div className="min-w-36">
+                                    <Select
+                                        value={reimbursementWeek}
+                                        onValueChange={(value) => {
+                                            const nextWeek =
+                                                value === "week-2" || value === "week-3" || value === "week-4"
+                                                    ? value
+                                                    : "week-1";
+
+                                            onReimbursementWeekChange?.(nextWeek);
                                         }}
                                     >
                                         <SelectTrigger>
