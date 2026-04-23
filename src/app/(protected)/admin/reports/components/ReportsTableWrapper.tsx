@@ -3,12 +3,12 @@ import SearchBar from "@/components/shared/SearchBar";
 import { MonthYearPicker } from "@/components/shared/MonthYearPicker";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useState } from "react";
 
 type ReportsTableWrapperProps = {
     title: string;
     description: string;
     table: React.ReactNode;
+    showMonthYear?: boolean;
     isAttendance?: boolean;
     selectedYear?: number;
     selectedMonth?: number;
@@ -16,12 +16,15 @@ type ReportsTableWrapperProps = {
     onMonthChange?: (month: number) => void;
     attendanceCutoff?: "15" | "30";
     onAttendanceCutoffChange?: (cutoff: "15" | "30") => void;
+    searchTerm?: string;
+    onSearchTermChange?: (searchTerm: string) => void;
 }
 
 export default function ReportsTableWrapper({
     title,
     description,
     table,
+    showMonthYear = false,
     isAttendance = false,
     selectedYear,
     selectedMonth,
@@ -29,9 +32,9 @@ export default function ReportsTableWrapper({
     onMonthChange,
     attendanceCutoff = "15",
     onAttendanceCutoffChange,
+    searchTerm = "",
+    onSearchTermChange,
 } : ReportsTableWrapperProps) {
-    const [searchTerm, setSearchTerm] = useState("");
-    
     return ( 
         <Card>
             <CardHeader>
@@ -42,7 +45,7 @@ export default function ReportsTableWrapper({
                     <CardDescription>{description}</CardDescription>
                     <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                         <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-                            {isAttendance && selectedYear !== undefined && selectedMonth !== undefined && onYearChange && onMonthChange && (
+                            {showMonthYear && selectedYear !== undefined && selectedMonth !== undefined && onYearChange && onMonthChange && (
                                 <MonthYearPicker
                                     year={selectedYear}
                                     month={selectedMonth}
@@ -72,7 +75,7 @@ export default function ReportsTableWrapper({
                         </div>
 
                         <div className="w-full md:w-auto md:shrink-0">
-                            <SearchBar value={searchTerm} onChange ={setSearchTerm} />
+                            <SearchBar value={searchTerm} onChange={onSearchTermChange ?? (() => undefined)} />
                         </div>
                     </div>
                 </div>
