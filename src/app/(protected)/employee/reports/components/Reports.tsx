@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 
 import { Card } from "@/components/ui/card";
-import { CalendarCheck, Download, HandCoins, ReceiptText, TreePalm } from "lucide-react";
+import { CalendarCheck, Calendar1 , PhilippinePeso, Wallet} from "lucide-react";
 import { buildGenerateReportPayload } from "../api/report-payload";
 import { useReportsSummary } from "../hooks/useReportsSummary";
 import type {
@@ -33,19 +33,19 @@ const moduleOptions: ModuleOption[] = [
         value: "leave",
         label: "Leave Report",
         description: "Annual report for all approved and pending leave requests.",
-        icon: TreePalm,
+        icon: Calendar1,
     },
     {
         value: "cashAdvance",
         label: "Cash Advance Report",
         description: "Weekly summary of requested and approved cash advances.",
-        icon: HandCoins,
+        icon: PhilippinePeso,
     },
     {
         value: "reimbursement",
         label: "Reimbursement Report",
         description: "Weekly report for reimbursement claims and release status.",
-        icon: ReceiptText,
+        icon: Wallet,
     },
 ];
 
