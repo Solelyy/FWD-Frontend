@@ -10,12 +10,15 @@ type ReportsTableWrapperProps = {
     table: React.ReactNode;
     showMonthYear?: boolean;
     isAttendance?: boolean;
+    isCashAdvance?: boolean;
     selectedYear?: number;
     selectedMonth?: number;
     onYearChange?: (year: number) => void;
     onMonthChange?: (month: number) => void;
     attendanceCutoff?: "15" | "30";
     onAttendanceCutoffChange?: (cutoff: "15" | "30") => void;
+    cashAdvanceWeek?: "week-1" | "week-2" | "week-3" | "week-4";
+    onCashAdvanceWeekChange?: (week: "week-1" | "week-2" | "week-3" | "week-4") => void;
     searchTerm?: string;
     onSearchTermChange?: (searchTerm: string) => void;
 }
@@ -26,12 +29,15 @@ export default function ReportsTableWrapper({
     table,
     showMonthYear = false,
     isAttendance = false,
+    isCashAdvance = false,
     selectedYear,
     selectedMonth,
     onYearChange,
     onMonthChange,
     attendanceCutoff = "15",
     onAttendanceCutoffChange,
+    cashAdvanceWeek = "week-1",
+    onCashAdvanceWeekChange,
     searchTerm = "",
     onSearchTermChange,
 } : ReportsTableWrapperProps) {
@@ -68,6 +74,32 @@ export default function ReportsTableWrapper({
                                         <SelectContent>
                                             <SelectItem value="15">15th cutoff</SelectItem>
                                             <SelectItem value="30">30th cutoff</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                            )}
+
+                            {isCashAdvance && (
+                                <div className="min-w-36">
+                                    <Select
+                                        value={cashAdvanceWeek}
+                                        onValueChange={(value) => {
+                                            const nextWeek =
+                                                value === "week-2" || value === "week-3" || value === "week-4"
+                                                    ? value
+                                                    : "week-1";
+
+                                            onCashAdvanceWeekChange?.(nextWeek);
+                                        }}
+                                    >
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Week" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="week-1">Week 1</SelectItem>
+                                            <SelectItem value="week-2">Week 2</SelectItem>
+                                            <SelectItem value="week-3">Week 3</SelectItem>
+                                            <SelectItem value="week-4">Week 4</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
