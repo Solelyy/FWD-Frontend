@@ -158,13 +158,7 @@ export default function LeaveDialog({open, setOpen}: Props) {
                         <Button
                             type="submit"
                             className="w-full md:w-auto"
-                            disabled={
-                                !leaveType ||
-                                !reason.trim() ||
-                                !dateRange?.from ||
-                                !dateRange?.to ||
-                                isPending
-                            }
+                            disabled={isPending}
                         >
                             {isPending ? "Submitting..." : "Submit Leave Request"}
                         </Button>

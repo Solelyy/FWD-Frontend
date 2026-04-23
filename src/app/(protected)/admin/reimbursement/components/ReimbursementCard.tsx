@@ -1,7 +1,7 @@
 import CardContainer from "@/components/shared/CardContainer";
 import { EmployeeReimbursementSummary } from "../types/reimbursement";
 import { CardLayoutV2 } from "@/components/shared/CardLayoutV2";
-import { PhilippinePesoIcon, Banknote, BanknoteArrowUp } from "lucide-react";
+import { PhilippinePesoIcon, WalletCards, Wallet } from "lucide-react";
 type Props = {
     data?: EmployeeReimbursementSummary;
 }
@@ -9,9 +9,9 @@ type Props = {
 export default function ReimbursementCard({data}: Props) {
 
     const cards = [
-        {title: "Total Requests", value: data?.totalRequests, icon:<Banknote />},
+        {title: "Total Requests", value: data?.totalRequests, icon:<WalletCards />},
         {title: "Total Reimbursed", value: data?.totalReimbursed, showDecimal:true, icon: <PhilippinePesoIcon/> },
-        {title: "Pending Requests", value: data?.totalPending, icon:<BanknoteArrowUp/>}
+        {title: "Pending Requests", value: data?.totalPending, icon:<Wallet />}
     ]
     return (
         <div>
