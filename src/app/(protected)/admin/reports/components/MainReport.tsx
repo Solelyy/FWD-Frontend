@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { FileUp } from "lucide-react";
 import { useAttendanceReports } from "../hooks/useAttendanceReports";
 import { useLeaveReports } from "../hooks/useLeaveReports";
+import { useCashAdvanceReports } from "../hooks/useCashAdvanceReports";
 
 export default function MainReport() {
     const [activeFilter, setActiveFilter] = useState<ReportFilter>("attendance");
@@ -19,6 +20,9 @@ export default function MainReport() {
     const [attendanceMonth, setAttendanceMonth] = useState(today.getMonth());
     const [leaveYear, setLeaveYear] = useState(today.getFullYear());
     const [leaveMonth, setLeaveMonth] = useState(today.getMonth());
+    const [cashAdvanceYear, setCashAdvanceYear] = useState(today.getFullYear());
+    const [cashAdvanceMonth, setCashAdvanceMonth] = useState(today.getMonth());
+    const [cashAdvanceWeek, setCashAdvanceWeek] = useState<"week-1" | "week-2" | "week-3" | "week-4">("week-1");
     const [cutoff, setCutoff] = useState<"15" | "30">("15");
     const [page, setPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
@@ -35,6 +39,16 @@ export default function MainReport() {
         error: errorLeave,
     } = useLeaveReports({ month: leaveMonth, year: leaveYear });
 
+    const {
+        data: cashAdvanceReport,
+        isLoading: loadingCashAdvance,
+        error: errorCashAdvance,
+    } = useCashAdvanceReports({
+        month: cashAdvanceMonth,
+        year: cashAdvanceYear,
+        week: cashAdvanceWeek,
+    });
+
     const reportContent = useMemo(() => {
         switch (activeFilter) {
             case "reimbursement":
@@ -46,8 +60,17 @@ export default function MainReport() {
             case "cash-advance":
                 return {
                     title: "Cash Advance Report",
-                    description: "Monitor cash advance payouts by employee.",
-                    table: <ReportsCashAdvanceTable />,
+                    description: "Monitor cash advances of the employees by selected week.",
+                    table: (
+                        <ReportsCashAdvanceTable
+                            data={cashAdvanceReport}
+                            isLoading={loadingCashAdvance}
+                            error={errorCashAdvance}
+                            searchTerm={searchTerm}
+                            page={page}
+                            setPage={setPage}
+                        />
+                    ),
                 };
             case "leave":
                 return {
@@ -84,19 +107,47 @@ export default function MainReport() {
     }, [
         activeFilter,
         attendanceReport,
+                cashAdvanceReport,
         errorAttendance,
+                errorCashAdvance,
         errorLeave,
         leaveReport,
         loadingAttendance,
+                loadingCashAdvance,
         loadingLeave,
         page,
         searchTerm,
     ]);
 
     const isAttendance = activeFilter === "attendance";
-    const selectedYear = isAttendance ? attendanceYear : leaveYear;
-    const selectedMonth = isAttendance ? attendanceMonth : leaveMonth;
-    const showMonthYear = activeFilter === "attendance" || activeFilter === "leave";
+        const isLeave = activeFilter === "leave";
+        const isCashAdvance = activeFilter === "cash-advance";
+
+        const selectedYear = isAttendance
+                ? attendanceYear
+                : isLeave
+                    ? leaveYear
+                    : cashAdvanceYear;
+
+        const selectedMonth = isAttendance
+                ? attendanceMonth
+                : isLeave
+                    ? leaveMonth
+                    : cashAdvanceMonth;
+
+        const onYearChange = isAttendance
+                ? setAttendanceYear
+                : isLeave
+                    ? setLeaveYear
+                    : setCashAdvanceYear;
+
+        const onMonthChange = isAttendance
+                ? setAttendanceMonth
+                : isLeave
+                    ? setLeaveMonth
+                    : setCashAdvanceMonth;
+
+        const showMonthYear = activeFilter === "attendance" || activeFilter === "leave" || activeFilter === "cash-advance";
 
     return (
         <div className="flex flex-col gap-6">
@@ -112,12 +163,15 @@ export default function MainReport() {
                 table={reportContent.table}
                 showMonthYear={showMonthYear}
                 isAttendance={isAttendance}
+                isCashAdvance={isCashAdvance}
                 selectedYear={selectedYear}
                 selectedMonth={selectedMonth}
-                onYearChange={isAttendance ? setAttendanceYear : setLeaveYear}
-                onMonthChange={isAttendance ? setAttendanceMonth : setLeaveMonth}
+                onYearChange={onYearChange}
+                onMonthChange={onMonthChange}
                 attendanceCutoff={cutoff}
                 onAttendanceCutoffChange={setCutoff}
+                cashAdvanceWeek={cashAdvanceWeek}
+                onCashAdvanceWeekChange={setCashAdvanceWeek}
                 searchTerm={searchTerm}
                 onSearchTermChange={(value) => {
                     setSearchTerm(value);
