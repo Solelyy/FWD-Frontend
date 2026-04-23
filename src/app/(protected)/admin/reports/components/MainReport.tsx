@@ -10,16 +10,31 @@ import ReportsTableWrapper from "./ReportsTableWrapper";
 import { Button } from "@/components/ui/button";
 import { FileUp } from "lucide-react";
 import { useAttendanceReports } from "../hooks/useAttendanceReports";
+import { useLeaveReports } from "../hooks/useLeaveReports";
 
 export default function MainReport() {
     const [activeFilter, setActiveFilter] = useState<ReportFilter>("attendance");
     const today = new Date();
-    const [year, setYear] = useState(today.getFullYear());
-    const [month, setMonth] = useState(today.getMonth());
+    const [attendanceYear, setAttendanceYear] = useState(today.getFullYear());
+    const [attendanceMonth, setAttendanceMonth] = useState(today.getMonth());
+    const [leaveYear, setLeaveYear] = useState(today.getFullYear());
+    const [leaveMonth, setLeaveMonth] = useState(today.getMonth());
     const [cutoff, setCutoff] = useState<"15" | "30">("15");
     const [page, setPage] = useState(1);
+    const [searchTerm, setSearchTerm] = useState("");
 
-    const {data: attendanceReport, isLoading: loadingAttendance, error: errorAttendance} = useAttendanceReports({cutoff, month, year})
+    const {
+        data: attendanceReport,
+        isLoading: loadingAttendance,
+        error: errorAttendance,
+    } = useAttendanceReports({ cutoff, month: attendanceMonth, year: attendanceYear });
+
+    const {
+        data: leaveReport,
+        isLoading: loadingLeave,
+        error: errorLeave,
+    } = useLeaveReports({ month: leaveMonth, year: leaveYear });
+
     const reportContent = useMemo(() => {
         switch (activeFilter) {
             case "reimbursement":
@@ -38,19 +53,50 @@ export default function MainReport() {
                 return {
                     title: "Leave Report",
                     description: "Review leave usage and remaining balances.",
-                    table: <ReportsLeaveTable />,
+                    table: (
+                        <ReportsLeaveTable
+                            data={leaveReport}
+                            isLoading={loadingLeave}
+                            error={errorLeave}
+                            searchTerm={searchTerm}
+                            page={page}
+                            setPage={setPage}
+                        />
+                    ),
                 };
             case "attendance":
             default:
                 return {
                     title: "Attendance Report",
                     description: "View employee attendance and working time summary.",
-                    table: <ReportsAttendanceTable data={attendanceReport} isLoading={loadingAttendance} error={errorAttendance} page={page} setPage={setPage}/>,
+                    table: (
+                        <ReportsAttendanceTable
+                            data={attendanceReport}
+                            isLoading={loadingAttendance}
+                            error={errorAttendance}
+                            searchTerm={searchTerm}
+                            page={page}
+                            setPage={setPage}
+                        />
+                    ),
                 };
         }
-    }, [activeFilter]);
+    }, [
+        activeFilter,
+        attendanceReport,
+        errorAttendance,
+        errorLeave,
+        leaveReport,
+        loadingAttendance,
+        loadingLeave,
+        page,
+        searchTerm,
+    ]);
 
     const isAttendance = activeFilter === "attendance";
+    const selectedYear = isAttendance ? attendanceYear : leaveYear;
+    const selectedMonth = isAttendance ? attendanceMonth : leaveMonth;
+    const showMonthYear = activeFilter === "attendance" || activeFilter === "leave";
 
     return (
         <div className="flex flex-col gap-6">
@@ -64,13 +110,19 @@ export default function MainReport() {
                         : reportContent.description
                 }
                 table={reportContent.table}
+                showMonthYear={showMonthYear}
                 isAttendance={isAttendance}
-                selectedYear={year}
-                selectedMonth={month}
-                onYearChange={setYear}
-                onMonthChange={setMonth}
+                selectedYear={selectedYear}
+                selectedMonth={selectedMonth}
+                onYearChange={isAttendance ? setAttendanceYear : setLeaveYear}
+                onMonthChange={isAttendance ? setAttendanceMonth : setLeaveMonth}
                 attendanceCutoff={cutoff}
                 onAttendanceCutoffChange={setCutoff}
+                searchTerm={searchTerm}
+                onSearchTermChange={(value) => {
+                    setSearchTerm(value);
+                    setPage(1);
+                }}
             />
             
             <div className="flex justify-end">

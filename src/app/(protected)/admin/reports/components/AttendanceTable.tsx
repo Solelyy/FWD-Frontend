@@ -76,7 +76,8 @@ export default function ReportsAttendanceTable({data, isLoading, error, searchTe
 
                                 <TableCell>{record.presentDays}</TableCell>
                                 <TableCell>{record.absentDays}</TableCell>
-                              e  <TableCell>{record.late}</TableCell>
+                                <TableCell>{record.late}</TableCell>
+                                <TableCell>{record.undertime}</TableCell>
                                 <TableCell>{record.overtimeHours}</TableCell>
                                 <TableCell>{record.totalWorkingHours}</TableCell>
                                 <TableCell>{record.totalPayableHours}</TableCell>
@@ -91,7 +92,7 @@ export default function ReportsAttendanceTable({data, isLoading, error, searchTe
             <PaginationSimple 
                 page={page} 
                 total={data?.meta.total ?? 0}
-                limit={data?.meta.limit ?? 5}
+                limit={data?.meta.limit ?? 10}
                 onPageChange={setPage}
             />
         </>
