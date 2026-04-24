@@ -17,7 +17,6 @@ export async function employeesAttendanceStatsApi({day, month, year}: EmployeeAt
         throw new Error ("Cannot fetch summary report for this month.")
     }
     const result = await response.json();
-    console.log("Fetch summary: ", result);
 
-    return result();
+    return result;
 }
