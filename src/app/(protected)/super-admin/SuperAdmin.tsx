@@ -12,6 +12,7 @@ import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import Link from "next/link"
 import { useState, useEffect } from "react";
 import DataPolicyDialog from "@/features/dashboard/components/DataPolicyDialog";
+import SuperAdminCards from "@/features/dashboard/components/super-admin/SuperAdminCards";
 
 export default function SuperAdminDashboard() {
     const [ openDataPolicy, setOpenDataPolicy ] = useState(false);
@@ -46,28 +47,7 @@ export default function SuperAdminDashboard() {
         <div className="flex flex-col gap-6">
             <p className="text-xl font-medium">Good Day, {user?.firstname}!</p>
             
-            <div className="flex justify-between gap-4">
-                <CardLayout 
-                title="Total Admins"
-                icon= {<UsersRound />}
-                dataCount={totalAdmins}
-                isLoading = {isLoading}
-                />
-
-                <CardLayout 
-                title="Total Employees"
-                icon= {<UsersRound/>}
-                dataCount={totalEmployees}
-                isLoading = {isLoading}
-                />
-
-                <CardLayout 
-                title="Active Accounts"
-                icon= {<UsersRound/>}
-                dataCount={activeAccounts}
-                isLoading = {isLoading}
-                />
-            </div>
+            <SuperAdminCards totalAdmins={totalAdmins} totalEmployees={totalEmployees} activeAccounts={activeAccounts}/>
             
             {/*tables */}
             

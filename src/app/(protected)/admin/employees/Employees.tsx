@@ -23,7 +23,7 @@ export default function Employees() {
                 <Card className="gap-0 py-4">
                     <div className="flex flex-wrap items-center justify-between gap-3 px-6">
                         <div className="min-w-0 flex-1">
-                            <p className="text-base font-semibold text-foreground">Need to add a new employee?</p>
+                            <p className="text-base font-semibold text-foreground">Need to add a new employee account?</p>
                             <p className="text-sm text-muted-foreground">Use the Add Employee button to create an account and include them in this list.</p>
                         </div>
 
