@@ -125,11 +125,11 @@ export default function PreviewDialog({ open, setOpen, location, photo, stream, 
             </div>
 
             {/* Action buttons */}
-            <div className="flex flex-col md:flex-row gap-4 justify-between">
+            <div className="flex flex-col-reverse md:flex-row gap-4 justify-between">
               <Button variant="secondary" className="w-full flex-1" onClick={() => onRetry()}>
                 Retry
               </Button>
-              <Button className="w-full flex-1" onClick={handleSubmit} disabled={!capturedPhoto || attendanceMutation.isPending}>
+              <Button className="w-full flex-1 order-1" onClick={handleSubmit} disabled={!capturedPhoto || attendanceMutation.isPending}>
                 {attendanceMutation.isPending ? "Submitting..." : "Submit"}
               </Button>
             </div>

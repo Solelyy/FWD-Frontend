@@ -73,7 +73,10 @@ export default function ReimbursementDialog({open, setOpen}: Props) {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="w-full max-w-sm sm:max-w-md md:max-w-lg">
+            <DialogContent className="w-full max-w-sm sm:max-w-md md:max-w-lg"
+                onInteractOutside={(e) => e.preventDefault()}
+                onKeyDown={(e) => e.preventDefault()}
+            >
                 <DialogHeader>
                     <DialogTitle>Reimbursement Request</DialogTitle>
                         <DialogDescription>

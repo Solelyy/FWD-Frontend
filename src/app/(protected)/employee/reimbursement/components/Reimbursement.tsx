@@ -32,7 +32,7 @@ export default function Reimbursement() {
 
     return (
         <>
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6 lg:space-y-8">
             <ReimbursementCard data={summary}/>
             {/* Reimbursement Requests Section */}
             <Card className="p-4 md:p-6">

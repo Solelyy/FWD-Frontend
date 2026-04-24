@@ -33,21 +33,13 @@ export default function AttendanceLogs() {
         console.log(`Month: ${month}, Year: ${year}`);
     }, [year, month])
     return (
-        <div className="flex flex-col space-y-4 md:space-y-6">
+        <div className="flex flex-col space-y-4 md:space-y-6 lg:space-y-8">
         <AttendanceCards data={summary} />
         <Card className="p-4 md:p-6 h-140">
-            <div className="flex flex-row justify-between w-full gap-2">
+            <div className="flex flex-row justify-between w-full gap-2 mb-4">
                 <div className="flex flex-row gap-2 items-center">
                     <p className="text-sm text-nowrap">Filter by</p>
                     <MonthYearPicker year={year} month={month} onYearChange={setYear} onMonthChange={setMonth}/>
-                </div>
-
-                <div>
-                    <Button> 
-                        <ArrowDownToLine />
-                        <span className="md:hidden">Download</span>
-                        <span className="hidden md:inline">Download Report</span>
-                    </Button>
                 </div>
             </div>
            
@@ -78,7 +70,7 @@ export default function AttendanceLogs() {
                         {!isLoading && !error && attendanceLogs?.length === 0 && (
                             <TableRow>
                                 <TableCell colSpan={4} className="text-center ">
-                                    No attendance records found.
+                                    No attendance records yet.
                                 </TableCell>
                             </TableRow>
                         )}
@@ -100,7 +92,7 @@ export default function AttendanceLogs() {
             <PaginationSimple 
                 page={page} 
                 total={data?.meta.total ?? 0}
-                limit={data?.meta.limit ?? 5}
+                limit={data?.meta.limit ?? 10}
                 onPageChange={setPage}
             />
         </Card>
