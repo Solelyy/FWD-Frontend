@@ -1,5 +1,5 @@
-import { API_BASE_URL } from "@/lib/util/api";
 import { EmployeesReimbursementReports } from "../types/reimbursement";
+import { mockEmployeesReimbursementReportsByWeek } from "../mock-data/reimbursement";
 
 export type ReimbursementPayload = {
     month: number;
@@ -7,6 +7,18 @@ export type ReimbursementPayload = {
     week: "week-1" | "week-2" | "week-3" | "week-4";
 };
 
+export async function getReimbursementApi({
+    month,
+    year,
+    week,
+}: ReimbursementPayload): Promise<EmployeesReimbursementReports> {
+    void month;
+    void year;
+
+    return mockEmployeesReimbursementReportsByWeek[week];
+}
+
+/*
 export async function getReimbursementApi({
     month,
     year,
@@ -30,3 +42,4 @@ export async function getReimbursementApi({
 
     return result;
 }
+*/

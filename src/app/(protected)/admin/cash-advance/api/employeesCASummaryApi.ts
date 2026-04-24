@@ -1,6 +1,11 @@
-import { API_BASE_URL } from "@/lib/util/api";
 import { EmployeesCARequestsSummary } from "../types/cash-advance";
+import { mockCASummary } from "../mock-data/ca-summary";
 
+export async function employeesCASummaryApi(): Promise<EmployeesCARequestsSummary> {
+    return mockCASummary;
+}
+
+/*
 export async function employeesCASummaryApi(): Promise<EmployeesCARequestsSummary> {
     const response = await fetch(`${API_BASE_URL}/`, {
         method: "GET",
@@ -14,3 +19,4 @@ export async function employeesCASummaryApi(): Promise<EmployeesCARequestsSummar
     }
     return result;
 }
+*/

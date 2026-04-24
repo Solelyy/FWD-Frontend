@@ -9,6 +9,7 @@ import { fullName } from "@/lib/util/name-format";
 import { ReimbursementType } from "@/app/(protected)/employee/reimbursement/types/reimbursement";
 import { reimbursementStatusStyle, formatReimbursementStatusText } from "@/app/(protected)/employee/reimbursement/types/format";
 import ReimbursementActions from "./ReimbursementActions";
+import { formatPeso } from "@/lib/util/currency-format";
 
 type Props = {
     data?: EmployeeReimbursementRequests
@@ -54,6 +55,8 @@ export default function ReimbursementTable({data, isLoading, error, page, setPag
                             <TableHead>Date Submitted</TableHead>
                             <TableHead>Employee</TableHead>
                             <TableHead>Type</TableHead>
+                            <TableHead>Amount Requested</TableHead>
+                            <TableHead>Amount Approved</TableHead>
                             <TableHead>Status</TableHead>
                             <TableHead>Actions</TableHead>
                         </TableRow>
@@ -66,7 +69,7 @@ export default function ReimbursementTable({data, isLoading, error, page, setPag
                             
                         {error && (
                             <TableRow>
-                                <TableCell colSpan={5} className="text-center py-8 text-red-400">
+                                <TableCell colSpan={7} className="text-center py-8 text-red-400">
                                     Failed to load accounts.
                                 </TableCell>
                             </TableRow>
@@ -74,7 +77,7 @@ export default function ReimbursementTable({data, isLoading, error, page, setPag
 
                         {!isLoading && !error && filteredRequests.length === 0 && (
                             <TableRow>
-                                <TableCell colSpan={5} className="text-center ">
+                                <TableCell colSpan={7} className="text-center ">
                                     {normalizedSearch ? "No results found" : "No reimbursement records yet."}
                                 </TableCell>
                             </TableRow>
@@ -92,6 +95,14 @@ export default function ReimbursementTable({data, isLoading, error, page, setPag
 
                                 <TableCell>
                                     {formatText(request.type)}
+                                </TableCell>
+
+                                <TableCell>
+                                    {formatPeso(request.amountRequested)}
+                                </TableCell>
+
+                                <TableCell>
+                                    {formatPeso(request.amountApproved)}
                                 </TableCell>
 
                                 <TableCell>

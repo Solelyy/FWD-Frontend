@@ -1,5 +1,5 @@
-import { API_BASE_URL } from "@/lib/util/api";
 import { EmployeesCashAdvanceReports } from "../types/cash-advance";
+import { mockEmployeesCashAdvanceReportsByWeek } from "../mock-data/cash-advance";
 
 export type CashAdvancePayload = {
     month: number;
@@ -7,6 +7,14 @@ export type CashAdvancePayload = {
     week: "week-1" | "week-2" | "week-3" | "week-4";
 };
 
+export async function getCashAdvanceApi({ month, year, week }: CashAdvancePayload): Promise<EmployeesCashAdvanceReports> {
+    void month;
+    void year;
+
+    return mockEmployeesCashAdvanceReportsByWeek[week];
+}
+
+/*
 export async function getCashAdvanceApi({ month, year, week }: CashAdvancePayload): Promise<EmployeesCashAdvanceReports> {
     const endpoint = "";
 
@@ -26,3 +34,4 @@ export async function getCashAdvanceApi({ month, year, week }: CashAdvancePayloa
 
     return result;
 }
+*/

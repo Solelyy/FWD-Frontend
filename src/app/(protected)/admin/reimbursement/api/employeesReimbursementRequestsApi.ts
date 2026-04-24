@@ -3,50 +3,8 @@ import { LeaveRequestsProps } from "../../leave/api/employeesLeaveRequests";
 import { LeaveStatusFilter } from "../../leave/types/leave";
 import {
     ReimbursementRequestStatus,
-    ReimbursementType,
 } from "@/app/(protected)/employee/reimbursement/types/reimbursement";
-
-const mockEmployeesReimbursementRequests: EmployeeReimbursementRequests["requests"] = [
-    {
-        id: 1,
-        employeeId: "EMP-1001",
-        firstname: "John",
-        lastname: "Dela Cruz",
-        dateSubmitted: "2026-04-11T09:00:00.000Z",
-        type: ReimbursementType.FOOD,
-        amountRequested: 1200,
-        amountApproved: 0,
-        reason: "Client lunch meeting",
-        attachment: "receipt-food-1001.jpg",
-        status: ReimbursementRequestStatus.PENDING,
-    },
-    {
-        id: 2,
-        employeeId: "EMP-1002",
-        firstname: "Maria",
-        lastname: "Santos",
-        dateSubmitted: "2026-04-09T14:20:00.000Z",
-        type: ReimbursementType.TRANSPORTATION,
-        amountRequested: 950,
-        amountApproved: 950,
-        reason: "Ride-hailing for site visit",
-        attachment: "receipt-transport-1002.jpg",
-        status: ReimbursementRequestStatus.APPROVED,
-    },
-    {
-        id: 3,
-        employeeId: "EMP-1003",
-        firstname: "Paolo",
-        lastname: "Reyes",
-        dateSubmitted: "2026-04-07T11:45:00.000Z",
-        type: ReimbursementType.OTHER,
-        amountRequested: 2500,
-        amountApproved: 0,
-        reason: "Misc office supplies",
-        attachment: "receipt-other-1003.jpg",
-        status: ReimbursementRequestStatus.REJECTED,
-    },
-];
+import { mockEmployeesReimbursementRequests } from "../mock-data/requests";
 
 const statusFilterMap: Record<Exclude<LeaveStatusFilter, LeaveStatusFilter.ALL>, ReimbursementRequestStatus> = {
     [LeaveStatusFilter.PENDING]: ReimbursementRequestStatus.PENDING,

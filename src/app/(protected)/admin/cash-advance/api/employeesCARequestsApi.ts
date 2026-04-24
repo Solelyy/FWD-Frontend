@@ -2,39 +2,7 @@ import { EmployeesCARequestsResponse } from "../types/cash-advance";
 import { LeaveRequestsProps } from "../../leave/api/employeesLeaveRequests";
 import { CashAdvanceRequestStatus } from "@/app/(protected)/employee/cash-advance/types/cash-advance";
 import { LeaveStatusFilter } from "../../leave/types/leave";
-
-const mockEmployeesCARequests: EmployeesCARequestsResponse["requests"] = [
-    {
-        id: 1,
-        employeeId: "EMP-1001",
-        firstname: "John",
-        lastname: "Dela Cruz",
-        dateSubmitted: "2026-04-10T09:15:00.000Z",
-        requestedAmount: 5000,
-        approvedAmount: 0,
-        status: CashAdvanceRequestStatus.PENDING
-    },
-    {
-        id: 2,
-        employeeId: "EMP-1002",
-        firstname: "Maria",
-        lastname: "Santos",
-        dateSubmitted: "2026-04-08T13:45:00.000Z",
-        requestedAmount: 8000,
-        approvedAmount: 8000,
-        status: CashAdvanceRequestStatus.APPROVED
-    },
-    {
-        id: 3,
-        employeeId: "EMP-1003",
-        firstname: "Paolo",
-        lastname: "Reyes",
-        dateSubmitted: "2026-04-06T11:30:00.000Z",
-        requestedAmount: 3000,
-        approvedAmount: 0,
-        status: CashAdvanceRequestStatus.REJECTED
-    }
-];
+import { mockEmployeesCARequests } from "../mock-data/ca-requests";
 
 const statusFilterMap: Record<Exclude<LeaveStatusFilter, LeaveStatusFilter.ALL>, CashAdvanceRequestStatus> = {
     [LeaveStatusFilter.PENDING]: CashAdvanceRequestStatus.PENDING,

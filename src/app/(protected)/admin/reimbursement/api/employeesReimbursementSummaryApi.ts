@@ -1,11 +1,16 @@
 import { API_BASE_URL } from "@/lib/util/api";
 import { EmployeeReimbursementSummary } from "../types/reimbursement";
+import { mockSummary } from "../mock-data/summary";
 
 type Payload = {
     month: number,
     year: number
 }
 
+export async function employeesReimbursementSummaryApi({month, year}: Payload): Promise<EmployeeReimbursementSummary>{
+    return mockSummary;
+}
+/*
 export async function employeesReimbursementSummaryApi({month, year}: Payload): Promise<EmployeeReimbursementSummary>{
     const endpoint = `/`;
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -20,3 +25,4 @@ export async function employeesReimbursementSummaryApi({month, year}: Payload): 
 
     return result();
 }
+*/

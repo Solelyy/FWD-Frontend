@@ -1,11 +1,16 @@
-import { API_BASE_URL } from "@/lib/util/api";
 import { EmployeesLeaveReports } from "../types/leave";
+import { mockEmployeesLeaveReports } from "../mock-data/leave";
 
 export type LeavePayload = {
     month: number;
     year: number;
 };
 
+export async function getLeaveApi({ month, year }: LeavePayload): Promise<EmployeesLeaveReports> {
+    return mockEmployeesLeaveReports;
+}
+
+/*
 export async function getLeaveApi({ month, year }: LeavePayload): Promise<EmployeesLeaveReports> {
     const endpoint = "";
 
@@ -22,3 +27,5 @@ export async function getLeaveApi({ month, year }: LeavePayload): Promise<Employ
 
     return result;
 }
+
+*/

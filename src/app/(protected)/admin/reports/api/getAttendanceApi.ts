@@ -1,11 +1,16 @@
-import { API_BASE_URL } from "@/lib/util/api";
 import { EmployeeAttendances } from "../types/attendance";
+import { mockEmployeeAttendances } from "../mock-data/attendance";
 
 export type AttendancePayload= {
     month: number;
     year: number;
     cutoff: string;
 }
+export async function getAttendanceApi({month, year, cutoff}: AttendancePayload): Promise<EmployeeAttendances>{
+    return mockEmployeeAttendances;
+}
+
+/*
 export async function getAttendanceApi({month, year, cutoff}: AttendancePayload): Promise<EmployeeAttendances>{
     const endpoint = ``;
 
@@ -23,3 +28,4 @@ export async function getAttendanceApi({month, year, cutoff}: AttendancePayload)
     
     return result;
 }
+*/
