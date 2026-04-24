@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function EmployeeListPage() {
   return (
-    <ContentLayout title="Employees">
+    <ContentLayout title="Employee Management">
       <EmployeeList />
     </ContentLayout>
   );

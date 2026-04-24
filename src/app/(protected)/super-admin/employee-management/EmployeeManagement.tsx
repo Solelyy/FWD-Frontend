@@ -36,7 +36,7 @@ export default function EmployeeList() {
       <AccountsTable 
         accounts={accounts} 
         loading={isLoading} error={!!error} 
-        showAction={false}
+        showAction={true}
         tableType={UserRole.EMPLOYEE}
         isInDashboard={false}
       />
