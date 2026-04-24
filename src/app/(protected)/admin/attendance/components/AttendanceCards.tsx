@@ -1,3 +1,5 @@
+"use client"
+
 import CardContainer from "@/components/shared/CardContainer";
 import { EmployeesAttendanceStatsResponse } from "../types/attendance-types";
 import { CardLayoutV2 } from "@/components/shared/CardLayoutV2";

@@ -31,8 +31,8 @@ export function useAccounts(role: UserRole.ADMIN | UserRole.EMPLOYEE) {
   return useQuery({
     queryKey: ["accounts", role], //unique idefifier for cached data; describes what data the query represents
     queryFn: () => getAccounts(role),    //function that fetches the data
-    retry: 1,
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 10, //10 secs
+    placeholderData: (prev) => prev,
+    refetchOnWindowFocus: true,
+    staleTime: 2 * 60 * 60 * 1000, //2 hrs
   })
 }

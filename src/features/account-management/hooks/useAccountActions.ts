@@ -46,6 +46,7 @@ export function useAccountActions() {
         queryKey: ["accounts", role],
         refetchType: "active" 
       });
+      queryClient.invalidateQueries({queryKey: ["employees-accounts-summary"]});
     },
 
     onError: () => {
@@ -62,6 +63,7 @@ export function useAccountActions() {
         queryKey: ["accounts", role],
         refetchType: "active" 
       });
+      queryClient.invalidateQueries({queryKey: ["employees-accounts-summary"]});
     },
     onError: () => {
       toast.error(errorMsg)
@@ -77,6 +79,7 @@ export function useAccountActions() {
         queryKey: ["accounts", role],
         refetchType: "active"
       })
+      queryClient.invalidateQueries({queryKey: ["employees-accounts-summary"]});
     },
     onError: () => {
       toast.error(errorMsg)
@@ -92,6 +95,7 @@ export function useAccountActions() {
         queryKey: ["accounts", role],
         refetchType: "active"
       })
+      queryClient.invalidateQueries({queryKey: ["employees-accounts-summary"]});
     },
     onError: () => {
       toast.error(errorMsg)

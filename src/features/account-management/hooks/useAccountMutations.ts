@@ -17,6 +17,7 @@ export function useCreateAccount() {
     onSuccess: (_, { role }) => {
       // Invalidate the accounts query for this role so the table auto-refreshes
       queryClient.invalidateQueries({ queryKey: ["accounts", role] });
+      queryClient.invalidateQueries({queryKey: ["employees-accounts-summary"]})
     },
   });
 }
