@@ -3,14 +3,11 @@ import { LeaveActionType } from "../types/leave-actions"
 import { API_BASE_URL } from "@/lib/util/api";
 
 export type UpdateLeaveStatusPayload = {
-    employeeId: EmployeeLeaveRequest["employeeId"],
+    id: EmployeeLeaveRequest["id"],
     leaveAction: LeaveActionType
 }
-export async function updateLeaveStatusApi({employeeId, leaveAction}: UpdateLeaveStatusPayload) {
-    const endpoint = leaveAction === LeaveActionType.APPROVE
-    ? "/"
-    : "/";
-
+export async function updateLeaveStatusApi({id, leaveAction}: UpdateLeaveStatusPayload) {
+    const endpoint = "/admin/employee/update-status"
     const formattedText = leaveAction === LeaveActionType.APPROVE ? "approve" : "reject";
 
     const response = await fetch(`${API_BASE_URL}${endpoint}`,{
@@ -19,7 +16,7 @@ export async function updateLeaveStatusApi({employeeId, leaveAction}: UpdateLeav
             "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({ employeeId }),
+        body: JSON.stringify({ id, status:leaveAction }),
     },
     );
 

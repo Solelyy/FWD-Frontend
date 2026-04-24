@@ -7,7 +7,7 @@ type Payload = {
 }
 
 export async function employeesLeaveStatsApi({month, year}: Payload): Promise<LeaveStatsResponse>{
-    const endpoint = `/employees-leaves?year=${year}&month=${month+1}`;
+    const endpoint = `/admin/employee/leave-summary?year=${year}&month=${month+1}`;
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "GET",
         credentials: "include"

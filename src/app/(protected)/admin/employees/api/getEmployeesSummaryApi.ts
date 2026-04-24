@@ -2,7 +2,7 @@ import { EmployeesSummaryResponse } from "../types/employees";
 import { API_BASE_URL } from "@/lib/util/api";
 
 export async function getEmployeesSummaryApi(): Promise<EmployeesSummaryResponse>{
-    const endpoint =  `/`;
+    const endpoint =  `/admin/management/employees`;
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "GET",
         credentials: "include"

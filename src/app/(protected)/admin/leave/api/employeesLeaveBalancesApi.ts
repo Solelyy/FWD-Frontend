@@ -2,7 +2,7 @@ import { API_BASE_URL } from "@/lib/util/api";
 import { EmployeeLeaveBalances, EmployeesLeaveBalancesResponse } from "../types/leave-balances";
 
 export async function employeesLeaveBalancesApi(): Promise<EmployeesLeaveBalancesResponse> {
-    const response = await fetch(`${API_BASE_URL}/`, {
+    const response = await fetch(`${API_BASE_URL}/admin/employee/leave-balances`, {
         method: "GET",
         credentials: "include"
     });

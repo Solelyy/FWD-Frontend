@@ -1,5 +1,6 @@
 import { LeaveType } from "@/app/(protected)/employee/leave/types/leave";
 import { LeaveStatusFilter, LeaveRequestsResponse, LeaveRequestStatus } from "../types/leave";
+import { API_BASE_URL } from "@/lib/util/api";
 
 export type LeaveRequestsProps= {
     page: number ;
@@ -9,12 +10,13 @@ export type LeaveRequestsProps= {
     filter: LeaveStatusFilter
 }
 
+/*
 const mockRequests: LeaveRequestsResponse["requests"] = [
     {
         id: 1,
         dateSubmitted: "2026-04-10T09:15:00.000Z",
         employeeId: "EMP-1001",
-        firstName: "Mia",
+        firstname: "Mia",
         lastName: "Santos",
         leaveType: LeaveType.VACATION,
         startDate: "2026-04-22",
@@ -25,8 +27,8 @@ const mockRequests: LeaveRequestsResponse["requests"] = [
         id: 2,
         dateSubmitted: "2026-04-08T13:40:00.000Z",
         employeeId: "EMP-1002",
-        firstName: "Noah",
-        lastName: "Rivera",
+        firstname: "Noah",
+        lastname: "Rivera",
         leaveType: LeaveType.SICK,
         startDate: "2026-04-15",
         endDate: "2026-04-16",
@@ -66,12 +68,11 @@ export async function employeesLeaveRequestsApi({page, limit, year, month, filte
     };
 };
 
+*/
 
 
-
-{/* 
 export async function employeesLeaveRequestsApi({page, limit, year, month, filter}: LeaveRequestsProps): Promise<LeaveRequestsResponse> {
-    const endpoint =  `/employees-attendance?page=${page}&limit=${limit}&year=${year}&month=${month+1}&filter=${filter}`;
+    const endpoint =  `/admin/employee/leave?year=${year}&month=${month+1}&page=${page}&limit=${limit}&filter=${filter}`;
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "GET",
         credentials: "include"
@@ -83,4 +84,4 @@ export async function employeesLeaveRequestsApi({page, limit, year, month, filte
     console.log("Fetched leave requests: ", result);
     
     return result;   
-};*/}
+};

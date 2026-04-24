@@ -10,7 +10,7 @@ export type SubmitLeaveRequestPayload = {
 }
 
 export async function submitLeaveRequestApi({leaveType, startDate, endDate, reason, attachment}: SubmitLeaveRequestPayload){
-    const endpoint="/";
+    const endpoint="/employee/create-leave";
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "POST",
         credentials: "include",

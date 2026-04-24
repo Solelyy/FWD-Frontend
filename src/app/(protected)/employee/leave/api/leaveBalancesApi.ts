@@ -1,7 +1,7 @@
 import { API_BASE_URL } from "@/lib/util/api"
 
 export async function leaveBalancesApi() {
-    const endpoint = "/"
+    const endpoint = "/employee/leave-balances"
 
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "GET",

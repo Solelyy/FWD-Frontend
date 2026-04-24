@@ -16,7 +16,7 @@ type Props = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   action: LeaveActionProps | null;
   leaveRequest: EmployeeLeaveRequest;
-  onConfirm: ({employeeId, leaveAction}: UpdateLeaveStatusPayload) => void;
+  onConfirm: ({id, leaveAction}: UpdateLeaveStatusPayload) => void;
   onCancel?: () => void;
   isPending: boolean;
 };
@@ -39,7 +39,7 @@ export default function LeaveActionDialog({
 
   const handleConfirm = () => {
     onConfirm({
-      employeeId: leaveRequest.employeeId,
+      id: leaveRequest.id,
       leaveAction: action.targetAction
     });
     setOpen(false);
