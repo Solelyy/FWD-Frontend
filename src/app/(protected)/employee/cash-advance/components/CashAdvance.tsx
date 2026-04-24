@@ -23,7 +23,7 @@ export default function CashAdvance() {
 
     return (
         <>
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6 lg:space-y-8">
             <CashAdvanceCard data={summary}/>
             <Card className="p-4 md:p-6">
                 <div className="flex justify-between items-center mb-4">

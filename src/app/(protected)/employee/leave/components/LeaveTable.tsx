@@ -21,11 +21,11 @@ export default function LeaveTable() {
 
     return (
         <>
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6 lg:space-y-8">
             <LeaveCards />
             {/* Leave Requests Section */}
             <Card className="p-4 md:p-6">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center mb-4">
                     <h2 className="text-lg font-semibold">Leave Requests</h2>
                     <Button onClick={() => setOpen(true)}>
                         <Plus />

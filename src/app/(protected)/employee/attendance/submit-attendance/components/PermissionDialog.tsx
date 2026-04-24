@@ -108,8 +108,8 @@ export default function PermissionDialog({open, setOpen, attendanceType} : Permi
                     We need access to your location and camera to proceed.
                 </DialogDescription>
 
-                <div className="flex flex-col md:flex-row gap-2 justify-between">
-                    <Button onClick={handleContinue} className="w-full flex-1" disabled={loading}> 
+                <div className="flex flex-col-reverse md:flex-row gap-2 justify-between">
+                    <Button onClick={handleContinue} className="w-full flex-1 order-1" disabled={loading}> 
                         {loading ? "Requesting..." : "Continue"}
                     </Button>
 

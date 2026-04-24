@@ -37,7 +37,7 @@ export function CardLayoutV2({title, dataCount, isLoading, description, icon, sh
             </div>
             
             {description && (
-                <p className="mt-2 text-sm text-muted-foreground">
+                <p className="mt-2 text-xs md:text-sm text-muted-foreground">
                     {description}
                 </p>
             )}

@@ -7,10 +7,16 @@ import Requests from "@/features/dashboard/components/employee/Requests";
 import TimeinOut from "@/features/dashboard/components/employee/TimeInOut";
 import { useState, useEffect } from "react";
 import DataPolicyDialog from "@/features/dashboard/components/DataPolicyDialog";
+import ReimbursementDialog from "./reimbursement/components/ReimbursementDialog";
+import CashAdvanceDialog from "./cash-advance/components/CashAdvanceDialog";
+import LeaveDialog from "./leave/components/LeaveDialog";
 
 export default function EmployeeDashboard() {
     const { user, isLoadingUser } = useUser();
     const [ openDataPolicy, setOpenDataPolicy ] = useState(false);
+    const [showReimbursementDialog, setShowReimbursementDialog] = useState(false);
+    const [showCADialog, setShowCADialog] = useState(false);
+    const [showLeaveDialog, setShowLeaveDialog] = useState(false);
 
     const shouldShowPolicy = !isLoadingUser && user?.isDataPolicyAccepted === false;
 
@@ -30,7 +36,14 @@ export default function EmployeeDashboard() {
             <p className="text-xl font-medium">Good Day, {user?.firstname}!</p>
 
             {/* Quick actions */}
-            <QuickActions />
+            <QuickActions 
+                openReimbursment={showReimbursementDialog} 
+                onOpenReimbursementChange={setShowReimbursementDialog}
+                openCashAdvance={showCADialog}
+                onOpenCashAdvanceChange={setShowCADialog}
+                openLeave={showLeaveDialog}
+                onOpenLeaveChange={setShowLeaveDialog}
+            />
 
             <div className="flex flex-col md:flex-row gap-8 items-stretch">
                 <TimeinOut />
@@ -47,6 +60,10 @@ export default function EmployeeDashboard() {
                 role={user?.role}
             />
         )}
+
+        <ReimbursementDialog open={showReimbursementDialog} setOpen={setShowReimbursementDialog}/>
+        <CashAdvanceDialog open={showCADialog} setOpen={setShowCADialog}/>
+        <LeaveDialog open={showLeaveDialog} setOpen={setShowLeaveDialog}/>
     </>
     );
 }
