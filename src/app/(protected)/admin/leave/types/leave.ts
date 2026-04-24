@@ -18,8 +18,8 @@ export type EmployeeLeaveRequest = {
   id: number;
   dateSubmitted: string;
   employeeId: AccountInfo["employeeId"];
-  firstName: AccountInfo["firstname"];
-  lastName: AccountInfo["lastname"];
+  firstname: AccountInfo["firstname"];
+  lastname: AccountInfo["lastname"];
   leaveType: LeaveType;
   startDate: string;
   endDate: string;

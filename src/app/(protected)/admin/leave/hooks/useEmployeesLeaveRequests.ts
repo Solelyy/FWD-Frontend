@@ -6,6 +6,7 @@ export function useEmployeesLeaveRequests({page, filter, month, year,limit}: Lea
         queryKey: ["employees-leave-requests", {page, filter, month, year, limit}],
         queryFn: () => employeesLeaveRequestsApi({page, limit, year, month, filter}),
         refetchOnWindowFocus:false, 
-        staleTime: 2 * 60 * 60 * 1000 //two hours
+        staleTime: 2 * 60 * 60 * 1000,//two hours
+        placeholderData: (prev) => prev,
     });
 }

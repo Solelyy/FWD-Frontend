@@ -65,7 +65,7 @@ export default function CashAdvanceTable({data, isLoading, error, page, setPage,
                         {!isLoading && !error && filteredRequests.length === 0 && (
                             <TableRow>
                                 <TableCell colSpan={6} className="text-center ">
-                                    No attendance records found.
+                                    {normalizedSearch ? "No results found" : "No cash advance records yet."}
                                 </TableCell>
                             </TableRow>
                         )}

@@ -75,7 +75,7 @@ export default function ReimbursementTable({data, isLoading, error, page, setPag
                         {!isLoading && !error && filteredRequests.length === 0 && (
                             <TableRow>
                                 <TableCell colSpan={5} className="text-center ">
-                                    No attendance records found.
+                                    {normalizedSearch ? "No results found" : "No reimbursement records yet."}
                                 </TableCell>
                             </TableRow>
                         )}

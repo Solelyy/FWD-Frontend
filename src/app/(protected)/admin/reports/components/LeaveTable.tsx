@@ -59,7 +59,7 @@ export default function ReportsLeaveTable({ data, isLoading, error, searchTerm =
                         {!isLoading && !error && records.length === 0 && (
                             <TableRow>
                                 <TableCell colSpan={5} className="text-center py-8">
-                                    No leave records found.
+                                    {normalizedSearch ? "No results found" : "No leave records yet."}
                                 </TableCell>
                             </TableRow>
                         )}

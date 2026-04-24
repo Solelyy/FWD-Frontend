@@ -60,7 +60,7 @@ export default function ReportsCashAdvanceTable({
                         {!isLoading && !error && records.length === 0 && (
                             <TableRow>
                                 <TableCell colSpan={2} className="text-center py-8">
-                                    No cash advance records found.
+                                    {normalizedSearch ? "No results found" : "No cash advance records yet."}
                                 </TableCell>
                             </TableRow>
                         )}

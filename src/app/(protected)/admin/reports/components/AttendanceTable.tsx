@@ -63,7 +63,7 @@ export default function ReportsAttendanceTable({data, isLoading, error, searchTe
                         {!isLoading && !error && records.length === 0 && (
                             <TableRow>
                                 <TableCell colSpan={8} className="text-center ">
-                                    No attendance records found.
+                                    {normalizedSearch ? "No results found" : "No attendance records yet."}
                                 </TableCell>
                             </TableRow>
                         )}          
