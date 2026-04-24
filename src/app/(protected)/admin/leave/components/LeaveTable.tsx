@@ -26,7 +26,7 @@ export default function LeaveTable({data, isLoading, error, page, setPage, searc
     const filteredRequests = requests.filter((request) => {
         if (!normalizedSearch) return true;
 
-        const fullName = `${request.firstName} ${request.lastName}`.toLowerCase();
+        const fullName = `${request.firstname} ${request.lastname}`.toLowerCase();
         const employeeId = request.employeeId.toLowerCase();
 
         return (
@@ -68,7 +68,7 @@ export default function LeaveTable({data, isLoading, error, page, setPage, searc
                         {!isLoading && !error && filteredRequests.length === 0 && (
                             <TableRow>
                                 <TableCell colSpan={6} className="text-center ">
-                                    {normalizedSearch ? "No results found" : "No leave request found."}
+                                    {normalizedSearch ? "No results found" : "No leave records yet."}
                                 </TableCell>
                             </TableRow>
                         )}
@@ -81,7 +81,7 @@ export default function LeaveTable({data, isLoading, error, page, setPage, searc
                                     </TableCell>
 
                                     <TableCell>
-                                        {fullName(req.firstName, req.lastName)}
+                                        {fullName(req.firstname, req.lastname)}
                                     </TableCell>
 
                                     <TableCell>

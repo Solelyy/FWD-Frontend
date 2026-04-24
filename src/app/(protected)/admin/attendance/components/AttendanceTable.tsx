@@ -82,7 +82,7 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
                         {!isLoading && !error && filteredLogs.length === 0 && (
                             <TableRow>
                                 <TableCell colSpan={5} className="py-8 text-center">
-                                    {normalizedSearch ? "No results found" : "No attendance records found."}
+                                    {normalizedSearch ? "No results found" : "No attendance records yet."}
                                 </TableCell>
                             </TableRow>
                         )}

@@ -4,7 +4,6 @@ import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from "@
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { fullName } from "@/lib/util/name-format";
 import { EmployeesLeaveBalancesResponse } from "../types/leave-balances";
-import { Button } from "@/components/ui/button";
 
 type Props = {
     data?: EmployeesLeaveBalancesResponse

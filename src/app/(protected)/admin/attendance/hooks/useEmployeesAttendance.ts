@@ -6,6 +6,7 @@ import { EmployeeAttendanceProps } from "../api/employeeAttendanceApi"
 import { AttendanceStatusFilter, EmployeesAttendanceResponse } from "../types/attendance-types"
 import { AttendanceStatus, OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType"
 
+/*
 const MOCK_ATTENDANCE_LOGS: EmployeesAttendanceResponse["logs"] = [
     {
         id: 1,
@@ -151,14 +152,14 @@ export function useEmployeeAttendance({page, limit, year, month, day, filter}: E
         refetchOnWindowFocus: true,
         staleTime: 5 * 60 * 1000,
     })
-} 
+} */
 
-/*
 export function useEmployeeAttendance({page, limit, year, month, day, filter}: EmployeeAttendanceProps) {
     return useQuery({
         queryKey: ["employees-attendance", {page, limit, year, month, day, filter}],
         queryFn: ()=> employeeAttendanceApi({page, limit, month,year, day, filter}),
         refetchOnWindowFocus: true,
         staleTime: 5 * 60 * 1000,
+        placeholderData: (prev) => prev,
     })
-} */
+} 

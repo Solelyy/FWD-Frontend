@@ -26,9 +26,18 @@ export function useLeaveActions() {
                 queryKey: ["leave-requests-stats"]
             });
 
+            //Admin leave balances record
+            queryClient.invalidateQueries({
+                queryKey: ["employees-leave-balances"]
+            });
+
             // Employee side
             queryClient.invalidateQueries({
                 queryKey: ["leave-requests"]
+            });
+
+            queryClient.invalidateQueries({
+                queryKey: ["leave-balances"]
             });
         },
 

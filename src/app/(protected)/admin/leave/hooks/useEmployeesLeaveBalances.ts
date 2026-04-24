@@ -5,7 +5,8 @@ export function useEmployeesLeaveBalances() {
     return useQuery({
         queryKey: ["employees-leave-balances"],
         queryFn: employeesLeaveBalancesApi,
-        refetchOnWindowFocus:false, 
-        staleTime: 2 * 60 * 60 * 1000 //two hours
+        refetchOnWindowFocus:true, 
+        staleTime: 2 * 60 * 60 * 1000, //two hours
+        placeholderData: (prev) => prev,
     });
 }
