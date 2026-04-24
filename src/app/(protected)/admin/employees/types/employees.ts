@@ -3,4 +3,6 @@ export type EmployeesSummaryResponse = {
     totalActive: number;
     totalInactive: number;
     totalPending: number;
+    totalExpired: number;
+    totalSuspended: number;
 }
