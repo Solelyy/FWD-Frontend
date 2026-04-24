@@ -7,7 +7,7 @@ import { MoreHorizontalIcon } from "lucide-react";
 import { useState } from "react";
 import { CashAdvanceActionProps, getActionsByStatus } from "../types/ca-actions";
 import { useCashAdvanceActions } from "../hooks/useCashAdvanceActions";
-import CashAdvanceActionDialog from "./CashAdvanceDialog";
+import CashAdvanceActionDialog from "./CashAdvanceActionDialog";
 
 type Props = {
     request: EmployeeCARequest

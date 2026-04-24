@@ -1,4 +1,5 @@
 "use client"
+
 import SearchBar from "@/components/shared/SearchBar";
 import DatePicker from "@/app/(protected)/admin/leave/components/DatePicker";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -27,13 +28,13 @@ export default function ReimbursementTableWrapper() {
         <div className="space-y-4 md:space-y-6 lg:space-y-8">
             <ReimbursementCard data={summary}/>
         
-            <Card>
+            <Card className="space-y-4">
                 <CardHeader>
-                    <CardTitle className="md: text-lg">
+                    <CardTitle className="md:text-lg">
                         Reimbursement Records
                     </CardTitle>
                     <div className="flex flex-wrap items-center justify-between gap-4">
-                        <CardDescription> This shows monthly reimbursement requests </CardDescription>
+                        <CardDescription className="md:text-base"> This shows monthly reimbursement requests </CardDescription>
                         <div className="flex gap-2">
                             <MonthYearPicker 
                                 year={year} 
@@ -46,7 +47,7 @@ export default function ReimbursementTableWrapper() {
                     </div>
                 </CardHeader>
 
-                <CardContent className="flex flex-col gap-4">
+                <CardContent className="flex flex-col gap-4 space-y-2">
                     <FilterButtons filter={filter} onFilterChange={setFilter}/>
                     <ReimbursementTable data={data} page={page} isLoading={isLoading} setPage={setPage} searchTerm={searchTerm} error={error}/> 
                 </CardContent>

@@ -49,7 +49,10 @@ export default function LeaveActionDialog({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="w-full max-w-sm">
+      <DialogContent className="w-full max-w-sm"
+        onInteractOutside={(e) => e.preventDefault()}
+        onKeyDown={(e) => e.preventDefault()}
+      >
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             {Icon && <Icon className="w-5 h-5" />}
@@ -63,6 +66,7 @@ export default function LeaveActionDialog({
 
         <DialogFooter className="flex flex-col-reverse gap-2">
           <Button
+            className="order-1"
             variant={action.variant === "destructive" ? "destructive" : "default"}
             onClick={handleConfirm}
             disabled={isPending}

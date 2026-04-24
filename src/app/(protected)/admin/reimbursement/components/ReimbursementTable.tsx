@@ -1,3 +1,5 @@
+"use client"
+
 import { PaginationSimple } from "@/components/shared/Pagination";
 import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from "@/components/ui/table";
 import { EmployeeReimbursementRequests } from "../types/reimbursement";

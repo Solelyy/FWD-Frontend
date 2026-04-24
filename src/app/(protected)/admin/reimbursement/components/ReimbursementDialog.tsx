@@ -140,6 +140,7 @@ export default function ReimbursementDialog({
 
         <DialogFooter className="flex flex-col-reverse gap-2">
           <Button
+            className="order-1"
             variant={action.variant === "destructive" ? "destructive" : "default"}
             onClick={handleConfirm}
             disabled={
