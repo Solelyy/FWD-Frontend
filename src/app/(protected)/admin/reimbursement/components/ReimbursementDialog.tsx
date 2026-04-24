@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Dialog,
   DialogContent,
@@ -78,7 +80,10 @@ export default function ReimbursementDialog({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="w-full max-w-sm">
+      <DialogContent className="w-full max-w-sm"
+        onInteractOutside={(e) => e.preventDefault()}
+        onEscapeKeyDown={(e) => e.preventDefault()}
+        >
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             {Icon && <Icon size={20} />}

@@ -17,7 +17,11 @@ export function CardLayoutV2({title, dataCount, isLoading, description, icon, sh
             <div className="font-medium text-foreground/90">{title}</div>
 
             <div className="mt-2 flex flex-row items-center justify-start gap-2">
-                {icon}
+                {icon && (
+                    <div className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-border/60 bg-muted text-foreground/80 [&_svg]:h-3.5 [&_svg]:w-3.5">
+                        {icon}
+                    </div>
+                )}
                 {isLoading ?  (
                     <Skeleton className="h-8 w-10"/>
                 ) : (             

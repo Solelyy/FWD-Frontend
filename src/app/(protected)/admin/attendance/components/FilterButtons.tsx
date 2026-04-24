@@ -16,15 +16,20 @@ const filters: {label: string, value: AttendanceStatusFilter} []= [
 ];
 
 export default function FilterButtons({filter, onFilterChange}: Props) {
-    const buttonStyle = "border rounded-full flex-1"
+    const baseButtonStyle = "w-full rounded-full border bg-background"
+
     return (
-        <div className="flex flex-wrap gap-2 items-center">
+        <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
             {filters.map((f)=> (
                 <Button
                     key={f.value}
                     size="sm"
-                    className={buttonStyle}
-                    variant={filter === f.value ? "default" : "outline"}
+                    className={`${baseButtonStyle} ${
+                        filter === f.value
+                            ? "border-primary dark:border-primary text-primary hover:text-primary"
+                            : "border-border text-foreground"
+                    }`}
+                    variant="outline"
                     onClick={() => onFilterChange(f.value)}
                 >
                     {f.label}
