@@ -50,12 +50,18 @@ export default function AttendanceActionDialog({
         onConfirm?.(attendanceLog, action, attendanceTimes);
         setOpen(false);
     }
+    
+    const Icon = action.icon;
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="w-full max-w-sm sm:max-w-md md:max-w-lg">
+            <DialogContent className="w-full max-w-sm sm:max-w-md md:max-w-lg"
+                onInteractOutside={(e) => e.preventDefault()}
+                onKeyDown={(e) => e.preventDefault()}
+            >
                 <DialogHeader>
-                    <DialogTitle>
+                    <DialogTitle className="flex items-center gap-2">
+                        {Icon && <Icon size={20} />}
                         {action.confirmTitle}
                     </DialogTitle>
                 </DialogHeader>

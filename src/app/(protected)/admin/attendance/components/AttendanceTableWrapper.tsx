@@ -25,15 +25,15 @@ export default function AttendanceTableWrapper() {
     const {data, isLoading, error} = useEmployeeAttendance({page, limit, year, month, day, filter});
     const {data: attendanceStats, isLoading: attendanceStats_isLoading} = useAttendanceStats(day, month, year)
     return ( 
-        <>
+        <div className="space-y-4 md:space-y-6 lg:space-y-8">
         <AttendanceCards data={attendanceStats}/>
-        <Card>
+        <Card className="space-y-4">
             <CardHeader>
-                <CardTitle>
+                <CardTitle className="md:text-lg">
                     Attendance Records
                 </CardTitle>
                 <div className="flex flex-wrap items-center justify-between gap-4">
-                    <CardDescription> This is the daily attendance of employees</CardDescription>
+                    <CardDescription className="md:text-base"> This is the daily attendance of employees</CardDescription>
                     <div className="flex gap-2">
                         <DatePicker
                             year={year}
@@ -48,11 +48,11 @@ export default function AttendanceTableWrapper() {
                 </div>
             </CardHeader>
 
-            <CardContent className="flex flex-col gap-4">
+            <CardContent className="flex flex-col gap-4 space-y-2">
                 <FilterButtons filter={filter} onFilterChange={setFilter}/>
                 <AttendanceTable data={data} error={error} isLoading={isLoading} page={page} setPage={setPage} searchTerm={searchTerm}/> 
             </CardContent>
         </Card>
-        </>
+        </div>
     )
 }

@@ -53,8 +53,7 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
     }
 
     return (
-        <>
-        <div className="flex flex-col space-y4">
+        <div className="space-y-4">
             <div className="flex-1 overflow-x-auto border rounded-md">
                 <Table>
                     <TableHeader className="bg-[#FFEB94]/40">
@@ -82,7 +81,7 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
 
                         {!isLoading && !error && filteredLogs.length === 0 && (
                             <TableRow>
-                                <TableCell colSpan={5} className="text-center ">
+                                <TableCell colSpan={5} className="py-8 text-center">
                                     {normalizedSearch ? "No results found" : "No attendance records found."}
                                 </TableCell>
                             </TableRow>
@@ -93,7 +92,7 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
                                 <TableRow key={log.id}>
                                     <TableCell>{`${log.firstname} ${log.lastname}`}</TableCell>
                                     <TableCell>
-                                        <div className="flex gap-2 items-center justify-start">
+                                        <div className="flex items-center justify-start gap-2.5">
                                             {formatTime(log.timein.timestamp)}
                                             <Button size="xs" className="px-4" 
                                                 variant="outline" onClick={() => handleViewTimein(log)}>
@@ -104,7 +103,7 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
                                     </TableCell>
 
                                     <TableCell>
-                                        <div className="flex gap-2 items-center justify-start">
+                                        <div className="flex items-center justify-start gap-2.5">
                                             {formatTime(log.timeout.timestamp)}
                                             <Button size="xs" className="px-4" 
                                                 variant="outline" onClick={() => handleViewTimeout(log)}>
@@ -115,7 +114,7 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
                                     </TableCell>
 
                                     <TableCell>
-                                        <div className="flex gap-2">
+                                        <div className="flex flex-wrap items-center gap-2">
                                             <span className={`px-2 py-1 text-xs font-medium rounded-md ${statusStyles[log.status]}`}>
                                                 {formatStatusText[log.status]}
                                             </span>
@@ -137,7 +136,6 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
                     </Table> 
             </div>
 
-            </div>
             <PaginationSimple 
                 page={page} 
                 total={data?.meta.total ?? 0}
@@ -151,6 +149,6 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
                 timeInImage={selectedLog?.timein.image}
                 timeOutImage={selectedLog?.timeout.image}
             />
-        </>
+        </div>
     ); 
 }
