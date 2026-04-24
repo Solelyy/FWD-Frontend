@@ -9,15 +9,21 @@ export function useAttendanceMutation(month:number, year: number, day:number) {
 
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ["attendance"]});
-            queryClient.invalidateQueries({queryKey:["attendance-logs", year, month],
+            queryClient.invalidateQueries({queryKey:["attendance-logs", {year, month}],
                 exact:false
             });
-            queryClient.invalidateQueries({queryKey:["attendance-summary", year, month]});
+            queryClient.invalidateQueries({queryKey:["attendance-summary", {year, month}]});
             queryClient.invalidateQueries({queryKey: ["employees-attendance", 
                 {year, month, day}
             ],
                 exact: false
-            })
+            });
+
+            queryClient.invalidateQueries({queryKey:["employees-attendance-stats",
+                {year, month, day}
+            ],
+                exact: false
+            });
         }
     });
 }

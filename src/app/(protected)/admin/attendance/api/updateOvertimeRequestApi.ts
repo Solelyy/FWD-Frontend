@@ -15,7 +15,7 @@ export async function updateOvertimeRequestApi({employeeId, overtimeStatus, id}:
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({id, overtimeStatus})
+        body: JSON.stringify({attendanceId:id, status:overtimeStatus})
     });
 
     if (!response.ok) {

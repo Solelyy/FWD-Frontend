@@ -63,6 +63,6 @@ export type AttendanceLogsResponse = {
 export type AttendanceSummaryResponse ={
   totalLogs: number;
   totalWorkedHours: number;
-  presentDayss: number;
+  presentDays: number;
   accumulatedOvertime:number;
 }

@@ -9,7 +9,7 @@ export async function markAbsentApi({employeeId, status, id}: OverrideAttendance
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({id, status})
+        body: JSON.stringify({attendanceId:id, status})
     });
 
     if (!response.ok) {

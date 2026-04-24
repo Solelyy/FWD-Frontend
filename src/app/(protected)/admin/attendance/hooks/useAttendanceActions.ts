@@ -9,15 +9,20 @@ export function useAttendanceActions() {
     const queryClient = useQueryClient();
     const errorMsg = "Unable to do the action, please try again."
 
+    const invalidateAttendanceQueries = () => {
+        queryClient.invalidateQueries({ queryKey: ["attendance"] });
+        queryClient.invalidateQueries({ queryKey: ["attendance-logs"], exact: false });
+        queryClient.invalidateQueries({ queryKey: ["attendance-summary"], exact: false });
+        queryClient.invalidateQueries({ queryKey: ["employees-attendance"], exact: false });
+        queryClient.invalidateQueries({ queryKey: ["employees-attendance-stats"], exact: false });
+    };
+
     const overrideAttendance = useMutation({
         mutationFn: (payload: OverrideAttendancePayload)=> 
             overrideAttendanceApi(payload),
-        onSuccess: (_, {employeeId})=>{
+        onSuccess: () => {
             toast.success("Attendance sucessfully changed.")
-            queryClient.invalidateQueries({
-                queryKey: ["employees-attendance", employeeId],
-                refetchType: "active"
-            })
+            invalidateAttendanceQueries()
         },
         onError: () => {
             toast.error(errorMsg)
@@ -27,12 +32,9 @@ export function useAttendanceActions() {
     const markAbsent = useMutation({
         mutationFn: ({employeeId, status, id}: OverrideAttendancePayload)=> 
             markAbsentApi({id, employeeId, status}),
-        onSuccess: (_, {employeeId})=>{
+        onSuccess: () => {
             toast.success("Attendance sucessfully changed.")
-            queryClient.invalidateQueries({
-                queryKey: ["employees-attendance", employeeId],
-                refetchType: "active"
-            })
+            invalidateAttendanceQueries()
         },
         onError: () => {
             toast.error(errorMsg)
@@ -42,12 +44,9 @@ export function useAttendanceActions() {
     const addAttendance = useMutation({
         mutationFn: (payload: OverrideAttendancePayload)=> 
             addAttendanceApi(payload),
-        onSuccess: (_, {employeeId})=>{
+        onSuccess: () => {
             toast.success("Attendance sucessfully changed.")
-            queryClient.invalidateQueries({
-                queryKey: ["employees-attendance", employeeId],
-                refetchType: "active"
-            })
+            invalidateAttendanceQueries()
         },
         onError: () => {
             toast.error(errorMsg)
@@ -57,12 +56,9 @@ export function useAttendanceActions() {
     const updateOvertimeRequest = useMutation({
         mutationFn: ({employeeId, overtimeStatus, id}: UpdateOvertimeRequest)=> 
             updateOvertimeRequestApi({id, employeeId, overtimeStatus}),
-        onSuccess: (_, {employeeId})=>{
+        onSuccess: () => {
             toast.success("Attendance sucessfully changed.")
-            queryClient.invalidateQueries({
-                queryKey: ["employees-attendance", employeeId],
-                refetchType: "active"
-            })
+            invalidateAttendanceQueries()
         },
         onError: () => {
             toast.error(errorMsg)
