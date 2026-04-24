@@ -77,22 +77,23 @@ export default function Login() {
   }
 
   return (
-    <div className="flex flex-col gap-6 items-center">
-      <Card className="h-full w-full max-w-sm sm:max-w-md md:max-w-lg py-8 px-6 sm:py-10">
+    <div className="flex flex-col items-center gap-6 lg:gap-8">
+      <Card className="h-full w-full max-w-sm sm:max-w-md md:max-w-lg px-6 py-8 sm:py-10 lg:py-14">
         <CardHeader className="text-center">
-          <CardTitle className="text-xl sm:text-2xl">Sign in to FWD</CardTitle>
-          <CardDescription className="text-sm">Please enter your credentials below. </CardDescription>
+          <CardTitle className="text-xl sm:text-2xl lg:text-3xl">Sign in to FWD</CardTitle>
+          <CardDescription className="text-sm lg:text-base">Please enter your credentials below. </CardDescription>
         </CardHeader>
 
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <FieldGroup>
+            <FieldGroup className="lg:gap-7">
               <Field>
-                <FieldLabel htmlFor="employeeId">Employee ID</FieldLabel>
+                <FieldLabel htmlFor="employeeId" className="lg:text-base">Employee ID</FieldLabel>
                 <Input
                   id="employeeId"
                   type="text"
                   placeholder="FWD1234"
+                  className="lg:h-11 lg:text-base"
                   {...register("employeeId", {
                     required: "Employee ID is required",
                   })}
@@ -101,10 +102,10 @@ export default function Login() {
               </Field>
               <Field>
                 <div className="flex items-center justify-center gap-2">
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
+                  <FieldLabel htmlFor="password" className="lg:text-base">Password</FieldLabel>
                   <Link
                     href="/forgot-password"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline hover:text-primary"
+                    className="ml-auto inline-block text-sm underline-offset-4 hover:text-primary hover:underline lg:text-base"
                   >
                     Forgot your password?
                   </Link>
@@ -114,6 +115,7 @@ export default function Login() {
                   <Input 
                     id="password" 
                     type={showPassword ? "text" : "password"}
+                    className="lg:h-11 lg:text-base"
                     {...register("password", {required: "Password is required",
                     })} 
                   />
@@ -132,7 +134,7 @@ export default function Login() {
                   <FieldDescription className="text-center">
                     {errorMsg && <FormMessage variant="error" message={errorMsg} className="text-center fade-out"/>}
                 </FieldDescription>
-                <Button type="submit" disabled={isSubmitting || isRedirecting}> {isSubmitting || isRedirecting? "Logging in..." : "Log in"}</Button>
+                <Button className="lg:h-11 lg:text-base" type="submit" disabled={isSubmitting || isRedirecting}> {isSubmitting || isRedirecting? "Logging in..." : "Log in"}</Button>
               </Field>
             </FieldGroup>
           </form>

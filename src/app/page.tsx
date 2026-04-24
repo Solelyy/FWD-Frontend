@@ -20,10 +20,10 @@ export default async function Home() {
   }
 
   return (
-    <div className="hero-section flex flex-col gap-8">
+    <div className="hero-section flex flex-col gap-8 mt-5">
       <Header />
       <main className="flex w-full flex-col items-center justify-start px-6 pb-16">
-        <div  className="w-full max-w-md mt-10 sm:mt-8">
+        <div className="mt-4 w-full max-w-md sm:mt-5 md:max-w-lg">
           <Login /> 
         </div>
       </main>
