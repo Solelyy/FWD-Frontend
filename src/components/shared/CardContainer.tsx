@@ -11,12 +11,13 @@ export default function CardContainer({title, description, children}: Props) {
 
     return(
        <div className="w-full rounded-2xl border border-border/60 bg-background p-4 shadow-sm sm:p-5">
+            {/* 
             <div className="mb-4 space-y-1">
                 <h2 className="text-base font-semibold md:text-lg">{title}</h2>
                 {description && (
                     <p className="text-sm text-muted-foreground">{description}</p>
                 )}
-            </div>
+            </div>*/}
 
             <div className="grid w-full grid-cols-2 gap-4 text-sm md:text-base md:grid-cols-4">
                 {items.map((item, index) => {

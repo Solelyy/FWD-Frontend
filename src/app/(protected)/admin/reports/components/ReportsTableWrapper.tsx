@@ -48,13 +48,13 @@ export default function ReportsTableWrapper({
     onSearchTermChange,
 } : ReportsTableWrapperProps) {
     return ( 
-        <Card>
+        <Card className="space-y-4">
             <CardHeader>
                 <CardTitle className="md:text-lg">
                     {title}
                 </CardTitle>
                 <div className="flex flex-col gap-4">
-                    <CardDescription>{description}</CardDescription>
+                    <CardDescription className="md:text-base">{description}</CardDescription>
                     <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                         <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                             {showMonthYear && selectedYear !== undefined && selectedMonth !== undefined && onYearChange && onMonthChange && (

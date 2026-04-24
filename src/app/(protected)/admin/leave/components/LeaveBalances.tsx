@@ -15,11 +15,11 @@ export default function LeaveBalances() {
     const {data, isLoading, error} = useEmployeesLeaveBalances();
 
     return (
-    <Card>
+    <Card className="space-y-4">
         <CardHeader>
-            <CardTitle>Leave Balances</CardTitle>
+            <CardTitle className="md:text-lg">Leave Balances</CardTitle>
             <div className="flex flex-wrap items-center justify-between gap-4">
-                <CardDescription> 
+                <CardDescription className="md: text-base"> 
                     This shows employees’ leave balances
                 </CardDescription>
 
@@ -29,7 +29,7 @@ export default function LeaveBalances() {
                 </Button>
             </div>
         </CardHeader>
-        <CardContent className="flex flex-col gap-4">
+        <CardContent className="flex flex-col gap-4 space-y-2">
             <div className="flex flex-wrap items-center gap-2">
                 {leaves.map((l) => (
                     <div

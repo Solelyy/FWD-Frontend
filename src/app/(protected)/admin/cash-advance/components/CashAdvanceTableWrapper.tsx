@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { getTodayFormatted } from "@/lib/util/date-format";
 import { useState } from "react";
 import FilterButtons from "@/app/(protected)/admin/leave/components/LeaveFilterButtons";
-import AttendanceTable from "./CashAdvanceTable";
+import CashAdvanceTable from "./CashAdvanceTable";
 import { useEmployeesCASummary } from "../hooks/useEmployeesCASummary";
 import CashAdvanceCard from "./CashAdvanceCard";
 import { useEmployeesCARequests } from "../hooks/useEmployeesCARequests";
@@ -27,16 +27,16 @@ export default function CashAdvanceTableWrapper() {
     const {data: requests, isLoading, error} = useEmployeesCARequests({page, month, year, limit, filter});
     
     return ( 
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6 lg:space-y-8">
         <CashAdvanceCard data={summary} />
         
-        <Card>
+        <Card className="space-y-4">
             <CardHeader>
-                <CardTitle className="md: text-lg">
+                <CardTitle className="md:text-lg">
                     Cash Advance Records
                 </CardTitle>
                 <div className="flex flex-wrap items-center justify-between gap-4">
-                    <CardDescription> This shows monthly cash advance requests</CardDescription>
+                    <CardDescription className="md:text-base"> This shows monthly cash advance requests</CardDescription>
                     <div className="flex gap-2">
                         <MonthYearPicker 
                             year={year} 
@@ -49,9 +49,9 @@ export default function CashAdvanceTableWrapper() {
                 </div>
             </CardHeader>
 
-            <CardContent className="flex flex-col gap-4">
+            <CardContent className="flex flex-col gap-4 space-y-2">
                 <FilterButtons filter={filter} onFilterChange={setFilter}/>
-                <AttendanceTable data={requests} isLoading={isLoading} error={error} page={page} setPage={setPage} searchTerm={searchTerm}/> 
+                <CashAdvanceTable data={requests} isLoading={isLoading} error={error} page={page} setPage={setPage} searchTerm={searchTerm}/> 
             </CardContent>
         </Card>
         </div>

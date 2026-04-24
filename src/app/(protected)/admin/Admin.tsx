@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import DataPolicyDialog from "@/features/dashboard/components/DataPolicyDialog";
 import { useAdminDashboardSummary } from "@/features/dashboard/hooks/useAdminDashboardSummary";
 import { useAdminDashboardStats } from "@/features/dashboard/hooks/useAdminDashboardStats";
+import AdminCardsMock from "@/features/dashboard/components/admin/AdminCardMock";
 
 export default function AdminDashboard() {
     const [ openDataPolicy, setOpenDataPolicy ] = useState(false);
@@ -52,42 +53,13 @@ export default function AdminDashboard() {
             <p className="text-xl font-medium">Good Day, {user?.firstname}!</p>
 
             {/*cards */}
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                <CardLayout 
-                    title="Total Employees"
-                    icon= {<UsersRound />}
-                    dataCount={totalEmployees}
-                    isLoading = {isLoading}
-                /> 
-                
-                <CardLayout 
-                    title="Present Today"
-                    icon = {<CalendarCheck />}
-                    dataCount={presentToday}
-                    isLoading= {isLoading}
-                /> 
-
-                <CardLayout 
-                    title="On Leave"
-                    icon = {<CalendarDays />}
-                    dataCount={onLeave}
-                    isLoading= {isLoading}
-                />
-
-                <CardLayout 
-                    title="Reimbursement"
-                    icon = {<Wallet />}
-                    dataCount={reimbursement}
-                    isLoading= {isLoading}
-                />
-
-                <CardLayout 
-                    title="Cash Advance"
-                    icon = {<PhilippinePeso />}
-                    dataCount={cashAdvance}
-                    isLoading= {isLoading}
-                />  
-            </div>
+            <AdminCardsMock 
+                totalEmployees={totalEmployees} 
+                presentToday={presentToday}
+                onLeave={onLeave}
+                cashAdvance={cashAdvance}
+                reimbursement={reimbursement}
+            />
 
             <div className={tableContainerStyle}>
                 {/* Employee accounts table */}

@@ -1,23 +1,26 @@
-import { CardLayout} from "@/components/shared/CardLayout";
+import CardContainer from "@/components/shared/CardContainer";
+import { CardLayoutV2 } from "@/components/shared/CardLayoutV2";
+import { CalendarDays, Clock, CheckCircle, XCircle} from "lucide-react";
 import { LeaveStatsResponse } from "../types/leave";
-
-type StatsProps = {
-    data?: LeaveStatsResponse
+type Props = {
+    data?: LeaveStatsResponse;
 }
-export default function LeaveCards({data}: StatsProps) {
-    const cards = [
-        {title: "Total Requests", value:data?.totalRequests},
-        {title: "Pending Leave", value:data?.pending},
-        {title: "Approved Leave", value:data?.approved},
-        {title: "Rejected Leave", value:data?.rejected},
-    ]
 
+export default function CashAdvanceCard({data}: Props) {
+
+    const cards = [
+        {title: "Total Requests", value: data?.totalRequests, icon:<CalendarDays />},
+        {title: "Approved Leave", value: data?.approved, icon:<Clock/>},
+        {title: "Pending Leave", value: data?.pending, icon: <CheckCircle/> },
+        {title: "Rejected Leave", value: data?.rejected, icon:<XCircle/>}
+    ]
     return (
-        <div className="flex gap-4">
-        {cards.map((c)=> (
-            <CardLayout key={c.title} title={c.title} dataCount={c.value ?? 0}>
-            </CardLayout>
-        ))}
+        <div>
+            <CardContainer title=" Leave Summary">
+                {cards.map((card) => 
+                    <CardLayoutV2 key={card.title} title={card.title} dataCount={card.value ?? 0} icon={card.icon}/>
+                )}
+            </CardContainer>
         </div>
-    );
+    )
 }

@@ -19,7 +19,7 @@ export default function FilterButtons({filter, onFilterChange}: Props) {
     const baseButtonStyle = "w-full rounded-full border bg-background"
 
     return (
-        <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+        <div className="grid w-full grid-cols-3 gap-2 md:grid-cols-6">
             {filters.map((f)=> (
                 <Button
                     key={f.value}

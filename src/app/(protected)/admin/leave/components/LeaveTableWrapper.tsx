@@ -26,13 +26,13 @@ export default function LeaveTableWrapper() {
     return ( 
         <div className="space-y-4 md:space-y-6 lg:space-y-8">
         <LeaveCards data={leaveStats} />
-        <Card>
+        <Card className="space-y-4">
             <CardHeader>
-                <CardTitle>
+                <CardTitle className="md:text-lg">
                     Leave Records
                 </CardTitle>
                 <div className="flex flex-wrap items-center justify-between gap-4">
-                    <CardDescription>This shows monthly leave requests</CardDescription>
+                    <CardDescription className="md:text-base">This shows monthly leave requests</CardDescription>
                     <div className="flex gap-2">
                         <MonthYearPicker 
                             year={year} 
@@ -46,7 +46,7 @@ export default function LeaveTableWrapper() {
                 </div>
             </CardHeader>
 
-            <CardContent className="flex flex-col gap-4">
+            <CardContent className="flex flex-col gap-4 space-y-2">
                 <FilterButtons filter={filter} onFilterChange={setFilter}/>
                 <AttendanceTable data={leaveRequests} error={error} isLoading={isLoading} page={page} setPage={setPage} searchTerm={searchTerm}/> 
             </CardContent>

@@ -1,7 +1,7 @@
-import CardContainer from "@/components/shared/CardContainer";
 import { EmployeeReimbursementSummary } from "../types/reimbursement";
 import { CardLayoutV2 } from "@/components/shared/CardLayoutV2";
 import { PhilippinePesoIcon, WalletCards, Wallet } from "lucide-react";
+import CardContainerRequests from "@/components/shared/CardContainerRequests";
 type Props = {
     data?: EmployeeReimbursementSummary;
 }
@@ -15,11 +15,11 @@ export default function ReimbursementCard({data}: Props) {
     ]
     return (
         <div>
-            <CardContainer title="Reimbursement Summary">
+            <CardContainerRequests title="Reimbursement Summary">
                 {cards.map((card) => 
                     <CardLayoutV2 key={card.title} title={card.title} dataCount={card.value ?? 0} showDecimal={card.showDecimal} icon={card.icon}/>
                 )}
-            </CardContainer>
+            </CardContainerRequests>
         </div>
     )
 }

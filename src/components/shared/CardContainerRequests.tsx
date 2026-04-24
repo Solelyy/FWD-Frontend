@@ -5,7 +5,7 @@ type Props = {
     description?: string;
     children: React.ReactNode
 }
-export default function CardContainerAccs({title, description, children}: Props) {
+export default function CardContainerRequests({title, description, children}: Props) {
     const items = React.Children.toArray(children);
     const cardCount = items.length;
 
@@ -19,7 +19,7 @@ export default function CardContainerAccs({title, description, children}: Props)
                 )}
             </div>*/}
 
-            <div className="grid w-full grid-cols-3 gap-4 text-sm md:text-base md:grid-cols-6">
+            <div className="grid w-full grid-cols-3 gap-4 text-sm md:text-base">
                 {items.map((item, index) => {
                     const spanClass = cardCount === 1
                         ? "col-span-2 md:col-span-4"
