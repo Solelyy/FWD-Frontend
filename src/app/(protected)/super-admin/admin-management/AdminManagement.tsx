@@ -7,20 +7,27 @@ import AccountsTable from "@/features/account-management/components/AccountsTabl
 import { UserRole } from "@/lib/types/roles";
 import { useAccounts } from "@/features/account-management/hooks/useAccount";
 import { UserRoundPlus } from "lucide-react";
+import { Card } from "@/components/ui/card";
 
 export default function AdminManagement() {
     const [ open, setOpen ] = useState(false);
     const { data: accounts = [], isLoading, error } = useAccounts(UserRole.ADMIN); // rename data property as accounts with an empty array
     
     return(
-        <div className="flex flex-col gap-4">
-            <div className="flex justify-end">
-                    
-                <Button onClick= {() => setOpen(true)}>
-                    <UserRoundPlus />
-                    Add Admin
-                </Button>
-            </div>
+        <div className="flex flex-col space-y-4 md:space-y-6 lg:space-y-8">
+            <Card className="gap-0 py-4">
+                    <div className="flex flex-wrap items-center justify-between gap-3 px-6">
+                        <div className="min-w-0 flex-1">
+                            <p className="text-base font-semibold text-foreground">Need to add a new admin account?</p>
+                            <p className="text-sm text-muted-foreground">Use the Add Admin button to create an account and include them in this list.</p>
+                        </div>
+
+                        <Button className="shrink-0" onClick= {() => setOpen(true)}>
+                            <UserRoundPlus />
+                            Add Admin
+                        </Button>
+                    </div>
+                </Card>
 
             <AccountsTable 
                 accounts={accounts}
