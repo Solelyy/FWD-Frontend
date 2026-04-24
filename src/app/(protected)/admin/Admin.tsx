@@ -4,7 +4,6 @@ import {useUser} from "@/components/providers/UserContext"
 import { CardLayout } from "@/features/dashboard/components/CardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { UsersRound, CalendarCheck, CalendarDays, Wallet, PhilippinePeso } from "lucide-react";
-import { useAdminDashboardStats } from "@/features/dashboard/hooks/useAdminDashboardState";
 import AccountsTable from "@/features/account-management/components/AccountsTable";
 import { UserRole } from "@/lib/types/roles";
 import { Button } from "@/components/ui/button";
@@ -12,12 +11,22 @@ import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import Link from "next/link"
 import { useEffect, useState } from "react";
 import DataPolicyDialog from "@/features/dashboard/components/DataPolicyDialog";
+import { useAdminDashboardSummary } from "@/features/dashboard/hooks/useAdminDashboardSummary";
+import { useAdminDashboardStats } from "@/features/dashboard/hooks/useAdminDashboardStats";
 
 export default function AdminDashboard() {
     const [ openDataPolicy, setOpenDataPolicy ] = useState(false);
-
     const { user, isLoadingUser } = useUser();
     const shouldShowPolicy = !isLoadingUser && user?.isDataPolicyAccepted === false;
+
+    /*
+    const today = new Date;
+    const [month, setMonth] = useState(today.getMonth());
+    const [year, setYear] = useState(today.getFullYear());
+    const [day, setDay] = useState(today.getDate());
+
+    const {data: summary, isLoading, error } = useAdminDashboardSummary({month, day, year});
+    */
 
     const { employees, totalEmployees, isLoading, 
         presentToday, onLeave, cashAdvance, reimbursement } = useAdminDashboardStats();
