@@ -10,6 +10,7 @@ import DataPolicyDialog from "@/features/dashboard/components/DataPolicyDialog";
 import ReimbursementDialog from "./reimbursement/components/ReimbursementDialog";
 import CashAdvanceDialog from "./cash-advance/components/CashAdvanceDialog";
 import LeaveDialog from "./leave/components/LeaveDialog";
+import Greeting from "@/lib/components/Greeting";
 
 export default function EmployeeDashboard() {
     const { user, isLoadingUser } = useUser();
@@ -33,7 +34,7 @@ export default function EmployeeDashboard() {
     return(
     <>
         <div className="flex flex-col gap-6">
-            <p className="text-xl font-medium">Good Day, {user?.firstname}!</p>
+            <Greeting firstname={user?.firstname} role={user?.role} animated className="text-xl font-medium" />
 
             {/* Quick actions */}
             <QuickActions 

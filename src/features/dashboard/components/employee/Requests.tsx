@@ -56,43 +56,43 @@ const requestIcon: Record<RequestKind, React.ComponentType<{ className?: string 
 export default function Requests() {
     return (
         <div className="flex flex-col flex-1">
-            <p className="font-light text-sm mb-2">My Requests</p>
+            <p className="mb-2 text-sm font-light lg:text-base">My Requests</p>
 
-           <Card className="flex flex-col h-full">
+           <Card className="flex h-full flex-col">
                 <CardHeader>
-                    <CardTitle className="flex gap-2 items-center justify-start">
-                        <Calendar size={15}/>
+                    <CardTitle className="flex items-center justify-start gap-2 text-base lg:text-lg">
+                        <Calendar size={18}/>
                         {getMonthYear(new Date())}
                     </CardTitle>
                 </CardHeader>
 
                 <CardContent>
-                    <div className="space-y-2">
+                    <div className="space-y-3 lg:space-y-4">
                         {mockRequests.map((request) => {
                             const Icon = requestIcon[request.kind];
 
                             return (
                                 <div
                                     key={request.id}
-                                    className="rounded-lg border p-3"
+                                    className="rounded-xl border p-4 shadow-sm lg:p-5"
                                 >
                                     <div className="flex items-start justify-between gap-2">
                                         <div className="min-w-0">
-                                            <p className="text-sm font-medium flex items-center gap-2">
-                                                <Icon className="h-4 w-4 text-muted-foreground" />
+                                            <p className="flex items-center gap-2 text-sm font-medium lg:text-base">
+                                                <Icon className="h-5 w-5 text-muted-foreground" />
                                                 {request.title}
                                             </p>
-                                            <p className="text-xs text-muted-foreground mt-1">
+                                            <p className="mt-1 text-xs text-muted-foreground lg:text-sm">
                                                 {request.description}
                                             </p>
                                         </div>
 
-                                        <span className={`px-2 py-1 text-xs font-medium rounded-md ${statusStyles[request.status]}`}>
+                                        <span className={`rounded-md px-2.5 py-1 text-xs font-medium lg:text-sm ${statusStyles[request.status]}`}>
                                             {statusText[request.status]}
                                         </span>
                                     </div>
 
-                                    <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
+                                    <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground lg:text-sm">
                                         <span>Submitted {formatTableDate(request.submittedAt)}</span>
                                         {request.amount !== undefined && (
                                             <span className="font-medium text-foreground">{formatPeso(request.amount)}</span>

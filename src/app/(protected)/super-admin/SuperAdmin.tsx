@@ -13,6 +13,7 @@ import Link from "next/link"
 import { useState, useEffect } from "react";
 import DataPolicyDialog from "@/features/dashboard/components/DataPolicyDialog";
 import SuperAdminCards from "@/features/dashboard/components/super-admin/SuperAdminCards";
+import Greeting from "@/lib/components/Greeting";
 
 export default function SuperAdminDashboard() {
     const [ openDataPolicy, setOpenDataPolicy ] = useState(false);
@@ -45,7 +46,7 @@ export default function SuperAdminDashboard() {
     return(
     <>
         <div className="flex flex-col gap-6">
-            <p className="text-xl font-medium">Good Day, {user?.firstname}!</p>
+            <Greeting firstname={user?.firstname} role={user?.role} animated className="text-xl font-medium" />
             
             <SuperAdminCards totalAdmins={totalAdmins} totalEmployees={totalEmployees} activeAccounts={activeAccounts}/>
             

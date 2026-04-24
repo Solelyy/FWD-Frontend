@@ -45,19 +45,19 @@ export default function TimeinOut() {
     return (
         <>
         <div className="flex flex-col flex-1">
-            <p className="font-light text-sm mb-2">My Attendance Today</p>
-            <Card className="flex flex-col h-full">
+            <p className="mb-2 text-sm font-light lg:text-base">My Attendance Today</p>
+            <Card className="flex h-full flex-col">
                 <CardHeader>
-                    <CardTitle className="flex gap-2 items-center justify-start">
-                        <Calendar size={15}/>
+                    <CardTitle className="flex items-center justify-start gap-2 text-base lg:text-lg">
+                        <Calendar size={18}/>
                         {getTodayFormatted()}
                     </CardTitle>
                 </CardHeader>
 
-                <CardContent className="flex flex-col gap-4">
-                    <div className="flex gap-4 w-full justify-between">
+                <CardContent className="flex flex-col gap-4 lg:gap-5">
+                    <div className="flex w-full gap-4 justify-between">
                         <div className="w-full">
-                            <Button className="w-full" 
+                            <Button className="w-full lg:h-11 lg:text-base" 
                             onClick={handleTimeIn}
                             disabled={
                                 attendance?.canTimeIn === false ||
@@ -69,7 +69,7 @@ export default function TimeinOut() {
                         </div>
 
                         <div className="w-full">
-                            <Button className="w-full" 
+                            <Button className="w-full lg:h-11 lg:text-base" 
                             onClick={handleTimeOut}
                             disabled={attendance?.status=== AttendanceStatus.NO_RECORD || attendance?.status ===AttendanceStatus.COMPLETED}
                             >
@@ -79,16 +79,16 @@ export default function TimeinOut() {
                     </div> 
 
 
-                    <div className="border rounded p-2">
+                    <div className="rounded-xl border p-3 lg:p-4">
                         <div className="flex justify-between">
-                            <CardDescription>Time In</CardDescription>  
-                            <Button size="xs" className="px-4" 
+                            <CardDescription className="lg:text-base">Time In</CardDescription>  
+                            <Button size="xs" className="px-4 lg:h-8 lg:px-5 lg:text-sm" 
                             variant="outline" onClick={handleViewTimein}>
                                 View
                             </Button>
                         </div>
                         
-                        <p className="text-md">
+                        <p className="text-md lg:text-lg">
                             {attendance?.timeIn ? (
                                 <span>
                                 {formatTime(attendance.timeIn)}
@@ -100,16 +100,16 @@ export default function TimeinOut() {
                         </p>
                     </div>
 
-                    <div className="border rounded p-2">
+                    <div className="rounded-xl border p-3 lg:p-4">
                         <div className="flex justify-between">
-                            <CardDescription>Time Out</CardDescription>  
-                            <Button size="xs" className="px-4" 
+                            <CardDescription className="lg:text-base">Time Out</CardDescription>  
+                            <Button size="xs" className="px-4 lg:h-8 lg:px-5 lg:text-sm" 
                             variant="outline" onClick={handleViewTimeout}>
                                 View
                             </Button>
                         </div>
                         
-                        <p className="text-md">
+                        <p className="text-md lg:text-lg">
                             {attendance?.timeOut ? (
                                 <span>
                                 {formatTime(attendance.timeOut)}

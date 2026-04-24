@@ -14,6 +14,7 @@ import DataPolicyDialog from "@/features/dashboard/components/DataPolicyDialog";
 import { useAdminDashboardSummary } from "@/features/dashboard/hooks/useAdminDashboardSummary";
 import { useAdminDashboardStats } from "@/features/dashboard/hooks/useAdminDashboardStats";
 import AdminCardsMock from "@/features/dashboard/components/admin/AdminCardMock";
+import Greeting from "@/lib/components/Greeting";
 
 export default function AdminDashboard() {
     const [ openDataPolicy, setOpenDataPolicy ] = useState(false);
@@ -50,7 +51,7 @@ export default function AdminDashboard() {
     return(
     <>
         <div className="flex flex-col gap-6">
-            <p className="text-xl font-medium">Good Day, {user?.firstname}!</p>
+            <Greeting firstname={user?.firstname} role={user?.role} animated className="text-xl font-medium" />
 
             {/*cards */}
             <AdminCardsMock 

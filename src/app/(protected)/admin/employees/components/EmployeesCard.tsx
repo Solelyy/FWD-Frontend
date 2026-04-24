@@ -14,8 +14,8 @@ export default function EmployeesCards({data}: Props) {
         {title: "Active", value:data?.totalActive, icon: <UserCheck />},
         {title: "Inactive", value:data?.totalInactive, icon: <UserX />},
         {title: "Pending ", value:data?.totalPending, icon: <Clock />},
-        {title: "Expired", value:data?.totalPending, icon: <ClockAlert />},
-        {title: "Suspended", value:data?.totalPending, icon: <Ban />},
+        {title: "Expired", value:data?.totalExpired, icon: <ClockAlert />},
+        {title: "Suspended", value:data?.totalSuspended, icon: <Ban />},
 
     ]
 

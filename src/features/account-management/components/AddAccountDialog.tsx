@@ -20,10 +20,7 @@ export function AddAccountDialog({ open, setOpen, role }: AddAccountDialogProps)
     const roleLabel = role === UserRole.ADMIN ? "Admin" : "Employee"
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-125"
-        onInteractOutside={(e) => e.preventDefault()}
-        onKeyDown={(e) => e.preventDefault()}
-      >
+      <DialogContent className="sm:max-w-125">
 
         <DialogHeader>
           <DialogTitle>Add New {roleLabel}</DialogTitle>

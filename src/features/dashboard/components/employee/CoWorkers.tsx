@@ -4,11 +4,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 export default function CoWorkers() {
     return (
         <div className="flex flex-col flex-1">
-            <p className="font-light text-sm mb-2">Other Present Today</p>
+            <p className="mb-2 text-sm font-light lg:text-base">Other Present Today</p>
 
-            <Card className="px-6">
-                <div className="overflow-x-auto border rounded-md">
-                    <Table>
+            <Card className="px-6 py-5 lg:px-8 lg:py-6">
+                <div className="overflow-x-auto rounded-xl border">
+                    <Table className="lg:text-base">
                         <TableHeader className="bg-[#FFEB94]/40">
                             <TableRow>
                                 <TableHead>Employee Name</TableHead>
@@ -20,7 +20,7 @@ export default function CoWorkers() {
 
                         <TableBody>
                             <TableRow>
-                                <TableCell colSpan={6} className="text-center py-8">
+                                <TableCell colSpan={6} className="py-10 text-center lg:py-12">
                                     No records yet. 
                                 </TableCell>
                             </TableRow>

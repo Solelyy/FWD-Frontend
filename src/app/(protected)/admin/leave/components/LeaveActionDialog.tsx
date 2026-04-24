@@ -49,10 +49,7 @@ export default function LeaveActionDialog({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="w-full max-w-sm"
-        onInteractOutside={(e) => e.preventDefault()}
-        onKeyDown={(e) => e.preventDefault()}
-      >
+      <DialogContent className="w-full max-w-sm">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             {Icon && <Icon className="w-5 h-5" />}

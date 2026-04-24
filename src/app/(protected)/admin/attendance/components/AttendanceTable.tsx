@@ -1,3 +1,5 @@
+"use client"
+
 import { PaginationSimple } from "@/components/shared/Pagination";
 import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from "@/components/ui/table";
 import { EmployeeAttendance, EmployeesAttendanceResponse } from "../types/attendance-types";
@@ -138,8 +140,8 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
 
             <PaginationSimple 
                 page={page} 
-                total={data?.meta.total ?? 0}
-                limit={data?.meta.limit ?? 5}
+                total={data?.meta?.total ?? 0}
+                limit={data?.meta?.limit ?? 5}
                 onPageChange={setPage}
             />  
             <ViewDialog open={isViewDialogOpen} setOpen={setViewDialogOpen} 

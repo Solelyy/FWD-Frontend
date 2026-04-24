@@ -15,40 +15,40 @@ export default function QuickActions({ onOpenReimbursementChange,onOpenCashAdvan
 
     
     return (
-        <div className="flex flex-col gap-4">
-            <p className="font-light text-sm">Quick Actions</p>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 ">
+        <div className="flex flex-col gap-4 lg:gap-5">
+            <p className="text-sm font-light lg:text-base">Quick Actions</p>
+                <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:gap-4 ">
                     <Link href="employee/attendance">
-                        <Button className={style} variant="outline">
-                            <Clock />
+                        <Button className="w-full py-3 lg:h-12 lg:px-5 lg:text-base" variant="outline">
+                            <Clock className="h-4 w-4 lg:h-5 lg:w-5" />
                             View Attendance Logs
                         </Button>
                     </Link>
                         
                     <Button 
-                        className={style} 
+                        className="w-full py-3 lg:h-12 lg:px-5 lg:text-base" 
                         variant="outline"
                         onClick={() => onOpenReimbursementChange(true)}
                     >
-                        <Wallet />
+                        <Wallet className="h-4 w-4 lg:h-5 lg:w-5" />
                         Submit Reimbursement
                     </Button>
                         
                     <Button 
-                        className={style} 
+                        className="w-full py-3 lg:h-12 lg:px-5 lg:text-base" 
                         variant="outline"
                         onClick={() => onOpenCashAdvanceChange(true)}
                     >
-                        <PhilippinePeso />
+                        <PhilippinePeso className="h-4 w-4 lg:h-5 lg:w-5" />
                         Request Cash Advance
                     </Button>
     
                     <Button 
-                        className={style} 
+                        className="w-full py-3 lg:h-12 lg:px-5 lg:text-base" 
                         variant="outline"
                         onClick={() => onOpenLeaveChange(true)}
                     >
-                        <Calendar />
+                        <Calendar className="h-4 w-4 lg:h-5 lg:w-5" />
                         File Leave
                     </Button>
                 </div>
