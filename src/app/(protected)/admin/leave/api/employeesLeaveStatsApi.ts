@@ -6,7 +6,6 @@ type Payload = {
     month: number,
     year: number
 }
-
 /*
 export async function employeesLeaveStatsApi({month, year}: Payload): Promise<LeaveStatsResponse>{
     const monthKey = `${year}-${String(month + 1).padStart(2, "0")}`;

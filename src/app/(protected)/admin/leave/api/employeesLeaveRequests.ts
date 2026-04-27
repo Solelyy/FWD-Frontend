@@ -9,6 +9,7 @@ export type LeaveRequestsProps= {
     month: number;
     filter: LeaveStatusFilter
 }
+
 /*
 const statusFilterMap: Record<Exclude<LeaveStatusFilter, LeaveStatusFilter.ALL>, LeaveRequestStatus> = {
     [LeaveStatusFilter.PENDING]: LeaveRequestStatus.PENDING,
@@ -41,7 +42,6 @@ export async function employeesLeaveRequestsApi({page, limit, year, month, filte
         },
     };
 } */
-
 
 export async function employeesLeaveRequestsApi({page, limit, year, month, filter}: LeaveRequestsProps): Promise<LeaveRequestsResponse> {
     const endpoint =  `/admin/employee/leave?year=${year}&month=${month+1}&page=${page}&limit=${limit}&filter=${filter}`;

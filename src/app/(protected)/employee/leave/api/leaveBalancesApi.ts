@@ -1,11 +1,12 @@
 import { LeaveBalancesResponse } from "../types/leave";
 import { mockLeaveBalancesSummary } from "../mock-data/summary";
-
-export async function leaveBalancesApi(): Promise<LeaveBalancesResponse> {
-    return mockLeaveBalancesSummary;
-}
+import { API_BASE_URL } from "@/lib/util/api";
 
 /*
+export async function leaveBalancesApi(): Promise<LeaveBalancesResponse> {
+    return mockLeaveBalancesSummary;
+}*/
+
 export async function leaveBalancesApi(): Promise<LeaveBalancesResponse> {
     const endpoint = "/employee/leave-balances"
 
@@ -22,4 +23,3 @@ export async function leaveBalancesApi(): Promise<LeaveBalancesResponse> {
     console.log("Leave balances: ", result);
     return result;
 }
-*/

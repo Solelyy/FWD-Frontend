@@ -13,6 +13,7 @@ import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLog
 import { formatDateWithoutYear, formatTableDate } from "@/lib/util/date-format";
 import { overtimeStatusStyle, formatOvertimeText } from "@/app/(protected)/admin/attendance/types/status-format";
 import { leaveTypeFormatText } from "../types/leave";
+import { leaveRequestStatusStyle, formatLeaveRequestText } from "@/app/(protected)/admin/leave/types/leave-status";
 
 export default function LeaveTable() {
     const [open, setOpen] = useState(false);
@@ -83,8 +84,8 @@ export default function LeaveTable() {
                                         </TableCell>
 
                                         <TableCell>
-                                            <span className={`px-2 py-1 text-xs font-medium rounded-md ${overtimeStatusStyle[leave.status]}`}>
-                                                {formatOvertimeText[leave.status]}
+                                            <span className={`px-2 py-1 text-xs font-medium rounded-md ${leaveRequestStatusStyle[leave.status]}`}>
+                                                {formatLeaveRequestText[leave.status]}
                                             </span>
                                         </TableCell>
                                     </TableRow>

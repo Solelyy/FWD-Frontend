@@ -1,11 +1,12 @@
 import { LeaveRequestsResponse } from "../types/leave";
 import { mockLeaveRequests } from "../mock-data/requests";
-
-export async function leaveRequestsApi(): Promise<LeaveRequestsResponse> {
-    return mockLeaveRequests;
-}
+import { API_BASE_URL } from "@/lib/util/api";
 
 /*
+export async function leaveRequestsApi(): Promise<LeaveRequestsResponse> {
+    return mockLeaveRequests;
+}*/
+
 export async function leaveRequestsApi(): Promise<LeaveRequestsResponse> {
     const endpoint= "/employee/leave-requests";
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -20,4 +21,3 @@ export async function leaveRequestsApi(): Promise<LeaveRequestsResponse> {
     const result = await response.json();
     return result;
 }
-*/
