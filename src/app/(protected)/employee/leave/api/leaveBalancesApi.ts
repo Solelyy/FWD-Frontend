@@ -1,6 +1,12 @@
-import { API_BASE_URL } from "@/lib/util/api"
+import { LeaveBalancesResponse } from "../types/leave";
+import { mockLeaveBalancesSummary } from "../mock-data/summary";
 
-export async function leaveBalancesApi() {
+export async function leaveBalancesApi(): Promise<LeaveBalancesResponse> {
+    return mockLeaveBalancesSummary;
+}
+
+/*
+export async function leaveBalancesApi(): Promise<LeaveBalancesResponse> {
     const endpoint = "/employee/leave-balances"
 
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -16,3 +22,4 @@ export async function leaveBalancesApi() {
     console.log("Leave balances: ", result);
     return result;
 }
+*/

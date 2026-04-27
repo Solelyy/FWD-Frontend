@@ -1,5 +1,5 @@
-import { LeaveType } from "@/app/(protected)/employee/leave/types/leave";
 import { LeaveStatusFilter, LeaveRequestsResponse, LeaveRequestStatus } from "../types/leave";
+import { mockEmployeesLeaveRequests } from "../mock-data/requests";
 import { API_BASE_URL } from "@/lib/util/api";
 
 export type LeaveRequestsProps= {
@@ -9,33 +9,7 @@ export type LeaveRequestsProps= {
     month: number;
     filter: LeaveStatusFilter
 }
-
 /*
-const mockRequests: LeaveRequestsResponse["requests"] = [
-    {
-        id: 1,
-        dateSubmitted: "2026-04-10T09:15:00.000Z",
-        employeeId: "EMP-1001",
-        firstname: "Mia",
-        lastName: "Santos",
-        leaveType: LeaveType.VACATION,
-        startDate: "2026-04-22",
-        endDate: "2026-04-24",
-        status: LeaveRequestStatus.PENDING,
-    },
-    {
-        id: 2,
-        dateSubmitted: "2026-04-08T13:40:00.000Z",
-        employeeId: "EMP-1002",
-        firstname: "Noah",
-        lastname: "Rivera",
-        leaveType: LeaveType.SICK,
-        startDate: "2026-04-15",
-        endDate: "2026-04-16",
-        status: LeaveRequestStatus.REJECTED,
-    },
-];
-
 const statusFilterMap: Record<Exclude<LeaveStatusFilter, LeaveStatusFilter.ALL>, LeaveRequestStatus> = {
     [LeaveStatusFilter.PENDING]: LeaveRequestStatus.PENDING,
     [LeaveStatusFilter.APPROVED]: LeaveRequestStatus.APPROVED,
@@ -46,7 +20,7 @@ export async function employeesLeaveRequestsApi({page, limit, year, month, filte
     const targetYear = String(year);
     const targetMonth = String(month + 1).padStart(2, "0");
 
-    const monthFiltered = mockRequests.filter((request) => {
+    const monthFiltered = mockEmployeesLeaveRequests.filter((request) => {
         return request.startDate.startsWith(`${targetYear}-${targetMonth}`);
     });
 
@@ -66,9 +40,7 @@ export async function employeesLeaveRequestsApi({page, limit, year, month, filte
             total: statusFiltered.length,
         },
     };
-};
-
-*/
+} */
 
 
 export async function employeesLeaveRequestsApi({page, limit, year, month, filter}: LeaveRequestsProps): Promise<LeaveRequestsResponse> {
@@ -77,11 +49,11 @@ export async function employeesLeaveRequestsApi({page, limit, year, month, filte
         method: "GET",
         credentials: "include"
         });
-    
+
     if (!response.ok) throw new Error ("Cannot fetch employees leave requests.");
-    
+
     const result = await response.json();
     console.log("Fetched leave requests: ", result);
-    
-    return result;   
-};
+
+    return result;
+}

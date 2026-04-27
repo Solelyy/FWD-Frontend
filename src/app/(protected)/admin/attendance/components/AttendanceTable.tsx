@@ -56,7 +56,7 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
 
     return (
         <div className="space-y-4">
-            <div className="flex-1 overflow-x-auto border rounded-md">
+            <div className="flex-1 `overflow-x-auto border rounded-md">
                 <Table>
                     <TableHeader className="bg-[#FFEB94]/40">
                         <TableRow>
@@ -95,7 +95,7 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
                                     <TableCell>{`${log.firstname} ${log.lastname}`}</TableCell>
                                     <TableCell>
                                         <div className="flex items-center justify-start gap-2.5">
-                                            {formatTime(log.timein.timestamp)}
+                                            {formatTime(log?.timein?.timestamp)}
                                             <Button size="xs" className="px-4" 
                                                 variant="outline" onClick={() => handleViewTimein(log)}>
                                                 View
@@ -106,7 +106,7 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
 
                                     <TableCell>
                                         <div className="flex items-center justify-start gap-2.5">
-                                            {formatTime(log.timeout.timestamp)}
+                                            {formatTime(log?.timeout?.timestamp)}
                                             <Button size="xs" className="px-4" 
                                                 variant="outline" onClick={() => handleViewTimeout(log)}>
                                                 View
@@ -146,10 +146,10 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
             />  
             <ViewDialog open={isViewDialogOpen} setOpen={setViewDialogOpen} 
                 attendanceType={attendanceType} 
-                timeInLocation={selectedLog?.timein.location}
-                timeOutLocation={selectedLog?.timeout.location}
-                timeInImage={selectedLog?.timein.image}
-                timeOutImage={selectedLog?.timeout.image}
+                timeInLocation={selectedLog?.timein?.location}
+                timeOutLocation={selectedLog?.timeout?.location}
+                timeInImage={selectedLog?.timein?.image}
+                timeOutImage={selectedLog?.timeout?.image}
             />
         </div>
     ); 

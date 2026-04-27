@@ -8,6 +8,7 @@ import LeaveCards from "./LeaveCards";
 import { useState } from "react";
 import LeaveDialog from "./LeaveDialog";
 import { useLeaveRequests } from "../hooks/useLeaveRequests";
+import { useLeaveBalances } from "../hooks/useLeaveBalances";
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { formatDateWithoutYear, formatTableDate } from "@/lib/util/date-format";
 import { overtimeStatusStyle, formatOvertimeText } from "@/app/(protected)/admin/attendance/types/status-format";
@@ -15,14 +16,15 @@ import { leaveTypeFormatText } from "../types/leave";
 
 export default function LeaveTable() {
     const [open, setOpen] = useState(false);
-    const {data, isLoading, error} = useLeaveRequests();
+    const { data, isLoading, error } = useLeaveRequests();
+    const { data: balancesData } = useLeaveBalances();
 
     const leaveRequests = data?.leaveRequests ?? [];
 
     return (
         <>
         <div className="space-y-4 md:space-y-6 lg:space-y-8">
-            <LeaveCards />
+            <LeaveCards data={balancesData} />
             {/* Leave Requests Section */}
             <Card className="p-4 md:p-6">
                 <div className="flex justify-between items-center mb-4">
