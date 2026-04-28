@@ -19,7 +19,6 @@ export enum ReimbursementRequestStatus {
 
 export interface ReimbursementRequest {
     id: number,
-    employeeId: AccountInfo["employeeId"];
     dateSubmitted: string;
     type: ReimbursementType;
     amountRequested: number;

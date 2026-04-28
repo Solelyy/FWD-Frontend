@@ -16,7 +16,7 @@ export async function submitReimbursementApi({id, type, amountRequested, attachm
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({id, type, amountRequested, attachment, reason})
+        body: JSON.stringify({type, amountRequested, attachment, reason})
     });
 
     const result = await response.json();

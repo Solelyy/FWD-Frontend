@@ -5,7 +5,7 @@ export function useEmployeesLeaveRequests({page, filter, month, year,limit}: Lea
     return useQuery({
         queryKey: ["employees-leave-requests", {page, filter, month, year, limit}],
         queryFn: () => employeesLeaveRequestsApi({page, limit, year, month, filter}),
-        refetchOnWindowFocus:false, 
+        refetchOnWindowFocus: true, 
         staleTime: 2 * 60 * 60 * 1000,//two hours
         placeholderData: (prev) => prev,
     });
