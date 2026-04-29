@@ -1,4 +1,4 @@
-import { ReimbursementRequestStatus } from "./reimbursement"
+import { ReimbursementRequestStatus, ReimbursementType } from "./reimbursement"
 
 export const reimbursementStatusStyle: Record<ReimbursementRequestStatus, string> = {
     [ReimbursementRequestStatus.APPROVED]: "bg-green-100 text-green-600",
@@ -10,4 +10,10 @@ export const formatReimbursementStatusText: Record<ReimbursementRequestStatus, s
     [ReimbursementRequestStatus.APPROVED]: "Reimbursement Approved",
     [ReimbursementRequestStatus.PENDING]: "Reimbursement Pending",
     [ReimbursementRequestStatus.REJECTED]: "Reimbursement Rejected"
+}
+
+export const requestTypeFormat: Record<ReimbursementType, string> = {
+    [ReimbursementType.FOOD]: "Food",
+    [ReimbursementType.TRANSPORTATION]: "Transporation",
+    [ReimbursementType.OTHER]: "Other"
 }
