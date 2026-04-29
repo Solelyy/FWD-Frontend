@@ -1,10 +1,10 @@
 "use client"
 
 import { useUser } from "@/components/providers/UserContext"
-import CoWorkers from "@/features/dashboard/components/employee/CoWorkers";
-import QuickActions from "@/features/dashboard/components/employee/QuickActions";
-import Requests from "@/features/dashboard/components/employee/Requests";
-import TimeinOut from "@/features/dashboard/components/employee/TimeInOut";
+import CoWorkers from "@/features/dashboard/components/employee/components/CoWorkers";
+import QuickActions from "@/features/dashboard/components/employee/components/QuickActions";
+import Requests from "@/features/dashboard/components/employee/components/Requests";
+import TimeinOut from "@/features/dashboard/components/employee/components/TimeInOut";
 import { useState, useEffect } from "react";
 import DataPolicyDialog from "@/features/dashboard/components/DataPolicyDialog";
 import ReimbursementDialog from "./reimbursement/components/ReimbursementDialog";

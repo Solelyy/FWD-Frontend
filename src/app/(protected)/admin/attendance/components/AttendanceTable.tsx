@@ -6,7 +6,7 @@ import { EmployeeAttendance, EmployeesAttendanceResponse } from "../types/attend
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { formatTime } from "@/lib/util/date-format";
 import Actions from "./Actions";
-import { ViewDialog } from "@/features/dashboard/components/employee/ViewDialog";
+import { ViewDialog } from "@/features/dashboard/components/employee/components/ViewDialog";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { AttendanceType, } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";

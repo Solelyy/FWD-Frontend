@@ -11,7 +11,7 @@ import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLog
 import { formatTableDate } from "@/lib/util/date-format";
 import { ReimbursementType } from "../types/reimbursement";
 import { formatPeso } from "@/lib/util/currency-format";
-import { reimbursementStatusStyle, formatReimbursementStatusText } from "../types/format";
+import { reimbursementStatusStyle, formatReimbursementStatusText, requestTypeFormat } from "../types/format";
 import ReimbursementDialog from "./ReimbursementDialog";
 import { useState } from "react";
 
@@ -21,14 +21,6 @@ export default function Reimbursement() {
     const {data, isLoading, error } = useReimbursementRequests();
 
     const requests = data?.requests ?? [];
-    const formatText = (type: ReimbursementType) => {
-        const format = type === ReimbursementType.FOOD 
-        ? "Food" 
-        : ReimbursementType.OTHER
-        ? "Other" : "Transportation"
-
-        return format;
-    }
 
     return (
         <>
@@ -83,7 +75,7 @@ export default function Reimbursement() {
                                     </TableCell>
 
                                     <TableCell>
-                                        {formatText(request.type)}
+                                        {requestTypeFormat[request.type]}
                                     </TableCell>
 
                                    <TableCell>
