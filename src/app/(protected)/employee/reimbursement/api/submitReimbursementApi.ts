@@ -10,7 +10,7 @@ export type SubmitReimbursementPayload = {
 }
 
 export async function submitReimbursementApi({id, type, amountRequested, attachment, reason}: SubmitReimbursementPayload) {
-    const response = await fetch(`${API_BASE_URL}/`, {
+    const response = await fetch(`${API_BASE_URL}/employee/reimburse-request`, {
         method: "POST",
         credentials: "include",
         headers: {

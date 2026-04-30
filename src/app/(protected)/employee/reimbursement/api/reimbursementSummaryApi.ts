@@ -2,12 +2,13 @@ import { API_BASE_URL } from "@/lib/util/api";
 import { ReimbursementSummary } from "../types/reimbursement";
 import { mockSummary } from "../mock-data/summary";
 
-export async function reimbursementSummaryApi():Promise<ReimbursementSummary> {
-    return mockSummary;
-}
 /*
 export async function reimbursementSummaryApi():Promise<ReimbursementSummary> {
-    const response = await fetch(`${API_BASE_URL}/`, {
+    return mockSummary;
+}*/
+
+export async function reimbursementSummaryApi():Promise<ReimbursementSummary> {
+    const response = await fetch(`${API_BASE_URL}/employee/reimbursement-summary`, {
         method: "GET",
         credentials: "include"
     });
@@ -19,4 +20,4 @@ export async function reimbursementSummaryApi():Promise<ReimbursementSummary> {
     const result = await response.json();
     console.log("Reimbursement Summary: ", result);
     return result;
-}*/
+}

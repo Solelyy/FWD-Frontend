@@ -1,13 +1,14 @@
 import { ReimbursementRequests } from "../types/reimbursement"; 
 import { mockReimbursementRequests } from "../mock-data/requests";
-
-export async function reimbursementRequestsApi(): Promise<ReimbursementRequests> {
-    return mockReimbursementRequests;
-}
+import { API_BASE_URL } from "@/lib/util/api";
 
 /*
 export async function reimbursementRequestsApi(): Promise<ReimbursementRequests> {
-    const response = await fetch(`${API_BASE_URL}/`, {
+    return mockReimbursementRequests;
+}*/
+
+export async function reimbursementRequestsApi(): Promise<ReimbursementRequests> {
+    const response = await fetch(`${API_BASE_URL}/employee/reimbursement-requests`, {
         method: "GET",
         credentials: "include"
     });
@@ -19,4 +20,4 @@ export async function reimbursementRequestsApi(): Promise<ReimbursementRequests>
     const result = await response.json();
     console.log("CA Requests: ", result);
     return result;
-}*/
+}
