@@ -50,6 +50,7 @@ export function SuspendAccountDialog({date, setDate} : Props) {
             selected={date}
             onSelect={setDate}
             numberOfMonths={2}
+            disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
           />
         </PopoverContent>
       </Popover>
