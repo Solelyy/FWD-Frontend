@@ -20,7 +20,7 @@ type Props = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   action: CashAdvanceActionProps | null;
   request: EmployeeCARequest;
-  onConfirm: ({employeeId, action, approvedAmount}: UpdateCashAdvancePayload) => void;
+  onConfirm: ({id, action, approvedAmount}: UpdateCashAdvancePayload) => void;
   onCancel?: () => void;
   isPending: boolean;
 };
@@ -64,7 +64,7 @@ export default function CashAdvanceActionDialog({
     }
 
     onConfirm({
-      employeeId: request.employeeId,
+      id: request.id,
       action: action.targetAction,
       approvedAmount:
         action.targetAction === CashAdvanceActionType.APPROVE

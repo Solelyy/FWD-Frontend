@@ -8,9 +8,7 @@ export type UpdateReimbursementPayload = {
     approvedAmount?: number
 }
 export async function updateReimbursementApi({id, action, approvedAmount}: UpdateReimbursementPayload) {
-    const endpoint = action === CashAdvanceActionType.APPROVE
-    ? "/"
-    : "/";
+    const endpoint = "/admin/employee/approve-reimbursement-request"
 
     const formattedText = action === CashAdvanceActionType.APPROVE ? "approve" : "reject";
 
@@ -20,7 +18,7 @@ export async function updateReimbursementApi({id, action, approvedAmount}: Updat
             "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({ id, approvedAmount }),
+        body: JSON.stringify({ id, status: action, approvedAmount }),
     },
     );
 

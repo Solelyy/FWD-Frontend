@@ -1,11 +1,10 @@
 import { EmployeeReimbursementRequests } from "../types/reimbursement";
 import { LeaveRequestsProps } from "../../leave/api/employeesLeaveRequests";
 import { LeaveStatusFilter } from "../../leave/types/leave";
-import {
-    ReimbursementRequestStatus,
-} from "@/app/(protected)/employee/reimbursement/types/reimbursement";
+import { ReimbursementRequestStatus,} from "@/app/(protected)/employee/reimbursement/types/reimbursement";
 import { mockEmployeesReimbursementRequests } from "../mock-data/requests";
-
+import { API_BASE_URL } from "@/lib/util/api";
+/*
 const statusFilterMap: Record<Exclude<LeaveStatusFilter, LeaveStatusFilter.ALL>, ReimbursementRequestStatus> = {
     [LeaveStatusFilter.PENDING]: ReimbursementRequestStatus.PENDING,
     [LeaveStatusFilter.APPROVED]: ReimbursementRequestStatus.APPROVED,
@@ -31,11 +30,12 @@ export async function employeesReimbursementRequestApi({page, year, month, limit
             total: filtered.length,
         },
     };
-}
+}*/
 
-/*
 export async function employeesReimbursementRequestApi({page, year, month, limit, filter}: LeaveRequestsProps): Promise<EmployeeReimbursementRequests> {
-    const response = await fetch(`${API_BASE_URL}/`, {
+    const endpoint = `/admin/employee/reimbursement-requests?year=${year}&month=${month+1}&page=${page}&limit=${limit}&filter=${filter}`
+    
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "GET",
         credentials: "include"
     });
@@ -47,4 +47,3 @@ export async function employeesReimbursementRequestApi({page, year, month, limit
     
     return result;   
 }
-*/

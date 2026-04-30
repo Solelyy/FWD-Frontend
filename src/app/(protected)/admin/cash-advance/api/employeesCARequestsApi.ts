@@ -1,9 +1,11 @@
 import { EmployeesCARequestsResponse } from "../types/cash-advance";
 import { LeaveRequestsProps } from "../../leave/api/employeesLeaveRequests";
+import { API_BASE_URL } from "@/lib/util/api";
 import { CashAdvanceRequestStatus } from "@/app/(protected)/employee/cash-advance/types/cash-advance";
 import { LeaveStatusFilter } from "../../leave/types/leave";
 import { mockEmployeesCARequests } from "../mock-data/ca-requests";
 
+/*
 const statusFilterMap: Record<Exclude<LeaveStatusFilter, LeaveStatusFilter.ALL>, CashAdvanceRequestStatus> = {
     [LeaveStatusFilter.PENDING]: CashAdvanceRequestStatus.PENDING,
     [LeaveStatusFilter.APPROVED]: CashAdvanceRequestStatus.APPROVED,
@@ -29,11 +31,12 @@ export async function employeesCARequestsApi({page, limit, year, month, filter}:
             total: filtered.length
         }
     };
-}
+}*/
 
-/*
 export async function employeesCARequestsApi({page, limit, year, month, filter}: LeaveRequestsProps): Promise<EmployeesCARequestsResponse>{
-    const response = await fetch(`${API_BASE_URL}/`, {
+    const endpoint = `/admin/employee/cash-advance-requests?year=${year}&month=${month+1}&page=${page}&limit=${limit}&filter=${filter}`
+    
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "GET",
         credentials: "include"
     });
@@ -45,4 +48,3 @@ export async function employeesCARequestsApi({page, limit, year, month, filter}:
     }
     return result;
 }
-*/

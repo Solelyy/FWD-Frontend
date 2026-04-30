@@ -7,12 +7,13 @@ type Payload = {
     year: number
 }
 
-export async function employeesReimbursementSummaryApi({month, year}: Payload): Promise<EmployeeReimbursementSummary>{
-    return mockSummary;
-}
 /*
 export async function employeesReimbursementSummaryApi({month, year}: Payload): Promise<EmployeeReimbursementSummary>{
-    const endpoint = `/`;
+    return mockSummary;
+}*/
+
+export async function employeesReimbursementSummaryApi({month, year}: Payload): Promise<EmployeeReimbursementSummary>{
+    const endpoint = `/admin/employee/reimbursement-summary?year=${year}&month=${month+1}`;
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "GET",
         credentials: "include"
@@ -25,4 +26,3 @@ export async function employeesReimbursementSummaryApi({month, year}: Payload): 
 
     return result();
 }
-*/

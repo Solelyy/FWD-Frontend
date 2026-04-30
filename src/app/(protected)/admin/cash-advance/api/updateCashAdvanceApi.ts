@@ -3,14 +3,12 @@ import { EmployeeCARequest } from "../types/cash-advance";
 import { API_BASE_URL } from "@/lib/util/api";
 
 export type UpdateCashAdvancePayload = {
-    employeeId: EmployeeCARequest["employeeId"],
+    id: EmployeeCARequest["id"],
     action: CashAdvanceActionType,
     approvedAmount?: number
 }
-export async function updateCashAdvanceApi({employeeId, action, approvedAmount}: UpdateCashAdvancePayload) {
-    const endpoint = action === CashAdvanceActionType.APPROVE
-    ? "/"
-    : "/";
+export async function updateCashAdvanceApi({id, action, approvedAmount}: UpdateCashAdvancePayload) {
+    const endpoint = "/admin/employee/approve-request"
 
     const formattedText = action === CashAdvanceActionType.APPROVE ? "approve" : "reject";
 
@@ -20,7 +18,7 @@ export async function updateCashAdvanceApi({employeeId, action, approvedAmount}:
             "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({ employeeId, approvedAmount }),
+        body: JSON.stringify({status:action, id, approvedAmount }),
     },
     );
 

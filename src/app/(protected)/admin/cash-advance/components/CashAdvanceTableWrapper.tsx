@@ -23,7 +23,7 @@ export default function CashAdvanceTableWrapper() {
     const [filter, setFilter] = useState<LeaveStatusFilter>(LeaveStatusFilter.ALL);
 
     const [searchTerm, setSearchTerm] = useState("");
-    const {data: summary,} = useEmployeesCASummary();
+    const {data: summary,} = useEmployeesCASummary({month, year});
     const {data: requests, isLoading, error} = useEmployeesCARequests({page, month, year, limit, filter});
     
     return ( 
