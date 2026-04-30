@@ -3,10 +3,10 @@ import { AttendanceStatus, OvertimeStatus } from "@/app/(protected)/employee/att
 export const statusStyles: Record<AttendanceStatus, string> = {
     [AttendanceStatus.COMPLETED]: "bg-green-100 text-green-600",
     [AttendanceStatus.IN_PROGRESS]: "bg-yellow-100 text-yellow-600",
-    [AttendanceStatus.MISSING_TIMEOUT]: "bg-red-100 text-red-600",
+    [AttendanceStatus.MISSING_TIMEOUT]: "bg-orange-100 text-orange-600",
     [AttendanceStatus.NO_RECORD]: "bg-gray-100 text-gray-600",
     [AttendanceStatus.ON_LEAVE]: "bg-blue-100 text-blue-600",
-    [AttendanceStatus.SUSPENDED]: "bg-orange-100 text-orange-600"
+    [AttendanceStatus.SUSPENDED]: "bg-red-100 text-red-600"
 }
 
 export const formatStatusText: Record<AttendanceStatus, string> = {
