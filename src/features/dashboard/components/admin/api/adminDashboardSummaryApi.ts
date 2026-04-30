@@ -1,12 +1,5 @@
 import { API_BASE_URL } from "@/lib/util/api";
-
-export type AdminDashboardSummaryResponse = {
-    totalEmployees: number;
-    presentToday: number;
-    onLeave: number;
-    pendingReimbursementRequest: number;
-    pendingCashAdvanceRequest: number;
-}
+import { AdminDashboardSummaryResponse } from "../types/dashboard-summary";
 
 export type Props = {
     day: number;
