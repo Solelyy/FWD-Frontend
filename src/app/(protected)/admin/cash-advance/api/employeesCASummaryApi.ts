@@ -21,6 +21,8 @@ export async function employeesCASummaryApi({year, month}: Props): Promise<Emplo
 
     const result = await response.json();
 
+    console.log("CA Summary: ", result);
+
     if(!response.ok) {
         throw new Error(result.message || "Unable to fetch employees cash advance requests summary.")
     }

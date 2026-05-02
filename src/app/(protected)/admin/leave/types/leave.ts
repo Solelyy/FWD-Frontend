@@ -27,7 +27,7 @@ export type EmployeeLeaveRequest = {
 }
 
 export type LeaveRequestsResponse = {
-  requests: EmployeeLeaveRequest[];
+  logs: EmployeeLeaveRequest[];
   meta: {
     page: number;
     limit: number;

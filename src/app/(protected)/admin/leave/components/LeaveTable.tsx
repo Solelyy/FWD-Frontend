@@ -20,7 +20,7 @@ type Props = {
 }
 export default function LeaveTable({data, isLoading, error, page, setPage, searchTerm= ""}: Props) {
 
-    const requests = data?.requests ?? [];
+    const requests = data?.logs ?? [];
     const normalizedSearch = searchTerm.trim().toLowerCase();
 
     const filteredRequests = requests.filter((request) => {
@@ -67,7 +67,7 @@ export default function LeaveTable({data, isLoading, error, page, setPage, searc
                         
                         {!isLoading && !error && filteredRequests.length === 0 && (
                             <TableRow>
-                                <TableCell colSpan={6} className="text-center ">
+                                <TableCell colSpan={6} className="text-center py-8">
                                     {normalizedSearch ? "No results found" : "No leave records yet."}
                                 </TableCell>
                             </TableRow>

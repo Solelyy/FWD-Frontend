@@ -20,6 +20,7 @@ export async function employeeAttendanceApi({page, limit, year, day, month, filt
     if (!response.ok) throw new Error ("Cannot fetch attendance logs.");
     
     const result = await response.json();
+    console.log(`Date: ${month+1}/${day}/${year}`);
     console.log("Fetch attendance: ", result);
     
     return result;   

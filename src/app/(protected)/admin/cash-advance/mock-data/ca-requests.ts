@@ -2,7 +2,7 @@ import { EmployeesCARequestsResponse } from "../types/cash-advance";
 import { CashAdvanceRequestStatus } from "@/app/(protected)/employee/cash-advance/types/cash-advance";
 
 // Mock dataset scope: April 2026
-export const mockEmployeesCARequests: EmployeesCARequestsResponse["requests"] = [
+export const mockEmployeesCARequests: EmployeesCARequestsResponse["logs"] = [
     {
         id: 1,
         employeeId: "EMP-1001",
