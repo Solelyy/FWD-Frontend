@@ -18,6 +18,6 @@ export async function reimbursementRequestsApi(): Promise<ReimbursementRequests>
     }
 
     const result = await response.json();
-    console.log("CA Requests: ", result);
+    console.log("Reimbursement Requests: ", result);
     return result;
 }

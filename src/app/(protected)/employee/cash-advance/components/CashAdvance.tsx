@@ -19,7 +19,7 @@ export default function CashAdvance() {
     const {data: summary,} = useCashAdvanceSummary();
     const {data: requestsData, isLoading, error} = useCashAdvanceRequests();
 
-    const requests = requestsData?.request ?? [];
+    const requests = requestsData?.records ?? [];
 
     return (
         <>
@@ -60,8 +60,8 @@ export default function CashAdvance() {
 
                             {!isLoading && !error && requests?.length === 0 && (
                                 <TableRow>
-                                    <TableCell colSpan={4} className="text-center ">
-                                        No attendance records found.
+                                    <TableCell colSpan={4} className="text-center py-8">
+                                        No cash advance records yet.
                                     </TableCell>
                                 </TableRow>
                             )}

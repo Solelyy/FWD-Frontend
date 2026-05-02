@@ -29,15 +29,15 @@ export default function AttendanceActionDialog({
 
     const initialTimeIn = useMemo(() => {
         if (action?.targetAction !== AttendanceActions.OVERRIDE_ATTENDANCE) return undefined;
-        const parsed = new Date(attendanceLog.timein?.timestamp);
+        const parsed = new Date(attendanceLog.timeIn?.timestamp);
         return Number.isNaN(parsed.getTime()) ? undefined : parsed;
-    }, [action?.targetAction, attendanceLog.timein?.timestamp]);
+    }, [action?.targetAction, attendanceLog.timeIn?.timestamp]);
 
     const initialTimeOut = useMemo(() => {
         if (action?.targetAction !== AttendanceActions.OVERRIDE_ATTENDANCE) return undefined;
-        const parsed = new Date(attendanceLog.timeout?.timestamp);
+        const parsed = new Date(attendanceLog.timeOut?.timestamp);
         return Number.isNaN(parsed.getTime()) ? undefined : parsed;
-    }, [action?.targetAction, attendanceLog.timeout?.timestamp]);
+    }, [action?.targetAction, attendanceLog.timeOut?.timestamp]);
 
     if (!action) return null;
 

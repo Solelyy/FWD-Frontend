@@ -6,8 +6,8 @@ export function useEmployeesReimbursementSummary(month:number, year:number) {
         queryKey: ["employees-reimbursement-summary",  {month, year}],
         queryFn: () => employeesReimbursementSummaryApi({month, year}),
         retry: 1,
-        refetchOnWindowFocus:false, //when user switch tab
-        staleTime: 30 * 60 * 1000, //30 mins
+        refetchOnWindowFocus:true, //when user switch tab
+        staleTime: 2* 60 * 60 * 1000, //2 hrs
         placeholderData: (prev) => prev,
     })
 }

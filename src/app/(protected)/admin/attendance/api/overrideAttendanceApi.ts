@@ -2,7 +2,7 @@ import { API_BASE_URL } from "@/lib/util/api";
 import { EmployeeAttendance } from "../types/attendance-types";
 
 export type OverrideAttendancePayload = {
-    id: EmployeeAttendance["id"]
+    id: EmployeeAttendance["attendanceId"]
     employeeId: EmployeeAttendance["employeeId"];
     status: EmployeeAttendance["status"];
     timeIn?: string;

@@ -5,7 +5,7 @@ import { OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-att
 export type UpdateOvertimeRequest = {
     employeeId: EmployeeAttendance["employeeId"];
     overtimeStatus?: OvertimeStatus;
-    id: EmployeeAttendance["id"];
+    id: EmployeeAttendance["attendanceId"];
 }
 export async function updateOvertimeRequestApi({employeeId, overtimeStatus, id}:UpdateOvertimeRequest) {
     const endpoint = "/admin/employee/overtime/status"

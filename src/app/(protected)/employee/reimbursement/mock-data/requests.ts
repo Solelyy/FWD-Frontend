@@ -6,7 +6,7 @@ import {
 
 // Mock dataset scope: April 2026
 export const mockReimbursementRequests: ReimbursementRequests = {
-	requests: [
+	records: [
 		{
 			id: 1,
 			employeeId: "EMP-1007",

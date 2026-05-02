@@ -1,9 +1,18 @@
-import { ReimbursementRequest } from "@/app/(protected)/employee/reimbursement/types/reimbursement";
 import { AccountInfo } from "@/features/account-management/types/account";
+import { ReimbursementType, ReimbursementRequestStatus } from "@/app/(protected)/employee/reimbursement/types/reimbursement";
 
-export interface EmployeeReimbursementRequest extends ReimbursementRequest {
-    firstname: AccountInfo["firstname"],
-    lastname: AccountInfo["lastname"]
+export type EmployeeReimbursementRequest = {
+    id: number,
+    employeeId: AccountInfo["employeeId"],
+    dateSubmitted: string;
+    type: ReimbursementType;
+    requestedAmount: number;
+    approvedAmount: number;
+    reason?: string;
+    attachment: string;
+    status: ReimbursementRequestStatus;
+    firstname: AccountInfo["firstname"];
+    lastname: AccountInfo["lastname"];
 }
 
 export type EmployeeReimbursementRequests = {

@@ -39,14 +39,14 @@ export default function ReimbursementDialog({
   if (!action) return null;
 
   const MIN_AMOUNT = 500;
-  const requestedAmount = request.amountRequested;
+  const requestedAmount = request.requestedAmount;
   const [approvedAmountInput, setApprovedAmountInput] = useState(String(requestedAmount));
 
   useEffect(() => {
     if (action.targetAction === CashAdvanceActionType.APPROVE) {
-      setApprovedAmountInput(String(request.amountRequested));
+      setApprovedAmountInput(String(request.requestedAmount));
     }
-  }, [action.targetAction, request.amountRequested, open]);
+  }, [action.targetAction, request.requestedAmount, open]);
 
   const parsedApprovedAmount = Number(approvedAmountInput);
   const isApprovedAmountValid =
@@ -71,7 +71,7 @@ export default function ReimbursementDialog({
       approvedAmount:
         action.targetAction === CashAdvanceActionType.APPROVE
           ? parsedApprovedAmount
-          : request.amountApproved,
+          : request.approvedAmount,
     });
     setOpen(false);
   };

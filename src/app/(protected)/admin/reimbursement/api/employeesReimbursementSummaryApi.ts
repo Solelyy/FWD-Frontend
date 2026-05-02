@@ -24,5 +24,5 @@ export async function employeesReimbursementSummaryApi({month, year}: Payload): 
     const result = await response.json();
     console.log("Fetched reimbursement summary: ", result);
 
-    return result();
+    return result;
 }

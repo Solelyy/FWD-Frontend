@@ -45,9 +45,11 @@ export default function LeaveDialog({open, setOpen}: Props) {
             });
             toast.success("Leave Request successfully submitted.")
             setOpen(false);
-        } catch (err) {
-            console.error("Failed to submit leave request", err);
-            toast.error("Unable to submit leave request. Please try again.")
+        } catch (error) {
+            console.error("Failed to submit leave request", error);
+
+            const errorMessage = error instanceof Error ? error.message : "Unable to submit leave request. Please try again."
+            toast.error(errorMessage);
         }
     };
 
@@ -120,7 +122,7 @@ export default function LeaveDialog({open, setOpen}: Props) {
                             </PopoverContent>
                         </Popover>
                         {!dateRange?.from || !dateRange?.to ? (
-                            <p className="text-muted-foreground text-xs">Please select a start and end date.</p>
+                            <p className="text-red-500 text-xs">Please select a start and end date.</p>
                         ) : null}
                     </div>
 

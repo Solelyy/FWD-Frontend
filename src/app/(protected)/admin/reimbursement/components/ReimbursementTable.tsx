@@ -98,11 +98,11 @@ export default function ReimbursementTable({data, isLoading, error, page, setPag
                                 </TableCell>
 
                                 <TableCell>
-                                    {formatPeso(request.amountRequested)}
+                                    {formatPeso(request.requestedAmount)}
                                 </TableCell>
 
                                 <TableCell>
-                                    {formatPeso(request.amountApproved)}
+                                    {formatPeso(request.approvedAmount)}
                                 </TableCell>
 
                                 <TableCell>

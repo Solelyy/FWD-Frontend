@@ -17,5 +17,5 @@ export enum CashAdvanceRequestStatus {
 }
 
 export type CashAdvanceRequests = {
-    request: CashAdvanceRequest[];
+    records: CashAdvanceRequest[];
 }

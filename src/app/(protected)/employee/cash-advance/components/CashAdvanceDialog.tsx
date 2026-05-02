@@ -49,7 +49,9 @@ export default function CashAdvanceDialog({open, setOpen}: Props) {
             setOpen(false);
         } catch(error) {
             console.error("Failed to submit cash advance request", error);
-            toast.error("Unable to submit cash advance request. Please try again.")
+
+            const errorMessage = error instanceof Error ? error.message : "Unable to submit cash advance request. Please try again."
+            toast.error(errorMessage);
         }
     };
 

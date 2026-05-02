@@ -26,9 +26,9 @@ export interface ReimbursementRequest {
     amountApproved: number;
     reason?: string;
     attachment: string;
-    status: ReimbursementRequestStatus
+    status: ReimbursementRequestStatus;
 }
 
 export type ReimbursementRequests = {
-    requests: ReimbursementRequest[];
+    records: ReimbursementRequest[];
 }

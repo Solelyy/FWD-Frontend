@@ -20,7 +20,7 @@ export default function Reimbursement() {
     const {data: summary } = useReimbursementSummary();
     const {data, isLoading, error } = useReimbursementRequests();
 
-    const requests = data?.requests ?? [];
+    const requests = data?.records ?? [];
 
     return (
         <>
@@ -62,8 +62,8 @@ export default function Reimbursement() {
 
                             {!isLoading && !error && requests?.length === 0 && (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="text-center ">
-                                        No attendance records found.
+                                    <TableCell colSpan={5} className="text-center py-8">
+                                        No reimbursement records found.
                                     </TableCell>
                                 </TableRow>
                             )}

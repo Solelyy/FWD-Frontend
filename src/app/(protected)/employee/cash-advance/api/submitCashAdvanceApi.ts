@@ -17,6 +17,10 @@ export async function submitCashAdvanceApi({amountRequested, reason}: SubmitCash
 
     const result = await response.json();
     if (!response.ok) {
+
+        if (response.status === 400){
+            throw new Error ("You already have a pending request. Please wait for it to be processed before submitting another.");
+        }
         throw new Error (result?.message || "Unable to submit cash advance request.");
     }
 

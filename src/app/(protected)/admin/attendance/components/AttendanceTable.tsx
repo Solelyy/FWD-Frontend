@@ -91,11 +91,11 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
 
                         {!isLoading && !error && filteredLogs.length > 0 && 
                             filteredLogs.map((log)=> (
-                                <TableRow key={log.id}>
+                                <TableRow key={log.attendanceId}>
                                     <TableCell>{`${log.firstname} ${log.lastname}`}</TableCell>
                                     <TableCell>
                                         <div className="flex items-center justify-start gap-2.5">
-                                            {formatTime(log?.timein?.timestamp)}
+                                            {formatTime(log?.timeIn?.timestamp)}
                                             <Button size="xs" className="px-4" 
                                                 variant="outline" onClick={() => handleViewTimein(log)}>
                                                 View
@@ -106,7 +106,7 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
 
                                     <TableCell>
                                         <div className="flex items-center justify-start gap-2.5">
-                                            {formatTime(log?.timeout?.timestamp)}
+                                            {formatTime(log?.timeOut?.timestamp)}
                                             <Button size="xs" className="px-4" 
                                                 variant="outline" onClick={() => handleViewTimeout(log)}>
                                                 View
@@ -146,10 +146,10 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
             />  
             <ViewDialog open={isViewDialogOpen} setOpen={setViewDialogOpen} 
                 attendanceType={attendanceType} 
-                timeInLocation={selectedLog?.timein?.location}
-                timeOutLocation={selectedLog?.timeout?.location}
-                timeInImage={selectedLog?.timein?.image}
-                timeOutImage={selectedLog?.timeout?.image}
+                timeInLocation={selectedLog?.timeIn?.location}
+                timeOutLocation={selectedLog?.timeOut?.location}
+                timeInImage={selectedLog?.timeIn?.image}
+                timeOutImage={selectedLog?.timeOut?.image}
             />
         </div>
     ); 

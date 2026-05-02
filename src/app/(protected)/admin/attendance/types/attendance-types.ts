@@ -11,16 +11,16 @@ export enum AttendanceStatusFilter {
 }
 
 export type EmployeeAttendance = {
-    id: number
+    attendanceId: number
     employeeId: AccountInfo["employeeId"];
     firstname: AccountInfo["firstname"];
     lastname: AccountInfo["lastname"]
-    timein: {
+    timeIn: {
         timestamp: string;
         image: string;
         location: string;
     }
-    timeout: {
+    timeOut: {
         timestamp: string;
         image: string;
         location: string;

@@ -2,7 +2,7 @@ import { CashAdvanceRequestStatus, CashAdvanceRequests } from "../types/cash-adv
 
 // Mock dataset scope: April 2026
 export const mockCashAdvanceRequests: CashAdvanceRequests = {
-	request: [
+	records: [
 		{
 			id: 1,
 			dateSubmitted: "2026-04-03T09:15:00.000Z",

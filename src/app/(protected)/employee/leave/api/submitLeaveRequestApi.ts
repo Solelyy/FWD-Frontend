@@ -22,6 +22,10 @@ export async function submitLeaveRequestApi({leaveType, startDate, endDate, reas
 
     const result = await response.json();
     if (!response.ok) {
+        if (response.status === 400){
+            throw new Error ("You already have a pending leave request. Please wait for it to be processed before submitting another.")
+        }
+
         throw new Error (result?.message || "Unable to submit leave request.");
     }
 

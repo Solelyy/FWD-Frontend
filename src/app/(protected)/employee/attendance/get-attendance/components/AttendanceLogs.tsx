@@ -69,7 +69,7 @@ export default function AttendanceLogs() {
 
                         {!isLoading && !error && attendanceLogs?.length === 0 && (
                             <TableRow>
-                                <TableCell colSpan={4} className="text-center ">
+                                <TableCell colSpan={4} className="text-center py-8">
                                     No attendance records yet.
                                 </TableCell>
                             </TableRow>
