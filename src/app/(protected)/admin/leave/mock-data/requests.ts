@@ -2,7 +2,7 @@ import { LeaveType } from "@/app/(protected)/employee/leave/types/leave";
 import { LeaveRequestStatus, LeaveRequestsResponse } from "../types/leave";
 
 // Mock dataset scope: April 2026
-export const mockEmployeesLeaveRequests: LeaveRequestsResponse["requests"] = [
+export const mockEmployeesLeaveRequests: LeaveRequestsResponse["logs"] = [
 	{
 		id: 1,
 		dateSubmitted: "2026-04-03T09:15:00.000Z",

@@ -43,6 +43,8 @@ export async function employeesCARequestsApi({page, limit, year, month, filter}:
 
     const result = await response.json();
 
+    console.log("CA Requests: ", result);
+
     if(!response.ok) {
         throw new Error(result.message || "Unable to fetch employees cash advance requests.")
     }

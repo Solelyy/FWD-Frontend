@@ -17,7 +17,7 @@ type Props = {
     searchTerm?: string
 }
 export default function CashAdvanceTable({data, isLoading, error, page, setPage, searchTerm = ""}: Props) {
-    const requests = data?.requests ?? [];
+    const requests = data?.logs ?? [];
 
     const normalizedSearch = searchTerm.trim().toLowerCase();
 
@@ -64,7 +64,7 @@ export default function CashAdvanceTable({data, isLoading, error, page, setPage,
 
                         {!isLoading && !error && filteredRequests.length === 0 && (
                             <TableRow>
-                                <TableCell colSpan={6} className="text-center ">
+                                <TableCell colSpan={6} className="text-center py-8">
                                     {normalizedSearch ? "No results found" : "No cash advance records yet."}
                                 </TableCell>
                             </TableRow>

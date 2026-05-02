@@ -10,7 +10,7 @@ export default function CashAdvanceCard({data}: Props) {
 
     const cards = [
         {title: "Cash Advance Requests", value: data?.totalRequests, icon:<Banknote />},
-        {title: "Total Cash Advanced", value: data?.totalCashAdvanced, showDecimal:true, icon: <PhilippinePesoIcon/> },
+        {title: "Total Cash Advanced", value: data?.totalCashAdvance, showDecimal:true, icon: <PhilippinePesoIcon/> },
         {title: "Pending Requests", value: data?.totalPendingRequests, icon:<BanknoteArrowUp/>}
     ]
     return (
