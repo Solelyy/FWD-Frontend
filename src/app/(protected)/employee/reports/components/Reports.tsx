@@ -3,69 +3,31 @@
 import { useMemo, useState } from "react";
 
 import { Card } from "@/components/ui/card";
-import { CalendarCheck, Calendar1 , PhilippinePeso, Wallet} from "lucide-react";
 import { buildGenerateReportPayload } from "../api/report-payload";
 import { useReportsSummary } from "../hooks/useReportsSummary";
-import type {
-    GenerateReportPayload,
-    ModuleKey,
-    ModuleOption,
-    WeekOption,
-} from "../types/report-builder";
+import type { FileType, GenerateReportPayload, ModuleKey, } from "../types/report-builder";
 import PeriodFilterPanel from "./PeriodFilterPanel";
 import ReportSummaryPanel from "./ReportSummaryPanel";
 import ReportTypeSelector from "./ReportTypeSelector";
 import ReportsCards from "./ReportsCard";
+import { moduleOptions, weekOptions } from "../types/report-builder"
+import { exportReportApi } from "../api/generateReportApi";
 
 type ReportsProps = {
     onGenerateReport?: (payload: GenerateReportPayload) => void | Promise<void>;
     isGenerating?: boolean;
 };
 
-const moduleOptions: ModuleOption[] = [
-    {
-        value: "attendance",
-        label: "Attendance Report",
-        description: "Coverage by payroll cutoff date.",
-        icon: CalendarCheck,
-    },
-    {
-        value: "leave",
-        label: "Leave Report",
-        description: "Annual report for all approved and pending leave requests.",
-        icon: Calendar1,
-    },
-    {
-        value: "cashAdvance",
-        label: "Cash Advance Report",
-        description: "Weekly summary of requested and approved cash advances.",
-        icon: PhilippinePeso,
-    },
-    {
-        value: "reimbursement",
-        label: "Reimbursement Report",
-        description: "Weekly report for reimbursement claims and release status.",
-        icon: Wallet,
-    },
-];
-
-const weekOptions: WeekOption[] = [
-    { value: "week-1", label: "Week 1" },
-    { value: "week-2", label: "Week 2" },
-    { value: "week-3", label: "Week 3" },
-    { value: "week-4", label: "Week 4" },
-];
-
 export default function Reports({ onGenerateReport, isGenerating = false }: ReportsProps) {
     const today = new Date();
 
     const [selectedYear, setSelectedYear] = useState(today.getFullYear());
     const [selectedMonth, setSelectedMonth] = useState(today.getMonth());
-    const [selectedModule, setSelectedModule] = useState<ModuleKey>("attendance");
+    const [selectedModule, setSelectedModule] = useState<ModuleKey>("ATTENDANCE");
 
     const [attendanceCutoff, setAttendanceCutoff] = useState("15");
-    const [cashAdvanceWeek, setCashAdvanceWeek] = useState("week-1");
-    const [reimbursementWeek, setReimbursementWeek] = useState("week-1");
+    const [cashAdvanceWeek, setCashAdvanceWeek] = useState("1");
+    const [reimbursementWeek, setReimbursementWeek] = useState("1");
 
     const summaryQuery = useReportsSummary(selectedMonth + 1, selectedYear);
 
@@ -82,11 +44,11 @@ export default function Reports({ onGenerateReport, isGenerating = false }: Repo
         [selectedModule],
     );
 
-    const selectedWeek = selectedModule === "cashAdvance" ? cashAdvanceWeek : reimbursementWeek;
+    const selectedWeek = selectedModule === "CASH_ADVANCE" ? cashAdvanceWeek : reimbursementWeek;
     const selectedWeekLabel =
         weekOptions.find((week) => week.value === selectedWeek)?.label ?? "Week 1";
 
-    const handleGenerate = () => {
+    const handleGenerate = async (fileType: FileType) => {
         const payload = buildGenerateReportPayload({
             selectedModule,
             selectedYear,
@@ -96,9 +58,7 @@ export default function Reports({ onGenerateReport, isGenerating = false }: Repo
             reimbursementWeek,
         });
 
-        if (onGenerateReport) {
-            void onGenerateReport(payload);
-        }
+        await exportReportApi(payload, fileType);
     };
 
     return (

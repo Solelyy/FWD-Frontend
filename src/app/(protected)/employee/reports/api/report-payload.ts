@@ -22,7 +22,7 @@ export function buildGenerateReportPayload({
         month: selectedMonth + 1,
     };
 
-    if (selectedModule === "attendance") {
+    if (selectedModule === "ATTENDANCE") {
         return {
             module: selectedModule,
             period,
@@ -33,7 +33,7 @@ export function buildGenerateReportPayload({
         };
     }
 
-    if (selectedModule === "cashAdvance") {
+    if (selectedModule === "CASH_ADVANCE") {
         return {
             module: selectedModule,
             period,
@@ -44,7 +44,7 @@ export function buildGenerateReportPayload({
         };
     }
 
-    if (selectedModule === "reimbursement") {
+    if (selectedModule === "REIMBURSEMENT") {
         return {
             module: selectedModule,
             period,

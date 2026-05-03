@@ -8,6 +8,8 @@ export async function getReportsSummaryApi(month: number, year: number): Promise
         credentials: "include",
     });
 
+    console.log("Reports Summary: ", response.json());
+    
     if (!response.ok) {
         throw new Error("Unable to fetch reports summary.");
     }

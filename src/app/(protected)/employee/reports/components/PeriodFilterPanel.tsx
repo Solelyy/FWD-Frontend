@@ -52,7 +52,7 @@ export default function PeriodFilterPanel({
                     />
                 </div>
 
-                {selectedModule === "attendance" && (
+                {selectedModule === "ATTENDANCE" && (
                     <div className="space-y-2">
                         <p className="text-sm font-medium">Cutoff</p>
                         <Select value={attendanceCutoff} onValueChange={onAttendanceCutoffChange}>
@@ -67,7 +67,7 @@ export default function PeriodFilterPanel({
                     </div>
                 )}
 
-                {selectedModule === "cashAdvance" && (
+                {selectedModule === "CASH_ADVANCE" && (
                     <div className="space-y-2">
                         <p className="text-sm font-medium">Week</p>
                         <Select value={cashAdvanceWeek} onValueChange={onCashAdvanceWeekChange}>
@@ -85,7 +85,7 @@ export default function PeriodFilterPanel({
                     </div>
                 )}
 
-                {selectedModule === "reimbursement" && (
+                {selectedModule === "REIMBURSEMENT" && (
                     <div className="space-y-2">
                         <p className="text-sm font-medium">Week</p>
                         <Select value={reimbursementWeek} onValueChange={onReimbursementWeekChange}>
@@ -103,7 +103,7 @@ export default function PeriodFilterPanel({
                     </div>
                 )}
 
-                {selectedModule === "leave" && (
+                {selectedModule === "LEAVE" && (
                     <div className="space-y-2">
                         <p className="text-sm font-medium">Coverage</p>
                         <div className="rounded-md border bg-muted/40 px-3 py-2">
