@@ -18,11 +18,11 @@ export default function CoWorkers() {
 
     const {data, isLoading, error} = useCoworkersAttendance(day, month, year);
 
-    const attendance = data?.data ?? [];
+    const attendance = data?.records ?? [];
 
     return (
         <div className="flex flex-col flex-1">
-            <p className="mb-2 text-sm font-light lg:text-base">My Coworkers</p>
+            <p className="mb-2 text-sm font-light lg:text-base">My Co-Engineers</p>
 
             <Card className="px-6 py-5 lg:px-8 lg:py-6 flex-1 overflow-hidden">
                 <ScrollArea className="overflow-x-auto rounded-xl border h-70 sm:h-80 lg:h-90">
@@ -55,7 +55,7 @@ export default function CoWorkers() {
                             {!isLoading && !error && attendance?.length === 0 && (
                                 <TableRow>
                                     <TableCell colSpan={6} className="text-center py-8">
-                                        No co-employees attendance records yet.
+                                        No other engineers attendance records yet.
                                     </TableCell>
                                 </TableRow>
                             )}

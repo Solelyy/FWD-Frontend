@@ -1,7 +1,7 @@
 import { CoworkersAttendanceReponse } from "../types/coworkers";
 import { AttendanceStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 export const mockCoworkers: CoworkersAttendanceReponse= {
-    data: [
+    records: [
         {
             employeeId: "EMP01",
             firstname: "Jessa",

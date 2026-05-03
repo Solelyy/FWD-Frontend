@@ -17,5 +17,5 @@ export type CoworkerAttendance = {
 }
 
 export type CoworkersAttendanceReponse = {
-    data: CoworkerAttendance[];
+    records: CoworkerAttendance[];
 }

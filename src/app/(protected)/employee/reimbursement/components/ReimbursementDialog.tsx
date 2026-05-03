@@ -20,7 +20,7 @@ export default function ReimbursementDialog({open, setOpen}: Props) {
     const [reason, setReason] = React.useState("");
     const [attachment, setAttachment] = React.useState<File | null>(null);
     const [type, setType] = React.useState<ReimbursementType | undefined>(undefined);
-    const MIN_AMOUNT = 50;
+    const MIN_AMOUNT = 100;
     const MAX_AMOUNT = 10000;
 
     const parsedAmount = Number(amountRequested);
@@ -45,7 +45,7 @@ export default function ReimbursementDialog({open, setOpen}: Props) {
         }
 
         if (!isAmountValid) {
-            toast.error("Amount should be at least 50 and must not exceed 10,000.");
+            toast.error("Amount should be at least 100 and must not exceed 10,000.");
             return;
         }
 

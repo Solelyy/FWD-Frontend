@@ -7,9 +7,8 @@ type Props = {
     year: number
 }
 
-/*
 export async function getDashboardRequests({month, year}: Props): Promise<DashboardRequestsResponse>{
-    const endpoint= `${month+1}${year}`;
+    const endpoint= `/my-requests`;
 
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "GET",
@@ -24,8 +23,9 @@ export async function getDashboardRequests({month, year}: Props): Promise<Dashbo
     }
 
     return result;
-}*/
+}
 
+/*
 export async function getDashboardRequests({month, year}: Props): Promise<DashboardRequestsResponse> {
     return mockRequests;
-}
+}*/

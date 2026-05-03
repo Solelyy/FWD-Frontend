@@ -77,7 +77,7 @@ export default function LeaveTable({data, isLoading, error, page, setPage, searc
                             filteredRequests.map((req)=> (
                                 <TableRow key={req.id}>
                                     <TableCell>
-                                        {formatTableDate(req.dateSubmitted)}
+                                        {formatTableDate(req.date)}
                                     </TableCell>
 
                                     <TableCell>

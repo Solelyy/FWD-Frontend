@@ -5,7 +5,7 @@ import { LeaveRequestStatus, LeaveRequestsResponse } from "../types/leave";
 export const mockEmployeesLeaveRequests: LeaveRequestsResponse["logs"] = [
 	{
 		id: 1,
-		dateSubmitted: "2026-04-03T09:15:00.000Z",
+		date: "2026-04-03T09:15:00.000Z",
 		employeeId: "EMP-1001",
 		firstname: "Mia",
 		lastname: "Santos",
@@ -16,7 +16,7 @@ export const mockEmployeesLeaveRequests: LeaveRequestsResponse["logs"] = [
 	},
 	{
 		id: 2,
-		dateSubmitted: "2026-04-05T13:40:00.000Z",
+		date: "2026-04-05T13:40:00.000Z",
 		employeeId: "EMP-1002",
 		firstname: "Noah",
 		lastname: "Rivera",
@@ -27,7 +27,7 @@ export const mockEmployeesLeaveRequests: LeaveRequestsResponse["logs"] = [
 	},
 	{
 		id: 3,
-		dateSubmitted: "2026-04-07T08:55:00.000Z",
+		date: "2026-04-07T08:55:00.000Z",
 		employeeId: "EMP-1003",
 		firstname: "Ava",
 		lastname: "Delos Reyes",
@@ -38,7 +38,7 @@ export const mockEmployeesLeaveRequests: LeaveRequestsResponse["logs"] = [
 	},
 	{
 		id: 4,
-		dateSubmitted: "2026-04-09T10:20:00.000Z",
+		date: "2026-04-09T10:20:00.000Z",
 		employeeId: "EMP-1004",
 		firstname: "Liam",
 		lastname: "Cruz",
@@ -49,7 +49,7 @@ export const mockEmployeesLeaveRequests: LeaveRequestsResponse["logs"] = [
 	},
 	{
 		id: 5,
-		dateSubmitted: "2026-04-12T15:30:00.000Z",
+		date: "2026-04-12T15:30:00.000Z",
 		employeeId: "EMP-1005",
 		firstname: "Sophia",
 		lastname: "Garcia",
@@ -60,7 +60,7 @@ export const mockEmployeesLeaveRequests: LeaveRequestsResponse["logs"] = [
 	},
 	{
 		id: 6,
-		dateSubmitted: "2026-04-14T11:05:00.000Z",
+		date: "2026-04-14T11:05:00.000Z",
 		employeeId: "EMP-1006",
 		firstname: "Ethan",
 		lastname: "Mendoza",
@@ -71,7 +71,7 @@ export const mockEmployeesLeaveRequests: LeaveRequestsResponse["logs"] = [
 	},
 	{
 		id: 7,
-		dateSubmitted: "2026-04-18T14:10:00.000Z",
+		date: "2026-04-18T14:10:00.000Z",
 		employeeId: "EMP-1007",
 		firstname: "Isabella",
 		lastname: "Torres",
@@ -82,7 +82,7 @@ export const mockEmployeesLeaveRequests: LeaveRequestsResponse["logs"] = [
 	},
 	{
 		id: 8,
-		dateSubmitted: "2026-04-21T09:45:00.000Z",
+		date: "2026-04-21T09:45:00.000Z",
 		employeeId: "EMP-1008",
 		firstname: "Lucas",
 		lastname: "Fernandez",

@@ -41,7 +41,7 @@ export default function Requests() {
 
     return (
         <div className="flex flex-col flex-1">
-            <p className="mb-2 text-sm font-light lg:text-base">My Requests</p>
+            <p className="mb-2 text-sm font-light lg:text-base">My Recent Requests</p>
 
            <Card className="flex h-full flex-col">
                 <CardHeader>

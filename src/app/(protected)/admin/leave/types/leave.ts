@@ -16,7 +16,7 @@ export enum LeaveRequestStatus {
 
 export type EmployeeLeaveRequest = {
   id: number;
-  dateSubmitted: string;
+  date: string;
   employeeId: AccountInfo["employeeId"];
   firstname: AccountInfo["firstname"];
   lastname: AccountInfo["lastname"];

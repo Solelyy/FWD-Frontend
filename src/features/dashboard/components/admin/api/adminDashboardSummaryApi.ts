@@ -8,7 +8,7 @@ export type Props = {
 }
 
 export async function adminDashboardSummaryApi({month, year, day} : Props): Promise<AdminDashboardSummaryResponse> {
-    const endpoint =`month=${month+1}`;
+    const endpoint =`/admin/management/get-employee-data`;
 
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "GET",
