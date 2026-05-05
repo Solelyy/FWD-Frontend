@@ -19,5 +19,6 @@ export async function leaveRequestsApi(): Promise<LeaveRequestsResponse> {
     }
 
     const result = await response.json();
+    console.log("Leave Requests: ", result)
     return result;
 }
