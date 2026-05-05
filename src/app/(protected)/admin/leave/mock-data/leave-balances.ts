@@ -9,7 +9,7 @@ export const mockEmployeesLeaveBalances: EmployeesLeaveBalancesResponse = {
 			firstname: "Mia",
 			lastname: "Santos",
 			sickLeaveBalance: 6,
-			vacationLeaveBalance: 9,
+			vacationLeaveBalance: 2,
 			accumulatedLeave: 2,
 		},
 		{
@@ -18,7 +18,7 @@ export const mockEmployeesLeaveBalances: EmployeesLeaveBalancesResponse = {
 			firstname: "Noah",
 			lastname: "Rivera",
 			sickLeaveBalance: 4,
-			vacationLeaveBalance: 7,
+			vacationLeaveBalance: 6,
 			accumulatedLeave: 0,
 		},
 		{
@@ -26,8 +26,8 @@ export const mockEmployeesLeaveBalances: EmployeesLeaveBalancesResponse = {
 			employeeId: "EMP-1003",
 			firstname: "Ava",
 			lastname: "Delos Reyes",
-			sickLeaveBalance: 8,
-			vacationLeaveBalance: 10,
+			sickLeaveBalance: 4,
+			vacationLeaveBalance: 3,
 			accumulatedLeave: 3,
 		},
 		{
@@ -44,8 +44,8 @@ export const mockEmployeesLeaveBalances: EmployeesLeaveBalancesResponse = {
 			employeeId: "EMP-1005",
 			firstname: "Sophia",
 			lastname: "Garcia",
-			sickLeaveBalance: 7,
-			vacationLeaveBalance: 8,
+			sickLeaveBalance: 3,
+			vacationLeaveBalance: 5,
 			accumulatedLeave: 4,
 		},
 		{
@@ -53,7 +53,7 @@ export const mockEmployeesLeaveBalances: EmployeesLeaveBalancesResponse = {
 			employeeId: "EMP-1006",
 			firstname: "Ethan",
 			lastname: "Mendoza",
-			sickLeaveBalance: 3,
+			sickLeaveBalance: 0,
 			vacationLeaveBalance: 5,
 			accumulatedLeave: 0,
 		},

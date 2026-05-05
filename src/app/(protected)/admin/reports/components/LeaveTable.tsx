@@ -3,6 +3,7 @@ import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from "@
 import { EmployeesLeaveReports } from "../types/leave";
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { fullName } from "@/lib/util/name-format";
+import AvatarInitials from "@/lib/components/AvatarInitials";
 
 type Props = {
     data?: EmployeesLeaveReports;
@@ -66,7 +67,13 @@ export default function ReportsLeaveTable({ data, isLoading, error, searchTerm =
 
                         {!isLoading && !error && filteredRecords.length > 0 && filteredRecords.map((record) => (
                             <TableRow key={record.employeeId}>
-                                <TableCell>{fullName(record.firstname, record.lastname)}</TableCell>
+                                <TableCell>
+                                    <div className="flex gap-4 items-center">
+                                        <AvatarInitials firstname={record.firstname} lastname={record.lastname}/>
+                                        {fullName(record.firstname, record.lastname)}
+                                    </div>
+                                </TableCell>
+                                
                                 <TableCell>{record.leaveUsed}</TableCell>
                                 <TableCell>{record.sickLeaveBalance}</TableCell>
                                 <TableCell>{record.vacationLeaveBalance}</TableCell>

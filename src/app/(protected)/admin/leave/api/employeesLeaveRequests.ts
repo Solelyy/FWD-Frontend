@@ -2,6 +2,7 @@ import { LeaveStatusFilter, LeaveRequestsResponse, LeaveRequestStatus } from "..
 import { mockEmployeesLeaveRequests } from "../mock-data/requests";
 import { API_BASE_URL } from "@/lib/util/api";
 
+
 export type LeaveRequestsProps= {
     page: number ;
     limit: number;
@@ -16,6 +17,7 @@ const statusFilterMap: Record<Exclude<LeaveStatusFilter, LeaveStatusFilter.ALL>,
     [LeaveStatusFilter.APPROVED]: LeaveRequestStatus.APPROVED,
     [LeaveStatusFilter.REJECTED]: LeaveRequestStatus.REJECTED,
 };
+
 
 export async function employeesLeaveRequestsApi({page, limit, year, month, filter}: LeaveRequestsProps): Promise<LeaveRequestsResponse> {
     const targetYear = String(year);
@@ -34,14 +36,15 @@ export async function employeesLeaveRequestsApi({page, limit, year, month, filte
     const paged = statusFiltered.slice(startIndex, startIndex + limit);
 
     return {
-        requests: paged,
+        logs: paged,
         meta: {
             page,
             limit,
             total: statusFiltered.length,
         },
     };
-} */
+}
+*/
 
 export async function employeesLeaveRequestsApi({page, limit, year, month, filter}: LeaveRequestsProps): Promise<LeaveRequestsResponse> {
     const endpoint =  `/admin/employee/leave?year=${year}&month=${month+1}&page=${page}&limit=${limit}&filter=${filter}`;

@@ -2,13 +2,16 @@
 
 import { PaginationSimple } from "@/components/shared/Pagination";
 import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from "@/components/ui/table";
-import { LeaveRequestsResponse } from "../types/leave";
+import { LeaveRequestsResponse, EmployeeLeaveRequest } from "../types/leave";
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { formatTableDate, formatDateWithoutYear } from "@/lib/util/date-format";
 import { fullName } from "@/lib/util/name-format";
 import { leaveTypeFormatText } from "@/app/(protected)/employee/leave/types/leave";
 import LeaveActions from "./LeaveActions";
 import { leaveRequestStatusStyle, formatLeaveRequestText } from "../types/leave-status";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import ViewAdditionalInfo from "./ViewAdditionalInfo";
 
 type Props = {
     data?: LeaveRequestsResponse
@@ -19,6 +22,8 @@ type Props = {
     searchTerm?: string
 }
 export default function LeaveTable({data, isLoading, error, page, setPage, searchTerm= ""}: Props) {
+    const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
+    const [selectedRecord, setSelectedRecord] = useState<EmployeeLeaveRequest | null>(null);
 
     const requests = data?.logs ?? [];
     const normalizedSearch = searchTerm.trim().toLowerCase();
@@ -35,10 +40,14 @@ export default function LeaveTable({data, isLoading, error, page, setPage, searc
         );
     });
 
+    const handleShowAdditionalInfo = (record: EmployeeLeaveRequest) => {
+        setSelectedRecord(record);
+        setShowAdditionalInfo(true);
+    }
+
     return (
         <>
         <div className="flex flex-col space-y4">
-            
             <div className="flex-1 overflow-x-auto border rounded-md">
                 <Table>
                     <TableHeader className="bg-[#FFEB94]/40">
@@ -47,6 +56,7 @@ export default function LeaveTable({data, isLoading, error, page, setPage, searc
                             <TableHead>Employee</TableHead>
                             <TableHead>Leave Type</TableHead>
                             <TableHead>Leave Date</TableHead>
+                            <TableHead>Additional Info</TableHead>
                             <TableHead>Status</TableHead>
                             <TableHead>Actions</TableHead>
                         </TableRow>
@@ -93,6 +103,12 @@ export default function LeaveTable({data, isLoading, error, page, setPage, searc
                                     </TableCell>
 
                                     <TableCell>
+                                        <Button variant="outline" className="px-6" onClick={() => handleShowAdditionalInfo(req)}>
+                                            View
+                                        </Button>
+                                    </TableCell>
+
+                                    <TableCell>
                                         <span className={`px-2 py-1 text-xs font-medium rounded-md ${leaveRequestStatusStyle[req.status]}`}>
                                            {formatLeaveRequestText[req.status]}
                                         </span>
@@ -107,14 +123,22 @@ export default function LeaveTable({data, isLoading, error, page, setPage, searc
                     </TableBody>
                 </Table> 
             </div>
+        </div>
 
-            </div>
-            <PaginationSimple 
-                page={page} 
-                total={data?.meta.total ?? 0}
-                limit={data?.meta.limit ?? 5}
-                onPageChange={setPage}
-            />
+        <PaginationSimple 
+            page={page} 
+            total={data?.meta.total ?? 0}
+            limit={data?.meta.limit ?? 5}
+            onPageChange={setPage}
+        />
+
+        <ViewAdditionalInfo 
+            open={showAdditionalInfo} 
+            setOpen={setShowAdditionalInfo} 
+            reason={selectedRecord?.reason}
+            attachment={selectedRecord?.attachment}
+            isWithAttachment={true}
+        />
         </>
     ); 
 }

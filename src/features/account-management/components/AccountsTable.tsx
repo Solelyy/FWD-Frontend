@@ -11,6 +11,7 @@ import { Card } from "@/components/ui/card";
 import SearchBar from "@/components/shared/SearchBar";
 import { useState } from "react";
 import { useFilteredAccounts } from "../hooks/useFilteredAccounts";
+import AvatarInitials from "@/lib/components/AvatarInitials";
 
 export default function AccountsTable({accounts, loading, error, showAction, tableType, visibleColumns, isInDashboard} : AccountsTableProps) {
     const {user} = useUser();
@@ -102,8 +103,11 @@ export default function AccountsTable({accounts, loading, error, showAction, tab
 
                                 {columns.includes("name") && 
                                     <TableCell> 
-                                        {fullName(account.firstname, account.lastname)} 
-                                        </TableCell>}
+                                        <div className="flex gap-4 items-center">
+                                            <AvatarInitials firstname={account.firstname} lastname={account.lastname}/>
+                                            {fullName(account.firstname, account.lastname)} 
+                                        </div>
+                                    </TableCell>}
 
                                 {columns.includes("email") && 
                                     <TableCell className="max-w-30 sm:max-w-40 overflow-auto">

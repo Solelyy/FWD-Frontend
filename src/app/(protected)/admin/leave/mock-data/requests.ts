@@ -13,6 +13,7 @@ export const mockEmployeesLeaveRequests: LeaveRequestsResponse["logs"] = [
 		startDate: "2026-04-10",
 		endDate: "2026-04-11",
 		status: LeaveRequestStatus.PENDING,
+		reason: "Masakit po ulo ko"
 	},
 	{
 		id: 2,

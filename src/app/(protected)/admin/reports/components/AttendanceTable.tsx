@@ -3,6 +3,7 @@ import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from "@
 import { EmployeeAttendances } from "../types/attendance";
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { fullName } from "@/lib/util/name-format";
+import AvatarInitials from "@/lib/components/AvatarInitials";
 
 type Props = {
     data?: EmployeeAttendances;
@@ -71,7 +72,10 @@ export default function ReportsAttendanceTable({data, isLoading, error, searchTe
                         {!isLoading && !error && filteredRecords.length > 0 && filteredRecords.map((record) => (
                             <TableRow key={record.employeeId}>
                                 <TableCell>
-                                    {fullName(record.firstname, record.lastname)}
+                                    <div className="flex gap-4 items-center">
+                                        <AvatarInitials firstname={record.firstname} lastname={record.lastname}/>
+                                        {fullName(record.firstname, record.lastname)}
+                                    </div>
                                 </TableCell>
 
                                 <TableCell>{record.presentDays}</TableCell>

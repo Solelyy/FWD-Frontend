@@ -1,5 +1,6 @@
 import { API_BASE_URL } from "@/lib/util/api";
 import { AttendanceStatusFilter, EmployeesAttendanceResponse } from "../types/attendance-types";
+import { mockAttendance } from "../mock-data/attendance";
 
 export type EmployeeAttendanceProps= {
     page: number ;
@@ -9,6 +10,20 @@ export type EmployeeAttendanceProps= {
     day: number;
     filter: AttendanceStatusFilter
 }
+
+/*
+export async function employeeAttendanceApi({page, limit, year, day, month, filter}: EmployeeAttendanceProps): Promise<EmployeesAttendanceResponse> {
+    const result = {
+        logs: mockAttendance,
+        meta: {
+            page: 1,
+            limit: 10,
+            total: 1
+        }
+    }
+    return result;
+}
+*/
 
 export async function employeeAttendanceApi({page, limit, year, day, month, filter}: EmployeeAttendanceProps): Promise<EmployeesAttendanceResponse> {
     const endpoint =  `/admin/employee/attendance?year=${year}&month=${month+1}&day=${day}&page=${page}&limit=${limit}&filter=${filter}`;
@@ -25,3 +40,4 @@ export async function employeeAttendanceApi({page, limit, year, day, month, filt
     
     return result;   
 };
+

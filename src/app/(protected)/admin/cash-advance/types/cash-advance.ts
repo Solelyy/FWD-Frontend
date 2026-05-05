@@ -10,6 +10,8 @@ export type EmployeeCARequest = {
     requestedAmount: number;
     approvedAmount: number;
     status: CashAdvanceRequestStatus
+    reason?: string;
+    attachment?: string;
 }
 
 export type EmployeesCARequestsResponse = {

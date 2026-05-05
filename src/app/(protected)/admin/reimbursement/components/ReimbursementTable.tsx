@@ -2,7 +2,7 @@
 
 import { PaginationSimple } from "@/components/shared/Pagination";
 import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from "@/components/ui/table";
-import { EmployeeReimbursementRequests } from "../types/reimbursement";
+import { EmployeeReimbursementRequests, EmployeeReimbursementRequest } from "../types/reimbursement";
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { formatTableDate } from "@/lib/util/date-format";
 import { fullName } from "@/lib/util/name-format";
@@ -10,6 +10,9 @@ import { ReimbursementType } from "@/app/(protected)/employee/reimbursement/type
 import { reimbursementStatusStyle, formatReimbursementStatusText } from "@/app/(protected)/employee/reimbursement/types/format";
 import ReimbursementActions from "./ReimbursementActions";
 import { formatPeso } from "@/lib/util/currency-format";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import ViewAdditionalInfo from "../../leave/components/ViewAdditionalInfo";
 
 type Props = {
     data?: EmployeeReimbursementRequests
@@ -20,6 +23,14 @@ type Props = {
     searchTerm?: string
 }
 export default function ReimbursementTable({data, isLoading, error, page, setPage, searchTerm = ""}: Props) {
+    const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
+    const [selectedRecord, setSelectedRecord] = useState<EmployeeReimbursementRequest| null>(null);
+
+    const handleShowAdditionalInfo = (record: EmployeeReimbursementRequest) => {
+        setSelectedRecord(record);
+        setShowAdditionalInfo(true);
+    }
+
     const requests= data?.requests ?? [];
 
     const normalizedSearch = searchTerm.trim().toLowerCase();
@@ -44,6 +55,7 @@ export default function ReimbursementTable({data, isLoading, error, page, setPag
     
             return format;
     }
+
     return (
         <>
         <div className="flex flex-col space-y4">
@@ -57,6 +69,7 @@ export default function ReimbursementTable({data, isLoading, error, page, setPag
                             <TableHead>Type</TableHead>
                             <TableHead>Amount Requested</TableHead>
                             <TableHead>Amount Approved</TableHead>
+                            <TableHead>Additional Info</TableHead>
                             <TableHead>Status</TableHead>
                             <TableHead>Actions</TableHead>
                         </TableRow>
@@ -106,6 +119,12 @@ export default function ReimbursementTable({data, isLoading, error, page, setPag
                                 </TableCell>
 
                                 <TableCell>
+                                    <Button variant="outline" className="px-6" onClick={() => handleShowAdditionalInfo(request)}>
+                                        View
+                                    </Button>
+                                </TableCell>
+                                
+                                <TableCell>
                                     <span className={`px-2 py-1 text-xs font-medium rounded-md ${reimbursementStatusStyle[request.status]}`}>
                                         {formatReimbursementStatusText[request.status]}
                                     </span>
@@ -119,9 +138,17 @@ export default function ReimbursementTable({data, isLoading, error, page, setPag
                     </TableBody>
                 </Table> 
             </div>
-            
-            </div>
-            {/*<PaginationSimple />  */} 
+        </div>
+
+        <ViewAdditionalInfo 
+            open={showAdditionalInfo} 
+            setOpen={setShowAdditionalInfo} 
+            reason={selectedRecord?.reason}
+            attachment={selectedRecord?.attachment}
+            isWithAttachment={true}
+        />
+        
+        {/*<PaginationSimple />  */} 
         </>
     ); 
 }

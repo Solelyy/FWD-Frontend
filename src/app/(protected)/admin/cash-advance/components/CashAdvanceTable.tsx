@@ -1,12 +1,15 @@
 import { PaginationSimple } from "@/components/shared/Pagination";
 import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from "@/components/ui/table";
-import { EmployeesCARequestsResponse } from "../types/cash-advance";
+import { EmployeeCARequest, EmployeesCARequestsResponse } from "../types/cash-advance";
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { formatTableDate } from "@/lib/util/date-format";
 import { fullName } from "@/lib/util/name-format";
 import { formatPeso } from "@/lib/util/currency-format";
 import { cashAdvanceStatusStyle, formatCashAdvanceStatusText } from "@/app/(protected)/employee/cash-advance/types/status-format";
 import CashAdvanceActions from "./CashAdvanceActions";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import ViewAdditionalInfo from "../../leave/components/ViewAdditionalInfo";
 
 type Props = {
     data?: EmployeesCARequestsResponse;
@@ -18,6 +21,13 @@ type Props = {
 }
 export default function CashAdvanceTable({data, isLoading, error, page, setPage, searchTerm = ""}: Props) {
     const requests = data?.logs ?? [];
+    const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
+    const [selectedRecord, setSelectedRecord] = useState<EmployeeCARequest | null>(null);
+
+    const handleShowAdditionalInfo = (record: EmployeeCARequest) => {
+        setSelectedRecord(record);
+        setShowAdditionalInfo(true);
+    }
 
     const normalizedSearch = searchTerm.trim().toLowerCase();
 
@@ -44,6 +54,7 @@ export default function CashAdvanceTable({data, isLoading, error, page, setPage,
                             <TableHead>Employee</TableHead>
                             <TableHead>Requested Amount</TableHead>
                             <TableHead>Approved Amount</TableHead>
+                            <TableHead>Additional Info</TableHead>
                             <TableHead>Status</TableHead>
                             <TableHead>Actions</TableHead>
                         </TableRow>
@@ -89,6 +100,12 @@ export default function CashAdvanceTable({data, isLoading, error, page, setPage,
                                 </TableCell>
 
                                 <TableCell>
+                                    <Button variant="outline" className="px-6" onClick={() => handleShowAdditionalInfo(request)}>
+                                         View
+                                    </Button>
+                                </TableCell>
+
+                                <TableCell>
                                     <span className={`px-2 py-1 text-xs font-medium rounded-md ${cashAdvanceStatusStyle[request.status]}`}>
                                         {formatCashAdvanceStatusText[request.status]}
                                     </span>
@@ -109,6 +126,13 @@ export default function CashAdvanceTable({data, isLoading, error, page, setPage,
                 total={data?.meta.total ?? 0}
                 limit={data?.meta.limit ?? 5}
                 onPageChange={setPage}
+            />
+
+            <ViewAdditionalInfo 
+                open={showAdditionalInfo} 
+                setOpen={setShowAdditionalInfo} 
+                reason={selectedRecord?.reason}
+                attachment={selectedRecord?.attachment}
             />
         </>
     ); 

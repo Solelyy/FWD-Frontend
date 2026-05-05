@@ -9,7 +9,7 @@ export type EmployeeReimbursementRequest = {
     requestedAmount: number;
     approvedAmount: number;
     reason?: string;
-    attachment: string;
+    attachment?: string;
     status: ReimbursementRequestStatus;
     firstname: AccountInfo["firstname"];
     lastname: AccountInfo["lastname"];
