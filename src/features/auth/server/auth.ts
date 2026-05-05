@@ -32,8 +32,8 @@ export async function requireAuth(): Promise<AuthUser | null> {
       email: "dinavelbinongo@gmail.com",
       isDataPolicyAccepted: true
     };
-  }*/
-  
+  }
+  */
   try {
     console.log("Im here in requireAuth...");
     return await getAuthUserCache();

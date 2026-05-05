@@ -10,7 +10,7 @@ export async function updateLeaveStatusApi({id, leaveAction}: UpdateLeaveStatusP
     const endpoint = "/admin/employee/update-status"
     const formattedText = leaveAction === LeaveActionType.APPROVE ? "approve" : "reject";
 
-    const formatPayloadAction = leaveAction === LeaveActionType.APPROVE ? "APPROVED" : "REJECTED";
+    const formatPayloadAction = leaveAction === LeaveActionType.APPROVE ? "APPROVE" : "REJECT";
     const response = await fetch(`${API_BASE_URL}${endpoint}`,{
         method: "PATCH",
         headers: {

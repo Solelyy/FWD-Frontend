@@ -5,14 +5,15 @@ import { Status } from "../types/account";
 /*
 const mockUser = [
     {
-    employeeId: "FWD123",
-    firstname: "Jessa",
-    lastname: "Gozun",
-    email: "jessagozun@gmail.com",
-    status: Status.ACTIVE,
-    invitationDate: "",
-    role: UserRole.EMPLOYEE
-}]
+        employeeId: "FWD123",
+        firstname: "Jessa",
+        lastname: "Gozun",
+        email: "jessagozun@gmail.com",
+        status: Status.ACTIVE,
+        invitationDate: "",
+        role: UserRole.EMPLOYEE
+    },
+]
 */
 
 export async function getAccounts(role: UserRole.ADMIN | UserRole.EMPLOYEE) {

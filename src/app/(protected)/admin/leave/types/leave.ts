@@ -24,6 +24,8 @@ export type EmployeeLeaveRequest = {
   startDate: string;
   endDate: string;
   status: LeaveRequestStatus
+  reason?: string;
+  attachment?: string;
 }
 
 export type LeaveRequestsResponse = {

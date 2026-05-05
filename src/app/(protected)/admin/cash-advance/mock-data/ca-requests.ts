@@ -11,7 +11,8 @@ export const mockEmployeesCARequests: EmployeesCARequestsResponse["logs"] = [
         dateSubmitted: "2026-04-10T09:15:00.000Z",
         requestedAmount: 5000,
         approvedAmount: 0,
-        status: CashAdvanceRequestStatus.PENDING
+        status: CashAdvanceRequestStatus.PENDING,
+        reason: "For my transportation"
     },
     {
         id: 2,

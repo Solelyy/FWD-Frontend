@@ -24,7 +24,7 @@ export async function employeesCARequestsApi({page, limit, year, month, filter}:
     const end = start + safeLimit;
 
     return {
-        requests: filtered.slice(start, end),
+        logs: filtered.slice(start, end),
         meta: {
             page: safePage,
             limit: safeLimit,

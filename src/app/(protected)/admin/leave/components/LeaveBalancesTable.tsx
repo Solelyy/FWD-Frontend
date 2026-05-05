@@ -4,6 +4,7 @@ import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from "@
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { fullName } from "@/lib/util/name-format";
 import { EmployeesLeaveBalancesResponse } from "../types/leave-balances";
+import AvatarInitials from "@/lib/components/AvatarInitials";
 
 type Props = {
     data?: EmployeesLeaveBalancesResponse
@@ -13,6 +14,14 @@ type Props = {
 export default function LeaveBalancesTable({data, isLoading, error,}: Props) {
 
     const employee = data?.employees ?? [];
+
+    const balanceStyle = (balance: number) => {
+        if(balance <= 2) {
+            return <span className="text-red-500">{balance}</span>
+        } else {
+            return <span>{balance}</span>
+        }
+    }
 
     return (
         <>
@@ -54,15 +63,18 @@ export default function LeaveBalancesTable({data, isLoading, error,}: Props) {
                             employee.map((em)=> (
                                 <TableRow key={em.id}>
                                     <TableCell>
-                                        {fullName(em.firstname, em.lastname)}
+                                        <div className="flex gap-4 items-center">
+                                            <AvatarInitials firstname={em.firstname} lastname={em.lastname}/>
+                                            {fullName(em.firstname, em.lastname)}
+                                        </div>
                                     </TableCell>
 
                                     <TableCell>
-                                        {em.sickLeaveBalance}
+                                        {balanceStyle(em.sickLeaveBalance)}
                                     </TableCell>
 
                                     <TableCell>
-                                        {em.vacationLeaveBalance}
+                                        {balanceStyle(em.vacationLeaveBalance)}
                                     </TableCell>
                                     
                                     <TableCell>

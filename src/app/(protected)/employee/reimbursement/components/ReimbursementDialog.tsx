@@ -141,7 +141,7 @@ export default function ReimbursementDialog({open, setOpen}: Props) {
                                     required
                                 />
                             </div>
-                            <p className="text-muted-foreground text-xs">Allowed range is ₱50 to ₱10,000.</p>
+                            <p className="text-muted-foreground text-xs">Allowed range is ₱100 to ₱10,000.</p>
                         </div>
 
                         <div className="space-y-2">

@@ -8,7 +8,7 @@ type Props = {
 }
 
 export async function getDashboardRequests({month, year}: Props): Promise<DashboardRequestsResponse>{
-    const endpoint= `/my-requests`;
+    const endpoint= `/employee/my-requests?year=${year}&month=${month+1}`;
 
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "GET",

@@ -11,6 +11,8 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { AttendanceType, } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 import {statusStyles, formatStatusText, overtimeStatusStyle, formatOvertimeText} from "@/app/(protected)/admin/attendance/types/status-format"
+import AvatarInitials from "@/lib/components/AvatarInitials";
+import { fullName } from "@/lib/util/name-format";
 
 type Props = {
     data?: EmployeesAttendanceResponse
@@ -92,7 +94,13 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
                         {!isLoading && !error && filteredLogs.length > 0 && 
                             filteredLogs.map((log)=> (
                                 <TableRow key={log.attendanceId}>
-                                    <TableCell>{`${log.firstname} ${log.lastname}`}</TableCell>
+                                    <TableCell>
+                                        <div className="flex gap-4 items-center">
+                                            <AvatarInitials firstname={log.firstname} lastname={log.lastname}/>
+                                            {fullName(log.firstname, log.lastname)}
+                                        </div>
+                                    </TableCell>
+
                                     <TableCell>
                                         <div className="flex items-center justify-start gap-2.5">
                                             {formatTime(log?.timeIn?.timestamp)}
