@@ -12,7 +12,7 @@ export async function updateReimbursementApi({id, action, approvedAmount}: Updat
 
     const formattedText = action === CashAdvanceActionType.APPROVE ? "approve" : "reject";
 
-    const formatPayload = action === CashAdvanceActionType.APPROVE ? "APPROVE" : "REJECT";
+    const formatPayload = action === CashAdvanceActionType.APPROVE ? "APPROVED" : "REJECTED";
 
     const response = await fetch(`${API_BASE_URL}${endpoint}`,{
         method: "PATCH",
