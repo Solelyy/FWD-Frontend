@@ -9,6 +9,8 @@ import PermissionDialog from "@/app/(protected)/employee/attendance/submit-atten
 import { AttendanceStatus, AttendanceType, OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 import { useAttendance } from "@/app/(protected)/employee/attendance/get-attendance/hooks/useAttendance";
 import { ViewDialog } from "./ViewDialog";
+import { isOvertimeApi } from "@/app/(protected)/employee/attendance/submit-attendance/api/isOvertimeApi";
+import { toast } from "sonner";
 
 export default function TimeinOut() {
     const [ open, setOpen ] = useState(false);
@@ -21,10 +23,22 @@ export default function TimeinOut() {
         setAttendanceType(AttendanceType.TIME_IN);
     }
 
-    const handleTimeOut = () => {
-        setOpen(true)
-        setAttendanceType(AttendanceType.TIME_OUT);
-    }
+    const handleTimeOut = async () => {
+        try {
+            const response = await isOvertimeApi();
+
+            if (!response.canTimeOut) {
+                toast.error("Cannot time out yet.");
+                return;
+            }
+
+            setAttendanceType(AttendanceType.TIME_OUT);
+            setOpen(true);
+
+        } catch (error) {
+            toast.error("Failed to check overtime status.");
+        }
+    };
 
     const handleViewTimein = () => {
         setViewDialogOpen(true);
