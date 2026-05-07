@@ -22,8 +22,22 @@ export async function submitLeaveRequestApi({leaveType, startDate, endDate, reas
 
     const result = await response.json();
     if (!response.ok) {
-        if (response.status === 400){
-            throw new Error ("You already have a pending leave request. Please wait for it to be processed before submitting another.")
+        const message = result?.message || "";
+
+        if (response.status === 400) {
+            if (message.toLowerCase().includes("insufficient")) {
+                throw new Error("Insufficient leave balance.");
+            }
+
+            if (message.toLowerCase().includes("same") || message.toLowerCase().includes("date")) {
+            throw new Error("You already have a leave request on this date.");
+        }
+
+            if (message.toLowerCase().includes("pending")) {
+                throw new Error("You already have a pending leave request. Please wait for it to be processed.");
+            }
+
+            throw new Error(message || "Invalid request, please try different one.");
         }
 
         throw new Error (result?.message || "Unable to submit leave request.");
