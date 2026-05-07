@@ -9,8 +9,7 @@ export type OverrideAttendancePayload = {
     timeOut?: string;
 }
 export async function overrideAttendanceApi({employeeId, status, timeIn, timeOut, id}: OverrideAttendancePayload) {
-    const endpoint = `/admin/employee/update-attendance
-`;
+    const endpoint = "/admin/employee/update-attendance";
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "PATCH",
         credentials: "include",
@@ -19,6 +18,10 @@ export async function overrideAttendanceApi({employeeId, status, timeIn, timeOut
         },
         body: JSON.stringify({ employeeId, timeIn, timeOut })
     });
+
+    console.log(`Paylaod: 
+        Timeine: ${timeIn}
+        Timeout: ${timeOut}`);
 
     if (!response.ok) {
         throw new Error ("Unable to override attendance");

@@ -34,9 +34,31 @@ export default function AttendanceActionDialog({
     }, [action?.targetAction, attendanceLog.timeIn?.timestamp]);
 
     const initialTimeOut = useMemo(() => {
+        /*
         if (action?.targetAction !== AttendanceActions.OVERRIDE_ATTENDANCE) return undefined;
         const parsed = new Date(attendanceLog.timeOut?.timestamp);
         return Number.isNaN(parsed.getTime()) ? undefined : parsed;
+        */
+        if (action?.targetAction !== AttendanceActions.OVERRIDE_ATTENDANCE) {
+            return undefined;
+        }
+
+        const parsed = new Date(attendanceLog.timeOut?.timestamp);
+
+        if (Number.isNaN(parsed.getTime())) {
+            return undefined;
+        }
+
+        // Temporary fix for corrupted backend dates
+        if (parsed.getFullYear() === 1970) {
+            const today = new Date();
+
+            parsed.setFullYear(today.getFullYear());
+            parsed.setMonth(today.getMonth());
+            parsed.setDate(today.getDate());
+        }
+        return parsed;
+
     }, [action?.targetAction, attendanceLog.timeOut?.timestamp]);
 
     if (!action) return null;
