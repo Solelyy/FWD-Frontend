@@ -56,6 +56,12 @@ export default function TimeinOut() {
         [OvertimeStatus.REJECTED]: "Overtime Rejected"
     }
 
+    const attendanceText = attendance?.status === AttendanceStatus.COMPLETED 
+    ? "Overridden by Admin" 
+    : AttendanceStatus.NO_RECORD 
+    ? "Marked Absent by Admin"
+    : "Updated by Admin";
+
     return (
         <>
         <div className="flex flex-col flex-1">
@@ -111,8 +117,11 @@ export default function TimeinOut() {
                         <p className="text-md lg:text-lg">
                             {attendance?.timeIn ? (
                                 <span>
-                                {formatTime(attendance.timeIn)}
-                                {attendance.isLate && " (Late)"}
+                                    {formatTime(attendance.timeIn)}
+                                    {attendance.isChanged 
+                                        ? ` (${attendanceText})`
+                                        : `${attendance.isLate && " (Late)"}`
+                                    }
                                 </span>
                             ) : (
                                 "No time in yet"
@@ -133,12 +142,15 @@ export default function TimeinOut() {
                             {attendance?.timeOut ? (
                                 <span>
                                 {formatTime(attendance.timeOut)}
-
-                                {attendance.isUndertime
-                                    ? " (Undertime)"
-                                    : attendance.overtimeStatus
-                                    ? ` (${overtimeFormattedText[attendance.overtimeStatus]})`
-                                    : ""}
+                                {attendance.isChanged 
+                                    ? ` (${attendanceText})`
+                                    :   `${attendance.isUndertime 
+                                        ? " (Undertime)"
+                                        : attendance.overtimeStatus
+                                        ? ` (${overtimeFormattedText[attendance.overtimeStatus]})`
+                                        : ""
+                                    }`
+                                }
                                 </span>
                             ) : (
                                 "No time out yet"
@@ -156,6 +168,9 @@ export default function TimeinOut() {
             timeOutLocation={attendance?.timeOutLocation}
             timeInImage={attendance?.timeInImage}
             timeOutImage={attendance?.timeOutImage}
+            isChanged={attendance?.isChanged}
+            changes = {attendance?.changes}
+            status={attendance?.status}
         />
         </>
     );

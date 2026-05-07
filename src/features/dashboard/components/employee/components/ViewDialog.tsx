@@ -1,6 +1,9 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { AttendanceType } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
+import { AttendanceStatus, AttendanceType } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 import { Camera, MapPin } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import ViewChangesDialog from "@/app/(protected)/admin/attendance/components/ViewChangesDialog";
 
 type ViewDialogProps = {
     open: boolean;
@@ -10,11 +13,20 @@ type ViewDialogProps = {
     timeOutLocation: string | null | undefined;
     timeInImage: string | null | undefined;
     timeOutImage: string | null | undefined;
+    isChanged?: boolean;
+    changes?: {
+        adminFirstname: string;
+        adminLastname: string;
+        reason: string;
+        timestamp:string
+    }
+    status?: AttendanceStatus
 }
 export function ViewDialog({
     open, setOpen, attendanceType, 
     timeInLocation, timeOutLocation, 
-    timeInImage ,timeOutImage
+    timeInImage ,timeOutImage, 
+    isChanged, changes, status
 }: ViewDialogProps) {
     const isTimeIn = attendanceType === AttendanceType.TIME_IN;
     const formatText = isTimeIn ? "time in" : "time out";
@@ -23,8 +35,14 @@ export function ViewDialog({
     const selectedLocation = isTimeIn ? timeInLocation : timeOutLocation;
     const selectedImage = isTimeIn ? timeInImage : timeOutImage;
     const hasRecord = Boolean(selectedLocation || selectedImage);
+    const [showViewChanges, setShowViewChanges] = useState(false);
+
+    const handleViewChanges = () => {
+        setShowViewChanges(true);
+    }
 
     return (
+        <>
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent className="w-[92%] max-w-sm md:max-w-lg space-y-4 p-4 md:p-6">
                 <DialogHeader>
@@ -34,6 +52,15 @@ export function ViewDialog({
                             {attendanceLabel}
                         </span>
                     </DialogTitle>
+
+                    {isChanged && (
+                        <div className="flex justify-between items-center border rounded-md p-2 gap-2 mt-2">
+                            <span className="text-[14px] text-left text-muted-foreground">Click to see the changes made by the admin.</span>
+                            <Button size="sm" onClick={handleViewChanges}>
+                                View Changes
+                            </Button>
+                        </div>
+                    )}
                 </DialogHeader>
 
                 {!hasRecord ? (
@@ -76,5 +103,16 @@ export function ViewDialog({
                 }
             </DialogContent>
         </Dialog>
+
+        <ViewChangesDialog 
+            open={showViewChanges}
+            setOpen={setShowViewChanges}
+            adminFirstName={changes?.adminFirstname} 
+            adminLastName={changes?.adminLastname} 
+            reason={changes?.reason}
+            timestamp={changes?.timestamp}
+            status={status}
+        />
+        </>
     )
 }

@@ -13,7 +13,7 @@ export async function getAttendanceApi():Promise<AttendanceStatusResponse> {
     console.log("Fetch attendance: ", result);
 
     if (!result){
-        return{
+        return {
             status: AttendanceStatus.NO_RECORD,
             canTimeIn: true,
             isLate: false,
@@ -24,6 +24,13 @@ export async function getAttendanceApi():Promise<AttendanceStatusResponse> {
             timeOutLocation: null,
             timeInImage: null,
             timeOutImage: null,
+            isChanged: false,
+            changes: {
+                adminFirstname: "",
+                adminLastname: "",
+                reason: "",
+                timestamp: ""
+            }
         };
     }
     return result;
