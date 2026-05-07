@@ -62,7 +62,9 @@ export default function TimeinOut() {
                             disabled={
                                 attendance?.canTimeIn === false ||
                                 attendance?.status === AttendanceStatus.COMPLETED ||
-                                (attendance?.status === AttendanceStatus.IN_PROGRESS && !attendance?.canTimeIn)
+                                (attendance?.status === AttendanceStatus.IN_PROGRESS && !attendance?.canTimeIn) ||
+                                attendance?.status === AttendanceStatus.SUSPENDED ||
+                                attendance?.status === AttendanceStatus.ON_LEAVE
                             }>
                                 Time In
                             </Button>
@@ -71,7 +73,11 @@ export default function TimeinOut() {
                         <div className="w-full">
                             <Button className="w-full lg:h-11 lg:text-base" 
                             onClick={handleTimeOut}
-                            disabled={attendance?.status=== AttendanceStatus.NO_RECORD || attendance?.status ===AttendanceStatus.COMPLETED}
+                            disabled={
+                                attendance?.status === AttendanceStatus.NO_RECORD || 
+                                attendance?.status ===AttendanceStatus.COMPLETED  ||
+                                attendance?.status === AttendanceStatus.ON_LEAVE ||
+                                attendance?.status === AttendanceStatus.SUSPENDED }
                             >
                                 Time Out
                             </Button>
