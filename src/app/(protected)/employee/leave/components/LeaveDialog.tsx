@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select";
 import { cn } from "@/lib/util/utils";
-import { format, startOfDay } from "date-fns";
+import { format, startOfDay, addDays } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import React from "react";
 import { type DateRange } from "react-day-picker";
@@ -27,6 +27,7 @@ export default function LeaveDialog({open, setOpen}: Props) {
     const [reason, setReason] = React.useState("");
     const [attachment, setAttachment] = React.useState<File | null>(null);
     const today = React.useMemo(() => startOfDay(new Date()), []);
+    const minSelectableDate = React.useMemo(() => addDays(today, 1), [today]);
 
     const {mutateAsync, isPending} = useLeaveMutation();
 
@@ -116,7 +117,7 @@ export default function LeaveDialog({open, setOpen}: Props) {
                                     defaultMonth={dateRange?.from}
                                     selected={dateRange}
                                     onSelect={setDateRange}
-                                    disabled={{ before: today }}
+                                    disabled={{ before: minSelectableDate}}
                                     numberOfMonths={2}
                                 />
                             </PopoverContent>
