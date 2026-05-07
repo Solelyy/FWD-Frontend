@@ -22,17 +22,24 @@ export enum OvertimeStatus {
 
 //for employee dashboard
 export type AttendanceStatusResponse = {
-status: AttendanceStatus
-canTimeIn: boolean;
-isLate: boolean;
-isUndertime: boolean;
-timeIn: string | null; // ISO string (UTC)
-timeOut: string | null; // ISO string (UTC)
-timeInLocation: string | null;
-timeOutLocation: string | null;
-timeInImage: string | null;
-timeOutImage: string | null;
-overtimeStatus?: OvertimeStatus
+  status: AttendanceStatus
+  canTimeIn: boolean;
+  isLate: boolean;
+  isUndertime: boolean;
+  timeIn: string | null; // ISO string (UTC)
+  timeOut: string | null; // ISO string (UTC)
+  timeInLocation: string | null;
+  timeOutLocation: string | null;
+  timeInImage: string | null;
+  timeOutImage: string | null;
+  overtimeStatus?: OvertimeStatus
+  isChanged: boolean;
+  changes: {
+    adminFirstname: string;
+    adminLastname: string;
+    timestamp: string;
+    reason: string;
+  }
 };
 
 //for attendance logs

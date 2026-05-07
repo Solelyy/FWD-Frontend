@@ -8,7 +8,7 @@ export function useAttendance() {
             /*comment when running the backend
             if (process.env.NODE_ENV=="development") {
                 return {
-                    status: AttendanceStatus.COMPLETED,
+                    status: AttendanceStatus.NO_RECORD,
                     canTimeIn: false,
                     isLate: true,
                     isUndertime: false,
@@ -18,9 +18,16 @@ export function useAttendance() {
                     timeOutLocation: null,
                     timeInImage: null,
                     timeOutImage: null,
-                    overtimeStatus: OvertimeStatus.REJECTED
+                    overtimeStatus: OvertimeStatus.REJECTED,
+                    isChanged: true,
+                    changes: {
+                        adminFirstname: "Jessa",
+                        adminLastname: "Gozun",
+                        reason: "Wala lang",
+                        timestamp: new Date().toISOString()
+                    }
                 };
-        }*/
+            } */
         return getAttendanceApi();
         },
         retry: 1, //retry api call once fails, so 2 try (initial + retry)
