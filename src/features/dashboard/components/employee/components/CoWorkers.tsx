@@ -1,11 +1,11 @@
 "use client"
 
-import { Card } from "@/components/ui/card";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useCoworkersAttendance } from "../hooks/useCoworkersAttendance";
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { fullName } from "@/lib/util/name-format";
-import { formatTime } from "@/lib/util/date-format";
+import { formatTime, getTodayFormatted } from "@/lib/util/date-format";
 import {statusStyles, formatStatusText} from "@/app/(protected)/admin/attendance/types/status-format"
 import AvatarInitials from "@/lib/components/AvatarInitials";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -25,6 +25,8 @@ export default function CoWorkers() {
             <p className="mb-2 text-sm font-light lg:text-base">My Co-Engineers</p>
 
             <Card className="px-6 py-5 lg:px-8 lg:py-6 flex-1 overflow-hidden">
+                <CardTitle>{getTodayFormatted()}</CardTitle>
+                <CardDescription>This are the employees who are present today.</CardDescription>
                 <ScrollArea className="overflow-x-auto rounded-xl border h-70 sm:h-80 lg:h-90">
                     <Table className="lg:text-base">
                         <TableHeader className="bg-[#FFEB94]/40">
@@ -71,7 +73,7 @@ export default function CoWorkers() {
                                     </TableCell>
                                         
                                     <TableCell>
-                                        {formatTime(log.timeIn.timestamp)}
+                                        {formatTime(log.timeIn.timeStamp)}
                                     </TableCell>
 
                                     <TableCell className="max-w-25 overflow-auto">
@@ -79,7 +81,7 @@ export default function CoWorkers() {
                                     </TableCell>
 
                                     <TableCell>
-                                        {formatTime(log.timeOut.timestamp)}
+                                        {formatTime(log.timeOut.timeStamp)}
                                     </TableCell>
 
                                     <TableCell className="max-w-15 overflow-auto">

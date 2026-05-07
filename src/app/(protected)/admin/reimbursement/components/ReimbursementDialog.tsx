@@ -38,7 +38,7 @@ export default function ReimbursementDialog({
 }: Props) {
   if (!action) return null;
 
-  const MIN_AMOUNT = 500;
+  const MIN_AMOUNT = 100;
   const requestedAmount = request.requestedAmount;
   const [approvedAmountInput, setApprovedAmountInput] = useState(String(requestedAmount));
 
@@ -123,7 +123,7 @@ export default function ReimbursementDialog({
 
             {approvedAmountInput.trim().length > 0 && parsedApprovedAmount < MIN_AMOUNT ? (
               <p className="text-destructive text-xs">
-                Minimum allowed amount is ₱500.
+                Minimum allowed amount is ₱100.
               </p>
             ) : null}
 

@@ -7,11 +7,11 @@ export const mockCoworkers: CoworkersAttendanceReponse= {
             firstname: "Jessa",
             lastname: "Gozun",
             timeIn: {
-                timestamp: "2026-04-20T08:30:00.000Z",
+                timeStamp: "2026-04-20T08:30:00.000Z",
                 location: "Quezon City HFKHAKFHLAHFHAFKLkna,n,naklsfjklanscalhfskashkfksn"
             },
             timeOut:{
-                timestamp: "2026-04-20T08:30:00.000Z",
+                timeStamp: "2026-04-20T08:30:00.000Z",
                 location: "New York"
             },
             status: AttendanceStatus.IN_PROGRESS
@@ -21,11 +21,11 @@ export const mockCoworkers: CoworkersAttendanceReponse= {
             firstname: "Chesca",
             lastname: "Bughaw",
             timeIn: {
-                timestamp: "",
+                timeStamp: "",
                 location: ""
             },
             timeOut:{
-                timestamp: "",
+                timeStamp: "",
                 location: ""
             },
             status: AttendanceStatus.NO_RECORD
@@ -35,11 +35,11 @@ export const mockCoworkers: CoworkersAttendanceReponse= {
             firstname: "Dinavel",
             lastname: "Binongo",
             timeIn: {
-                timestamp: "",
+                timeStamp: "",
                 location: ""
             },
             timeOut:{
-                timestamp: "",
+                timeStamp: "",
                 location: ""
             },
             status: AttendanceStatus.SUSPENDED
@@ -49,11 +49,11 @@ export const mockCoworkers: CoworkersAttendanceReponse= {
             firstname: "Angela",
             lastname: "Alcantra",
             timeIn: {
-                timestamp: "",
+                timeStamp: "",
                 location: ""
             },
             timeOut:{
-                timestamp: "",
+                timeStamp: "",
                 location: ""
             },
             status: AttendanceStatus.ON_LEAVE
@@ -63,11 +63,11 @@ export const mockCoworkers: CoworkersAttendanceReponse= {
             firstname: "Joseph",
             lastname: "Manlapaz",
             timeIn: {
-                timestamp: "2026-04-20T08:30:00.000Z",
+                timeStamp: "2026-04-20T08:30:00.000Z",
                 location: "Taguig"
             },
             timeOut:{
-                timestamp: "",
+                timeStamp: "",
                 location: ""
             },
             status: AttendanceStatus.MISSING_TIMEOUT
@@ -77,11 +77,11 @@ export const mockCoworkers: CoworkersAttendanceReponse= {
             firstname: "Pol",
             lastname: "Celeste",
             timeIn: {
-                timestamp: "2026-04-20T08:30:00.000Z",
+                timeStamp: "2026-04-20T08:30:00.000Z",
                 location: "Parañaque"
             },
             timeOut:{
-                timestamp: "2026-04-20T08:30:00.000Z",
+                timeStamp: "2026-04-20T08:30:00.000Z",
                 location: "Parañaque"
             },
             status: AttendanceStatus.COMPLETED

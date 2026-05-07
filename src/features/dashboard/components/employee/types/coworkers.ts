@@ -6,11 +6,11 @@ export type CoworkerAttendance = {
     firstname: AccountInfo["firstname"];
     lastname: AccountInfo["lastname"];
     timeIn: {
-        timestamp: string;
+        timeStamp: string;
         location: string
     };
     timeOut:{
-        timestamp: string;
+        timeStamp: string;
         location: string
     }
     status: AttendanceStatus

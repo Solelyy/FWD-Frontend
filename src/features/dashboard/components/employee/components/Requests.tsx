@@ -80,7 +80,8 @@ export default function Requests() {
                                     <div className="flex items-start justify-between gap-2">
                                         <div className="min-w-0">
                                             <p className="flex items-center gap-2 text-sm font-medium lg:text-base">
-                                                <Icon className="h-5 w-5 text-muted-foreground" />
+                                                {/*<Icon className="h-5 w-5 text-muted-foreground" />*/}
+                                                {Icon && <Icon className="h-5 w-5 text-muted-foreground" />}
                                                 {titleFormat[request.type]}
                                             </p>
                                             <p className="mt-1 text-xs text-muted-foreground lg:text-sm">
