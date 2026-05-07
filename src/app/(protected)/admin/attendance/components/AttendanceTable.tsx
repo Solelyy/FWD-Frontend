@@ -13,6 +13,7 @@ import { AttendanceType, } from "@/app/(protected)/employee/attendance/submit-at
 import {statusStyles, formatStatusText, overtimeStatusStyle, formatOvertimeText} from "@/app/(protected)/admin/attendance/types/status-format"
 import AvatarInitials from "@/lib/components/AvatarInitials";
 import { fullName } from "@/lib/util/name-format";
+import ViewChangesDialog from "./ViewChangesDialog";
 
 type Props = {
     data?: EmployeesAttendanceResponse
@@ -27,6 +28,7 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
     const [ attendanceType, setAttendanceType ] = useState<AttendanceType>();
     const [ isViewDialogOpen, setViewDialogOpen ] = useState(false);
     const [selectedLog, setSelectedLog] = useState<EmployeeAttendance | null>(null);
+    const [viewChanges, setViewChanges] = useState(false);
 
     const logs = data?.logs ?? [];
     const normalizedSearch = searchTerm.trim().toLowerCase();
@@ -56,6 +58,11 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
         setAttendanceType(AttendanceType.TIME_OUT);
     }
 
+    const handleViewChanges = (log: EmployeeAttendance) => {
+        setSelectedLog(log);
+        setViewChanges(true);
+    }
+
     return (
         <div className="space-y-4">
             <div className="flex-1 `overflow-x-auto border rounded-md">
@@ -66,6 +73,7 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
                             <TableHead>Time In</TableHead>
                             <TableHead>Time Out</TableHead>
                             <TableHead>Status</TableHead>
+                            <TableHead>Changes</TableHead>
                             <TableHead>Actions</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -77,7 +85,7 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
 
                         {error && (
                             <TableRow>
-                                <TableCell colSpan={5} className="text-center py-8 text-red-400">
+                                <TableCell colSpan={6} className="text-center py-8 text-red-400">
                                     Failed to load accounts.
                                 </TableCell>
                             </TableRow>
@@ -85,7 +93,7 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
 
                         {!isLoading && !error && filteredLogs.length === 0 && (
                             <TableRow>
-                                <TableCell colSpan={5} className="py-8 text-center">
+                                <TableCell colSpan={6} className="py-8 text-center">
                                     {normalizedSearch ? "No results found" : "No attendance records yet."}
                                 </TableCell>
                             </TableRow>
@@ -136,6 +144,15 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
                                             )}
                                         </div>
                                     </TableCell>
+
+                                    <TableCell>
+                                        {log.isChanged 
+                                        ? <Button 
+                                            variant="outline" size="sm" onClick={() => handleViewChanges(log)}>View Changes</Button>
+                                        : <span className="pl-2"></span>
+                                        }
+
+                                    </TableCell>
                                     <TableCell>
                                         <Actions attendanceLog={log}/>
                                     </TableCell>
@@ -158,6 +175,16 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
                 timeOutLocation={selectedLog?.timeOut?.location}
                 timeInImage={selectedLog?.timeIn?.image}
                 timeOutImage={selectedLog?.timeOut?.image}
+            />
+
+            <ViewChangesDialog 
+                open={viewChanges} 
+                setOpen={setViewChanges} 
+                adminFirstName={selectedLog?.changes?.adminFirstname}
+                adminLastName={selectedLog?.changes?.adminLastname}
+                reason={selectedLog?.changes?.reason}
+                timestamp={selectedLog?.changes?.timestamp}
+                status={selectedLog?.status}
             />
         </div>
     ); 
