@@ -22,25 +22,38 @@ export async function submitLeaveRequestApi({leaveType, startDate, endDate, reas
 
     const result = await response.json();
     if (!response.ok) {
-        const message = result?.message || "";
+        console.log("Result: ", result)
+        const message = Array.isArray(result?.message)
+        ? result.message.join(" ")
+        : typeof result?.message === "string"
+            ? result.message
+            : JSON.stringify(result?.message || "");
+        
+        const lowerMessage = message.toLowerCase();
 
         if (response.status === 400) {
-            if (message.toLowerCase().includes("insufficient")) {
+            if (lowerMessage.includes("greater")) {
+                throw new Error("Please select different end date for your request. Ex: May 9 - May 10")
+            }
+
+            if (lowerMessage.includes("insufficient")) {
                 throw new Error("Insufficient leave balance.");
             }
 
-            if (message.toLowerCase().includes("same") || message.toLowerCase().includes("date")) {
-            throw new Error("You already have a leave request on this date.");
-        }
-
-            if (message.toLowerCase().includes("pending")) {
-                throw new Error("You already have a pending leave request. Please wait for it to be processed.");
+            if (lowerMessage.includes("already have a leave request")) {
+                throw new Error("You already have a leave request on this date.");
             }
 
-            throw new Error(message || "Invalid request, please try different one.");
+            if (lowerMessage.includes("pending")) {
+                throw new Error(
+                    "You already have a pending leave request. Please wait for it to be processed."
+                );
+            }
+
+            throw new Error(message || "Invalid request, please try again.");
         }
 
-        throw new Error (result?.message || "Unable to submit leave request.");
+        throw new Error(message || "Unable to submit leave request.");
     }
 
     console.log("Leave request response: ", result);

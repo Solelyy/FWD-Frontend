@@ -28,7 +28,7 @@ export default function TimeinOut() {
             const response = await isOvertimeApi();
 
             if (!response.canTimeOut) {
-                toast.error("Cannot time out yet.");
+                toast.error("You just timed in. Cannot time out yet.");
                 return;
             }
 
@@ -120,7 +120,7 @@ export default function TimeinOut() {
                                     {formatTime(attendance.timeIn)}
                                     {attendance.isChanged 
                                         ? ` (${attendanceText})`
-                                        : `${attendance.isLate && " (Late)"}`
+                                        : `${attendance.isLate ? " (Late)" : ""}`
                                     }
                                 </span>
                             ) : (
