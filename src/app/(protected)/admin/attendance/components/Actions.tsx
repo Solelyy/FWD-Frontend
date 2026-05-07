@@ -27,6 +27,7 @@ export default function Actions({attendanceLog}: Props) {
   const handleConfirm = async (
     attendanceLog: EmployeeAttendance,
     action: ActionPropsAttendance,
+    reason: string,
     extra?: { timeIn?: Date; timeOut?: Date }
     ) => {
       if (isPending) return;
@@ -42,6 +43,7 @@ export default function Actions({attendanceLog}: Props) {
             status: attendanceLog.status,
             timeIn,
             timeOut,
+            reason
           }
         ),
 
@@ -49,7 +51,8 @@ export default function Actions({attendanceLog}: Props) {
           markAbsent.mutateAsync({
             id: attendanceLog.attendanceId,
             employeeId: attendanceLog.employeeId,
-            status: attendanceLog.status
+            status: attendanceLog.status,
+            reason
           }
         ),
 
@@ -60,6 +63,7 @@ export default function Actions({attendanceLog}: Props) {
             status: attendanceLog.status,
             timeIn,
             timeOut,
+            reason
           }
         ),
 
@@ -67,7 +71,8 @@ export default function Actions({attendanceLog}: Props) {
           updateOvertimeRequest.mutateAsync({
             id: attendanceLog.attendanceId,
             employeeId: attendanceLog.employeeId,
-            overtimeStatus: OvertimeStatus.APPROVED
+            overtimeStatus: OvertimeStatus.APPROVED,
+            reason
           }
         ),
 
@@ -75,7 +80,8 @@ export default function Actions({attendanceLog}: Props) {
           updateOvertimeRequest.mutateAsync({
             id: attendanceLog.attendanceId,
             employeeId: attendanceLog.employeeId,
-            overtimeStatus: OvertimeStatus.REJECTED
+            overtimeStatus: OvertimeStatus.REJECTED,
+            reason
           }
         ),
       };

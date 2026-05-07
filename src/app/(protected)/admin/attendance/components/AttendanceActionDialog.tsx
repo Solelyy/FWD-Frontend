@@ -4,6 +4,8 @@ import { ActionPropsAttendance, AttendanceActions } from "../types/actions";
 import { Button } from "@/components/ui/button";
 import { useMemo, useState } from "react";
 import AddAttendance from "./AddAttendance";
+import { Label } from "@/components/ui/label";
+
 
 type ActionDialogProps = {
     open: boolean
@@ -13,6 +15,7 @@ type ActionDialogProps = {
     onConfirm?: (
         attendanceLog: EmployeeAttendance,
         action: ActionPropsAttendance,
+        reason: string,
         extra?: { timeIn?: Date; timeOut?: Date }
     ) => void
     onCancel?: ()=> void
@@ -22,6 +25,8 @@ type ActionDialogProps = {
 export default function AttendanceActionDialog({
     open, setOpen, attendanceLog, action, onConfirm, onCancel, isPending}: ActionDialogProps) {
     const [attendanceTimes, setAttendanceTimes] = useState<{ timeIn?: Date; timeOut?: Date }>({});
+    const [reason, setReason] = useState("");
+    const [reasonError, setReasonError] = useState("");
 
     const shouldShowAddAttendance =
         action?.targetAction === AttendanceActions.ADD_ATTENDANCE ||
@@ -69,8 +74,16 @@ export default function AttendanceActionDialog({
     }
 
     const handleConfirm = () => {
-        onConfirm?.(attendanceLog, action, attendanceTimes);
-        setOpen(false);
+        const trimmedReason = reason.trim();
+
+        if (!trimmedReason) {
+            setReasonError("Please provide a reason for this action.");
+            return;
+        }
+
+        setReasonError("");
+
+        onConfirm?.(attendanceLog, action, trimmedReason, attendanceTimes);
     }
     
     const Icon = action.icon;
@@ -96,6 +109,30 @@ export default function AttendanceActionDialog({
                         onTimesChange={setAttendanceTimes}
                     />
                 )}
+
+                <div className="space-y-2">
+                    <Label htmlFor="reason">Reason (Required)</Label>
+                    <textarea
+                        id="reason"
+                        value={reason}
+                        onChange={(event) => {
+                            setReason(event.target.value);
+
+                            if (reasonError) {
+                                setReasonError("");
+                            }
+                        }}
+                        placeholder="Please provide a reason for this action"
+                        className="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs outline-none transition-[color,box-shadow] focus-visible:ring-[3px]"
+                        rows={4}
+                    />
+
+                    {reasonError && (
+                        <p className="text-sm font-medium text-destructive">
+                            {reasonError}
+                        </p>
+                    )}
+                </div>
                 
                 <DialogFooter className="flex flex-col-reverse gap-2">
                     <Button 

@@ -1,7 +1,7 @@
 import { API_BASE_URL } from "@/lib/util/api";
 import { OverrideAttendancePayload } from "./overrideAttendanceApi";
 
-export async function markAbsentApi({employeeId, status, id}: OverrideAttendancePayload) {
+export async function markAbsentApi({reason, status, id}: OverrideAttendancePayload) {
     const endpoint = "/admin/employee/absent"
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "PATCH",
@@ -9,7 +9,7 @@ export async function markAbsentApi({employeeId, status, id}: OverrideAttendance
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({attendanceId:id, status})
+        body: JSON.stringify({attendanceId:id, status, reason})
     });
 
     if (!response.ok) {
