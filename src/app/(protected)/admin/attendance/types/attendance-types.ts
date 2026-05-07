@@ -1,5 +1,6 @@
 import { AccountInfo } from "@/features/account-management/types/account";
 import { AttendanceStatus, OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
+import { AttendanceActions } from "./actions";
 
 export enum AttendanceStatusFilter {
   ALL = "ALL",
@@ -14,7 +15,7 @@ export type EmployeeAttendance = {
     attendanceId: number
     employeeId: AccountInfo["employeeId"];
     firstname: AccountInfo["firstname"];
-    lastname: AccountInfo["lastname"]
+    lastname: AccountInfo["lastname"];
     timeIn: {
         timestamp: string;
         image: string;
@@ -25,8 +26,15 @@ export type EmployeeAttendance = {
         image: string;
         location: string;
     }
-    status: AttendanceStatus
-    overtimeStatus?: OvertimeStatus
+    status: AttendanceStatus;
+    overtimeStatus?: OvertimeStatus;
+    isChanged: boolean;
+    changes : {
+        adminFirstname: string;
+        adminLastname: string;
+        timestamp: string;
+        reason: string
+    }
 }
 
 export type EmployeesAttendanceResponse = {

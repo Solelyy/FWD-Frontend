@@ -1,12 +1,12 @@
 import { AttendanceStatus, OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType"
 
 export const statusStyles: Record<AttendanceStatus, string> = {
-    [AttendanceStatus.COMPLETED]: "bg-green-100 text-green-600",
-    [AttendanceStatus.IN_PROGRESS]: "bg-yellow-100 text-yellow-600",
-    [AttendanceStatus.MISSING_TIMEOUT]: "bg-orange-100 text-orange-600",
-    [AttendanceStatus.NO_RECORD]: "bg-gray-100 text-gray-600",
-    [AttendanceStatus.ON_LEAVE]: "bg-blue-100 text-blue-600",
-    [AttendanceStatus.SUSPENDED]: "bg-red-100 text-red-600"
+    [AttendanceStatus.COMPLETED]: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+    [AttendanceStatus.IN_PROGRESS]: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
+    [AttendanceStatus.MISSING_TIMEOUT]: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
+    [AttendanceStatus.NO_RECORD]: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200",
+    [AttendanceStatus.ON_LEAVE]: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+    [AttendanceStatus.SUSPENDED]: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
 }
 
 export const formatStatusText: Record<AttendanceStatus, string> = {
