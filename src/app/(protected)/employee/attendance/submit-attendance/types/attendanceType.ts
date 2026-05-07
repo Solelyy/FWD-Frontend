@@ -1,17 +1,17 @@
 import { AccountInfo } from "@/features/account-management/types/account";
 
 export enum AttendanceType {
-    TIME_IN = "TIME_IN",
-    TIME_OUT = "TIME_OUT"
+  TIME_IN = "TIME_IN",
+  TIME_OUT = "TIME_OUT"
 }
 
 export enum AttendanceStatus {
-    NO_RECORD = "NO_RECORD",
-    IN_PROGRESS = "IN_PROGRESS",
-    COMPLETED = "COMPLETED",
-    ON_LEAVE="ON_LEAVE",
-    SUSPENDED="SUSPENDED",
-    MISSING_TIMEOUT="MISSING_TIMEOUT"
+  NO_RECORD = "NO_RECORD",
+  IN_PROGRESS = "IN_PROGRESS",
+  COMPLETED = "COMPLETED",
+  ON_LEAVE="ON_LEAVE",
+  SUSPENDED="SUSPENDED",
+  MISSING_TIMEOUT="MISSING_TIMEOUT"
 }
 
 export enum OvertimeStatus {

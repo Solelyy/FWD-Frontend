@@ -11,7 +11,7 @@ export type EmployeeAttendanceProps= {
     filter: AttendanceStatusFilter
 }
 
-/*
+
 export async function employeeAttendanceApi({page, limit, year, day, month, filter}: EmployeeAttendanceProps): Promise<EmployeesAttendanceResponse> {
     const result = {
         logs: mockAttendance,
@@ -23,8 +23,8 @@ export async function employeeAttendanceApi({page, limit, year, day, month, filt
     }
     return result;
 }
-*/
 
+/*
 export async function employeeAttendanceApi({page, limit, year, day, month, filter}: EmployeeAttendanceProps): Promise<EmployeesAttendanceResponse> {
     const endpoint =  `/admin/employee/attendance?year=${year}&month=${month+1}&day=${day}&page=${page}&limit=${limit}&filter=${filter}`;
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -41,3 +41,4 @@ export async function employeeAttendanceApi({page, limit, year, day, month, filt
     return result;   
 };
 
+*/

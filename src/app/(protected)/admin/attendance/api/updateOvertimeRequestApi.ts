@@ -6,8 +6,9 @@ export type UpdateOvertimeRequest = {
     employeeId: EmployeeAttendance["employeeId"];
     overtimeStatus?: OvertimeStatus;
     id: EmployeeAttendance["attendanceId"];
+    reason: string
 }
-export async function updateOvertimeRequestApi({employeeId, overtimeStatus, id}:UpdateOvertimeRequest) {
+export async function updateOvertimeRequestApi({overtimeStatus, id, reason}:UpdateOvertimeRequest) {
     const endpoint = "/admin/employee/overtime/status"
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "PATCH",
@@ -15,7 +16,7 @@ export async function updateOvertimeRequestApi({employeeId, overtimeStatus, id}:
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({attendanceId:id, status:overtimeStatus})
+        body: JSON.stringify({attendanceId:id, status:overtimeStatus, reason})
     });
 
     if (!response.ok) {

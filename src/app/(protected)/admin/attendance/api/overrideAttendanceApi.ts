@@ -7,8 +7,9 @@ export type OverrideAttendancePayload = {
     status: EmployeeAttendance["status"];
     timeIn?: string;
     timeOut?: string;
+    reason: string;
 }
-export async function overrideAttendanceApi({employeeId, status, timeIn, timeOut, id}: OverrideAttendancePayload) {
+export async function overrideAttendanceApi({employeeId, timeIn, timeOut, reason}: OverrideAttendancePayload) {
     const endpoint = "/admin/employee/update-attendance";
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "PATCH",
@@ -16,7 +17,7 @@ export async function overrideAttendanceApi({employeeId, status, timeIn, timeOut
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ employeeId, timeIn, timeOut })
+        body: JSON.stringify({ employeeId, timeIn, timeOut, reason })
     });
 
     console.log(`Paylaod: 

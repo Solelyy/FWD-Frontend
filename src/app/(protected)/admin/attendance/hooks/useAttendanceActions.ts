@@ -30,8 +30,8 @@ export function useAttendanceActions() {
     });
 
     const markAbsent = useMutation({
-        mutationFn: ({employeeId, status, id}: OverrideAttendancePayload)=> 
-            markAbsentApi({id, employeeId, status}),
+        mutationFn: ({employeeId, status, id, reason}: OverrideAttendancePayload)=> 
+            markAbsentApi({id, employeeId, status, reason}),
         onSuccess: () => {
             toast.success("Attendance sucessfully changed.")
             invalidateAttendanceQueries()
@@ -54,8 +54,8 @@ export function useAttendanceActions() {
     });
 
     const updateOvertimeRequest = useMutation({
-        mutationFn: ({employeeId, overtimeStatus, id}: UpdateOvertimeRequest)=> 
-            updateOvertimeRequestApi({id, employeeId, overtimeStatus}),
+        mutationFn: ({employeeId, overtimeStatus, id, reason}: UpdateOvertimeRequest)=> 
+            updateOvertimeRequestApi({id, employeeId, overtimeStatus, reason}),
         onSuccess: () => {
             toast.success("Attendance sucessfully changed.")
             invalidateAttendanceQueries()
