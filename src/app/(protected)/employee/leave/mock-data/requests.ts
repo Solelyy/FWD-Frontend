@@ -27,6 +27,12 @@ export const mockLeaveRequests: LeaveRequestsResponse = {
 			startDate: "2026-04-12",
 			endDate: "2026-04-12",
 			status: OvertimeStatus.REJECTED,
+			actionMade: {
+				adminFirstname: "Jessa",
+				adminLastname: "Gozun",
+				timestamp: "2026-04-03T09:15:00.000Z",
+				rejectionReason: "Bawal"
+			}
 		},
 		{
 			id: "4",

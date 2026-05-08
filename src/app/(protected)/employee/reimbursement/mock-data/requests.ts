@@ -39,6 +39,12 @@ export const mockReimbursementRequests: ReimbursementRequests = {
 			reason: "Office supplies purchase",
 			attachment: "receipt-other-3.jpg",
 			status: ReimbursementRequestStatus.REJECTED,
+			actionMade: {
+				adminFirstname: "Jessa",
+				adminLastname: "Gozun",
+				timestamp: "2026-04-03T09:15:00.000Z",
+				rejectionReason: "Bawal"
+			}
 		},
 		{
 			id: 4,

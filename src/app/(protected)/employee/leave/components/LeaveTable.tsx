@@ -14,6 +14,7 @@ import { formatDateWithoutYear, formatTableDate } from "@/lib/util/date-format";
 import { LeaveRequest, leaveTypeFormatText } from "../types/leave";
 import { leaveRequestStatusStyle, formatLeaveRequestText } from "@/app/(protected)/admin/leave/types/leave-status";
 import ViewAdditionalInfo from "@/app/(protected)/admin/leave/components/ViewAdditionalInfo";
+import { OvertimeStatus } from "../../attendance/submit-attendance/types/attendanceType";
 
 export default function LeaveTable() {
     const [open, setOpen] = useState(false);
@@ -30,6 +31,8 @@ export default function LeaveTable() {
         setShowAdditionalInfo(true);
     }
 
+    const actionMade = selectedRequest?.status !== OvertimeStatus.PENDING;
+    
     return (
         <>
         <div className="space-y-4 md:space-y-6 lg:space-y-8">
@@ -117,6 +120,9 @@ export default function LeaveTable() {
             reason={selectedRequest?.reason}
             attachment={selectedRequest?.attachment}
             isWithAttachment={true}
+            actionMade={actionMade}
+            status={selectedRequest?.status}
+            actionDetails={selectedRequest?.actionMade}
         />
         </>
     )
