@@ -13,6 +13,8 @@ import { formatPeso } from "@/lib/util/currency-format";
 import { cashAdvanceStatusStyle, formatCashAdvanceStatusText } from "../types/status-format";
 import { useState } from "react";
 import CashAdvanceDialog from "./CashAdvanceDialog";
+import { CashAdvanceRequest } from "../types/cash-advance";
+import ViewAdditionalInfo from "@/app/(protected)/admin/leave/components/ViewAdditionalInfo";
 
 export default function CashAdvance() {
     const [open, setOpen] = useState(false);
@@ -20,6 +22,14 @@ export default function CashAdvance() {
     const {data: requestsData, isLoading, error} = useCashAdvanceRequests();
 
     const requests = requestsData?.records ?? [];
+
+    const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
+    const [selectedRequest, setSelectedRequest] = useState<CashAdvanceRequest | null>(null)
+    
+    const handleView = (log: CashAdvanceRequest) => {
+        setSelectedRequest(log);
+        setShowAdditionalInfo(true);
+    }
 
     return (
         <>
@@ -41,6 +51,7 @@ export default function CashAdvance() {
                                 <TableHead>Date Submitted</TableHead>
                                 <TableHead>Amount Requested</TableHead>
                                 <TableHead>Amount Approved</TableHead>
+                                <TableHead>Additional Info</TableHead>
                                 <TableHead>Status</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -52,7 +63,7 @@ export default function CashAdvance() {
                             
                             {error && (
                                 <TableRow>
-                                    <TableCell colSpan={4} className="text-center py-8 text-red-400">
+                                    <TableCell colSpan={5} className="text-center py-8 text-red-400">
                                         Failed to load accounts.
                                     </TableCell>
                                 </TableRow>
@@ -60,7 +71,7 @@ export default function CashAdvance() {
 
                             {!isLoading && !error && requests?.length === 0 && (
                                 <TableRow>
-                                    <TableCell colSpan={4} className="text-center py-8">
+                                    <TableCell colSpan={5} className="text-center py-8">
                                         No cash advance records yet.
                                     </TableCell>
                                 </TableRow>
@@ -81,6 +92,10 @@ export default function CashAdvance() {
                                     </TableCell>
 
                                     <TableCell>
+                                        <Button variant="outline" size="sm" className="px-6" onClick={() => handleView(request)}>View</Button>
+                                    </TableCell>
+
+                                    <TableCell>
                                         <span className={`px-2 py-1 text-xs font-medium rounded-md ${cashAdvanceStatusStyle[request.status]}`}>
                                             {formatCashAdvanceStatusText[request.status]}
                                         </span>
@@ -94,6 +109,12 @@ export default function CashAdvance() {
         </div>
         
         <CashAdvanceDialog open={open} setOpen={setOpen}/>
+        <ViewAdditionalInfo 
+            open={showAdditionalInfo}  
+            setOpen={setShowAdditionalInfo}
+            reason={selectedRequest?.reason}
+            isWithAttachment={false}
+        />
         </>
     );
 }
