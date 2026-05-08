@@ -5,18 +5,26 @@ export type SubmitReimbursementPayload = {
     id?: ReimbursementRequest["id"];
     type: ReimbursementType;
     amountRequested: number;
-    attachment?: string;
+    attachment?: File | null;
     reason?: string;
 }
 
 export async function submitReimbursementApi({id, type, amountRequested, attachment, reason}: SubmitReimbursementPayload) {
+    const formData = new FormData();
+
+    formData.append("type", type);
+    formData.append("amountRequested", amountRequested.toString());
+    if (reason) {
+        formData.append("reason", reason)
+    }
+    if (attachment) {
+        formData.append("attachment", attachment)
+    }
+
     const response = await fetch(`${API_BASE_URL}/employee/reimbursement-request`, {
         method: "POST",
         credentials: "include",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({type, amountRequested, attachment, reason})
+        body: formData,
     });
 
     const result = await response.json();
