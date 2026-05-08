@@ -24,7 +24,7 @@ type Props = {
 export default function ViewAdditionalInfo({open, setOpen, reason, attachment, isWithAttachment, actionMade, actionDetails, status}: Props) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="max-w-sm md:max-w-lg space-y-2 p-4 md:p-6">
+            <DialogContent className="max-w-sm md:max-w-lg space-y-2 p-4 md:p-6 max-h-[70%] overflow-auto">
                 <DialogHeader>
                     <DialogTitle>Additional Information</DialogTitle>
                 </DialogHeader>
@@ -52,7 +52,7 @@ export default function ViewAdditionalInfo({open, setOpen, reason, attachment, i
                 )}
 
                 {actionMade && (
-                    <div className="border min-h-20 max-h-70 rounded-md text-base overflow-auto text-justify p-2">
+                    <div className="border min-h-20 rounded-md text-base text-justify p-2">
                         <DialogDescription className="mb-2">Request Details: </DialogDescription>
 
                         <div className="space-y-5">

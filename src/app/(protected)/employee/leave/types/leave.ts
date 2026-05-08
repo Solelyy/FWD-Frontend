@@ -22,6 +22,12 @@ export type LeaveRequest = {
     status: OvertimeStatus;
     reason?: string;
     attachment?: string
+    actionMade?: {
+        adminFirstname?: string;
+        adminLastname?: string;
+        rejectionReason?: string;
+        timestamp?: string;
+    }
 }
 
 export type LeaveRequestsResponse = {

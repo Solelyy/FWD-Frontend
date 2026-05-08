@@ -27,6 +27,12 @@ export interface ReimbursementRequest {
     reason?: string;
     attachment: string;
     status: ReimbursementRequestStatus;
+    actionMade?: {
+        adminFirstname?: string;
+        adminLastname?: string;
+        rejectionReason?: string;
+        timestamp?: string;
+    }
 }
 
 export type ReimbursementRequests = {

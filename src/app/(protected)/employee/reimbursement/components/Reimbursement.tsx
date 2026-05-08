@@ -9,7 +9,7 @@ import ReimbursementCard from "./ReimbursementCard";
 import { useReimbursementRequests } from "../hooks/useReimbursementRequests";
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { formatTableDate } from "@/lib/util/date-format";
-import { ReimbursementRequest, ReimbursementType } from "../types/reimbursement";
+import { ReimbursementRequest, ReimbursementRequestStatus, ReimbursementType } from "../types/reimbursement";
 import { formatPeso } from "@/lib/util/currency-format";
 import { reimbursementStatusStyle, formatReimbursementStatusText, requestTypeFormat } from "../types/format";
 import ReimbursementDialog from "./ReimbursementDialog";
@@ -30,6 +30,9 @@ export default function Reimbursement() {
         setSelectedRequest(log);
         setShowAdditionalInfo(true);
     }
+
+    const actionMade = selectedRequest?.status !== ReimbursementRequestStatus.PENDING;
+    
 
     return (
         <>
@@ -121,6 +124,9 @@ export default function Reimbursement() {
             reason={selectedRequest?.reason}
             attachment={selectedRequest?.attachment}
             isWithAttachment={true}
+            actionMade={actionMade}
+            status={selectedRequest?.status}
+            actionDetails={selectedRequest?.actionMade}
         />
         </>
     )
