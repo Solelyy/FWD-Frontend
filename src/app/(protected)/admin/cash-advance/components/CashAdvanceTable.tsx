@@ -100,7 +100,7 @@ export default function CashAdvanceTable({data, isLoading, error, page, setPage,
                                 </TableCell>
 
                                 <TableCell>
-                                    <Button variant="outline" className="px-6" onClick={() => handleShowAdditionalInfo(request)}>
+                                    <Button variant="outline" size="sm" className="px-6" onClick={() => handleShowAdditionalInfo(request)}>
                                          View
                                     </Button>
                                 </TableCell>

@@ -9,6 +9,7 @@ export const mockCashAdvanceRequests: CashAdvanceRequests = {
 			amountRequested: 5000,
 			amountApproved: 0,
 			status: CashAdvanceRequestStatus.PENDING,
+			reason: "Opo",
 		},
 		{
 			id: 2,

@@ -9,11 +9,12 @@ import ReimbursementCard from "./ReimbursementCard";
 import { useReimbursementRequests } from "../hooks/useReimbursementRequests";
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { formatTableDate } from "@/lib/util/date-format";
-import { ReimbursementType } from "../types/reimbursement";
+import { ReimbursementRequest, ReimbursementType } from "../types/reimbursement";
 import { formatPeso } from "@/lib/util/currency-format";
 import { reimbursementStatusStyle, formatReimbursementStatusText, requestTypeFormat } from "../types/format";
 import ReimbursementDialog from "./ReimbursementDialog";
 import { useState } from "react";
+import ViewAdditionalInfo from "@/app/(protected)/admin/leave/components/ViewAdditionalInfo";
 
 export default function Reimbursement() {
     const [open, setOpen] = useState(false);
@@ -21,6 +22,14 @@ export default function Reimbursement() {
     const {data, isLoading, error } = useReimbursementRequests();
 
     const requests = data?.records ?? [];
+
+    const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
+    const [selectedRequest, setSelectedRequest] = useState<ReimbursementRequest | null>(null)
+    
+    const handleView = (log: ReimbursementRequest) => {
+        setSelectedRequest(log);
+        setShowAdditionalInfo(true);
+    }
 
     return (
         <>
@@ -44,6 +53,7 @@ export default function Reimbursement() {
                                 <TableHead>Type</TableHead>
                                 <TableHead>Amount</TableHead>
                                 <TableHead>Amount Approved</TableHead>
+                                <TableHead>Additional Info</TableHead>
                                 <TableHead>Status</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -54,7 +64,7 @@ export default function Reimbursement() {
                             
                             {error && (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="text-center py-8 text-red-400">
+                                    <TableCell colSpan={6} className="text-center py-8 text-red-400">
                                         Failed to load accounts.
                                     </TableCell>
                                 </TableRow>
@@ -62,7 +72,7 @@ export default function Reimbursement() {
 
                             {!isLoading && !error && requests?.length === 0 && (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="text-center py-8">
+                                    <TableCell colSpan={6} className="text-center py-8">
                                         No reimbursement records found.
                                     </TableCell>
                                 </TableRow>
@@ -86,6 +96,11 @@ export default function Reimbursement() {
                                         {formatPeso(request.amountApproved)}
                                    </TableCell>
 
+                                   <TableCell>
+                                        <Button variant="outline" size="sm" className="px-6" onClick={() => handleView(request)}>View</Button>
+
+                                   </TableCell>
+
                                     <TableCell>
                                         <span className={`px-2 py-1 text-xs font-medium rounded-md ${reimbursementStatusStyle[request.status]}`}>
                                             {formatReimbursementStatusText[request.status]}
@@ -100,6 +115,13 @@ export default function Reimbursement() {
         </div>
 
         <ReimbursementDialog open={open} setOpen={setOpen}/>
+        <ViewAdditionalInfo 
+            open={showAdditionalInfo}  
+            setOpen={setShowAdditionalInfo}
+            reason={selectedRequest?.reason}
+            attachment={selectedRequest?.attachment}
+            isWithAttachment={true}
+        />
         </>
     )
 }

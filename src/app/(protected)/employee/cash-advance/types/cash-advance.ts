@@ -7,7 +7,8 @@ export type CashAdvanceRequest = {
     dateSubmitted: string;
     amountRequested: number;
     amountApproved: number;
-    status: CashAdvanceRequestStatus
+    status: CashAdvanceRequestStatus;
+    reason?: string;
 }
 
 export enum CashAdvanceRequestStatus {
