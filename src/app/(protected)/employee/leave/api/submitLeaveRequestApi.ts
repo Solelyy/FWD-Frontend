@@ -6,18 +6,25 @@ export type SubmitLeaveRequestPayload = {
     startDate: string;
     endDate: string
     reason: string;
-    attachment?: string;
+    attachment?: File | null
 }
 
 export async function submitLeaveRequestApi({leaveType, startDate, endDate, reason, attachment}: SubmitLeaveRequestPayload){
     const endpoint="/employee/create-leave";
+    const formData = new FormData();
+
+    formData.append("leaveType", leaveType);
+    formData.append("startDate", startDate);
+    formData.append("endDate", endDate);
+    formData.append("reason", reason);
+    if (attachment) {
+        formData.append("attachment", attachment);
+    }
+
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "POST",
         credentials: "include",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({leaveType, startDate, endDate, reason, attachment})
+        body: formData,
     });
 
     const result = await response.json();
@@ -33,7 +40,7 @@ export async function submitLeaveRequestApi({leaveType, startDate, endDate, reas
 
         if (response.status === 400) {
             if (lowerMessage.includes("greater")) {
-                throw new Error("Please select different end date for your request. Ex: May 9 - May 10")
+                throw new Error("Please select a different end date for your request. Example: May 9 - May 10.");
             }
 
             if (lowerMessage.includes("insufficient")) {

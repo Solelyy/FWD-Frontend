@@ -42,7 +42,7 @@ export default function LeaveDialog({open, setOpen}: Props) {
                 startDate: dateRange.from.toISOString(),
                 endDate: dateRange.to.toISOString(),
                 reason,
-                attachment: attachment ? attachment.name : undefined, 
+                attachment: attachment,
             });
             toast.success("Leave Request successfully submitted.")
             setOpen(false);
