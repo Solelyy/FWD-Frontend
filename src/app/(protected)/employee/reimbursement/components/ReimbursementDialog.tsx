@@ -54,7 +54,7 @@ export default function ReimbursementDialog({open, setOpen}: Props) {
                 type,
                 amountRequested: parsedAmount,
                 reason: reason.trim() || undefined,
-                attachment: attachment?.name,
+                attachment: attachment,
             });
 
             toast.success("Reimbursement request submitted successfully.");
