@@ -13,6 +13,12 @@ export type EmployeeReimbursementRequest = {
     status: ReimbursementRequestStatus;
     firstname: AccountInfo["firstname"];
     lastname: AccountInfo["lastname"];
+    actionMade?: {
+        adminFirstname?: string;
+        adminLastname?: string;
+        rejectionReason?: string;
+        timestamp?: string;
+    }
 }
 
 export type EmployeeReimbursementRequests = {

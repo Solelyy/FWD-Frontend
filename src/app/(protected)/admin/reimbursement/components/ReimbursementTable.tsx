@@ -6,7 +6,7 @@ import { EmployeeReimbursementRequests, EmployeeReimbursementRequest } from "../
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { formatTableDate } from "@/lib/util/date-format";
 import { fullName } from "@/lib/util/name-format";
-import { ReimbursementType } from "@/app/(protected)/employee/reimbursement/types/reimbursement";
+import { ReimbursementRequestStatus, ReimbursementType } from "@/app/(protected)/employee/reimbursement/types/reimbursement";
 import { reimbursementStatusStyle, formatReimbursementStatusText } from "@/app/(protected)/employee/reimbursement/types/format";
 import ReimbursementActions from "./ReimbursementActions";
 import { formatPeso } from "@/lib/util/currency-format";
@@ -55,7 +55,9 @@ export default function ReimbursementTable({data, isLoading, error, page, setPag
     
             return format;
     }
-
+    
+    const actionMade = selectedRecord?.status !== ReimbursementRequestStatus.PENDING;
+    
     return (
         <>
         <div className="flex flex-col space-y4">
@@ -146,6 +148,9 @@ export default function ReimbursementTable({data, isLoading, error, page, setPag
             reason={selectedRecord?.reason}
             attachment={selectedRecord?.attachment}
             isWithAttachment={true}
+            actionMade={actionMade}
+            status={selectedRecord?.status}
+            actionDetails={selectedRecord?.actionMade}
         />
         
         {/*<PaginationSimple />  */} 

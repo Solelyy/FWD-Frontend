@@ -10,6 +10,7 @@ import CashAdvanceActions from "./CashAdvanceActions";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import ViewAdditionalInfo from "../../leave/components/ViewAdditionalInfo";
+import { CashAdvanceRequestStatus } from "@/app/(protected)/employee/cash-advance/types/cash-advance";
 
 type Props = {
     data?: EmployeesCARequestsResponse;
@@ -43,6 +44,8 @@ export default function CashAdvanceTable({data, isLoading, error, page, setPage,
         );
     });
 
+    const actionMade = selectedRecord?.status !== CashAdvanceRequestStatus.PENDING;
+    
     return (
         <>
         <div className="flex flex-col space-y4">            
@@ -133,6 +136,9 @@ export default function CashAdvanceTable({data, isLoading, error, page, setPage,
                 setOpen={setShowAdditionalInfo} 
                 reason={selectedRecord?.reason}
                 attachment={selectedRecord?.attachment}
+                actionMade={actionMade}
+                status={selectedRecord?.status}
+                actionDetails={selectedRecord?.actionMade}
             />
         </>
     ); 

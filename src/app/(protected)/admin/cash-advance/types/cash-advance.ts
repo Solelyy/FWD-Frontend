@@ -12,6 +12,12 @@ export type EmployeeCARequest = {
     status: CashAdvanceRequestStatus
     reason?: string;
     attachment?: string;
+    actionMade?: {
+        adminFirstname?: string;
+        adminLastname?: string;
+        rejectionReason?: string;
+        timestamp?: string;
+    }
 }
 
 export type EmployeesCARequestsResponse = {
