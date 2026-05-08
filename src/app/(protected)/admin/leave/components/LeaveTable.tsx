@@ -12,6 +12,7 @@ import { leaveRequestStatusStyle, formatLeaveRequestText } from "../types/leave-
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import ViewAdditionalInfo from "./ViewAdditionalInfo";
+import { LeaveRequestStatus } from "../types/leave";
 
 type Props = {
     data?: LeaveRequestsResponse
@@ -44,6 +45,9 @@ export default function LeaveTable({data, isLoading, error, page, setPage, searc
         setSelectedRecord(record);
         setShowAdditionalInfo(true);
     }
+
+    const actionMade = selectedRecord?.status !== LeaveRequestStatus.PENDING;
+    
 
     return (
         <>
@@ -138,6 +142,9 @@ export default function LeaveTable({data, isLoading, error, page, setPage, searc
             reason={selectedRecord?.reason}
             attachment={selectedRecord?.attachment}
             isWithAttachment={true}
+            actionMade={actionMade}
+            status={selectedRecord?.status}
+            actionDetails={selectedRecord?.actionMade}
         />
         </>
     ); 
