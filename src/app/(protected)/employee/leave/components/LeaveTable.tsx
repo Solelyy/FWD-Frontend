@@ -11,9 +11,9 @@ import { useLeaveRequests } from "../hooks/useLeaveRequests";
 import { useLeaveBalances } from "../hooks/useLeaveBalances";
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { formatDateWithoutYear, formatTableDate } from "@/lib/util/date-format";
-import { overtimeStatusStyle, formatOvertimeText } from "@/app/(protected)/admin/attendance/types/status-format";
-import { leaveTypeFormatText } from "../types/leave";
+import { LeaveRequest, leaveTypeFormatText } from "../types/leave";
 import { leaveRequestStatusStyle, formatLeaveRequestText } from "@/app/(protected)/admin/leave/types/leave-status";
+import ViewAdditionalInfo from "@/app/(protected)/admin/leave/components/ViewAdditionalInfo";
 
 export default function LeaveTable() {
     const [open, setOpen] = useState(false);
@@ -21,6 +21,14 @@ export default function LeaveTable() {
     const { data: balancesData } = useLeaveBalances();
 
     const leaveRequests = data?.leaveRequests ?? [];
+
+    const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
+    const [selectedRequest, setSelectedRequest] = useState<LeaveRequest | null>(null)
+
+    const handleView = (log: LeaveRequest) => {
+        setSelectedRequest(log);
+        setShowAdditionalInfo(true);
+    }
 
     return (
         <>
@@ -43,6 +51,7 @@ export default function LeaveTable() {
                                 <TableHead>Date Submitted</TableHead>
                                 <TableHead>Leave Type</TableHead>
                                 <TableHead>Leave Date</TableHead>
+                                <TableHead>Additional Info</TableHead>
                                 <TableHead>Status</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -54,7 +63,7 @@ export default function LeaveTable() {
 
                             {error && (
                                 <TableRow>
-                                    <TableCell colSpan={4} className="text-center py-8 text-red-400">
+                                    <TableCell colSpan={5} className="text-center py-8 text-red-400">
                                         Failed to load accounts.
                                     </TableCell>
                                 </TableRow>
@@ -62,7 +71,7 @@ export default function LeaveTable() {
 
                             {!isLoading && !error && leaveRequests.length === 0 && (
                                 <TableRow>
-                                    <TableCell colSpan={4} className="text-center py-8">
+                                    <TableCell colSpan={5} className="text-center py-8">
                                         No leave request yet.
                                     </TableCell>
                                 </TableRow>
@@ -84,6 +93,10 @@ export default function LeaveTable() {
                                         </TableCell>
 
                                         <TableCell>
+                                            <Button variant="outline" size="sm" className="px-6" onClick={() => handleView(leave)}>View</Button>
+                                        </TableCell>
+
+                                        <TableCell>
                                             <span className={`px-2 py-1 text-xs font-medium rounded-md ${leaveRequestStatusStyle[leave.status]}`}>
                                                 {formatLeaveRequestText[leave.status]}
                                             </span>
@@ -98,6 +111,13 @@ export default function LeaveTable() {
         </div>
 
         <LeaveDialog open={open} setOpen={setOpen}/>
+        <ViewAdditionalInfo 
+            open={showAdditionalInfo}  
+            setOpen={setShowAdditionalInfo}
+            reason={selectedRequest?.reason}
+            attachment={selectedRequest?.attachment}
+            isWithAttachment={true}
+        />
         </>
     )
 }

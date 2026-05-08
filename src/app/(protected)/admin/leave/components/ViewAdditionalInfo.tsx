@@ -30,11 +30,20 @@ export default function ViewAdditionalInfo({open, setOpen, reason, attachment, i
                     <div className="border min-h-20 max-h-70 rounded-md text-base overflow-auto text-justify p-2">
                         <DialogDescription className="mb-2">Attachment: </DialogDescription>
 
-                        {!attachment && (
-                            <span className="text-muted-foreground">No attachment provided</span>
+                        {attachment ? (
+                            <a
+                                href={attachment}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-500 underline"
+                            >
+                                View Attachment
+                            </a>
+                        ) : (
+                            <span className="text-muted-foreground">
+                                No attachment provided
+                            </span>
                         )}
-
-                        {attachment}
                     </div>
                 )}
                 

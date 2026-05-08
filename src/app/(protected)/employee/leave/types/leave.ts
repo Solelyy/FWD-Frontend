@@ -19,7 +19,9 @@ export type LeaveRequest = {
     leaveType: LeaveType;
     startDate: string;
     endDate: string;
-    status: OvertimeStatus
+    status: OvertimeStatus;
+    reason?: string;
+    attachment?: string
 }
 
 export type LeaveRequestsResponse = {
