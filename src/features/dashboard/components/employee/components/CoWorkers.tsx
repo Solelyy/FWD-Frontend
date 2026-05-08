@@ -9,6 +9,11 @@ import { formatTime, getTodayFormatted } from "@/lib/util/date-format";
 import {statusStyles, formatStatusText} from "@/app/(protected)/admin/attendance/types/status-format"
 import AvatarInitials from "@/lib/components/AvatarInitials";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
+import { ViewSelfiesLocationsDialog } from "./ViewSelfiesLocations";
+import { useState } from "react";
+import { CoworkerAttendance } from "../types/coworkers";
+import { AttendanceStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 
 export default function CoWorkers() {
     const today = new Date();
@@ -20,22 +25,30 @@ export default function CoWorkers() {
 
     const attendance = data?.records ?? [];
 
+    const [showSelfiesLocations, setShowSelfiesLocations] = useState(false);
+    const [selectedRecord, setSelectedRecord] = useState<CoworkerAttendance | null>(null);
+
+    const handleView = (record: CoworkerAttendance) => {
+        setSelectedRecord(record);
+        setShowSelfiesLocations(true);
+    }
+
     return (
+        <>
         <div className="flex flex-col flex-1">
             <p className="mb-2 text-sm font-light lg:text-base">My Co-Engineers</p>
 
             <Card className="px-6 py-5 lg:px-8 lg:py-6 flex-1 overflow-hidden">
-                <CardTitle>{getTodayFormatted()}</CardTitle>
-                <CardDescription>This are the employees who are present today.</CardDescription>
+                <CardTitle>Engineers Daily Attendance</CardTitle>
+                <CardDescription>Attendance records of all engineers for today.</CardDescription>
                 <ScrollArea className="overflow-x-auto rounded-xl border h-70 sm:h-80 lg:h-90">
                     <Table className="lg:text-base">
                         <TableHeader className="bg-[#FFEB94]/40">
                             <TableRow>
                                 <TableHead>Employee Name</TableHead>
                                 <TableHead>Time In</TableHead>
-                                <TableHead>Time In Location</TableHead>
                                 <TableHead>Time Out</TableHead>
-                                <TableHead>Time Out Location</TableHead>
+                                <TableHead>Locations</TableHead>
                                 <TableHead>Status</TableHead>
                             </TableRow>
                         
@@ -73,19 +86,34 @@ export default function CoWorkers() {
                                     </TableCell>
                                         
                                     <TableCell>
-                                        {formatTime(log.timeIn.timeStamp)}
-                                    </TableCell>
-
-                                    <TableCell className="max-w-25 overflow-auto">
-                                        {log.timeIn.location}
+                                        {log.timeIn.timeStamp 
+                                            ? formatTime(log.timeIn.timeStamp)
+                                            : log.status === AttendanceStatus.ON_LEAVE || AttendanceStatus.SUSPENDED
+                                            ? "-"
+                                            : "No record"
+                                        }
                                     </TableCell>
 
                                     <TableCell>
-                                        {formatTime(log.timeOut.timeStamp)}
+                                        {log.timeOut.timeStamp 
+                                            ? formatTime(log.timeOut.timeStamp)
+                                            : log.status === AttendanceStatus.ON_LEAVE || AttendanceStatus.SUSPENDED
+                                            ? "-"
+                                            : "No record"
+                                        }
                                     </TableCell>
 
-                                    <TableCell className="max-w-15 overflow-auto">
-                                        {log.timeOut.location}
+                                    <TableCell>
+                                        {(log.timeIn.timeStamp || log.timeOut.timeStamp) 
+                                            && log.status !== AttendanceStatus.ON_LEAVE 
+                                            && log.status !== AttendanceStatus.SUSPENDED &&
+                                            <Button 
+                                                variant="outline" size="sm" className="px-6"
+                                                onClick={() => handleView(log)}
+                                            >
+                                                View Locations
+                                            </Button>
+                                        }
                                     </TableCell>
 
                                     <TableCell>
@@ -101,5 +129,13 @@ export default function CoWorkers() {
                 </ScrollArea>
             </Card>
         </div>
+        <ViewSelfiesLocationsDialog 
+            open={showSelfiesLocations} 
+            setOpen={setShowSelfiesLocations}
+            timeInLocation = {selectedRecord?.timeIn.location} 
+            timeOutLocation={selectedRecord?.timeOut.location} 
+            status={selectedRecord?.status}
+        />
+        </>
     );
 }
