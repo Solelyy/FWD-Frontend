@@ -94,6 +94,7 @@ export default function CashAdvanceActionDialog({
           : request.approvedAmount,
       adminReason: reason,
     });
+    setOpen(false);
   };
 
   const Icon = action.icon;
