@@ -13,7 +13,7 @@ import { formatPeso } from "@/lib/util/currency-format";
 import { cashAdvanceStatusStyle, formatCashAdvanceStatusText } from "../types/status-format";
 import { useState } from "react";
 import CashAdvanceDialog from "./CashAdvanceDialog";
-import { CashAdvanceRequest } from "../types/cash-advance";
+import { CashAdvanceRequest, CashAdvanceRequestStatus } from "../types/cash-advance";
 import ViewAdditionalInfo from "@/app/(protected)/admin/leave/components/ViewAdditionalInfo";
 
 export default function CashAdvance() {
@@ -30,6 +30,8 @@ export default function CashAdvance() {
         setSelectedRequest(log);
         setShowAdditionalInfo(true);
     }
+
+    const actionMade = selectedRequest?.status !== CashAdvanceRequestStatus.PENDING;
 
     return (
         <>
@@ -114,6 +116,9 @@ export default function CashAdvance() {
             setOpen={setShowAdditionalInfo}
             reason={selectedRequest?.reason}
             isWithAttachment={false}
+            actionMade={actionMade}
+            status={selectedRequest?.status}
+            actionDetails={selectedRequest?.actionMade}
         />
         </>
     );

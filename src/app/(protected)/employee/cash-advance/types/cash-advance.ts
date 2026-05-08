@@ -9,6 +9,12 @@ export type CashAdvanceRequest = {
     amountApproved: number;
     status: CashAdvanceRequestStatus;
     reason?: string;
+    actionMade?: {
+        adminFirstname?: string;
+        adminLastname?: string;
+        rejectionReason?: string;
+        timestamp?: string;
+    }
 }
 
 export enum CashAdvanceRequestStatus {

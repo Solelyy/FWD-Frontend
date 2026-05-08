@@ -24,6 +24,12 @@ export const mockCashAdvanceRequests: CashAdvanceRequests = {
 			amountRequested: 4500,
 			amountApproved: 0,
 			status: CashAdvanceRequestStatus.REJECTED,
+			actionMade: {
+				adminFirstname: "Jessa",
+				adminLastname: "Gozun",
+				timestamp: "2026-04-03T09:15:00.000Z",
+				rejectionReason: "Bawal"
+			}
 		},
 		{
 			id: 4,
