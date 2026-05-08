@@ -41,8 +41,6 @@ export default function CashAdvanceActionDialog({
   onCancel,
   isPending,
 }: Props) {
-  if (!action) return null;
-
   const MIN_AMOUNT = 500;
   const requestedAmount = request.requestedAmount;
   const [approvedAmountInput, setApprovedAmountInput] = useState(
@@ -52,10 +50,12 @@ export default function CashAdvanceActionDialog({
   const [reasonError, setReasonError] = useState("");
 
   useEffect(() => {
-    if (action.targetAction === CashAdvanceActionType.APPROVE) {
+    if (action?.targetAction === CashAdvanceActionType.APPROVE) {
       setApprovedAmountInput(String(request.requestedAmount));
     }
-  }, [action.targetAction, request.requestedAmount, open]);
+  }, [action, request.requestedAmount, open]);
+
+  if (!action) return null;
 
   const parsedApprovedAmount = Number(approvedAmountInput);
   const isApprovedAmountValid =
@@ -77,10 +77,13 @@ export default function CashAdvanceActionDialog({
       return;
     }
 
-    const trimmedReason = reason.trim();
-    if (!trimmedReason) {
-      setReasonError("Please provide a reason for this action.");
-      return;
+    if (action.targetAction === CashAdvanceActionType.REJECT) {
+      const trimmedReason = reason.trim();
+
+      if (!trimmedReason) {
+        setReasonError("Please provide a reason for this action.");
+        return;
+      }
     }
 
     setReasonError("");
@@ -92,8 +95,9 @@ export default function CashAdvanceActionDialog({
         action.targetAction === CashAdvanceActionType.APPROVE
           ? parsedApprovedAmount
           : request.approvedAmount,
-      adminReason: reason,
+      adminReason: reason.trim(),
     });
+
     setOpen(false);
   };
 
