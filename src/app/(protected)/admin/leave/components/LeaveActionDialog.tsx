@@ -49,10 +49,21 @@ export default function LeaveActionDialog({
   };
 
   const handleConfirm = () => {
+    /*
     const trimmedReason = reason.trim();
+    
     if (trimmedReason) {
       setReasonError("Please provide a reason for this action.");
       return;
+    }*/
+
+    if (action.targetAction === LeaveActionType.REJECT) {
+      const trimmedReason = reason.trim();
+
+      if (!trimmedReason) {
+        setReasonError("Please provide a reason for this action.");
+        return;
+      }
     }
 
     setReasonError("");
