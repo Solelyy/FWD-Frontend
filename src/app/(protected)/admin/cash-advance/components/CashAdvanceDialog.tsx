@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Dialog,
   DialogContent,
@@ -22,7 +20,7 @@ type Props = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   action: CashAdvanceActionProps | null;
   request: EmployeeCARequest;
-  onConfirm: ({ id, action, approvedAmount }: UpdateCashAdvancePayload) => void;
+  onConfirm: ({id, action, approvedAmount}: UpdateCashAdvancePayload) => void;
   onCancel?: () => void;
   isPending: boolean;
 };
@@ -40,9 +38,7 @@ export default function CashAdvanceActionDialog({
 
   const MIN_AMOUNT = 500;
   const requestedAmount = request.requestedAmount;
-  const [approvedAmountInput, setApprovedAmountInput] = useState(
-    String(requestedAmount),
-  );
+  const [approvedAmountInput, setApprovedAmountInput] = useState(String(requestedAmount));
 
   useEffect(() => {
     if (action.targetAction === CashAdvanceActionType.APPROVE) {
@@ -63,10 +59,7 @@ export default function CashAdvanceActionDialog({
   };
 
   const handleConfirm = () => {
-    if (
-      action.targetAction === CashAdvanceActionType.APPROVE &&
-      !isApprovedAmountValid
-    ) {
+    if (action.targetAction === CashAdvanceActionType.APPROVE && !isApprovedAmountValid) {
       return;
     }
 
@@ -93,7 +86,9 @@ export default function CashAdvanceActionDialog({
           </DialogTitle>
         </DialogHeader>
 
-        <DialogDescription>{action.confirmMessage}</DialogDescription>
+        <DialogDescription>
+          {action.confirmMessage}
+        </DialogDescription>
 
         {action.targetAction === CashAdvanceActionType.APPROVE && (
           <div className="space-y-2">
@@ -124,15 +119,13 @@ export default function CashAdvanceActionDialog({
               />
             </div>
 
-            {approvedAmountInput.trim().length > 0 &&
-            parsedApprovedAmount < MIN_AMOUNT ? (
+            {approvedAmountInput.trim().length > 0 && parsedApprovedAmount < MIN_AMOUNT ? (
               <p className="text-destructive text-xs">
                 Minimum allowed amount is ₱500.
               </p>
             ) : null}
 
-            {approvedAmountInput.trim().length > 0 &&
-            parsedApprovedAmount > requestedAmount ? (
+            {approvedAmountInput.trim().length > 0 && parsedApprovedAmount > requestedAmount ? (
               <p className="text-destructive text-xs">
                 Approved amount cannot be greater than requested amount.
               </p>
@@ -142,14 +135,11 @@ export default function CashAdvanceActionDialog({
 
         <DialogFooter className="flex flex-col-reverse gap-2">
           <Button
-            variant={
-              action.variant === "destructive" ? "destructive" : "default"
-            }
+            variant={action.variant === "destructive" ? "destructive" : "default"}
             onClick={handleConfirm}
             disabled={
               isPending ||
-              (action.targetAction === CashAdvanceActionType.APPROVE &&
-                !isApprovedAmountValid)
+              (action.targetAction === CashAdvanceActionType.APPROVE && !isApprovedAmountValid)
             }
           >
             {isPending ? action.pendingLabel : action.confirmActionMessage}

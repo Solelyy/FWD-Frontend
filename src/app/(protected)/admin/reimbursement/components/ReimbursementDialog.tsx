@@ -78,13 +78,10 @@ export default function ReimbursementDialog({
       return;
     }
 
-    if (action.targetAction === CashAdvanceActionType.REJECT) {
-      const trimmedReason = reason.trim();
-
-      if (!trimmedReason) {
-        setReasonError("Please provide a reason for this action.");
-        return;
-      }
+    const trimmedReason = reason.trim();
+    if (trimmedReason) {
+      setReasonError("Please provide a reason for this action.");
+      return;
     }
 
     setReasonError("");
