@@ -1,27 +1,19 @@
 import { UserRole } from "@/lib/types/roles";
 import { API_BASE_URL } from "@/lib/util/api";
-import { Status } from "../types/account";
-
-/*
-const mockUser = [
-    {
-        employeeId: "FWD123",
-        firstname: "Jessa",
-        lastname: "Gozun",
-        email: "jessagozun@gmail.com",
-        status: Status.ACTIVE,
-        invitationDate: "",
-        role: UserRole.EMPLOYEE
-    },
-]
-*/
+import {
+    mockAdminAccounts,
+    mockEmployeeAccounts,
+} from "../mock-data/accounts";
 
 export async function getAccounts(role: UserRole.ADMIN | UserRole.EMPLOYEE) {
-
-    /*
-    if (process.env.NODE_ENV=== "development") {
-        return mockUser;
-    }*/
+    if (
+        process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true" &&
+        (role === UserRole.EMPLOYEE || role === UserRole.ADMIN)
+    ) {
+        return role === UserRole.EMPLOYEE
+            ? mockEmployeeAccounts
+            : mockAdminAccounts;
+    }
 
     const endpoint = role === UserRole.ADMIN 
     ? "/superadmin/management/users"

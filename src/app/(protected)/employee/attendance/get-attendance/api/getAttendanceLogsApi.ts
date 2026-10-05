@@ -1,7 +1,16 @@
 import { AttendanceLogsResponse, } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 import { API_BASE_URL } from "@/lib/util/api";
+import { mockAttendanceLogs } from "../mock-data/attendance";
 
 export async function getAttendanceLogsApi(page: number, limit: number, year:number, month: number): Promise<AttendanceLogsResponse> {
+    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+        return {
+            ...mockAttendanceLogs,
+            logs: mockAttendanceLogs.logs.slice((page - 1) * limit, page * limit),
+            meta: { ...mockAttendanceLogs.meta, page, limit },
+        };
+    }
+
     const endpoint =  `/employee/attendance-logs?page=${page}&limit=${limit}&year=${year}&month=${month+1}`;
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "GET",

@@ -7,12 +7,11 @@ type Payload = {
     year: number
 }
 
-/*
 export async function employeesReimbursementSummaryApi({month, year}: Payload): Promise<EmployeeReimbursementSummary>{
-    return mockSummary;
-}*/
+    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+        return mockSummary;
+    }
 
-export async function employeesReimbursementSummaryApi({month, year}: Payload): Promise<EmployeeReimbursementSummary>{
     const endpoint = `/admin/employee/reimbursement-summary?year=${year}&month=${month+1}`;
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "GET",

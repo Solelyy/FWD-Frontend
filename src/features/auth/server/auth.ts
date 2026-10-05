@@ -10,30 +10,27 @@ export const getAuthUserCache = cache(async (): Promise<AuthUser | null> => {
     console.log("Im here in getAuthUser. Verifying the token first...");
 
     const user = await verifyToken();
-    return user;  
+    return user;
   } catch (error) {
     console.error("getAuthUser ERROR:", error);
     throw error;
   }
-  
 });
 
 //guard
 export async function requireAuth(): Promise<AuthUser | null> {
-  /*only need this for ui development (not running the backend)
-  
-  if (process.env.NODE_ENV === "development") {
+  if (process.env.NEXT_PUBLIC_USE_MOCK_AUTH === "true") {
     return {
       id: "1",
-      role: UserRole.ADMIN,
+      role: UserRole.SUPER_ADMIN,
       employeeId: "FWD123",
       firstname: "Jessa",
       lastname: "Gozun",
       email: "dinavelbinongo@gmail.com",
-      isDataPolicyAccepted: true
+      isDataPolicyAccepted: true,
     };
   }
-  */
+
   try {
     console.log("Im here in requireAuth...");
     return await getAuthUserCache();
@@ -46,9 +43,9 @@ export async function requireAuth(): Promise<AuthUser | null> {
 //checks for role
 export async function requireRole(role: UserRole) {
   const user = await requireAuth();
-  console.log("requireRole called. Checking role...")
+  console.log("requireRole called. Checking role...");
   if (user?.role !== role) {
-    console.log("Unauthorized.")
+    console.log("Unauthorized.");
     redirect("/unauthorized");
   }
   return user;
