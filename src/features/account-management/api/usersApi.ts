@@ -1,13 +1,18 @@
 import { UserRole } from "@/lib/types/roles";
 import { API_BASE_URL } from "@/lib/util/api";
-import { mockEmployeeAccounts } from "../mock-data/accounts";
+import {
+    mockAdminAccounts,
+    mockEmployeeAccounts,
+} from "../mock-data/accounts";
 
 export async function getAccounts(role: UserRole.ADMIN | UserRole.EMPLOYEE) {
     if (
         process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true" &&
-        role === UserRole.EMPLOYEE
+        (role === UserRole.EMPLOYEE || role === UserRole.ADMIN)
     ) {
-        return mockEmployeeAccounts;
+        return role === UserRole.EMPLOYEE
+            ? mockEmployeeAccounts
+            : mockAdminAccounts;
     }
 
     const endpoint = role === UserRole.ADMIN 
