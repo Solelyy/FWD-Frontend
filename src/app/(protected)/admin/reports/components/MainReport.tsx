@@ -28,20 +28,51 @@ export default function MainReport() {
     const [reimbursementMonth, setReimbursementMonth] = useState(today.getMonth());
     const [reimbursementWeek, setReimbursementWeek] = useState<"week-1" | "week-2" | "week-3" | "week-4">("week-1");
     const [cutoff, setCutoff] = useState<"15" | "30">("15");
-    const [page, setPage] = useState(1);
+    const [pages, setPages] = useState<Record<ReportFilter, number>>({
+        attendance: 1,
+        leave: 1,
+        "cash-advance": 1,
+        reimbursement: 1,
+    });
+    const limit = 10;
     const [searchTerm, setSearchTerm] = useState("");
+
+    const setPage = (report: ReportFilter, page: number) => {
+        setPages((currentPages) => ({ ...currentPages, [report]: page }));
+    };
+
+    const handleFilterChange = (filter: ReportFilter) => {
+        setActiveFilter(filter);
+        setSearchTerm("");
+    };
+
+    const attendancePage = pages.attendance;
+    const leavePage = pages.leave;
+    const cashAdvancePage = pages["cash-advance"];
+    const reimbursementPage = pages.reimbursement;
 
     const {
         data: attendanceReport,
         isLoading: loadingAttendance,
         error: errorAttendance,
-    } = useAttendanceReports({ cutoff, month: attendanceMonth, year: attendanceYear });
+    } = useAttendanceReports({
+        cutoff,
+        month: attendanceMonth,
+        year: attendanceYear,
+        page: attendancePage,
+        limit,
+    });
 
     const {
         data: leaveReport,
         isLoading: loadingLeave,
         error: errorLeave,
-    } = useLeaveReports({ month: leaveMonth, year: leaveYear });
+    } = useLeaveReports({
+        month: leaveMonth,
+        year: leaveYear,
+        page: leavePage,
+        limit,
+    });
 
     const {
         data: cashAdvanceReport,
@@ -51,6 +82,8 @@ export default function MainReport() {
         month: cashAdvanceMonth,
         year: cashAdvanceYear,
         week: cashAdvanceWeek,
+        page: cashAdvancePage,
+        limit,
     });
 
     const {
@@ -61,6 +94,8 @@ export default function MainReport() {
         month: reimbursementMonth,
         year: reimbursementYear,
         week: reimbursementWeek,
+        page: reimbursementPage,
+        limit,
     });
 
     const reportContent = useMemo(() => {
@@ -75,8 +110,8 @@ export default function MainReport() {
                             isLoading={loadingReimbursement}
                             error={errorReimbursement}
                             searchTerm={searchTerm}
-                            page={page}
-                            setPage={setPage}
+                            page={reimbursementPage}
+                            setPage={(nextPage) => setPage("reimbursement", nextPage)}
                         />
                     ),
                 };
@@ -90,8 +125,8 @@ export default function MainReport() {
                             isLoading={loadingCashAdvance}
                             error={errorCashAdvance}
                             searchTerm={searchTerm}
-                            page={page}
-                            setPage={setPage}
+                            page={cashAdvancePage}
+                            setPage={(nextPage) => setPage("cash-advance", nextPage)}
                         />
                     ),
                 };
@@ -105,8 +140,8 @@ export default function MainReport() {
                             isLoading={loadingLeave}
                             error={errorLeave}
                             searchTerm={searchTerm}
-                            page={page}
-                            setPage={setPage}
+                            page={leavePage}
+                            setPage={(nextPage) => setPage("leave", nextPage)}
                         />
                     ),
                 };
@@ -121,8 +156,8 @@ export default function MainReport() {
                             isLoading={loadingAttendance}
                             error={errorAttendance}
                             searchTerm={searchTerm}
-                            page={page}
-                            setPage={setPage}
+                            page={attendancePage}
+                            setPage={(nextPage) => setPage("attendance", nextPage)}
                         />
                     ),
                 };
@@ -140,9 +175,12 @@ export default function MainReport() {
             loadingCashAdvance,
         loadingLeave,
             loadingReimbursement,
-        page,
+            attendancePage,
+            cashAdvancePage,
+            leavePage,
             reimbursementReport,
-        searchTerm,
+            reimbursementPage,
+            searchTerm,
     ]);
 
     const isAttendance = activeFilter === "attendance";
@@ -190,7 +228,7 @@ export default function MainReport() {
 
     return (
         <div className="flex flex-col gap-6">
-            <FilterButtons activeFilter={activeFilter} onFilterChange={setActiveFilter} />
+            <FilterButtons activeFilter={activeFilter} onFilterChange={handleFilterChange} />
             
             <ReportsTableWrapper
                 title={reportContent.title}
@@ -217,7 +255,7 @@ export default function MainReport() {
                 searchTerm={searchTerm}
                 onSearchTermChange={(value) => {
                     setSearchTerm(value);
-                    setPage(1);
+                    setPage(activeFilter, 1);
                 }}
             />
             
