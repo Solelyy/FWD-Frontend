@@ -1,14 +1,14 @@
 import { API_BASE_URL } from "@/lib/util/api";
 import type { GenerateReportPayload, FileType } from "../types/report-builder";
 
-export async function exportReportApi( payload: GenerateReportPayload, fileType: FileType) {
-    const endpoint = "/"
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+export async function exportReportApi(payload: GenerateReportPayload, fileType: FileType) {
+    const response = await fetch(`${API_BASE_URL}/employee/reports/export`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({...payload, fileType,}),
+        credentials: "include",
+        body: JSON.stringify({ ...payload, fileType }),
     });
 
     if (!response.ok) {

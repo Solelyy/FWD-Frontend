@@ -61,4 +61,13 @@ export type GenerateReportPayload = {
         | { type: "year" };
 };
 
-export type FileType = "pdf"| "csv" | "xlsx";
+export type FileType = "pdf" | "csv" | "xlsx";
+
+export type ReportPreview = {
+    employeeName: string;
+    reportLabel: string;
+    dateLabel: string;
+    columns: string[];
+    rows: Array<Record<string, string | number | null>>;
+    totals?: Array<{ label: string; value: string | number }>;
+};
