@@ -1,30 +1,36 @@
 import { EmployeesCARequestsSummary } from "../types/cash-advance";
-import { mockCASummary } from "../mock-data/ca-summary";
 import { API_BASE_URL } from "@/lib/util/api";
-/*
-export async function employeesCASummaryApi(): Promise<EmployeesCARequestsSummary> {
-    return mockCASummary;
-}
-*/
+import { mockCASummary } from "../mock-data/ca-summary";
+
 export type Props = {
-    year: number,
-    month: number
-}
+  year: number;
+  month: number;
+};
 
-export async function employeesCASummaryApi({year, month}: Props): Promise<EmployeesCARequestsSummary> {
-    const endpoint = `/admin/employee/cash-advance-summary?year=${year}&month=${month+1}`
-    
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        method: "GET",
-        credentials: "include"
-    });
+export async function employeesCASummaryApi({
+  year,
+  month,
+}: Props): Promise<EmployeesCARequestsSummary> {
+  if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    return mockCASummary;
+  }
 
-    const result = await response.json();
+  const endpoint = `/admin/employee/cash-advance-summary?year=${year}&month=${month + 1}`;
 
-    console.log("CA Summary: ", result);
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    method: "GET",
+    credentials: "include",
+  });
 
-    if(!response.ok) {
-        throw new Error(result.message || "Unable to fetch employees cash advance requests summary.")
-    }
-    return result;
+  const result = await response.json();
+
+  console.log("CA Summary: ", result);
+
+  if (!response.ok) {
+    throw new Error(
+      result.message ||
+        "Unable to fetch employees cash advance requests summary.",
+    );
+  }
+  return result;
 }

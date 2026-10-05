@@ -5,18 +5,29 @@ import { CashAdvanceRequestStatus } from "@/app/(protected)/employee/cash-advanc
 import { LeaveStatusFilter } from "../../leave/types/leave";
 import { mockEmployeesCARequests } from "../mock-data/ca-requests";
 
-/*
-const statusFilterMap: Record<Exclude<LeaveStatusFilter, LeaveStatusFilter.ALL>, CashAdvanceRequestStatus> = {
-    [LeaveStatusFilter.PENDING]: CashAdvanceRequestStatus.PENDING,
-    [LeaveStatusFilter.APPROVED]: CashAdvanceRequestStatus.APPROVED,
-    [LeaveStatusFilter.REJECTED]: CashAdvanceRequestStatus.REJECTED,
+const statusFilterMap: Record<
+  Exclude<LeaveStatusFilter, LeaveStatusFilter.ALL>,
+  CashAdvanceRequestStatus
+> = {
+  [LeaveStatusFilter.PENDING]: CashAdvanceRequestStatus.PENDING,
+  [LeaveStatusFilter.APPROVED]: CashAdvanceRequestStatus.APPROVED,
+  [LeaveStatusFilter.REJECTED]: CashAdvanceRequestStatus.REJECTED,
 };
 
-export async function employeesCARequestsApi({page, limit, year, month, filter}: LeaveRequestsProps): Promise<EmployeesCARequestsResponse>{
+export async function employeesCARequestsApi({
+  page,
+  limit,
+  year,
+  month,
+  filter,
+}: LeaveRequestsProps): Promise<EmployeesCARequestsResponse> {
+  if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
     const filtered =
-        filter === LeaveStatusFilter.ALL
-            ? mockEmployeesCARequests
-            : mockEmployeesCARequests.filter((request) => request.status === statusFilterMap[filter]);
+      filter === LeaveStatusFilter.ALL
+        ? mockEmployeesCARequests
+        : mockEmployeesCARequests.filter(
+            (request) => request.status === statusFilterMap[filter],
+          );
 
     const safePage = Math.max(page, 1);
     const safeLimit = Math.max(limit, 1);
@@ -24,29 +35,30 @@ export async function employeesCARequestsApi({page, limit, year, month, filter}:
     const end = start + safeLimit;
 
     return {
-        logs: filtered.slice(start, end),
-        meta: {
-            page: safePage,
-            limit: safeLimit,
-            total: filtered.length
-        }
+      logs: filtered.slice(start, end),
+      meta: {
+        page: safePage,
+        limit: safeLimit,
+        total: filtered.length,
+      },
     };
-}*/
+  }
 
-export async function employeesCARequestsApi({page, limit, year, month, filter}: LeaveRequestsProps): Promise<EmployeesCARequestsResponse>{
-    const endpoint = `/admin/employee/cash-advance-requests?year=${year}&month=${month+1}&page=${page}&limit=${limit}&filter=${filter}`
-    
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        method: "GET",
-        credentials: "include"
-    });
+  const endpoint = `/admin/employee/cash-advance-requests?year=${year}&month=${month + 1}&page=${page}&limit=${limit}&filter=${filter}`;
 
-    const result = await response.json();
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    method: "GET",
+    credentials: "include",
+  });
 
-    console.log("CA Requests: ", result);
+  const result = await response.json();
 
-    if(!response.ok) {
-        throw new Error(result.message || "Unable to fetch employees cash advance requests.")
-    }
-    return result;
+  console.log("CA Requests: ", result);
+
+  if (!response.ok) {
+    throw new Error(
+      result.message || "Unable to fetch employees cash advance requests.",
+    );
+  }
+  return result;
 }
