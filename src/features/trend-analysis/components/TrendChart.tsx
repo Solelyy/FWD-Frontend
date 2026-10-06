@@ -1,6 +1,6 @@
 "use client";
 
-import { CartesianGrid, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, Line, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import type { TrendPoint } from "../types";
@@ -31,7 +31,7 @@ export function TrendChart({ title, description, points, metrics }: {
         <div className="h-[260px] w-full">
           <ChartContainer config={chartConfig} className="h-full w-full aspect-auto">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={points} margin={{ top: 8, right: 12, left: 0, bottom: 4 }}>
+              <AreaChart data={points} margin={{ top: 8, right: 12, left: 0, bottom: 4 }}>
                 <CartesianGrid vertical={false} strokeDasharray="3 3" />
                 <XAxis dataKey="label" tickLine={false} axisLine={false} />
                 <YAxis tickLine={false} axisLine={false} tickFormatter={(value) => value} />
@@ -45,6 +45,19 @@ export function TrendChart({ title, description, points, metrics }: {
                   }
                 />
                 {metrics.map((metric) => (
+                  <Area
+                    key={`fill-${String(metric.key)}`}
+                    dataKey={metric.key as string}
+                    type="monotone"
+                    stroke="none"
+                    fill={metric.color}
+                    fillOpacity={0.12}
+                    tooltipType="none"
+                    connectNulls={false}
+                    isAnimationActive={false}
+                  />
+                ))}
+                {metrics.map((metric) => (
                   <Line
                     key={String(metric.key)}
                     dataKey={metric.key as string}
@@ -56,7 +69,7 @@ export function TrendChart({ title, description, points, metrics }: {
                     connectNulls={false}
                   />
                 ))}
-              </LineChart>
+              </AreaChart>
             </ResponsiveContainer>
           </ChartContainer>
         </div>
