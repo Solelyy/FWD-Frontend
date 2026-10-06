@@ -125,7 +125,7 @@ function ChartTooltipContent({
   label,
   labelFormatter,
   labelClassName,
-  formatter,
+  valueFormatter,
   color,
   nameKey,
   labelKey,
@@ -142,7 +142,9 @@ function ChartTooltipContent({
       TooltipNameType
     >,
     "accessibilityLayer"
-  >) {
+  > & {
+    valueFormatter?: (value: unknown, name: string | number) => React.ReactNode
+  }) {
   const { config } = useChart()
 
   const tooltipLabel = React.useMemo(() => {
@@ -211,10 +213,7 @@ function ChartTooltipContent({
                   indicator === "dot" && "items-center"
                 )}
               >
-                {formatter && item?.value !== undefined && item.name ? (
-                  formatter(item.value, item.name, item, index, item.payload)
-                ) : (
-                  <>
+                <>
                     {itemConfig?.icon ? (
                       <itemConfig.icon />
                     ) : (
@@ -253,14 +252,15 @@ function ChartTooltipContent({
                       </div>
                       {item.value != null && (
                         <span className="font-mono font-medium text-foreground tabular-nums">
-                          {typeof item.value === "number"
-                            ? item.value.toLocaleString()
-                            : String(item.value)}
+                          {valueFormatter
+                            ? valueFormatter(item.value, item.name ?? "")
+                            : typeof item.value === "number"
+                              ? item.value.toLocaleString()
+                              : String(item.value)}
                         </span>
                       )}
                     </div>
                   </>
-                )}
               </div>
             )
           })}
