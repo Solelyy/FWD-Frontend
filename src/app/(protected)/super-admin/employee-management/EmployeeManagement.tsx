@@ -45,6 +45,9 @@ export default function EmployeeList() {
         showAction={true}
         tableType={UserRole.EMPLOYEE}
         isInDashboard={false}
+        alignActions={true}
+        alignInvitationDate={true}
+        centerInvitationDate={true}
       />
 
       <AddAccountDialog

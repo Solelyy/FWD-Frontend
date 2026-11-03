@@ -11,4 +11,5 @@ export type AccountsTableProps = {
     isInDashboard: boolean
     alignActions?: boolean
     alignInvitationDate?: boolean
+    centerInvitationDate?: boolean
 }

@@ -42,6 +42,9 @@ export default function AdminManagement() {
         showAction={true}
         tableType={UserRole.ADMIN}
         isInDashboard={false}
+        alignActions={true}
+        alignInvitationDate={true}
+        centerInvitationDate={true}
       />
 
       <AddAccountDialog open={open} setOpen={setOpen} role={UserRole.ADMIN} />

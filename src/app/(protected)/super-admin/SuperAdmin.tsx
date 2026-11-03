@@ -128,10 +128,11 @@ export default function SuperAdminDashboard() {
                         <AccountsTable 
                             accounts={previewEmployeeAccounts}
                             loading={isLoading}
-                            showAction={false}
+                            showAction={true}
                             tableType={UserRole.EMPLOYEE}
                             visibleColumns={["id", "name", "status",]}
                             isInDashboard={true}
+                            alignActions={true}
                         />
                     </CardContent>
                 </Card>
