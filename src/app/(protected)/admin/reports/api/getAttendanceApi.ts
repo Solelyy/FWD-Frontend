@@ -29,7 +29,7 @@ export async function getAttendanceApi({
     };
   }
 
-  const endpoint = `/attendance?month=${month + 1}&year=${year}&cutoff=${cutoff}&page=${page}&limit=${limit}`;
+  const endpoint = `/admin/attendance?month=${month + 1}&year=${year}&cutoff=${cutoff}&page=${page}&limit=${limit}`;
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     method: "GET",
     credentials: "include",

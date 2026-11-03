@@ -28,7 +28,7 @@ export async function getReimbursementApi({
   }
 
   const weekNumber = Number(week.replace("week-", ""));
-  const endpoint = `/cash-reimbursements?month=${month + 1}&year=${year}&week=${weekNumber}&page=${page}&limit=${limit}`;
+  const endpoint = `/admin/cash-reimbursements?month=${month + 1}&year=${year}&week=${weekNumber}&page=${page}&limit=${limit}`;
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     method: "GET",
     credentials: "include",
