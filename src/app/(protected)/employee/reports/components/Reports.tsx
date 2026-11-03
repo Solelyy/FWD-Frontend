@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
 import { Card } from "@/components/ui/card";
+import { useUser } from "@/components/providers/UserContext";
 import { buildGenerateReportPayload } from "../api/report-payload";
 import { exportReportApi } from "../api/generateReportApi";
 import { useReportPreview } from "../hooks/useReportPreview";
@@ -22,6 +23,14 @@ import ReportsCards from "./ReportsCard";
 import { moduleOptions, weekOptions } from "../types/report-builder";
 
 export default function Reports() {
+  const { user } = useUser();
+
+  if (!user) return null;
+
+  return <ReportsContent employeeId={user.employeeId} />;
+}
+
+function ReportsContent({ employeeId }: { employeeId: string }) {
   const today = new Date();
 
   const [selectedYear, setSelectedYear] = useState(today.getFullYear());
@@ -59,6 +68,7 @@ export default function Reports() {
 
   const getPayload = () =>
     buildGenerateReportPayload({
+      employeeId,
       selectedModule,
       selectedYear,
       selectedMonth,
