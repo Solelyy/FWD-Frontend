@@ -44,7 +44,7 @@ export function MonthYearPicker({year, month, onYearChange, onMonthChange,}: Pro
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          className="w-60 justify-between font-normal"
+          className="w-full min-w-0 justify-between font-normal sm:w-60"
         >
           <div className="flex items-center gap-2">
             <Calendar size={16} />
@@ -56,13 +56,13 @@ export function MonthYearPicker({year, month, onYearChange, onMonthChange,}: Pro
       </PopoverTrigger>
 
       <PopoverContent className="w-65 p-3" align="start">
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2 sm:flex-row">
           {/* Year selector */}
           <Select
             value={String(year)}
             onValueChange={(val) => onYearChange(Number(val))}
           >
-            <SelectTrigger className="w-30">
+            <SelectTrigger className="w-full sm:w-30">
               <SelectValue placeholder="Year" />
             </SelectTrigger>
 
@@ -80,7 +80,7 @@ export function MonthYearPicker({year, month, onYearChange, onMonthChange,}: Pro
             value={String(month)}
             onValueChange={(val) => onMonthChange(Number(val))}
           >
-            <SelectTrigger className="w-30">
+            <SelectTrigger className="w-full sm:w-30">
               <SelectValue placeholder="Month" />
             </SelectTrigger>
 

@@ -70,7 +70,7 @@ export default function LeaveDialog({open, setOpen}: Props) {
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
-                        <Label htmlFor="leave-type">Leave Type</Label>
+                        <Label htmlFor="leave-type">Leave Type <span className="text-destructive">*</span></Label>
                         <Select value={leaveType} onValueChange={(value) => setLeaveType(value as LeaveType)} required>
                             <SelectTrigger id="leave-type" className="w-full">
                                 <SelectValue placeholder="Select leave type" />
@@ -85,7 +85,7 @@ export default function LeaveDialog({open, setOpen}: Props) {
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="date-range">Date Range</Label>
+                        <Label htmlFor="date-range">Date Range <span className="text-destructive">*</span></Label>
                         <Popover>
                             <PopoverTrigger asChild>
                                 <Button
@@ -128,7 +128,7 @@ export default function LeaveDialog({open, setOpen}: Props) {
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="reason">Reason</Label>
+                        <Label htmlFor="reason">Reason <span className="text-destructive">*</span></Label>
                         <textarea
                             id="reason"
                             value={reason}

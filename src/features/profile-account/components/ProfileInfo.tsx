@@ -8,13 +8,13 @@ export default function ProfileInfo() {
     const { user } = useUser();
     const titleStyle = "text-xs font-medium uppercase tracking-wide text-muted-foreground"
     return (
-        <Card className="overflow-hidden">
+        <Card className="w-full overflow-hidden">
             <div className="border-b px-4 py-4 md:px-6">
                 <h2 className="text-lg font-semibold">Profile Information</h2>
                 <p className="mt-1 text-sm text-muted-foreground">Your account details and contact information.</p>
             </div>
             
-            <div className="flex flex-col items-center gap-5 p-4 md:flex-row md:items-start md:p-6">
+            <div className="flex w-full flex-col items-center gap-5 p-4 md:flex-row md:items-start md:p-6">
                 {/* Avatar Section */}
                 <div className="flex flex-col items-center md:items-start gap-4">
                     <div className="flex h-24 w-24 items-center justify-center rounded-full bg-primary/10">
@@ -23,7 +23,7 @@ export default function ProfileInfo() {
                 </div>
 
                 {/* Profile Details */}
-                <div className="flex-1">
+                <div className="w-full min-w-0 flex-1">
                     <div className="grid gap-4 rounded-lg border border-border/70 bg-card p-4 sm:grid-cols-2 sm:p-5">
                         {/* Name */}
                         <div>

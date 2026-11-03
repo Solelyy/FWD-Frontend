@@ -100,7 +100,7 @@ export default function ReimbursementDialog({ open, setOpen }: Props) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="reimbursement-type">Reimbursement Type</Label>
+            <Label htmlFor="reimbursement-type">Reimbursement Type <span className="text-destructive">*</span></Label>
             <Select
               value={type}
               onValueChange={(value) => setType(value as ReimbursementType)}
@@ -137,7 +137,7 @@ export default function ReimbursementDialog({ open, setOpen }: Props) {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="amount-requested">Amount</Label>
+            <Label htmlFor="amount-requested">Amount <span className="text-destructive">*</span></Label>
             <div className="relative">
               <span className="text-muted-foreground pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm">
                 ₱

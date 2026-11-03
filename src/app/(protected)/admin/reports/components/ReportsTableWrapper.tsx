@@ -56,7 +56,7 @@ export default function ReportsTableWrapper({
                 <div className="flex flex-col gap-5">
                     <CardDescription className="md:text-base">{description}</CardDescription>
                 <div className="flex flex-col gap-4 rounded-lg border border-border/60 bg-card/70 p-3 md:flex-row md:items-center md:justify-between">
-                        <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+                    <div className="grid min-w-0 flex-1 gap-2 sm:flex sm:flex-wrap">
                             {showMonthYear && selectedYear !== undefined && selectedMonth !== undefined && onYearChange && onMonthChange && (
                                 <MonthYearPicker
                                     year={selectedYear}
@@ -67,14 +67,14 @@ export default function ReportsTableWrapper({
                             )}
 
                             {isAttendance && (
-                                <div className="min-w-36">
+                                <div className="min-w-0 sm:min-w-36">
                                     <Select
                                         value={attendanceCutoff}
                                         onValueChange={(value) =>
                                             onAttendanceCutoffChange?.(value === "30" ? "30" : "15")
                                         }
                                     >
-                                        <SelectTrigger>
+                                        <SelectTrigger className="w-full">
                                             <SelectValue placeholder="Cutoff" />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -86,7 +86,7 @@ export default function ReportsTableWrapper({
                             )}
 
                             {isCashAdvance && (
-                                <div className="min-w-36">
+                                <div className="min-w-0 sm:min-w-36">
                                     <Select
                                         value={cashAdvanceWeek}
                                         onValueChange={(value) => {
@@ -98,7 +98,7 @@ export default function ReportsTableWrapper({
                                             onCashAdvanceWeekChange?.(nextWeek);
                                         }}
                                     >
-                                        <SelectTrigger>
+                                        <SelectTrigger className="w-full">
                                             <SelectValue placeholder="Week" />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -112,7 +112,7 @@ export default function ReportsTableWrapper({
                             )}
 
                             {isReimbursement && (
-                                <div className="min-w-36">
+                                <div className="min-w-0 sm:min-w-36">
                                     <Select
                                         value={reimbursementWeek}
                                         onValueChange={(value) => {
@@ -124,7 +124,7 @@ export default function ReportsTableWrapper({
                                             onReimbursementWeekChange?.(nextWeek);
                                         }}
                                     >
-                                        <SelectTrigger>
+                                        <SelectTrigger className="w-full">
                                             <SelectValue placeholder="Week" />
                                         </SelectTrigger>
                                         <SelectContent>

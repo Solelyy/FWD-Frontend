@@ -67,8 +67,8 @@ export default function AdminDashboard() {
                                 </p>
                             </div>
                         </div>
-                        <Link href="/admin/trend-analysis">
-                            <Button variant="secondary">View All</Button>
+                        <Link href="/admin/trend-analysis" className="w-full sm:w-auto">
+                            <Button variant="secondary" className="w-full sm:w-auto">View All</Button>
                         </Link>
                     </CardHeader>
                     <CardContent className="pt-5">
@@ -89,8 +89,8 @@ export default function AdminDashboard() {
                                 </p>
                             </div>
                         </div>
-                        <Link href="/admin/reports">
-                            <Button variant="secondary">View Reports</Button>
+                        <Link href="/admin/reports" className="w-full sm:w-auto">
+                            <Button variant="secondary" className="w-full sm:w-auto">View Reports</Button>
                         </Link>
                     </CardHeader>
                 </Card>
@@ -99,8 +99,8 @@ export default function AdminDashboard() {
                 <Card className="flex-1 overflow-hidden">
                     <CardHeader className={cardHeaderStyle}>
                         <CardTitle>Employee Accounts</CardTitle>
-                            <Link href="/admin/employees">
-                                <Button variant="secondary">View Full</Button>
+                            <Link href="/admin/employees" className="w-full sm:w-auto">
+                            <Button variant="secondary" className="w-full sm:w-auto">View Full</Button>
                             </Link>               
                     </CardHeader>
                             

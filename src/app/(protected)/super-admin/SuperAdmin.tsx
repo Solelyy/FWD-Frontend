@@ -64,8 +64,8 @@ export default function SuperAdminDashboard() {
                                 </p>
                             </div>
                         </div>
-                        <Link href="/super-admin/trend-analysis">
-                            <Button variant="secondary">View All</Button>
+                        <Link href="/super-admin/trend-analysis" className="w-full sm:w-auto">
+                            <Button variant="secondary" className="w-full sm:w-auto">View All</Button>
                         </Link>
                     </CardHeader>
                     <CardContent className="pt-5">
@@ -86,8 +86,8 @@ export default function SuperAdminDashboard() {
                                 </p>
                             </div>
                         </div>
-                        <Link href="/super-admin/reports">
-                            <Button variant="secondary">View Reports</Button>
+                        <Link href="/super-admin/reports" className="w-full sm:w-auto">
+                            <Button variant="secondary" className="w-full sm:w-auto">View Reports</Button>
                         </Link>
                     </CardHeader>
                 </Card>
@@ -95,8 +95,8 @@ export default function SuperAdminDashboard() {
                 <Card className="flex-1 overflow-hidden">
                     <CardHeader className={cardHeaderStyle}>
                         <CardTitle>Admin Accounts</CardTitle>
-                        <Link href="/super-admin/admin-management">
-                            <Button variant="secondary">View Full</Button>
+                        <Link href="/super-admin/admin-management" className="w-full sm:w-auto">
+                            <Button variant="secondary" className="w-full sm:w-auto">View Full</Button>
                         </Link>
                         
                     </CardHeader>
@@ -117,8 +117,8 @@ export default function SuperAdminDashboard() {
                 <Card className="flex-1 overflow-hidden">
                     <CardHeader className={cardHeaderStyle}>
                         <CardTitle>Employee Accounts</CardTitle>
-                        <Link href="/super-admin/employee-management">
-                            <Button variant="secondary">View Full</Button>
+                        <Link href="/super-admin/employee-management" className="w-full sm:w-auto">
+                            <Button variant="secondary" className="w-full sm:w-auto">View Full</Button>
                         </Link>
                         
                     </CardHeader>

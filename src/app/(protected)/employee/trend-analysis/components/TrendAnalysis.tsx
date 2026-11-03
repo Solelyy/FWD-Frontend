@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { RefreshCw } from "lucide-react";
+import { ChartNoAxesCombined, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -30,10 +30,13 @@ export function TrendAnalysis() {
 
   const validationError = useMemo(() => {
     if (period !== "custom") return undefined;
-    if (!startMonth || !endMonth) return "Choose both a starting and ending month.";
-    if (startMonth > endMonth) return "The starting month must not be later than the ending month.";
+    if (!startMonth || !endMonth)
+      return "Choose both a starting and ending month.";
+    if (startMonth > endMonth)
+      return "The starting month must not be later than the ending month.";
     if (endMonth > currentMonth) return "Future months cannot be selected.";
-    if (monthDifference(startMonth, endMonth) > 12) return "Custom periods cannot exceed one year.";
+    if (monthDifference(startMonth, endMonth) > 12)
+      return "Custom periods cannot exceed one year.";
     return undefined;
   }, [currentMonth, endMonth, period, startMonth]);
 
@@ -53,10 +56,15 @@ export function TrendAnalysis() {
 
   return (
     <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>Understand your trends at a glance</CardTitle>
-          <CardDescription>
+      <Card className="gap-0 overflow-hidden border-primary/20">
+        <CardHeader className="grid grid-cols-[auto_minmax(0,1fr)] grid-rows-[auto_auto] items-center gap-x-3 gap-y-1">
+          <span className="col-start-1 row-span-2 row-start-1 inline-flex rounded-md border border-primary/20 bg-primary/10 p-2 text-primary">
+            <ChartNoAxesCombined className="h-5 w-5" />
+          </span>
+          <CardTitle className="col-start-2 row-start-1 min-w-0 text-base">
+            Understand your trends at a glance
+          </CardTitle>
+          <CardDescription className="col-start-2 row-start-2 min-w-0">
             Review your monthly attendance, leave, reimbursement, and cash
             advance activity in one place.
           </CardDescription>
@@ -74,7 +82,7 @@ export function TrendAnalysis() {
         error={validationError}
       />
       {query.isLoading && (
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-5 md:grid-cols-2">
           <Skeleton className="h-[350px]" />
           <Skeleton className="h-[350px]" />
           <Skeleton className="h-[350px]" />

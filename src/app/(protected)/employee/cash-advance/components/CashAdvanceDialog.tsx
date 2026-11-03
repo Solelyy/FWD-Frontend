@@ -77,7 +77,7 @@ export default function CashAdvanceDialog({ open, setOpen }: Props) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="amount">Amount</Label>
+            <Label htmlFor="amount">Amount <span className="text-destructive">*</span></Label>
             <div className="relative">
               <span className="text-muted-foreground pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm">
                 ₱

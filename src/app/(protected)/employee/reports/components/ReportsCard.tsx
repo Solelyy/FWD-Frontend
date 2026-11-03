@@ -1,5 +1,5 @@
 import { ReportsSummary } from "../types/reports";
-import CardContainer from "@/components/shared/CardContainer";
+import CardContainerRequests from "@/components/shared/CardContainerRequests";
 import { CardLayoutV2 } from "@/components/shared/CardLayoutV2";
 import { CalendarCheck, Calendar1, PhilippinePeso, Wallet } from "lucide-react";
 
@@ -44,7 +44,7 @@ export default function ReportsCards({ data }: LeaveCardsProps) {
   ];
 
   return (
-    <CardContainer title="Report's Summary">
+    <CardContainerRequests title="Report's Summary" gridClassName="grid-cols-2 gap-3 md:grid-cols-4">
       {cards.map((c) => (
         <CardLayoutV2
           key={c.title}
@@ -54,8 +54,9 @@ export default function ReportsCards({ data }: LeaveCardsProps) {
           showDecimal={c.showDec}
           valueSuffix={c.suffix}
           icon={c.icon}
+          iconTone="blue"
         />
       ))}
-    </CardContainer>
+    </CardContainerRequests>
   );
 }

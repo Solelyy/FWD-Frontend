@@ -65,16 +65,16 @@ export default function TimeinOut() {
     return (
         <>
         <div className="flex flex-col flex-1">
-            <p className="mb-2 text-sm font-light lg:text-base">My Attendance Today</p>
-            <Card className="flex h-full flex-col">
-                <CardHeader>
-                    <CardTitle className="flex items-center justify-start gap-2 text-base lg:text-lg">
+            <Card className="flex h-full flex-col border-border/70 shadow-xs">
+                <CardHeader className="border-b">
+                    <CardTitle className="text-base lg:text-lg">My Attendance Today</CardTitle>
+                    <CardDescription className="flex items-center gap-2 text-sm font-normal lg:text-base">
                         <Calendar size={18}/>
                         {getTodayFormatted()}
-                    </CardTitle>
+                    </CardDescription>
                 </CardHeader>
 
-                <CardContent className="flex flex-col gap-4 lg:gap-5">
+                <CardContent className="flex flex-col gap-4 pt-5 lg:gap-5">
                     <div className="flex w-full gap-4 justify-between">
                         <div className="w-full">
                             <Button className="w-full lg:h-11 lg:text-base" 
@@ -114,7 +114,7 @@ export default function TimeinOut() {
                             </Button>
                         </div>
                         
-                        <p className="text-md lg:text-lg">
+                        <p className="text-md font-normal lg:text-lg">
                             {attendance?.timeIn ? (
                                 <span>
                                     {formatTime(attendance.timeIn)}
@@ -138,7 +138,7 @@ export default function TimeinOut() {
                             </Button>
                         </div>
                         
-                        <p className="text-md lg:text-lg">
+                        <p className="text-md font-normal lg:text-lg">
                             {attendance?.timeOut ? (
                                 <span>
                                 {formatTime(attendance.timeOut)}

@@ -24,7 +24,7 @@ type Props = {
 export default function ViewAdditionalInfo({open, setOpen, reason, attachment, isWithAttachment, actionMade, actionDetails, status}: Props) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="max-h-[85vh] max-w-sm overflow-y-auto p-6 md:max-w-lg">
+            <DialogContent className="max-h-[85vh] w-[calc(100%-2rem)] max-w-sm overflow-y-auto p-4 sm:p-6 md:max-w-lg">
                 <DialogHeader>
                     <DialogTitle className="text-xl">Additional Information</DialogTitle>
                     <DialogDescription>
@@ -67,7 +67,7 @@ export default function ViewAdditionalInfo({open, setOpen, reason, attachment, i
                         <p className="text-sm font-medium text-foreground">Request details</p>
 
                         <div className="space-y-4">
-                            <div className="flex items-center justify-between gap-4 pb-4 border-b">
+                            <div className="flex flex-col gap-3 border-b pb-4 sm:flex-row sm:items-center sm:justify-between">
                                 <div className="flex items-center gap-2">
                                     {status === "APPROVED" ? (
                                         <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400" />
@@ -91,22 +91,22 @@ export default function ViewAdditionalInfo({open, setOpen, reason, attachment, i
                                 </span>
                             </div>
 
-                            <div className="flex items-center justify-between gap-4">
+                            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                                 <div className="flex items-center gap-2">
                                     <User size={20} className="text-muted-foreground" />
                                     <span className="text-muted-foreground text-sm font-medium">Admin</span>
                                 </div>
-                                <span className="font-base text-right">
+                                <span className="break-words text-left font-base sm:text-right">
                                     {fullName(actionDetails?.adminFirstname ?? "", actionDetails?.adminLastname ?? "")}
                                 </span>
                             </div>
 
-                            <div className="flex items-center justify-between gap-4">
+                            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                                 <div className="flex items-center gap-2">
                                     <Clock  size={20} className="text-muted-foreground" />
                                     <span className="text-muted-foreground text-sm font-medium">Timestamp</span>
                                 </div>
-                                <span className="font-base text-right">
+                                <span className="break-words text-left sm:text-right">
                                     {formatDateTime(actionDetails?.timestamp)}
                                 </span>
                             </div>

@@ -1,12 +1,12 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatDateWithoutYear, formatTableDate, getMonthYear } from "@/lib/util/date-format";
 import { formatPeso } from "@/lib/util/currency-format";
 import { Calendar } from "lucide-react";
 import { useDashboardRequests } from "../hooks/useDashboardRequests";
-import { requestIcon, statusStyles, statusText, RequestType, titleFormat  } from "../types/requests";
+import { requestIcon, statusStyles, statusText, titleFormat  } from "../types/requests";
 import { leaveTypeFormatText } from "@/app/(protected)/employee/leave/types/leave";
 import { requestTypeFormat } from "@/app/(protected)/employee/reimbursement/types/format";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -41,17 +41,16 @@ export default function Requests() {
 
     return (
         <div className="flex flex-col flex-1">
-            <p className="mb-2 text-sm font-light lg:text-base">My Recent Requests</p>
-
-           <Card className="flex h-full flex-col">
-                <CardHeader>
-                    <CardTitle className="flex items-center justify-start gap-2 text-base lg:text-lg">
+           <Card className="flex h-full flex-col border-border/70 shadow-xs">
+                <CardHeader className="border-b">
+                    <CardTitle className="text-base lg:text-lg">My Recent Requests</CardTitle>
+                    <CardDescription className="flex items-center gap-2 text-sm font-normal lg:text-base">
                         <Calendar size={18}/>
                         {getMonthYear(today)}
-                    </CardTitle>
+                    </CardDescription>
                 </CardHeader>
 
-                <CardContent className="flex-1 overflow-hidden ">
+                <CardContent className="flex-1 overflow-hidden pt-5">
                     <ScrollArea className="h-55 sm:h-60 lg:h-70 px-2">
                         <div className="space-y-3 lg:space-y-4">
                         {isLoading && (
@@ -103,7 +102,7 @@ export default function Requests() {
                                     <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground lg:text-sm">
                                         <span>Submitted {formatTableDate(request.submittedAt)}</span>
                                         {request.amount !== undefined && (
-                                            <span className="font-medium text-foreground">{formatPeso(request.amount)}</span>
+                                            <span className="font-normal text-foreground">{formatPeso(request.amount)}</span>
                                         )}
                                     </div>
                                 </div>
