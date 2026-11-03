@@ -7,7 +7,6 @@ import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLog
 import { formatTableDate } from "@/lib/util/date-format";
 import { fullName } from "@/lib/util/name-format";
 import { ReimbursementRequestStatus, ReimbursementType } from "@/app/(protected)/employee/reimbursement/types/reimbursement";
-import { reimbursementStatusStyle, formatReimbursementStatusText } from "@/app/(protected)/employee/reimbursement/types/format";
 import ReimbursementActions from "./ReimbursementActions";
 import { formatPeso } from "@/lib/util/currency-format";
 import { Button } from "@/components/ui/button";
@@ -127,8 +126,14 @@ export default function ReimbursementTable({data, isLoading, error, page, setPag
                                 </TableCell>
                                 
                                 <TableCell>
-                                    <span className={`px-2 py-1 text-xs font-medium rounded-md ${reimbursementStatusStyle[request.status]}`}>
-                                        {formatReimbursementStatusText[request.status]}
+                                    <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${
+                                        request.status === ReimbursementRequestStatus.APPROVED
+                                            ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/50 dark:bg-emerald-950/30 dark:text-emerald-300"
+                                            : request.status === ReimbursementRequestStatus.REJECTED
+                                            ? "border-red-200 bg-red-50 text-red-700 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-300"
+                                            : "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900/50 dark:bg-amber-950/30 dark:text-amber-300"
+                                    }`}>
+                                        {request.status}
                                     </span>
                                 </TableCell>
 

@@ -74,6 +74,7 @@ export default function ReimbursementActions({request}: Props) {
       </DropdownMenu>
 
       <ReimbursementDialog
+        key={`${request.id}-${selectedAction?.targetAction ?? "closed"}-${open}`}
         open={open}
         setOpen={setOpen}
         action={selectedAction}

@@ -20,7 +20,9 @@ type Props = {
 export function SuspendAccountDialog({date, setDate} : Props) {
   return (
     <Field className="mx-auto w-80 p-10">
-      <FieldLabel htmlFor="date-picker-range">Suspension Date Range</FieldLabel>
+      <FieldLabel htmlFor="date-picker-range">
+        Suspension Date Range <span className="text-destructive" aria-hidden="true">*</span>
+      </FieldLabel>
       <Popover>
         <PopoverTrigger asChild>
           <Button

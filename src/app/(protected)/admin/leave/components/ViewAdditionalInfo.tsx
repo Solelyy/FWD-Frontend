@@ -24,49 +24,49 @@ type Props = {
 export default function ViewAdditionalInfo({open, setOpen, reason, attachment, isWithAttachment, actionMade, actionDetails, status}: Props) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="max-w-sm md:max-w-lg space-y-2 p-4 md:p-6 max-h-[70%] overflow-auto">
+            <DialogContent className="max-h-[85vh] max-w-sm overflow-y-auto p-6 md:max-w-lg">
                 <DialogHeader>
-                    <DialogTitle>Additional Information</DialogTitle>
+                    <DialogTitle className="text-xl">Additional Information</DialogTitle>
+                    <DialogDescription>
+                        Review the request reason, attachment, and approval history.
+                    </DialogDescription>
                 </DialogHeader>
 
-                <div className="border min-h-40 max-h-70 rounded-md text-base overflow-auto text-justify p-2">
-                    <DialogDescription className="mb-2">Reason of the request: </DialogDescription>
+                <div className="space-y-3 rounded-lg border border-border/70 bg-muted/20 p-4">
+                    <p className="text-sm font-medium text-foreground">Reason of the request</p>
 
                     {!reason && (
                         <span className="text-muted-foreground">No reason provided</span>
                     )}
 
-                    {reason}
+                    {reason && <p className="whitespace-pre-wrap text-sm text-muted-foreground">{reason}</p>}
                 </div>
 
                 {isWithAttachment && (
-                    <div className="border min-h-20 max-h-70 rounded-md text-base overflow-auto text-justify p-2">
-                        <DialogDescription className="mb-2">Attachment: </DialogDescription>
+                    <div className="space-y-3 rounded-lg border border-border/70 p-4">
+                        <p className="text-sm font-medium text-foreground">Attachment</p>
 
                         {attachment ? (
                             <a
                                 href={attachment}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-2 text-blue-600 hover:underline"
+                                className="flex items-center gap-2 text-sm text-primary hover:underline"
                             >
                                 <FileText size={18} />
                                 View Attachment
                             </a>
                         ) : (
-                            <span className="text-muted-foreground">
-                                No attachment provided
-                            </span>
+                            <span className="text-sm text-muted-foreground">No attachment</span>
                         )}
                     </div>
                 )}
 
                 {actionMade && (
-                    <div className="border min-h-20 rounded-md text-base text-justify p-2">
-                        <DialogDescription className="mb-2">Request Details: </DialogDescription>
+                    <div className="space-y-4 rounded-lg border border-border/70 p-4">
+                        <p className="text-sm font-medium text-foreground">Request details</p>
 
-                        <div className="space-y-5">
-                            {/* Status */}
+                        <div className="space-y-4">
                             <div className="flex items-center justify-between gap-4 pb-4 border-b">
                                 <div className="flex items-center gap-2">
                                     {status === "APPROVED" ? (
@@ -79,19 +79,18 @@ export default function ViewAdditionalInfo({open, setOpen, reason, attachment, i
                                     <span className="text-muted-foreground text-sm font-medium">Status</span>
                                 </div>
                                 <span
-                                    className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                                    className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${
                                         status === "APPROVED"
-                                            ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                                            ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/50 dark:bg-emerald-950/30 dark:text-emerald-300"
                                             : status === "REJECTED"
-                                            ? "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
-                                            : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
+                                            ? "border-red-200 bg-red-50 text-red-700 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-300"
+                                            : "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900/50 dark:bg-amber-950/30 dark:text-amber-300"
                                         }`}
                                     >
                                     {status}
                                 </span>
                             </div>
 
-                            {/* Admin */}
                             <div className="flex items-center justify-between gap-4">
                                 <div className="flex items-center gap-2">
                                     <User size={20} className="text-muted-foreground" />
@@ -102,7 +101,6 @@ export default function ViewAdditionalInfo({open, setOpen, reason, attachment, i
                                 </span>
                             </div>
 
-                            {/* Timestamp */}
                             <div className="flex items-center justify-between gap-4">
                                 <div className="flex items-center gap-2">
                                     <Clock  size={20} className="text-muted-foreground" />
@@ -113,9 +111,8 @@ export default function ViewAdditionalInfo({open, setOpen, reason, attachment, i
                                 </span>
                             </div>
 
-                            {/* Reason */}
                             {actionDetails?.rejectionReason && (
-                                <div className="space-y-4 pt-2">
+                                <div className="space-y-3 border-t pt-4">
                                     <div className="flex items-center gap-2">
                                         <span className="text-muted-foreground text-sm font-medium">Reason of Rejection: </span>
                                     </div>

@@ -13,7 +13,7 @@ import { useState } from "react";
 import { useFilteredAccounts } from "../hooks/useFilteredAccounts";
 import AvatarInitials from "@/lib/components/AvatarInitials";
 
-export default function AccountsTable({accounts, loading, error, showAction, tableType, visibleColumns, isInDashboard} : AccountsTableProps) {
+export default function AccountsTable({accounts, loading, error, showAction, tableType, visibleColumns, isInDashboard, alignActions = false, alignInvitationDate = false} : AccountsTableProps) {
     const {user} = useUser();
     const statusStyles: Record<Status, string> = {
         [Status.PENDING]: "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900/50 dark:bg-amber-950/30 dark:text-amber-300",
@@ -52,9 +52,9 @@ export default function AccountsTable({accounts, loading, error, showAction, tab
                             {/*{columns.includes("id") && <TableHead>Employee ID</TableHead>} */}
                             {columns.includes("name") && <TableHead className="pl-4">Name</TableHead>}
                             {columns.includes("email") && <TableHead>Email</TableHead>}
-                            {columns.includes("status") && <TableHead>Status</TableHead>}
-                            {columns.includes("invitationDate") && <TableHead>Invitation Date</TableHead>}
-                            {showAction && <TableHead className="pr-4 text-right">Actions</TableHead>}
+                            {columns.includes("status") && <TableHead className={alignInvitationDate ? "w-[9rem]" : undefined}>Status</TableHead>}
+                            {columns.includes("invitationDate") && <TableHead className={alignInvitationDate ? "w-[12rem] whitespace-nowrap px-6 text-right" : "whitespace-nowrap pr-4 text-right"}>Invitation Date</TableHead>}
+                            {showAction && <TableHead className={alignActions ? "w-[7rem] whitespace-nowrap px-4 text-center" : "whitespace-nowrap pr-4 text-right"}>Actions</TableHead>}
                         </TableRow>
                     </TableHeader>
 
@@ -122,7 +122,7 @@ export default function AccountsTable({accounts, loading, error, showAction, tab
                                 }
                                 
                                 {columns.includes("status") && 
-                                    <TableCell>
+                                    <TableCell className={alignInvitationDate ? "w-[9rem]" : undefined}>
                                         <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${statusStyles[account.status]}`}>
                                             {account.status}
                                         </span>
@@ -130,13 +130,13 @@ export default function AccountsTable({accounts, loading, error, showAction, tab
                                 }
                                 
                                 {columns.includes("invitationDate") && 
-                                    <TableCell className="pr-4 text-right">
+                                    <TableCell className={alignInvitationDate ? "w-[12rem] whitespace-nowrap px-6 text-right" : "pr-4 text-right"}>
                                         {formatDateTime(account.invitationDate)}
                                     </TableCell>
                                 }
                                 
                                 {showAction && (
-                                    <TableCell>
+                                    <TableCell className={alignActions ? "w-[7rem] px-4 text-center" : "pr-4 text-right"}>
                                         <Actions account={account}/>
                                     </TableCell>
                                 )}

@@ -1,13 +1,13 @@
 import { LeaveRequestStatus } from "./leave"
 
 export const leaveRequestStatusStyle: Record<LeaveRequestStatus, string> = {
-    [LeaveRequestStatus.APPROVED]: "bg-green-100 text-green-600",
-    [LeaveRequestStatus.PENDING]: "bg-yellow-100 text-yellow-600",
-    [LeaveRequestStatus.REJECTED]: "bg-red-100 text-red-600"
+    [LeaveRequestStatus.APPROVED]: "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/50 dark:bg-emerald-950/30 dark:text-emerald-300",
+    [LeaveRequestStatus.PENDING]: "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900/50 dark:bg-amber-950/30 dark:text-amber-300",
+    [LeaveRequestStatus.REJECTED]: "border-red-200 bg-red-50 text-red-700 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-300"
 }
 
 export const formatLeaveRequestText: Record<LeaveRequestStatus, string> = {
-    [LeaveRequestStatus.APPROVED]: "Leave Approved",
-    [LeaveRequestStatus.PENDING]: "Leave Pending",
-    [LeaveRequestStatus.REJECTED]: "Leave Rejected"
+    [LeaveRequestStatus.APPROVED]: "APPROVED",
+    [LeaveRequestStatus.PENDING]: "PENDING",
+    [LeaveRequestStatus.REJECTED]: "REJECTED"
 }

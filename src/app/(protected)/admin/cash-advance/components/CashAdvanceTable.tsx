@@ -5,7 +5,6 @@ import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLog
 import { formatTableDate } from "@/lib/util/date-format";
 import { fullName } from "@/lib/util/name-format";
 import { formatPeso } from "@/lib/util/currency-format";
-import { cashAdvanceStatusStyle, formatCashAdvanceStatusText } from "@/app/(protected)/employee/cash-advance/types/status-format";
 import CashAdvanceActions from "./CashAdvanceActions";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -109,8 +108,14 @@ export default function CashAdvanceTable({data, isLoading, error, page, setPage,
                                 </TableCell>
 
                                 <TableCell>
-                                    <span className={`px-2 py-1 text-xs font-medium rounded-md ${cashAdvanceStatusStyle[request.status]}`}>
-                                        {formatCashAdvanceStatusText[request.status]}
+                                    <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${
+                                        request.status === CashAdvanceRequestStatus.APPROVED
+                                            ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/50 dark:bg-emerald-950/30 dark:text-emerald-300"
+                                            : request.status === CashAdvanceRequestStatus.REJECTED
+                                            ? "border-red-200 bg-red-50 text-red-700 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-300"
+                                            : "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900/50 dark:bg-amber-950/30 dark:text-amber-300"
+                                    }`}>
+                                        {request.status}
                                     </span>
                                 </TableCell>
 
@@ -136,6 +141,7 @@ export default function CashAdvanceTable({data, isLoading, error, page, setPage,
                 setOpen={setShowAdditionalInfo} 
                 reason={selectedRecord?.reason}
                 attachment={selectedRecord?.attachment}
+                isWithAttachment={true}
                 actionMade={actionMade}
                 status={selectedRecord?.status}
                 actionDetails={selectedRecord?.actionMade}
