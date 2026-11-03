@@ -7,11 +7,12 @@ import type { TrendPoint } from "../types";
 
 type Metric = { key: keyof TrendPoint; label: string; color: string; suffix?: string; currency?: boolean };
 
-export function TrendChart({ title, description, points, metrics }: {
+export function TrendChart({ title, description, points, metrics, compact = false }: {
   title: string;
   description: string;
   points: TrendPoint[];
   metrics: Metric[];
+  compact?: boolean;
 }) {
   const formatValue = (value: number, metricName?: string) => {
     const metric = metrics.find((item) => item.label === metricName);
@@ -25,10 +26,10 @@ export function TrendChart({ title, description, points, metrics }: {
   }, {});
 
   return (
-    <Card>
-      <CardHeader><CardTitle>{title}</CardTitle><CardDescription>{description}</CardDescription></CardHeader>
+    <Card className={compact ? "gap-3" : undefined}>
+      <CardHeader className={compact ? "pb-0" : undefined}><CardTitle>{title}</CardTitle><CardDescription>{description}</CardDescription></CardHeader>
       <CardContent>
-        <div className="h-[260px] w-full">
+        <div className={`${compact ? "h-[190px]" : "h-[260px]"} w-full`}>
           <ChartContainer config={chartConfig} className="h-full w-full aspect-auto">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={points} margin={{ top: 8, right: 12, left: 0, bottom: 4 }}>

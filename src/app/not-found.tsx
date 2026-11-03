@@ -35,9 +35,9 @@ export default function NotFound() {
   }
 
   return (
-    <div className="hero-section flex flex-col gap-8 min-h-screen items-center justify-center">
-      <main className="flex flex-1 w-full flex-col items-center justify-center px-6">
-        <Card className="text-center p-6 h-full w-full max-w-sm sm:max-w-md md:max-w-lg py-8 px-6 sm:py-10">
+    <div className="hero-section flex min-h-screen flex-col items-center justify-center gap-8 px-4 sm:px-6">
+      <main className="flex w-full flex-1 flex-col items-center justify-center">
+        <Card className="h-auto w-full max-w-sm px-6 py-8 text-center sm:max-w-md sm:py-10 md:max-w-lg">
           {/* Icon */}
           <div className="flex justify-center">
             <div className="rounded-full bg-yellow-100 p-6">

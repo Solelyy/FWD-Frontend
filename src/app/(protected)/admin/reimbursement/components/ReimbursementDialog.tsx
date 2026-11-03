@@ -15,7 +15,7 @@ import { CashAdvanceActionProps } from "../../cash-advance/types/ca-actions";
 import { EmployeeReimbursementRequest } from "../types/reimbursement";
 import { UpdateReimbursementPayload } from "../api/updateReimbursementApi";
 import { CashAdvanceActionType } from "../../cash-advance/types/ca-actions";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type Props = {
   open: boolean;
@@ -41,8 +41,6 @@ export default function ReimbursementDialog({
   onCancel,
   isPending,
 }: Props) {
-  if (!action) return null;
-
   const [reason, setReason] = useState("");
   const [reasonError, setReasonError] = useState("");
 
@@ -52,11 +50,7 @@ export default function ReimbursementDialog({
     String(requestedAmount),
   );
 
-  useEffect(() => {
-    if (action.targetAction === CashAdvanceActionType.APPROVE) {
-      setApprovedAmountInput(String(request.requestedAmount));
-    }
-  }, [action.targetAction, request.requestedAmount, open]);
+  if (!action) return null;
 
   const parsedApprovedAmount = Number(approvedAmountInput);
   const isApprovedAmountValid =
@@ -162,7 +156,9 @@ export default function ReimbursementDialog({
 
         {action.targetAction === CashAdvanceActionType.REJECT && (
           <div className="space-y-2">
-            <Label htmlFor="reason">Reason (Required)</Label>
+            <Label htmlFor="reason">
+              Reason <span className="text-destructive" aria-hidden="true">*</span>
+            </Label>
             <textarea
               id="reason"
               value={reason}

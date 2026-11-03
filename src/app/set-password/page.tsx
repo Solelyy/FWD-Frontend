@@ -35,10 +35,10 @@ export default function SetPassword() {
     }, [token]);
 
     return (
-        <div className="hero-section flex flex-col gap-8">
+        <div className="hero-section flex min-h-screen flex-col gap-8 px-4 pt-5 sm:px-6">
             <Header />
-            <main className=" transition-opacity duration-300 ease-in-out flex w-full flex-col items-center justify-start px-6 pb-16">
-                <div className="w-full max-w-md mt-10 sm:mt-8">
+            <main className="flex w-full flex-1 flex-col items-center justify-center px-2 pb-12 transition-opacity duration-300 ease-in-out sm:px-0 sm:pb-20">
+                <div className="w-full max-w-md">
                     {status === "loading" && <SkeletonForm/>}
                     {status === "valid" && token && employeeId && ( 
                         <SetPasswordForm token={token} employeeId={employeeId}/>

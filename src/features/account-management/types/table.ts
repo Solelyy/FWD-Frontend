@@ -9,4 +9,7 @@ export type AccountsTableProps = {
     tableType: UserRole.ADMIN | UserRole.EMPLOYEE,
     visibleColumns?: ("id"|"name"|"email"|"status"|"invitationDate")[],
     isInDashboard: boolean
+    alignActions?: boolean
+    alignInvitationDate?: boolean
+    centerInvitationDate?: boolean
 }

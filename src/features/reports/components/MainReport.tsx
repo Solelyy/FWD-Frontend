@@ -9,6 +9,7 @@ import ReportsReimbursementTable from "./ReimbursementTable";
 import ReportsTableWrapper from "./ReportsTableWrapper";
 import { Button } from "@/components/ui/button";
 import { FileUp } from "lucide-react";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function MainReport() {
     const [activeFilter, setActiveFilter] = useState<ReportFilter>("attendance");
@@ -44,8 +45,20 @@ export default function MainReport() {
     }, [activeFilter]);
 
     return (
-        <div className="flex flex-col gap-6">
-            <FilterButtons activeFilter={activeFilter} onFilterChange={setActiveFilter} />
+        <div className="flex flex-col gap-7">
+            <Card className="overflow-hidden border-primary/20 bg-linear-to-r from-primary/8 via-card to-card">
+                <CardHeader className="gap-2 py-5">
+                    <CardTitle className="text-xl">Employee Reports</CardTitle>
+                    <CardDescription>
+                        Select a report to review employee activity, requests, and balances.
+                    </CardDescription>
+                </CardHeader>
+            </Card>
+
+            <div className="space-y-3">
+                <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Choose a report</h2>
+                <FilterButtons activeFilter={activeFilter} onFilterChange={setActiveFilter} />
+            </div>
             
             <ReportsTableWrapper
                 title={reportContent.title}
@@ -54,7 +67,7 @@ export default function MainReport() {
             />
             
             <div className="flex justify-end">
-               <Button>
+               <Button variant="outline">
                     <FileUp />
                     Export Report
                 </Button> 

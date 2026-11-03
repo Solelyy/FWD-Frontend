@@ -13,15 +13,15 @@ import { useState } from "react";
 import { useFilteredAccounts } from "../hooks/useFilteredAccounts";
 import AvatarInitials from "@/lib/components/AvatarInitials";
 
-export default function AccountsTable({accounts, loading, error, showAction, tableType, visibleColumns, isInDashboard} : AccountsTableProps) {
+export default function AccountsTable({accounts, loading, error, showAction, tableType, visibleColumns, isInDashboard, alignActions = false, alignInvitationDate = false, centerInvitationDate = false} : AccountsTableProps) {
     const {user} = useUser();
     const statusStyles: Record<Status, string> = {
-        [Status.PENDING]: "bg-yellow-100 text-yellow-600",
-        [Status.ACTIVE]: "bg-green-100 text-green-600",
-        [Status.INACTIVE]: "bg-gray-100 text-gray-600",
-        [Status.SUSPENDED]: "bg-red-100 text-red-600",
-        [Status.EXPIRED]: "bg-orange-100 text-orange-600",
-        [Status.REMOVED]: "bg-red-100 text-red-600"
+        [Status.PENDING]: "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900/50 dark:bg-amber-950/30 dark:text-amber-300",
+        [Status.ACTIVE]: "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/50 dark:bg-emerald-950/30 dark:text-emerald-300",
+        [Status.INACTIVE]: "border-border bg-muted text-muted-foreground",
+        [Status.SUSPENDED]: "border-red-200 bg-red-50 text-red-700 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-300",
+        [Status.EXPIRED]: "border-orange-200 bg-orange-50 text-orange-700 dark:border-orange-900/50 dark:bg-orange-950/30 dark:text-orange-300",
+        [Status.REMOVED]: "border-red-200 bg-red-50 text-red-700 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-300"
     }
 
     //for columns visibility use in dashboards
@@ -34,25 +34,31 @@ export default function AccountsTable({accounts, loading, error, showAction, tab
     const filteredAccounts = useFilteredAccounts(accounts, searchTerm);
 
     return (
-        <Card className={`${!isInDashboard ? "h-120" : ""} p-4`}>
-            <div className="flex justify-end">
+        <Card className={`${!isInDashboard ? "min-h-[28rem]" : ""} gap-5 p-4 md:p-5`}>
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <p className="text-sm font-medium">Account directory</p>
+                    <p className="text-xs text-muted-foreground">
+                        {filteredAccounts.length} {filteredAccounts.length === 1 ? "account" : "accounts"} shown
+                    </p>
+                </div>
                 <SearchBar value={searchTerm} onChange ={setSearchTerm}/>
             </div>
 
-            <div className="flex-1 overflow-x-auto border rounded-md">
+            <div className="flex-1 overflow-x-auto rounded-lg border border-border/70 bg-card">
                 <Table>
-                    <TableHeader className="bg-[#FFEB94]/40">
+                    <TableHeader className="bg-muted/60">
                         <TableRow>
                             {/*{columns.includes("id") && <TableHead>Employee ID</TableHead>} */}
-                            {columns.includes("name") && <TableHead>Name</TableHead>}
+                            {columns.includes("name") && <TableHead className="pl-4">Name</TableHead>}
                             {columns.includes("email") && <TableHead>Email</TableHead>}
-                            {columns.includes("status") && <TableHead>Status</TableHead>}
-                            {columns.includes("invitationDate") && <TableHead>Invitation Date</TableHead>}
-                            {showAction && <TableHead>Actions</TableHead>}
+                            {columns.includes("status") && <TableHead className={alignInvitationDate ? "w-[9rem]" : undefined}>Status</TableHead>}
+                            {columns.includes("invitationDate") && <TableHead className={alignInvitationDate ? `w-[12rem] whitespace-nowrap px-6 ${centerInvitationDate ? "text-center" : "text-right"}` : "whitespace-nowrap pr-4 text-right"}>Invitation Date</TableHead>}
+                            {showAction && <TableHead className={alignActions ? "w-[7rem] whitespace-nowrap px-4 text-center" : "whitespace-nowrap pr-4 text-right"}>Actions</TableHead>}
                         </TableRow>
                     </TableHeader>
 
-                    <TableBody>
+                    <TableBody className="bg-card">
                         {loading && (
                         <SkeletonTableRows  columns={columns} showAction={showAction} />
                         )}
@@ -93,7 +99,7 @@ export default function AccountsTable({accounts, loading, error, showAction, tab
                         )}
 
                         {!loading && !error && filteredAccounts.map((account) => (
-                        <TableRow key={account.employeeId} >
+                        <TableRow key={account.employeeId} className="group">
                                 {/* 
                                 {columns.includes("id") && 
                                     <TableCell className="font-medium"> 
@@ -102,35 +108,35 @@ export default function AccountsTable({accounts, loading, error, showAction, tab
                                 }*/}
 
                                 {columns.includes("name") && 
-                                    <TableCell> 
-                                        <div className="flex gap-4 items-center">
+                                    <TableCell className="pl-4">
+                                        <div className="flex items-center gap-3">
                                             <AvatarInitials firstname={account.firstname} lastname={account.lastname}/>
-                                            {fullName(account.firstname, account.lastname)} 
+                                            <span className="font-medium text-foreground">{fullName(account.firstname, account.lastname)}</span>
                                         </div>
                                     </TableCell>}
 
                                 {columns.includes("email") && 
-                                    <TableCell className="max-w-30 sm:max-w-40 overflow-auto">
-                                        {account.email}
+                                    <TableCell className="max-w-30 overflow-hidden text-ellipsis text-muted-foreground sm:max-w-40">
+                                        <span className="block overflow-hidden text-ellipsis">{account.email}</span>
                                     </TableCell>
                                 }
                                 
                                 {columns.includes("status") && 
-                                    <TableCell>
-                                        <span className={`px-2 py-1 text-xs font-medium rounded-md ${statusStyles[account.status]}`}>
+                                    <TableCell className={alignInvitationDate ? "w-[9rem]" : undefined}>
+                                        <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${statusStyles[account.status]}`}>
                                             {account.status}
                                         </span>
                                     </TableCell>
                                 }
                                 
                                 {columns.includes("invitationDate") && 
-                                    <TableCell>
+                                    <TableCell className={alignInvitationDate ? `w-[12rem] whitespace-nowrap px-6 ${centerInvitationDate ? "text-center" : "text-right"}` : "pr-4 text-right"}>
                                         {formatDateTime(account.invitationDate)}
                                     </TableCell>
                                 }
                                 
                                 {showAction && (
-                                    <TableCell>
+                                    <TableCell className={alignActions ? "w-[7rem] px-4 text-center" : "pr-4 text-right"}>
                                         <Actions account={account}/>
                                     </TableCell>
                                 )}

@@ -92,7 +92,7 @@ export function Actions({ account }: { account: AccountInfo }) {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon" className="size-8">
+          <Button variant="ghost" size="icon-sm" className="text-muted-foreground opacity-70 transition-opacity hover:text-foreground group-hover:opacity-100">
             <MoreHorizontalIcon />
             <span className="sr-only">Open Menu</span>
           </Button>

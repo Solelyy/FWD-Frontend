@@ -49,7 +49,7 @@ export default function LeaveTable() {
                 
                 <div className="overflow-x-auto border rounded-md">
                     <Table>
-                        <TableHeader className="bg-[#FFEB94]/40">
+                        <TableHeader className="bg-muted/60">
                             <TableRow>
                                 <TableHead>Date Submitted</TableHead>
                                 <TableHead>Leave Type</TableHead>

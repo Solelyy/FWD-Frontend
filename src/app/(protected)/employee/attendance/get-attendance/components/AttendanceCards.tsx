@@ -1,4 +1,4 @@
-import CardContainer from "@/components/shared/CardContainer"
+import CardContainerRequests from "@/components/shared/CardContainerRequests"
 import { CardLayoutV2 } from "@/components/shared/CardLayoutV2"
 import { AttendanceSummaryResponse, } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType"
 import { CalendarDays, Clock, CheckCircle, Timer } from "lucide-react"
@@ -16,15 +16,16 @@ export default function AttendanceCards({ data }: AttendanceCardsProps) {
     ]
 
     return (
-        <CardContainer title="Attendance Summary">
+        <CardContainerRequests title="Attendance Summary" gridClassName="grid-cols-2 gap-3 md:grid-cols-4">
             {cards.map((card) => (
                 <CardLayoutV2
                     key={card.title}
                     title={card.title}
                     dataCount={card.value ?? 0}
                     icon={card.icon}
+                    iconTone="blue"
                 />
             ))}
-        </CardContainer>
+        </CardContainerRequests>
     )
 }

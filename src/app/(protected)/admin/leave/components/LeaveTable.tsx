@@ -8,7 +8,7 @@ import { formatTableDate, formatDateWithoutYear } from "@/lib/util/date-format";
 import { fullName } from "@/lib/util/name-format";
 import { leaveTypeFormatText } from "@/app/(protected)/employee/leave/types/leave";
 import LeaveActions from "./LeaveActions";
-import { leaveRequestStatusStyle, formatLeaveRequestText } from "../types/leave-status";
+import { leaveRequestStatusStyle } from "../types/leave-status";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import ViewAdditionalInfo from "./ViewAdditionalInfo";
@@ -52,9 +52,9 @@ export default function LeaveTable({data, isLoading, error, page, setPage, searc
     return (
         <>
         <div className="flex flex-col space-y4">
-            <div className="flex-1 overflow-x-auto border rounded-md">
+            <div className="flex-1 overflow-x-auto rounded-lg border border-border/70 bg-card">
                 <Table>
-                    <TableHeader className="bg-[#FFEB94]/40">
+                    <TableHeader className="bg-muted/60">
                         <TableRow>
                             <TableHead>Date Submitted</TableHead>
                             <TableHead>Employee</TableHead>
@@ -89,7 +89,7 @@ export default function LeaveTable({data, isLoading, error, page, setPage, searc
 
                         {!isLoading && !error && filteredRequests.length > 0 && 
                             filteredRequests.map((req)=> (
-                                <TableRow key={req.id}>
+                                <TableRow key={req.id} className="group">
                                     <TableCell>
                                         {formatTableDate(req.date)}
                                     </TableCell>
@@ -113,8 +113,8 @@ export default function LeaveTable({data, isLoading, error, page, setPage, searc
                                     </TableCell>
 
                                     <TableCell>
-                                        <span className={`px-2 py-1 text-xs font-medium rounded-md ${leaveRequestStatusStyle[req.status]}`}>
-                                           {formatLeaveRequestText[req.status]}
+                                        <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${leaveRequestStatusStyle[req.status]}`}>
+                                           {req.status}
                                         </span>
                                     </TableCell>
 

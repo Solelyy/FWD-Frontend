@@ -38,9 +38,9 @@ export default function ReportsReimbursementTable({
     return (
         <>
         <div className="flex flex-col space-y4">
-            <div className="flex-1 overflow-x-auto border rounded-md">
+            <div className="flex-1 overflow-x-auto rounded-lg border border-border/70 bg-card">
                 <Table>
-                    <TableHeader className="bg-[#FFEB94]/40">
+                    <TableHeader className="bg-muted/60">
                         <TableRow>
                             <TableHead>Employee</TableHead>
                             <TableHead>Total Amount Reimbursed</TableHead>

@@ -3,24 +3,49 @@ import { UsersRound } from "lucide-react";
 import CardContainerRequests from "@/components/shared/CardContainerRequests";
 
 type Props = {
-    totalAdmins: number;
-    totalEmployees: number;
-    activeAccounts: number;
-} 
-export default function SuperAdminCards({totalEmployees, totalAdmins, activeAccounts}: Props) {
-    const cards = [
-        {title: "Total Admins", data: totalAdmins, icon: <UsersRound />},
-        {title: "Total Employees", data: totalEmployees, icon: <UsersRound />},
-        {title: "Active Accounts", data: activeAccounts, icon: <UsersRound />},
-    ]
-    
-    return (
-        <div>
-            <CardContainerRequests>
-                {cards.map((c) => 
-                    <CardLayoutV2 key={c.title} title={c.title} dataCount={c.data ?? 0} icon={c.icon} />
-                )}
-            </CardContainerRequests>
-        </div>
-    )
+  totalAdmins: number;
+  totalEmployees: number;
+  activeAccounts: number;
+};
+export default function SuperAdminCards({
+  totalEmployees,
+  totalAdmins,
+  activeAccounts,
+}: Props) {
+  const cards = [
+    {
+      title: "Total Admins",
+      data: totalAdmins,
+      icon: <UsersRound />,
+      iconTone: "blue" as const,
+    },
+    {
+      title: "Total Employees",
+      data: totalEmployees,
+      icon: <UsersRound />,
+      iconTone: "blue" as const,
+    },
+    {
+      title: "Active Accounts",
+      data: activeAccounts,
+      icon: <UsersRound />,
+      iconTone: "blue" as const,
+    },
+  ];
+
+  return (
+    <div>
+      <CardContainerRequests gridClassName="grid-cols-3 text-nowrap">
+        {cards.map((c) => (
+          <CardLayoutV2
+            key={c.title}
+            title={c.title}
+            dataCount={c.data ?? 0}
+            icon={c.icon}
+            iconTone={c.iconTone}
+          />
+        ))}
+      </CardContainerRequests>
+    </div>
+  );
 }

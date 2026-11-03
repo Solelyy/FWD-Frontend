@@ -9,7 +9,7 @@ import ReimbursementCard from "./ReimbursementCard";
 import { useReimbursementRequests } from "../hooks/useReimbursementRequests";
 import { AttendanceLogsSkeletonRows } from "@/components/skeletons/AttendanceLogsSkeleton";
 import { formatTableDate } from "@/lib/util/date-format";
-import { ReimbursementRequest, ReimbursementRequestStatus, ReimbursementType } from "../types/reimbursement";
+import { ReimbursementRequest, ReimbursementRequestStatus } from "../types/reimbursement";
 import { formatPeso } from "@/lib/util/currency-format";
 import { reimbursementStatusStyle, formatReimbursementStatusText, requestTypeFormat } from "../types/format";
 import ReimbursementDialog from "./ReimbursementDialog";
@@ -50,7 +50,7 @@ export default function Reimbursement() {
                 
                 <div className="overflow-x-auto border rounded-md">
                     <Table>
-                        <TableHeader className="bg-[#FFEB94]/40">
+                        <TableHeader className="bg-muted/60">
                             <TableRow>
                                 <TableHead>Date Submitted</TableHead>
                                 <TableHead>Type</TableHead>
@@ -105,7 +105,7 @@ export default function Reimbursement() {
                                    </TableCell>
 
                                     <TableCell>
-                                        <span className={`px-2 py-1 text-xs font-medium rounded-md ${reimbursementStatusStyle[request.status]}`}>
+                                        <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${reimbursementStatusStyle[request.status]}`}>
                                             {formatReimbursementStatusText[request.status]}
                                         </span>
                                     </TableCell>

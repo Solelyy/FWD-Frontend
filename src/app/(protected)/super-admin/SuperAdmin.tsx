@@ -12,6 +12,8 @@ import { useState, useEffect } from "react";
 import DataPolicyDialog from "@/features/dashboard/components/DataPolicyDialog";
 import SuperAdminCards from "@/features/dashboard/components/super-admin/SuperAdminCards";
 import Greeting from "@/lib/components/Greeting";
+import { ChartNoAxesCombined, FileBarChart } from "lucide-react";
+import SuperAdminTrendPreview from "@/features/dashboard/components/super-admin/SuperAdminTrendPreview";
 
 export default function SuperAdminDashboard() {
     const [ openDataPolicy, setOpenDataPolicy ] = useState(false);
@@ -30,8 +32,8 @@ export default function SuperAdminDashboard() {
         ...(employees?.slice(0,5) || []),
     ];
 
-    const tableContainerStyle = "flex flex-col flex-wrap sm:flex-row w-full gap-4 justify-between";
-    const cardHeaderStyle = "flex justify-between items-center";
+    const tableContainerStyle = "flex flex-col w-full gap-6";
+    const cardHeaderStyle = "flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between";
 
     console.log("isDataPolicyAccepted: ", user?.isDataPolicyAccepted);
 
@@ -48,20 +50,59 @@ export default function SuperAdminDashboard() {
             
             <SuperAdminCards totalAdmins={totalAdmins} totalEmployees={totalEmployees} activeAccounts={activeAccounts}/>
             
-            {/*tables */}
-            
             <div className={tableContainerStyle}>
-                <Card className="flex-1">
+                <Card className="overflow-hidden border-primary/20">
+                    <CardHeader className={`${cardHeaderStyle} border-b`}>
+                        <div className="flex items-center gap-3">
+                            <div className="rounded-md border border-primary/20 bg-primary/10 p-2 text-primary">
+                                <ChartNoAxesCombined className="h-5 w-5" />
+                            </div>
+                            <div>
+                                <CardTitle>Trend Analysis</CardTitle>
+                                <p className="mt-1 text-sm text-muted-foreground">
+                                    Review workforce activity and performance over time.
+                                </p>
+                            </div>
+                        </div>
+                        <Link href="/super-admin/trend-analysis" className="w-full sm:w-auto">
+                            <Button variant="secondary" className="w-full sm:w-auto">View All</Button>
+                        </Link>
+                    </CardHeader>
+                    <CardContent className="pt-5">
+                        <SuperAdminTrendPreview />
+                    </CardContent>
+                </Card>
+
+                <Card className="overflow-hidden border-border/80">
+                    <CardHeader className={cardHeaderStyle}>
+                        <div className="flex items-center gap-3">
+                            <div className="rounded-md border border-amber-500/20 bg-amber-500/10 p-2 text-amber-600 dark:text-amber-400">
+                                <FileBarChart className="h-5 w-5" />
+                            </div>
+                            <div>
+                                <CardTitle>Reports</CardTitle>
+                                <p className="mt-1 text-sm text-muted-foreground">
+                                    Access attendance, leave, cash advance, and reimbursement reports.
+                                </p>
+                            </div>
+                        </div>
+                        <Link href="/super-admin/reports" className="w-full sm:w-auto">
+                            <Button variant="secondary" className="w-full sm:w-auto">View Reports</Button>
+                        </Link>
+                    </CardHeader>
+                </Card>
+
+                <Card className="flex-1 overflow-hidden">
                     <CardHeader className={cardHeaderStyle}>
                         <CardTitle>Admin Accounts</CardTitle>
-                        <Link href="/super-admin/admin-management">
-                            <Button variant="secondary">View Full</Button>
+                        <Link href="/super-admin/admin-management" className="w-full sm:w-auto">
+                            <Button variant="secondary" className="w-full sm:w-auto">View Full</Button>
                         </Link>
                         
                     </CardHeader>
                     
-                    <DropdownMenuSeparator className="p-0 m-0"/>
-                    <CardContent>
+                    <DropdownMenuSeparator className="m-0"/>
+                    <CardContent className="pt-2">
                         <AccountsTable 
                             accounts={previewAdminAccounts}
                             loading={isLoading}
@@ -73,27 +114,29 @@ export default function SuperAdminDashboard() {
                     </CardContent>
                 </Card>
                 
-                <Card className="flex-1">
+                <Card className="flex-1 overflow-hidden">
                     <CardHeader className={cardHeaderStyle}>
                         <CardTitle>Employee Accounts</CardTitle>
-                        <Link href="/super-admin/employee-management">
-                            <Button variant="secondary">View Full</Button>
+                        <Link href="/super-admin/employee-management" className="w-full sm:w-auto">
+                            <Button variant="secondary" className="w-full sm:w-auto">View Full</Button>
                         </Link>
                         
                     </CardHeader>
                     
-                    <DropdownMenuSeparator className="p-0 m-0"/>
-                    <CardContent>
+                    <DropdownMenuSeparator className="m-0"/>
+                    <CardContent className="pt-2">
                         <AccountsTable 
                             accounts={previewEmployeeAccounts}
                             loading={isLoading}
-                            showAction={false}
+                            showAction={true}
                             tableType={UserRole.EMPLOYEE}
                             visibleColumns={["id", "name", "status",]}
                             isInDashboard={true}
+                            alignActions={true}
                         />
                     </CardContent>
                 </Card>
+
             </div>
         </div>
         

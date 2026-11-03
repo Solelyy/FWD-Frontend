@@ -65,9 +65,9 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
 
     return (
         <div className="space-y-4">
-            <div className="flex-1 `overflow-x-auto border rounded-md">
+            <div className="flex-1 overflow-x-auto rounded-lg border border-border/70 bg-card">
                 <Table>
-                    <TableHeader className="bg-[#FFEB94]/40">
+                    <TableHeader className="bg-muted/60">
                         <TableRow>
                             <TableHead>Employee</TableHead>
                             <TableHead>Time In</TableHead>
@@ -101,7 +101,7 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
 
                         {!isLoading && !error && filteredLogs.length > 0 && 
                             filteredLogs.map((log)=> (
-                                <TableRow key={log.attendanceId}>
+                                <TableRow key={log.attendanceId} className="group">
                                     <TableCell>
                                         <div className="flex gap-4 items-center">
                                             <AvatarInitials firstname={log.firstname} lastname={log.lastname}/>
@@ -133,12 +133,12 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
 
                                     <TableCell>
                                         <div className="flex flex-wrap items-center gap-2">
-                                            <span className={`px-2 py-1 text-xs font-medium rounded-md ${statusStyles[log.status]}`}>
+                                            <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${statusStyles[log.status]}`}>
                                                 {formatStatusText[log.status]}
                                             </span>
 
                                             {log.overtimeStatus && (
-                                            <span className={`px-2 py-1 text-xs font-medium rounded-md ${overtimeStatusStyle[log.overtimeStatus]}`}>
+                                            <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${overtimeStatusStyle[log.overtimeStatus]}`}>
                                                 {formatOvertimeText[log.overtimeStatus]}
                                             </span>
                                             )}

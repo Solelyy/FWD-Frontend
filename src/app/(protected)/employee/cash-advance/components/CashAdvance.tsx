@@ -48,7 +48,7 @@ export default function CashAdvance() {
                 
                 <div className="overflow-x-auto border rounded-md">
                     <Table>
-                        <TableHeader className="bg-[#FFEB94]/40">
+                        <TableHeader className="bg-muted/60">
                             <TableRow>
                                 <TableHead>Date Submitted</TableHead>
                                 <TableHead>Amount Requested</TableHead>
@@ -98,7 +98,7 @@ export default function CashAdvance() {
                                     </TableCell>
 
                                     <TableCell>
-                                        <span className={`px-2 py-1 text-xs font-medium rounded-md ${cashAdvanceStatusStyle[request.status]}`}>
+                                        <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-medium ${cashAdvanceStatusStyle[request.status]}`}>
                                             {formatCashAdvanceStatusText[request.status]}
                                         </span>
                                     </TableCell>

@@ -1,12 +1,12 @@
 import { AttendanceStatus, OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType"
 
 export const statusStyles: Record<AttendanceStatus, string> = {
-    [AttendanceStatus.COMPLETED]: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-    [AttendanceStatus.IN_PROGRESS]: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-    [AttendanceStatus.MISSING_TIMEOUT]: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
-    [AttendanceStatus.NO_RECORD]: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200",
-    [AttendanceStatus.ON_LEAVE]: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-    [AttendanceStatus.SUSPENDED]: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
+    [AttendanceStatus.COMPLETED]: "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/50 dark:bg-emerald-950/30 dark:text-emerald-300",
+    [AttendanceStatus.IN_PROGRESS]: "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900/50 dark:bg-amber-950/30 dark:text-amber-300",
+    [AttendanceStatus.MISSING_TIMEOUT]: "border-orange-200 bg-orange-50 text-orange-700 dark:border-orange-900/50 dark:bg-orange-950/30 dark:text-orange-300",
+    [AttendanceStatus.NO_RECORD]: "border-border bg-muted text-muted-foreground",
+    [AttendanceStatus.ON_LEAVE]: "border-sky-200 bg-sky-50 text-sky-700 dark:border-sky-900/50 dark:bg-sky-950/30 dark:text-sky-300",
+    [AttendanceStatus.SUSPENDED]: "border-red-200 bg-red-50 text-red-700 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-300"
 }
 
 export const formatStatusText: Record<AttendanceStatus, string> = {
@@ -19,9 +19,9 @@ export const formatStatusText: Record<AttendanceStatus, string> = {
 }
 
 export const overtimeStatusStyle: Record<OvertimeStatus, string> = {
-    [OvertimeStatus.APPROVED]: "bg-green-100 text-green-600",
-    [OvertimeStatus.PENDING]: "bg-yellow-100 text-yellow-600",
-    [OvertimeStatus.REJECTED]: "bg-red-100 text-red-600"
+    [OvertimeStatus.APPROVED]: "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/50 dark:bg-emerald-950/30 dark:text-emerald-300",
+    [OvertimeStatus.PENDING]: "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900/50 dark:bg-amber-950/30 dark:text-amber-300",
+    [OvertimeStatus.REJECTED]: "border-red-200 bg-red-50 text-red-700 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-300"
 }
 
 export const formatOvertimeText: Record<OvertimeStatus, string> = {

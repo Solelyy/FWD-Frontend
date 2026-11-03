@@ -7,7 +7,7 @@ export default function ReportsAttendanceTable() {
         <div className="flex flex-col space-y4">
             <div className="flex-1 overflow-x-auto border rounded-md">
                 <Table>
-                    <TableHeader className="bg-[#FFEB94]/40">
+                    <TableHeader className="bg-muted/60">
                         <TableRow>
                             <TableHead>Employee</TableHead>
                             <TableHead>Total Working Hours</TableHead>

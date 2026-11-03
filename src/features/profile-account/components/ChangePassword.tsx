@@ -10,18 +10,20 @@ export default function ChangePassword() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <Card className="p-6">
-            <div className="flex justify-between items-center mb-4">
+        <Card className="overflow-hidden">
+            <div className="border-b px-4 py-4 md:px-6">
                 <h2 className="text-lg font-semibold">Security</h2>
+                <p className="mt-1 text-sm text-muted-foreground">Manage your password and account security.</p>
             </div>
 
-            <div className="border rounded-lg p-4 mb-4">
-                <div className="flex items-center justify-between">
+            <div className="p-4 md:p-6">
+            <div className="mb-4 rounded-lg border border-border/70 bg-card p-4">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div className="flex items-center gap-3">
-                        <Lock size={20} className="text-gray-600" />
+                        <Lock size={20} className="text-muted-foreground" />
                         <div>
                             <p className="text-sm font-medium">Change Password</p>
-                            <p className="text-xs text-gray-500 font-medium dark:text-gray-400 mt-1">Update your password regularly to keep your account secure</p>
+                            <p className="mt-1 text-xs font-medium text-muted-foreground">Update your password regularly to keep your account secure.</p>
                         </div>
                     </div>
                     <Button
@@ -34,9 +36,9 @@ export default function ChangePassword() {
             </div>
 
             {isOpen && (
-                <div className="border rounded-lg p-4 bg-slate-50 space-y-4">
+                <div className="space-y-4 rounded-lg border border-border/70 bg-muted/20 p-4">
                     <div>
-                        <label className="text-sm font-medium">Current Password</label>
+                        <label className="text-sm font-medium text-foreground">Current Password</label>
                         <Input
                             type="password"
                             placeholder="Enter your current password"
@@ -45,7 +47,7 @@ export default function ChangePassword() {
                     </div>
 
                     <div>
-                        <label className="text-sm font-medium">New Password</label>
+                        <label className="text-sm font-medium text-foreground">New Password</label>
                         <Input
                             type="password"
                             placeholder="Enter your new password"
@@ -54,7 +56,7 @@ export default function ChangePassword() {
                     </div>
 
                     <div>
-                        <label className="text-sm font-medium">Confirm New Password</label>
+                        <label className="text-sm font-medium text-foreground">Confirm New Password</label>
                         <Input
                             type="password"
                             placeholder="Confirm your new password"
@@ -73,6 +75,7 @@ export default function ChangePassword() {
                     </div>
                 </div>
             )}
+            </div>
         </Card>
     )
 }
