@@ -25,7 +25,7 @@ interface MenuProps {
 interface SignOutProps {
   isOpen: boolean | undefined;
   onClick?: () => void;
-  disableTooltip?: boolean; 
+  disableTooltip?: boolean;
 }
 
 export function Menu({ isOpen, role }: MenuProps) {
@@ -72,66 +72,84 @@ export function Menu({ isOpen, role }: MenuProps) {
             )}
 
             {/* Menus */}
-            {menus.map(({ href, label, icon: Icon, submenus, isRoot }, index) => {
-              const active = isActive({ href, label, icon: Icon, submenus, isRoot });
-              if (!submenus || submenus.length === 0) {
-                // Normal menu item
-                return (
-                  <div className="w-full" key={index}>
-                    <Button
-                      variant="ghost"
-                      className={cn(
-                        "relative w-full justify-start h-10 mb-1 text-muted-foreground hover:bg-sidebar-accent/10 hover:text-sidebar-foreground",
-                        active && "bg-sidebar-accent/20 text-sidebar-foreground font-semibold shadow-sm before:absolute before:left-0 before:top-1/2 before:h-6 before:w-1 before:-translate-y-1/2 before:rounded-r-full before:bg-sidebar-primary",
-                       )}
-                      asChild
-                    >
-                      <Link href={href} className="flex items-center w-full">
-                        {isOpen === false ? (
-                          <TooltipProvider disableHoverableContent>
-                            <Tooltip delayDuration={100}>
-                              <TooltipTrigger asChild>
-                                <span className="flex items-center">
-                                  <Icon size={18} />
-                                </span>
-                              </TooltipTrigger>
-                              <TooltipContent side="right" sideOffset={0}>{label}</TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-                        ) : (
-                          <span className="mr-4">
-                            <Icon size={18} />
-                          </span>
+            {menus.map(
+              ({ href, label, icon: Icon, submenus, isRoot }, index) => {
+                const active = isActive({
+                  href,
+                  label,
+                  icon: Icon,
+                  submenus,
+                  isRoot,
+                });
+                if (!submenus || submenus.length === 0) {
+                  // Normal menu item
+                  return (
+                    <div className="w-full" key={index}>
+                      <Button
+                        variant="ghost"
+                        className={cn(
+                          "relative w-full justify-start h-10 mb-1 text-muted-foreground",
+                          !active && "hover:bg-sidebar-accent/30 hover:text-sidebar-foreground",
+                          active &&
+                            "bg-sidebar-accent/40 text-sidebar-foreground font-semibold hover:bg-sidebar-accent/40 hover:text-sidebar-foreground before:absolute before:left-0 before:top-1/2 before:h-6 before:w-1 before:-translate-y-1/2 before:rounded-r-full before:bg-sidebar-primary",
                         )}
-                        <p
-                          className={cn(
-                            "max-w-50 truncate",
-                            isOpen === false
-                              ? "-translate-x-96 opacity-0"
-                              : "translate-x-0 opacity-100"
+                        asChild
+                      >
+                        <Link href={href} className="flex items-center w-full">
+                          {isOpen === false ? (
+                            <TooltipProvider disableHoverableContent>
+                              <Tooltip delayDuration={100}>
+                                <TooltipTrigger asChild>
+                                  <span className="flex items-center">
+                                    <Icon size={18} />
+                                  </span>
+                                </TooltipTrigger>
+                                <TooltipContent side="right" sideOffset={0}>
+                                  {label}
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          ) : (
+                            <span className="mr-4">
+                              <Icon size={18} />
+                            </span>
                           )}
-                        >
-                          {label}
-                        </p>
-                      </Link>
-                    </Button>
-                  </div>
-                );
-              } else {
-                // Menu with submenus
-                return (
-                  <div className="w-full" key={index}>
-                    <CollapseMenuButton
-                      icon={Icon}
-                      label={label}
-                      active={isActive({ href, label, icon: Icon, submenus, isRoot: false })}
-                      submenus={submenus}
-                      isOpen={isOpen}
-                    />
-                  </div>
-                );
-              }
-            })}
+                          <p
+                            className={cn(
+                              "max-w-50 truncate",
+                              isOpen === false
+                                ? "-translate-x-96 opacity-0"
+                                : "translate-x-0 opacity-100",
+                            )}
+                          >
+                            {label}
+                          </p>
+                        </Link>
+                      </Button>
+                    </div>
+                  );
+                } else {
+                  // Menu with submenus
+                  return (
+                    <div className="w-full" key={index}>
+                      <CollapseMenuButton
+                        icon={Icon}
+                        label={label}
+                        active={isActive({
+                          href,
+                          label,
+                          icon: Icon,
+                          submenus,
+                          isRoot: false,
+                        })}
+                        submenus={submenus}
+                        isOpen={isOpen}
+                      />
+                    </div>
+                  );
+                }
+              },
+            )}
           </li>
         ))}
       </ul>
@@ -139,10 +157,18 @@ export function Menu({ isOpen, role }: MenuProps) {
   );
 }
 
-export function SignOutButton({ isOpen, onClick, disableTooltip }: SignOutProps) {
+export function SignOutButton({
+  isOpen,
+  onClick,
+  disableTooltip,
+}: SignOutProps) {
   if (disableTooltip) {
     return (
-      <Button onClick={onClick} variant="outline" className="w-full justify-center h-10">
+      <Button
+        onClick={onClick}
+        variant="outline"
+        className="w-full justify-center h-10"
+      >
         <span className="mr-3">
           <LogOut size={18} />
         </span>
@@ -165,7 +191,9 @@ export function SignOutButton({ isOpen, onClick, disableTooltip }: SignOutProps)
                 <LogOut size={18} />
               </span>
             </TooltipTrigger>
-            <TooltipContent side="right" sideOffset={0}>Sign out</TooltipContent>
+            <TooltipContent side="right" sideOffset={0}>
+              Sign out
+            </TooltipContent>
           </Tooltip>
         </TooltipProvider>
       ) : (
@@ -176,7 +204,7 @@ export function SignOutButton({ isOpen, onClick, disableTooltip }: SignOutProps)
       <p
         className={cn(
           "whitespace-nowrap",
-          isOpen === false ? "opacity-0 hidden" : "opacity-100"
+          isOpen === false ? "opacity-0 hidden" : "opacity-100",
         )}
       >
         Sign out
