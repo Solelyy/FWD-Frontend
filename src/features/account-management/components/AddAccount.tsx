@@ -26,6 +26,11 @@ export function AddAccountForm({ setOpen, role } : AddAccountFormProps) {
     const {register, reset, handleSubmit, setError, formState: {errors, }} = useForm<AddAccountFormValues>();
 
     const createAccountMutation = useCreateAccount();
+    const requiredLabel = (label: string) => (
+        <>
+            {label} <span className="text-destructive" aria-hidden="true">*</span>
+        </>
+    );
 
     const onSubmit = async (data: AddAccountFormValues) => {
     createAccountMutation.mutate(
@@ -54,7 +59,7 @@ export function AddAccountForm({ setOpen, role } : AddAccountFormProps) {
         <FieldGroup>
             <div className="flex flex-col md:flex-row gap-4">
                 <Field>
-                    <FieldLabel>First Name</FieldLabel>
+                    <FieldLabel>{requiredLabel("First Name")}</FieldLabel>
                     <Input placeholder="Juan" 
                     {...register("firstname", 
                         { required: "First name is required"})}
@@ -63,7 +68,7 @@ export function AddAccountForm({ setOpen, role } : AddAccountFormProps) {
                 </Field>
 
                 <Field>
-                    <FieldLabel>Last Name</FieldLabel>
+                    <FieldLabel>{requiredLabel("Last Name")}</FieldLabel>
                     <Input placeholder="Dela Cruz"
                     {...register("lastname", 
                         { required: "Last name is required"})}
@@ -73,7 +78,7 @@ export function AddAccountForm({ setOpen, role } : AddAccountFormProps) {
             </div>
 
             <Field>
-                <FieldLabel>Employee ID</FieldLabel>
+                <FieldLabel>{requiredLabel("Employee ID")}</FieldLabel>
                 <Input placeholder="ex: FWD123"
                 {...register("employeeId", 
                     { required: "Employee ID is required"})}
@@ -82,7 +87,7 @@ export function AddAccountForm({ setOpen, role } : AddAccountFormProps) {
             </Field>
 
             <Field>
-                <FieldLabel>Email</FieldLabel>
+                <FieldLabel>{requiredLabel("Email")}</FieldLabel>
                 <Input type="email" placeholder="juandelacruz@gmail.com"
                 {...register("email", 
                     { required: "Email is required"})}

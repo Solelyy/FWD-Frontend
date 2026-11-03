@@ -43,7 +43,7 @@ export default function CoWorkers() {
                 <CardDescription>Attendance records of all engineers for today.</CardDescription>
                 <ScrollArea className="overflow-x-auto rounded-xl border h-70 sm:h-80 lg:h-90">
                     <Table className="lg:text-base">
-                        <TableHeader className="bg-[#FFEB94]/40">
+                        <TableHeader className="bg-muted/60">
                             <TableRow>
                                 <TableHead>Employee Name</TableHead>
                                 <TableHead>Time In</TableHead>

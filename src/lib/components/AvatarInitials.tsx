@@ -10,7 +10,7 @@ export default function AvatarInitials({firstname, lastname}: Props) {
     const initials = `${initialFirstname}${initialLastname}`
     
     return (
-        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-200 text-blue-900 font-semibold text-sm">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-primary/15 bg-primary/10 text-sm font-semibold text-primary">
             {initials}
         </div>
     );

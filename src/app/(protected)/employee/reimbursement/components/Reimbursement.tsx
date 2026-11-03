@@ -50,7 +50,7 @@ export default function Reimbursement() {
                 
                 <div className="overflow-x-auto border rounded-md">
                     <Table>
-                        <TableHeader className="bg-[#FFEB94]/40">
+                        <TableHeader className="bg-muted/60">
                             <TableRow>
                                 <TableHead>Date Submitted</TableHead>
                                 <TableHead>Type</TableHead>

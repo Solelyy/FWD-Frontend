@@ -9,16 +9,16 @@ type Props = {
 } 
 export default function SuperAdminCards({totalEmployees, totalAdmins, activeAccounts}: Props) {
     const cards = [
-        {title: "Total Admins", data: totalAdmins, icon: <UsersRound />},
-        {title: "Total Employees", data: totalEmployees, icon: <UsersRound />},
-        {title: "Active Accounts", data: activeAccounts, icon: <UsersRound />},
+        {title: "Total Admins", data: totalAdmins, icon: <UsersRound />, iconTone: "primary" as const},
+        {title: "Total Employees", data: totalEmployees, icon: <UsersRound />, iconTone: "success" as const},
+        {title: "Active Accounts", data: activeAccounts, icon: <UsersRound />, iconTone: "warning" as const},
     ]
     
     return (
         <div>
             <CardContainerRequests>
                 {cards.map((c) => 
-                    <CardLayoutV2 key={c.title} title={c.title} dataCount={c.data ?? 0} icon={c.icon} />
+                    <CardLayoutV2 key={c.title} title={c.title} dataCount={c.data ?? 0} icon={c.icon} iconTone={c.iconTone} />
                 )}
             </CardContainerRequests>
         </div>

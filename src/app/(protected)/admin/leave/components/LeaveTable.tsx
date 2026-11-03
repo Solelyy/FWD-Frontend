@@ -54,7 +54,7 @@ export default function LeaveTable({data, isLoading, error, page, setPage, searc
         <div className="flex flex-col space-y4">
             <div className="flex-1 overflow-x-auto border rounded-md">
                 <Table>
-                    <TableHeader className="bg-[#FFEB94]/40">
+                    <TableHeader className="bg-muted/60">
                         <TableRow>
                             <TableHead>Date Submitted</TableHead>
                             <TableHead>Employee</TableHead>

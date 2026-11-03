@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { RefreshCw } from "lucide-react";
+import { ChartNoAxesCombined, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -46,13 +46,23 @@ export function TrendAnalysis() {
   const retry = () => { void query.refetch(); };
   return (
     <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>Understand workforce trends at a glance</CardTitle>
-          <CardDescription>Trend Analysis turns monthly employee records into an easy-to-scan view of attendance, leave, reimbursement, and cash advance activity.</CardDescription>
+      <Card className="gap-0 overflow-hidden">
+        <CardHeader className="grid grid-cols-[auto_minmax(0,1fr)] grid-rows-[auto_auto] items-center gap-x-3 gap-y-1 px-6 py-4">
+          <span className="col-start-1 row-span-2 row-start-1 inline-flex rounded-md border border-primary/20 bg-primary/10 p-2 text-primary">
+            <ChartNoAxesCombined className="h-5 w-5" />
+          </span>
+          <CardTitle className="col-start-2 row-start-1 min-w-0 text-base">Understand workforce trends at a glance</CardTitle>
+          <CardDescription className="col-start-2 row-start-2 min-w-0">Trend Analysis turns monthly employee records into an easy-to-scan view of attendance, leave, reimbursement, and cash advance activity.</CardDescription>
         </CardHeader>
       </Card>
-      <TrendPeriodFilter period={period} startMonth={startMonth} endMonth={endMonth} onPeriodChange={setPeriod} onRangeChange={(start, end) => { setStartMonth(start); setEndMonth(end); }} error={validationError} />
+      <TrendPeriodFilter
+        period={period}
+        startMonth={startMonth}
+        endMonth={endMonth}
+        onPeriodChange={setPeriod}
+        onRangeChange={(start, end) => { setStartMonth(start); setEndMonth(end); }}
+        error={validationError}
+      />
       {query.isLoading && <div className="grid gap-4 md:grid-cols-2"><Skeleton className="h-[350px]" /><Skeleton className="h-[350px]" /><Skeleton className="h-[350px]" /><Skeleton className="h-[350px]" /></div>}
       {query.isError && <Card><CardContent className="flex flex-col items-center gap-3 py-10 text-center"><p>We could not load trend analysis for this period.</p><Button variant="outline" onClick={retry}><RefreshCw className="mr-2 h-4 w-4" />Try again</Button></CardContent></Card>}
       {query.data?.status === "insufficient" && <Card><CardContent className="py-10 text-center"><p className="font-medium">Not enough data yet</p><p className="mt-1 text-sm text-muted-foreground">{query.data.message ?? "Trend analysis requires additional historical records."}</p></CardContent></Card>}

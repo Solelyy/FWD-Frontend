@@ -83,9 +83,9 @@ export function TrendPeriodFilter({ period, startMonth, endMonth, onPeriodChange
   };
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex flex-wrap items-end gap-3">
-        <div className="grid gap-1.5">
+    <div className="flex flex-col gap-2">
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="flex items-center gap-3">
           <Label htmlFor="trend-period">Period</Label>
           <Select value={period} onValueChange={(value) => value === "custom" ? openCustomDialog() : onPeriodChange(value as TrendPeriod)}>
             <SelectTrigger id="trend-period" className="w-[180px]"><SelectValue /></SelectTrigger>
@@ -98,7 +98,7 @@ export function TrendPeriodFilter({ period, startMonth, endMonth, onPeriodChange
           </Select>
         </div>
         {period === "custom" && (
-          <Button variant="outline" onClick={openCustomDialog}>
+          <Button variant="outline" className="h-9" onClick={openCustomDialog}>
             <CalendarDays className="h-4 w-4" />
             {formatMonthLabel(startMonth)} – {formatMonthLabel(endMonth)}
           </Button>

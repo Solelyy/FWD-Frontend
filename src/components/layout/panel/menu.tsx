@@ -80,7 +80,9 @@ export function Menu({ isOpen, role }: MenuProps) {
                   <div className="w-full" key={index}>
                     <Button
                       variant="ghost"
-                      className={cn("w-full justify-start h-10 mb-1 hover:bg-[#FFEB94]/40",active && "bg-[#FFEB94]/40",
+                      className={cn(
+                        "relative w-full justify-start h-10 mb-1 text-muted-foreground hover:bg-sidebar-accent/10 hover:text-sidebar-foreground",
+                        active && "bg-sidebar-accent/20 text-sidebar-foreground font-semibold shadow-sm before:absolute before:left-0 before:top-1/2 before:h-6 before:w-1 before:-translate-y-1/2 before:rounded-r-full before:bg-sidebar-primary",
                        )}
                       asChild
                     >

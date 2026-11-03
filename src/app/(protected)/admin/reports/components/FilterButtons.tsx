@@ -18,7 +18,7 @@ const filters: { key: ReportFilter; label: string; icon: LucideIcon }[] = [
 ]
 
 export default function FilterButtons({ activeFilter, onFilterChange }: FilterButtonsProps) {
-    const buttonStyle = "rounded flex-1 h-auto py-3"
+    const buttonStyle = "h-auto min-h-17 flex-1 rounded-lg py-3 transition-colors dark:border dark:border-border"
     
     return (
         <div className="flex flex-wrap gap-2 items-center">
@@ -29,9 +29,9 @@ export default function FilterButtons({ activeFilter, onFilterChange }: FilterBu
                 return (
                     <Button
                         key={filter.key}
-                        variant="outline"
+                        variant="ghost"
                         size="sm"
-                        className={`${buttonStyle} ${isActive ? "border-primary dark:border-primary hover:bg-primary/5" : ""}`}
+                        className={`${buttonStyle} ${isActive ? "bg-primary/10 text-primary shadow-sm ring-1 ring-primary/25 hover:bg-primary/15 dark:border-primary/40 dark:bg-primary/20" : "bg-card/50 hover:bg-muted/60 hover:shadow-xs"}`}
                         onClick={() => onFilterChange(filter.key)}
                     >
                         <span className="flex flex-col items-center gap-1">

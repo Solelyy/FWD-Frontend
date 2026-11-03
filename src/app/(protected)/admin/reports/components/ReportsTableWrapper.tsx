@@ -48,14 +48,14 @@ export default function ReportsTableWrapper({
     onSearchTermChange,
 } : ReportsTableWrapperProps) {
     return ( 
-        <Card className="space-y-4">
-            <CardHeader>
-                <CardTitle className="md:text-lg">
+        <Card className="gap-0 overflow-hidden border-border/80">
+            <CardHeader className="gap-3 border-b bg-muted/20 pb-5">
+                <CardTitle className="text-lg md:text-xl">
                     {title}
                 </CardTitle>
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-5">
                     <CardDescription className="md:text-base">{description}</CardDescription>
-                    <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                <div className="flex flex-col gap-4 rounded-lg border border-border/60 bg-card/70 p-3 md:flex-row md:items-center md:justify-between">
                         <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                             {showMonthYear && selectedYear !== undefined && selectedMonth !== undefined && onYearChange && onMonthChange && (
                                 <MonthYearPicker
@@ -145,7 +145,7 @@ export default function ReportsTableWrapper({
                 </div>
             </CardHeader>
 
-            <CardContent className="flex flex-col gap-4">
+            <CardContent className="flex flex-col gap-5 pt-5">
                 {table}
             </CardContent>
         </Card>

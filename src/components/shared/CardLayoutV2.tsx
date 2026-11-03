@@ -8,24 +8,31 @@ type CardLayoutProps = {
     icon?: React.ReactNode;
     showDecimal?: boolean
     valueSuffix?: string;
+    iconTone?: "primary" | "success" | "warning";
 
 }
 
-export function CardLayoutV2({title, dataCount, isLoading, description, icon, showDecimal, valueSuffix} : CardLayoutProps) {
-    return (
-        <div className="min-w-0 w-full h-full rounded-xl border border-border/60 bg-background p-4 text-sm md:text-base">
-            <div className="font-medium text-foreground/90">{title}</div>
+export function CardLayoutV2({title, dataCount, isLoading, description, icon, showDecimal, valueSuffix, iconTone = "primary"} : CardLayoutProps) {
+    const iconToneStyles = {
+        primary: "border-primary/20 bg-primary/10 text-primary",
+        success: "border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+        warning: "border-amber-500/20 bg-amber-500/10 text-amber-600 dark:text-amber-400",
+    };
 
-            <div className="mt-2 flex flex-row items-center justify-start gap-2">
+    return (
+        <div className="min-w-0 w-full h-full rounded-lg border border-border/70 bg-card p-4 text-sm shadow-xs transition-colors hover:border-border md:p-5 md:text-base">
+            <div className="text-sm font-medium text-muted-foreground">{title}</div>
+
+            <div className="mt-3 flex flex-row items-center justify-start gap-3">
                 {icon && (
-                    <div className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-border/60 bg-muted text-foreground/80 [&_svg]:h-3.5 [&_svg]:w-3.5">
+                    <div className={`inline-flex h-9 w-9 items-center justify-center rounded-md border [&_svg]:h-4 [&_svg]:w-4 ${iconToneStyles[iconTone]}`}>
                         {icon}
                     </div>
                 )}
                 {isLoading ?  (
                     <Skeleton className="h-8 w-10"/>
                 ) : (             
-                    <p className="wrap-break-word text-xl md:text-2xl font-semibold tracking-tight text-foreground">
+                    <p className="wrap-break-word text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
                         {dataCount !== undefined 
                         ? showDecimal
                         ? dataCount.toFixed(2) 

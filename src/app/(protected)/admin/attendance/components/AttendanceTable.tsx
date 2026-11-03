@@ -67,7 +67,7 @@ export default function AttendanceTable({data, isLoading, error, page, setPage, 
         <div className="space-y-4">
             <div className="flex-1 `overflow-x-auto border rounded-md">
                 <Table>
-                    <TableHeader className="bg-[#FFEB94]/40">
+                    <TableHeader className="bg-muted/60">
                         <TableRow>
                             <TableHead>Employee</TableHead>
                             <TableHead>Time In</TableHead>
