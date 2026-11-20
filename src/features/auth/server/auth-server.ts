@@ -16,7 +16,6 @@ export async function verifyToken(): Promise<AuthUser | null> {
     const hasSessionToken = cookie?.includes("session_token=");
 
     console.log("COOKIE FROM HEADERS (has session token):", Boolean(hasSessionToken));
-    console.log("COOKIE: ", cookie);
 
     if (!hasSessionToken) {
       console.log("No session token found. Skipping /auth/me call.");

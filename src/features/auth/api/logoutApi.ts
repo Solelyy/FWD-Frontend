@@ -1,5 +1,4 @@
 import { useRouter } from "next/navigation";
-import { API_BASE_URL } from "@/lib/util/api";
 import { useUser } from "@/components/providers/UserContext";
 import { startTransition } from "react";
 
@@ -9,7 +8,7 @@ export function useLogout() {
 
     const logout = async () => {
         try {
-            await fetch(`${API_BASE_URL}/auth/logout`, {
+            await fetch("/api/auth/logout", {
                 method: "POST",
                 credentials: "include",
             });
