@@ -28,7 +28,7 @@ export async function getLeaveApi({
     };
   }
 
-  const endpoint = `/leave-reports?month=${month + 1}&year=${year}&page=${page}&limit=${limit}`;
+  const endpoint = `/admin/leave-reports?month=${month + 1}&year=${year}&page=${page}&limit=${limit}`;
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     method: "GET",
     credentials: "include",
