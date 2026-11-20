@@ -1,11 +1,10 @@
 import { getAuthError } from "@/features/auth/util/auth-error";
 import { LoginCredentials } from "@/lib/types/auth-user";
-import { API_BASE_URL } from "@/lib/util/api";
 import { AuthUser } from "@/lib/types/auth-user";
 
 export async function loginAuth(data: LoginCredentials): 
 Promise<{ user: AuthUser | null; error: string | null }> {
-  const response = await fetch(`${API_BASE_URL}/auth/login`, {
+  const response = await fetch("/api/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
