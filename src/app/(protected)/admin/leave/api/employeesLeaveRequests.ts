@@ -4,7 +4,6 @@ import {
   LeaveRequestStatus,
 } from "../types/leave";
 import { mockEmployeesLeaveRequests } from "../mock-data/requests";
-import { API_BASE_URL } from "@/lib/util/api";
 
 export type LeaveRequestsProps = {
   page: number;
@@ -62,8 +61,8 @@ export async function employeesLeaveRequestsApi({
     };
   }
 
-  const endpoint = `/admin/employee/leave?year=${year}&month=${month + 1}&page=${page}&limit=${limit}&filter=${filter}`;
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  const endpoint = `/api/admin/employee/leave?year=${year}&month=${month + 1}&page=${page}&limit=${limit}&filter=${filter}`;
+  const response = await fetch(`${endpoint}`, {
     method: "GET",
     credentials: "include",
   });

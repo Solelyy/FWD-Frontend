@@ -1,4 +1,3 @@
-import { API_BASE_URL } from "@/lib/util/api";
 import {
   AttendanceStatusFilter,
   EmployeesAttendanceResponse,
@@ -26,8 +25,8 @@ export async function employeeAttendanceApi({
     return getMockEmployeesAttendance({ page, limit, year, month, day, filter });
   }
 
-  const endpoint = `/admin/employee/attendance?year=${year}&month=${month + 1}&day=${day}&page=${page}&limit=${limit}&filter=${filter}`;
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  const endpoint = `/api/admin/employee/attendance?year=${year}&month=${month + 1}&day=${day}&page=${page}&limit=${limit}&filter=${filter}`;
+  const response = await fetch(`${endpoint}`, {
     method: "GET",
     credentials: "include",
   });

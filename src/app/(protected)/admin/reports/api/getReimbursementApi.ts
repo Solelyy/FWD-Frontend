@@ -1,6 +1,5 @@
 import { EmployeesReimbursementReports } from "../types/reimbursement";
 import { mockEmployeesReimbursementReportsByWeek } from "../mock-data/reimbursement";
-import { API_BASE_URL } from "@/lib/util/api";
 
 export type ReimbursementPayload = {
   month: number;
@@ -28,8 +27,8 @@ export async function getReimbursementApi({
   }
 
   const weekNumber = Number(week.replace("week-", ""));
-  const endpoint = `/admin/cash-reimbursements?month=${month + 1}&year=${year}&week=${weekNumber}&page=${page}&limit=${limit}`;
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  const endpoint = `/api/admin/cash-reimbursements?month=${month + 1}&year=${year}&week=${weekNumber}&page=${page}&limit=${limit}`;
+  const response = await fetch(`${endpoint}`, {
     method: "GET",
     credentials: "include",
   });

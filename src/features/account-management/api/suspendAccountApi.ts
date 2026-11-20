@@ -1,5 +1,4 @@
 import { AccountInfo, Status } from "../types/account";
-import { API_BASE_URL } from "@/lib/util/api";
 
 export type SuspendAccountPayload = {
   employeeId: AccountInfo["employeeId"];
@@ -14,7 +13,7 @@ export async function suspendAccountApi({
   startDate,
   endDate,
 }: SuspendAccountPayload) {
-    const response = await fetch(`${API_BASE_URL}/superadmin/management/employment?employee=${employeeId}`, {
+    const response = await fetch(`/api/superadmin/management/employment?employee=${employeeId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

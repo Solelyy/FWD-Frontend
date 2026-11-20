@@ -1,4 +1,3 @@
-import { API_BASE_URL } from "@/lib/util/api";
 import { DashboardRequestsResponse } from "../types/requests";
 import { mockRequests } from "../mock-data/requests";
 
@@ -15,9 +14,9 @@ export async function getDashboardRequests({
     return mockRequests;
   }
 
-  const endpoint = `/employee/my-requests?year=${year}&month=${month + 1}`;
+  const endpoint = `/api/employee/my-requests?year=${year}&month=${month + 1}`;
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  const response = await fetch(`${endpoint}`, {
     method: "GET",
     credentials: "include",
   });

@@ -1,12 +1,10 @@
-import { API_BASE_URL } from "@/lib/util/api";
-
 export type SubmitCashAdvancePayload = {
     amountRequested: number;
     reason?: string
 }
 
 export async function submitCashAdvanceApi({amountRequested, reason}: SubmitCashAdvancePayload) {
-    const response = await fetch(`${API_BASE_URL}/employee/cash-advance-request`, {
+    const response = await fetch(`/api/employee/cash-advance-request`, {
         method: "POST",
         credentials: "include",
         headers: {

@@ -1,6 +1,5 @@
 import { EmployeeAttendances } from "../types/attendance";
 import { mockEmployeeAttendances } from "../mock-data/attendance";
-import { API_BASE_URL } from "@/lib/util/api";
 
 export type AttendancePayload = {
   month: number;
@@ -29,8 +28,8 @@ export async function getAttendanceApi({
     };
   }
 
-  const endpoint = `/admin/attendance?month=${month + 1}&year=${year}&cutoff=${cutoff}&page=${page}&limit=${limit}`;
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  const endpoint = `/api/admin/attendance?month=${month + 1}&year=${year}&cutoff=${cutoff}&page=${page}&limit=${limit}`;
+  const response = await fetch(`${endpoint}`, {
     method: "GET",
     credentials: "include",
   });

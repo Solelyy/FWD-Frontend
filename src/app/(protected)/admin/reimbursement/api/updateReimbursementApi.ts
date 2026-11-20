@@ -2,7 +2,6 @@ import { CashAdvanceActionType } from "../../cash-advance/types/ca-actions";
 import { EmployeeReimbursementRequest } from "../types/reimbursement";
 import { ReimbursementRequestStatus } from "@/app/(protected)/employee/reimbursement/types/reimbursement";
 import { mockEmployeesReimbursementRequests } from "../mock-data/requests";
-import { API_BASE_URL } from "@/lib/util/api";
 
 export type UpdateReimbursementPayload = {
   id: EmployeeReimbursementRequest["id"];
@@ -16,7 +15,7 @@ export async function updateReimbursementApi({
   approvedAmount,
   adminReason,
 }: UpdateReimbursementPayload) {
-  const endpoint = "/admin/employee/approve-reimbursement-request";
+  const endpoint = "/api/admin/employee/approve-reimbursement-request";
 
   const formattedText =
     action === CashAdvanceActionType.APPROVE ? "approve" : "reject";
@@ -49,7 +48,7 @@ export async function updateReimbursementApi({
     return request;
   }
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  const response = await fetch(`${endpoint}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

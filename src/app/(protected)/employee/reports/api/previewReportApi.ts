@@ -1,5 +1,3 @@
-import { API_BASE_URL } from "@/lib/util/api";
-
 import { getMockReportPreview } from "../mock-data/report-preview";
 import type { GenerateReportPayload, ReportPreview } from "../types/report-builder";
 import { normalizeReportRows } from "../utils/report-format";
@@ -11,7 +9,7 @@ export async function previewReportApi(payload: GenerateReportPayload): Promise<
 
     const { employeeId, ...reportPayload } = payload;
     const query = new URLSearchParams({ employeeId });
-    const response = await fetch(`${API_BASE_URL}/employee/reports/preview?${query}`, {
+    const response = await fetch(`/api/employee/reports/preview?${query}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

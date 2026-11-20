@@ -1,4 +1,3 @@
-import { API_BASE_URL } from "@/lib/util/api";
 import { EmployeesAttendanceStatsResponse } from "../types/attendance-types";
 import { mockEmployeesAttendanceStats } from "../mock-data/stats";
 
@@ -13,8 +12,8 @@ export async function employeesAttendanceStatsApi({day, month, year}: EmployeeAt
         return mockEmployeesAttendanceStats;
     }
 
-    const endpoint = `/admin/employee-attendance?year=${year}&month=${month+1}&day=${day}`;
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    const endpoint = `/api/admin/employee-attendance?year=${year}&month=${month+1}&day=${day}`;
+    const response = await fetch(`${endpoint}`, {
         method: "GET",
         credentials: "include"
     })

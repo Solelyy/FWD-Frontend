@@ -1,4 +1,3 @@
-import { API_BASE_URL } from "@/lib/util/api";
 import { LeaveType } from "../types/leave";
 
 export type SubmitLeaveRequestPayload = {
@@ -10,7 +9,7 @@ export type SubmitLeaveRequestPayload = {
 }
 
 export async function submitLeaveRequestApi({leaveType, startDate, endDate, reason, attachment}: SubmitLeaveRequestPayload){
-    const endpoint="/employee/create-leave";
+    const endpoint="/api/employee/create-leave";
     const formData = new FormData();
 
     formData.append("leaveType", leaveType);
@@ -21,7 +20,7 @@ export async function submitLeaveRequestApi({leaveType, startDate, endDate, reas
         formData.append("attachment", attachment);
     }
 
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    const response = await fetch(`${endpoint}`, {
         method: "POST",
         credentials: "include",
         body: formData,

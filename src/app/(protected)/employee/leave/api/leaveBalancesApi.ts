@@ -1,15 +1,14 @@
 import { LeaveBalancesResponse } from "../types/leave";
 import { mockLeaveBalancesSummary } from "../mock-data/summary";
-import { API_BASE_URL } from "@/lib/util/api";
 
 export async function leaveBalancesApi(): Promise<LeaveBalancesResponse> {
   if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
     return mockLeaveBalancesSummary;
   }
 
-  const endpoint = "/employee/leave-balances";
+  const endpoint = "/api/employee/leave-balances";
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  const response = await fetch(`${endpoint}`, {
     method: "GET",
     credentials: "include",
   });

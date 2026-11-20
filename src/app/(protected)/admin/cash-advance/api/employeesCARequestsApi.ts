@@ -1,6 +1,5 @@
 import { EmployeesCARequestsResponse } from "../types/cash-advance";
 import { LeaveRequestsProps } from "../../leave/api/employeesLeaveRequests";
-import { API_BASE_URL } from "@/lib/util/api";
 import { CashAdvanceRequestStatus } from "@/app/(protected)/employee/cash-advance/types/cash-advance";
 import { LeaveStatusFilter } from "../../leave/types/leave";
 import { mockEmployeesCARequests } from "../mock-data/ca-requests";
@@ -44,9 +43,9 @@ export async function employeesCARequestsApi({
     };
   }
 
-  const endpoint = `/admin/employee/cash-advance-requests?year=${year}&month=${month + 1}&page=${page}&limit=${limit}&filter=${filter}`;
+  const endpoint = `/api/admin/employee/cash-advance-requests?year=${year}&month=${month + 1}&page=${page}&limit=${limit}&filter=${filter}`;
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  const response = await fetch(`${endpoint}`, {
     method: "GET",
     credentials: "include",
   });

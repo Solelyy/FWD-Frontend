@@ -1,6 +1,5 @@
 import { EmployeesLeaveReports } from "../types/leave";
 import { mockEmployeesLeaveReports } from "../mock-data/leave";
-import { API_BASE_URL } from "@/lib/util/api";
 
 export type LeavePayload = {
   month: number;
@@ -28,8 +27,8 @@ export async function getLeaveApi({
     };
   }
 
-  const endpoint = `/admin/leave-reports?month=${month + 1}&year=${year}&page=${page}&limit=${limit}`;
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  const endpoint = `/api/admin/leave-reports?month=${month + 1}&year=${year}&page=${page}&limit=${limit}`;
+  const response = await fetch(`${endpoint}`, {
     method: "GET",
     credentials: "include",
   });

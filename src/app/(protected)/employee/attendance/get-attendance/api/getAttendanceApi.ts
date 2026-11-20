@@ -1,5 +1,4 @@
 import { AttendanceStatusResponse, AttendanceStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
-import { API_BASE_URL } from "@/lib/util/api";
 import { mockAttendanceStatus } from "../mock-data/attendance";
 
 export async function getAttendanceApi():Promise<AttendanceStatusResponse> {
@@ -7,7 +6,7 @@ export async function getAttendanceApi():Promise<AttendanceStatusResponse> {
         return mockAttendanceStatus;
     }
 
-    const response = await fetch(`${API_BASE_URL}/employee/attendance/today`, {
+    const response = await fetch(`/api/employee/attendance/today`, {
         method: "GET",
         credentials: "include"
     });

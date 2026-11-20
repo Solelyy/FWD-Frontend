@@ -1,4 +1,3 @@
-import { API_BASE_URL } from "@/lib/util/api";
 import { AdminDashboardSummaryResponse } from "../types/dashboard-summary";
 import { mockAdminDashboardSummary } from "../mock-data/summary";
 
@@ -13,9 +12,9 @@ export async function adminDashboardSummaryApi({month, year, day} : Props): Prom
         return mockAdminDashboardSummary;
     }
 
-    const endpoint =`/admin/management/get-employee-data`;
+    const endpoint =`/api/admin/management/get-employee-data`;
 
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    const response = await fetch(`${endpoint}`, {
         method: "GET",
         credentials: "include"
     });

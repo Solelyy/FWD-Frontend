@@ -1,6 +1,5 @@
 import { EmployeesCashAdvanceReports } from "../types/cash-advance";
 import { mockEmployeesCashAdvanceReportsByWeek } from "../mock-data/cash-advance";
-import { API_BASE_URL } from "@/lib/util/api";
 
 export type CashAdvancePayload = {
   month: number;
@@ -28,8 +27,8 @@ export async function getCashAdvanceApi({
   }
 
   const weekNumber = Number(week.replace("week-", ""));
-  const endpoint = `/admin/cash-advances?month=${month + 1}&year=${year}&week=${weekNumber}&page=${page}&limit=${limit}`;
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  const endpoint = `/api/admin/cash-advances?month=${month + 1}&year=${year}&week=${weekNumber}&page=${page}&limit=${limit}`;
+  const response = await fetch(`${endpoint}`, {
     method: "GET",
     credentials: "include",
   });

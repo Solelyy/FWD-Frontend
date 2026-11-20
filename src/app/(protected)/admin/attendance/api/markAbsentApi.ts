@@ -1,9 +1,8 @@
-import { API_BASE_URL } from "@/lib/util/api";
 import { OverrideAttendancePayload } from "./overrideAttendanceApi";
 
 export async function markAbsentApi({reason, status, id}: OverrideAttendancePayload) {
-    const endpoint = "/admin/employee/absent"
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    const endpoint = "/api/admin/employee/absent"
+    const response = await fetch(`${endpoint}`, {
         method: "PATCH",
         credentials: "include",
         headers: {
