@@ -1,4 +1,3 @@
-import { API_BASE_URL } from "@/lib/util/api";
 import { EmployeeAttendance } from "../types/attendance-types";
 
 export type OverrideAttendancePayload = {
@@ -10,8 +9,8 @@ export type OverrideAttendancePayload = {
     reason: string;
 }
 export async function overrideAttendanceApi({employeeId, timeIn, timeOut, reason}: OverrideAttendancePayload) {
-    const endpoint = "/admin/employee/update-attendance";
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    const endpoint = "/api/admin/employee/update-attendance";
+    const response = await fetch(`${endpoint}`, {
         method: "PATCH",
         credentials: "include",
         headers: {

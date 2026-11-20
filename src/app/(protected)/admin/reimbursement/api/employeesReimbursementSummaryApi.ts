@@ -1,4 +1,3 @@
-import { API_BASE_URL } from "@/lib/util/api";
 import { EmployeeReimbursementSummary } from "../types/reimbursement";
 import { mockSummary } from "../mock-data/summary";
 
@@ -12,8 +11,8 @@ export async function employeesReimbursementSummaryApi({month, year}: Payload): 
         return mockSummary;
     }
 
-    const endpoint = `/admin/employee/reimbursement-summary?year=${year}&month=${month+1}`;
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    const endpoint = `/api/admin/employee/reimbursement-summary?year=${year}&month=${month+1}`;
+    const response = await fetch(`${endpoint}`, {
         method: "GET",
         credentials: "include"
     })

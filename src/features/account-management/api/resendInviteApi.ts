@@ -1,6 +1,5 @@
 import { UserRole } from "@/lib/types/roles";
 import { AccountInfo } from "../types/account";
-import { API_BASE_URL } from "@/lib/util/api";
 
 type ResendInvitePayload = {
     email: AccountInfo["email"];
@@ -8,10 +7,10 @@ type ResendInvitePayload = {
 }
 export async function resendInviteApi({email, role}: ResendInvitePayload ) {
     const endpoint = role === UserRole.ADMIN
-    ? "/superadmin/users/resend-email?"
-    : "/admin/users/resend-email?";
+    ? "/api/superadmin/users/resend-email?"
+    : "/api/admin/users/resend-email?";
 
-    const response = await fetch(`${API_BASE_URL}${endpoint}email=${email}`, {
+    const response = await fetch(`${endpoint}email=${email}`, {
         method: "POST",
         credentials: "include"
     })

@@ -1,4 +1,3 @@
-import { API_BASE_URL } from "@/lib/util/api";
 import { ReimbursementRequest, ReimbursementType } from "../types/reimbursement";
 
 export type SubmitReimbursementPayload = {
@@ -21,7 +20,7 @@ export async function submitReimbursementApi({id, type, amountRequested, attachm
         formData.append("attachment", attachment)
     }
 
-    const response = await fetch(`${API_BASE_URL}/employee/reimbursement-request`, {
+    const response = await fetch(`/api/employee/reimbursement-request`, {
         method: "POST",
         credentials: "include",
         body: formData,

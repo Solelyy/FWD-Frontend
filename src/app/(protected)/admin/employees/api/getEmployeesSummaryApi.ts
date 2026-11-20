@@ -1,5 +1,4 @@
 import { EmployeesSummaryResponse } from "../types/employees";
-import { API_BASE_URL } from "@/lib/util/api";
 import { mockEmployeesSummary } from "../mock-data/summary";
 
 export async function getEmployeesSummaryApi(): Promise<EmployeesSummaryResponse>{
@@ -7,8 +6,8 @@ export async function getEmployeesSummaryApi(): Promise<EmployeesSummaryResponse
         return mockEmployeesSummary;
     }
 
-    const endpoint =  `/admin/management/employees`;
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    const endpoint =  `/api/admin/management/employees`;
+    const response = await fetch(`${endpoint}`, {
         method: "GET",
         credentials: "include"
     });

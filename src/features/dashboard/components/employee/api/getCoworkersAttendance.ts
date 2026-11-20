@@ -1,4 +1,3 @@
-import { API_BASE_URL } from "@/lib/util/api";
 import { CoworkersAttendanceReponse } from "../types/coworkers";
 import { mockCoworkers } from "../mock-data/coworkers";
 
@@ -17,9 +16,9 @@ export async function getCoworkersAttendance({
     return mockCoworkers;
   }
 
-  const endpoint = `/employee/coworkers-attendance`;
+  const endpoint = `/api/employee/coworkers-attendance`;
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  const response = await fetch(`${endpoint}`, {
     method: "GET",
     credentials: "include",
   });

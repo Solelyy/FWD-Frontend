@@ -1,6 +1,5 @@
 import { CashAdvanceActionType } from "../types/ca-actions";
 import { EmployeeCARequest } from "../types/cash-advance";
-import { API_BASE_URL } from "@/lib/util/api";
 
 export type UpdateCashAdvancePayload = {
   id: EmployeeCARequest["id"];
@@ -14,7 +13,7 @@ export async function updateCashAdvanceApi({
   approvedAmount,
   adminReason,
 }: UpdateCashAdvancePayload) {
-  const endpoint = "/admin/employee/approve-request";
+  const endpoint = "/api/admin/employee/approve-request";
 
   const formattedText =
     action === CashAdvanceActionType.APPROVE ? "approve" : "reject";
@@ -22,7 +21,7 @@ export async function updateCashAdvanceApi({
   const formatPayload =
     action === CashAdvanceActionType.APPROVE ? "APPROVED" : "REJECTED";
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  const response = await fetch(`${endpoint}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

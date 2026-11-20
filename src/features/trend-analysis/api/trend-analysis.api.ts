@@ -1,4 +1,3 @@
-import { API_BASE_URL } from "@/lib/util/api";
 import { getMockTrendAnalysis } from "../mock-data/trend-analysis";
 import type { TrendAnalysisRequest, TrendAnalysisResponse } from "../types";
 
@@ -14,7 +13,7 @@ export async function getTrendAnalysis(
     startMonth: request.startMonth,
     endMonth: request.endMonth,
   });
-  const response = await fetch(`${API_BASE_URL}/admin/trend-analysis?${query}`, {
+  const response = await fetch(`/api/admin/trend-analysis?${query}`, {
     credentials: "include",
   });
 

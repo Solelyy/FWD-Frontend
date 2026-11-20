@@ -1,5 +1,4 @@
 import { UserRole } from "@/lib/types/roles";
-import { API_BASE_URL } from "@/lib/util/api";
 import {
     mockAdminAccounts,
     mockEmployeeAccounts,
@@ -16,10 +15,10 @@ export async function getAccounts(role: UserRole.ADMIN | UserRole.EMPLOYEE) {
     }
 
     const endpoint = role === UserRole.ADMIN 
-    ? "/superadmin/management/users"
-    : "/admin/management/users";
+    ? "/api/superadmin/management/users"
+    : "/api/admin/management/users";
 
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    const response = await fetch(`${endpoint}`, {
         method: "GET",
         credentials: "include",
     });

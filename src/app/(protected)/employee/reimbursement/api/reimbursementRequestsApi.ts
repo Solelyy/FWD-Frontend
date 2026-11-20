@@ -1,6 +1,5 @@
 import { ReimbursementRequests } from "../types/reimbursement";
 import { mockReimbursementRequests } from "../mock-data/requests";
-import { API_BASE_URL } from "@/lib/util/api";
 
 export async function reimbursementRequestsApi(): Promise<ReimbursementRequests> {
   if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
@@ -8,7 +7,7 @@ export async function reimbursementRequestsApi(): Promise<ReimbursementRequests>
   }
 
   const response = await fetch(
-    `${API_BASE_URL}/employee/reimbursement-requests`,
+    `/api/employee/reimbursement-requests`,
     {
       method: "GET",
       credentials: "include",

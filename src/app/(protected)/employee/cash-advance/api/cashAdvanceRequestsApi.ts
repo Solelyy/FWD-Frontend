@@ -1,14 +1,13 @@
 import { CashAdvanceRequests } from "../types/cash-advance";
 import { mockCashAdvanceRequests } from "../mock-data/requests";
-import { API_BASE_URL } from "@/lib/util/api";
 
 export async function cashAdvanceRequestsApi(): Promise<CashAdvanceRequests> {
   if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
     return mockCashAdvanceRequests;
   }
 
-  const endpoint = "/employee/cash-advance-requests";
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  const endpoint = "/api/employee/cash-advance-requests";
+  const response = await fetch(`${endpoint}`, {
     method: "GET",
     credentials: "include",
   });

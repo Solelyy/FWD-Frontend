@@ -1,5 +1,4 @@
 import { AttendanceSummaryResponse } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
-import { API_BASE_URL } from "@/lib/util/api"
 import { mockAttendanceSummary } from "../mock-data/attendance";
 
 export async function getAttendanceSummaryApi(month:number, year:number) : Promise<AttendanceSummaryResponse>{
@@ -7,8 +6,8 @@ export async function getAttendanceSummaryApi(month:number, year:number) : Promi
         return mockAttendanceSummary;
     }
 
-    const endpoint = `/employee/attendance-summary?year=${year}&month=${month+1}`
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    const endpoint = `/api/employee/attendance-summary?year=${year}&month=${month+1}`
+    const response = await fetch(`${endpoint}`, {
         method: "GET",
         credentials: "include"
     });

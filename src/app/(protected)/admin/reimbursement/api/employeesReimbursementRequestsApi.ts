@@ -3,7 +3,6 @@ import { LeaveRequestsProps } from "../../leave/api/employeesLeaveRequests";
 import { LeaveStatusFilter } from "../../leave/types/leave";
 import { ReimbursementRequestStatus } from "@/app/(protected)/employee/reimbursement/types/reimbursement";
 import { mockEmployeesReimbursementRequests } from "../mock-data/requests";
-import { API_BASE_URL } from "@/lib/util/api";
 
 const statusFilterMap: Record<Exclude<LeaveStatusFilter, LeaveStatusFilter.ALL>, ReimbursementRequestStatus> = {
     [LeaveStatusFilter.PENDING]: ReimbursementRequestStatus.PENDING,
@@ -47,9 +46,9 @@ export async function employeesReimbursementRequestApi({
     };
   }
 
-    const endpoint = `/admin/employee/reimbursement-requests?year=${year}&month=${month+1}&page=${page}&limit=${limit}&filter=${filter}`
+    const endpoint = `/api/admin/employee/reimbursement-requests?year=${year}&month=${month+1}&page=${page}&limit=${limit}&filter=${filter}`
     
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    const response = await fetch(`${endpoint}`, {
         method: "GET",
         credentials: "include"
     });

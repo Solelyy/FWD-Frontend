@@ -1,4 +1,3 @@
-import { API_BASE_URL } from "@/lib/util/api";
 import { EmployeeAttendance } from "../types/attendance-types";
 import { OvertimeStatus } from "@/app/(protected)/employee/attendance/submit-attendance/types/attendanceType";
 
@@ -9,8 +8,8 @@ export type UpdateOvertimeRequest = {
     reason: string
 }
 export async function updateOvertimeRequestApi({overtimeStatus, id, reason}:UpdateOvertimeRequest) {
-    const endpoint = "/admin/employee/overtime/status"
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    const endpoint = "/api/admin/employee/overtime/status"
+    const response = await fetch(`${endpoint}`, {
         method: "PATCH",
         credentials: "include",
         headers: {

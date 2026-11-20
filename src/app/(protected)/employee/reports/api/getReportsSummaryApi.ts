@@ -1,5 +1,3 @@
-import { API_BASE_URL } from "@/lib/util/api";
-
 import type { ReportsSummary } from "../types/reports";
 import { mockReportsSummary } from "../mock-data/summary";
 
@@ -8,7 +6,7 @@ export async function getReportsSummaryApi(month: number, year: number): Promise
         return mockReportsSummary;
     }
 
-    const response = await fetch(`${API_BASE_URL}/employee/reports/summary?month=${month}&year=${year}`, {
+    const response = await fetch(`/api/employee/reports/summary?month=${month}&year=${year}`, {
         method: "GET",
         credentials: "include",
     });

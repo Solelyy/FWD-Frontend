@@ -1,5 +1,4 @@
 import { AccountInfo } from "../types/account";
-import { API_BASE_URL } from "@/lib/util/api";
 import { UserRole } from "@/lib/types/roles";
 
 type RemoveAccountPayload = {
@@ -9,12 +8,12 @@ type RemoveAccountPayload = {
 
 export async function removeAccountApi({employeeId, role}: RemoveAccountPayload) {
     const endpoint = role === UserRole.ADMIN
-      ? "/superadmin/management/remove-user?"
-      : "/admin/management/remove-user?";
+      ? "/api/superadmin/management/remove-user?"
+      : "/api/admin/management/remove-user?";
 
     console.log(`User role: ${role}`);
     const response = await fetch(
-        `${API_BASE_URL}${endpoint}employee=${employeeId}`,
+        `${endpoint}employee=${employeeId}`,
         {
           method: "PATCH",
           headers: {
