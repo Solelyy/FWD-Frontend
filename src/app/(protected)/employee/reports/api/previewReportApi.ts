@@ -9,11 +9,13 @@ export async function previewReportApi(payload: GenerateReportPayload): Promise<
         return getMockReportPreview(payload);
     }
 
-    const response = await fetch(`${API_BASE_URL}/employee/reports/preview`, {
+    const { employeeId, ...reportPayload } = payload;
+    const query = new URLSearchParams({ employeeId });
+    const response = await fetch(`${API_BASE_URL}/employee/reports/preview?${query}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify(payload),
+        body: JSON.stringify(reportPayload),
     });
 
     const result = await response.json().catch(() => null);

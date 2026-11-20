@@ -22,7 +22,7 @@ export async function requireAuth(): Promise<AuthUser | null> {
   if (process.env.NEXT_PUBLIC_USE_MOCK_AUTH === "true") {
     return {
       id: "1",
-      role: UserRole.SUPER_ADMIN,
+      role: UserRole.EMPLOYEE,
       employeeId: "FWD123",
       firstname: "Jessa",
       lastname: "Gozun",
