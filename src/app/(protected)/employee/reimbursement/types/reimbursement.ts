@@ -1,40 +1,40 @@
 import { AccountInfo } from "@/features/account-management/types/account";
 
 export type ReimbursementSummary = {
-    totalApproved: number;
-    totalPending: number;
-}
+  totalApproved: number;
+  totalPending: number;
+};
 
 export enum ReimbursementType {
-    FOOD = "FOOD",
-    TRANSPORTATION = "TRANSPORTATION",
-    OTHER = "OTHER"
+  FOOD = "FOOD",
+  TRANSPORTATION = "TRANSPORTATION",
+  OTHER = "OTHER",
 }
 
 export enum ReimbursementRequestStatus {
-    PENDING = "PENDING",
-    APPROVED = "APPROVED",
-    REJECTED = "REJECTED"
+  PENDING = "PENDING",
+  APPROVED = "APPROVED",
+  REJECTED = "REJECTED",
 }
 
 export interface ReimbursementRequest {
-    id: number,
-    employeeId: AccountInfo["employeeId"],
-    dateSubmitted: string;
-    type: ReimbursementType;
-    amountRequested: number;
-    amountApproved: number;
-    reason?: string;
-    attachment: string;
-    status: ReimbursementRequestStatus;
-    actionMade?: {
-        adminFirstname?: string;
-        adminLastname?: string;
-        rejectionReason?: string;
-        timestamp?: string;
-    }
+  id: number;
+  employeeId: AccountInfo["employeeId"];
+  dateSubmitted: string;
+  type: ReimbursementType;
+  amountRequested: number;
+  amountApproved: number;
+  reason?: string;
+  attachment?: string;
+  status: ReimbursementRequestStatus;
+  actionMade?: {
+    adminFirstname?: string;
+    adminLastname?: string;
+    rejectionReason?: string;
+    timestamp?: string;
+  };
 }
 
 export type ReimbursementRequests = {
-    records: ReimbursementRequest[];
-}
+  records: ReimbursementRequest[];
+};
