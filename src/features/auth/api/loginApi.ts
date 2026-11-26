@@ -2,8 +2,9 @@ import { getAuthError } from "@/features/auth/util/auth-error";
 import { LoginCredentials } from "@/lib/types/auth-user";
 import { AuthUser } from "@/lib/types/auth-user";
 
-export async function loginAuth(data: LoginCredentials): 
-Promise<{ user: AuthUser | null; error: string | null }> {
+export async function loginAuth(
+  data: LoginCredentials,
+): Promise<{ user: AuthUser | null; error: string | null }> {
   const response = await fetch("/api/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -13,16 +14,30 @@ Promise<{ user: AuthUser | null; error: string | null }> {
 
   if (!response.ok) {
     console.error("Login failed:", {
-    status: response.status,
-    statusText: response.statusText,
-  });
+      status: response.status,
+      statusText: response.statusText,
+    });
 
-    if (response.status === 429) return { user: null, error: getAuthError("locked") };
-    if (response.status === 404) return { user: null, error: getAuthError("blocked") };
-    if (response.status === 400 ) return { user: null, error: getAuthError("default") };
-    if (response.status === 401) return { user: null, error: getAuthError("blocked") }; // inactive/suspended/removed
+    if (response.status === 429)
+      return { user: null, error: getAuthError("locked") };
+    if (response.status === 404)
+      return { user: null, error: getAuthError("default") };
+    if (response.status === 400)
+      return { user: null, error: getAuthError("default") };
+    if (response.status === 401)
+      return { user: null, error: getAuthError("blocked") }; // inactive/suspended/removed
 
+    /* when backend is fixed
+    if (response.status === 400)
+      return { user: null, error: getAuthError("invalid") };
 
+    if (response.status === 401) 
+      return {user: null, error: getAuthError("default") };
+
+    if (response.status === 403) 
+      return { user: null, error: getAuthError("blocked") };
+
+    */
     return { user: null, error: getAuthError("other") };
   }
 
