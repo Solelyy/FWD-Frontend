@@ -13,10 +13,9 @@ export async function getEmployeeTrendAnalysis(
     startMonth: request.startMonth,
     endMonth: request.endMonth,
   });
-  const response = await fetch(
-    `/api/employee/trend-analysis?${query}`,
-    { credentials: "include" },
-  );
+  const response = await fetch(`/api/trend-analysis?${query}`, {
+    credentials: "include",
+  });
 
   if (!response.ok) {
     throw new Error("Unable to fetch your trend analysis.");
