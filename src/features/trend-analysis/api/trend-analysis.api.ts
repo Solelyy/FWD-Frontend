@@ -13,7 +13,7 @@ export async function getTrendAnalysis(
     startMonth: request.startMonth,
     endMonth: request.endMonth,
   });
-  const response = await fetch(`/api/admin/trend-analysis?${query}`, {
+  const response = await fetch(`/api/user/trend-analysis?${query}`, {
     credentials: "include",
   });
 
